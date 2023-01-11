@@ -19,9 +19,11 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 passportConfig();
 
-
 // routes
 app.use("/api", routes);
+
+// catch 404 and forward to error handler
+app.use(notFoundHandler);
 
 // error handler
 app.use(errorHandler);
