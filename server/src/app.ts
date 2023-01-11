@@ -2,13 +2,10 @@ import express from "express";
 import path from "path";
 import logger from "morgan";
 import cors from "cors";
-import { config } from "dotenv";
 import routes from "./routes/index";
 import passportConfig from "./config/passport";
 import notFoundHandler from "./middleware/notFoundHandler";
 import errorHandler from "./middleware/errorHandler";
-
-config();
 
 const app = express();
 
