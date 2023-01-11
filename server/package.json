@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "example.js",
+  "type": "module",
   "scripts": {
     "start": "node dist/app.js",
-    "dev": "nodemon src/app.ts",
-    "build": "tsc -p ."
+    "dev": "nodemon src/server.ts",
+    "build": "tsc -p .",
+    "coverage": "jest --coverage",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,7 @@
     "express-validator": "^6.14.2",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.0",
+    "mongodb-memory-server": "^8.11.0",
     "mongoose": "^6.8.3",
     "morgan": "^1.10.0",
     "passport": "^0.6.0",
@@ -30,13 +34,18 @@
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.15",
     "@types/http-errors": "^2.0.1",
+    "@types/jest": "^29.2.5",
     "@types/jsonwebtoken": "^9.0.0",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.11.18",
     "@types/passport": "^1.0.11",
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
+    "@types/supertest": "^2.0.12",
+    "jest": "^29.3.1",
     "nodemon": "^2.0.20",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.4",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   }
