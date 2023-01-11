@@ -1,30 +1,16 @@
-import express from "express";
-import jwt from "jsonwebtoken";
-import passport from "passport";
-import auth_controller from "../controllers/authController";
+import { Router } from "express";
+import {
+  register_user,
+  login_user,
+  logout_user,
+} from "../controllers/authController";
 
-const router = express.Router();
+const router = Router();
 
-router.route("/")
+router.route("/register").get(register_user);
 
-/* 
-router.post("/login", function(req, res, next) {
-  passport.authenticate("local", {session: false}, (err, user, info) => {
-    if(err || !user) {
-      return res.status(400).json({
-        message: "Something is not right",
-        user: user
-      })
-    }
-    req.login(user, {session: false}, (err) => {
-      if(err) {
-        res.send(err);
-      }
-    })
+router.route("/login").get(login_user);
 
-    // generate a signed json web token with the contents of user object and return it in the response
-  const token = jwt.sign(user, "your_jwt_secret");
-  return res.json({user, token})
-  })(req, res)
-})
-*/
+router.route("/logout").delete(logout_user);
+
+export default router;
