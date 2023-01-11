@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/user";
 
 // Handle register on POST
-const register_post = [
+export const register_user = [
   // Validate and sanitize fields.
   body("firstName").trim().isLength({ min: 1 }).escape(),
   body("lastName").trim().isLength({ min: 1 }).escape(),
@@ -56,7 +56,7 @@ const register_post = [
   },
 ];
 
-const login_post = [
+export const login_user = [
   (req: any, res: Response, next: NextFunction) => {
     // Extract validation errors from a
     passport.authenticate("local", { session: false }, (err, user, info) => {
@@ -81,7 +81,6 @@ const login_post = [
   },
 ];
 
-export default {
-  login_post,
-  register_post
-};
+export const logout_user = (req: Request, res: Response, next: NextFunction) => {
+
+}

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Post from "../models/post";
 
-exports.post_list = (req: Request, res: Response, next: NextFunction) => {
+export const post_list = (req: Request, res: Response, next: NextFunction) => {
   Post.find({})
     .sort({ createdAt: 1 })
     .populate("author")
@@ -14,7 +14,9 @@ exports.post_list = (req: Request, res: Response, next: NextFunction) => {
     });
 };
 
-exports.post_detail = (req: Request, res: Response, next: NextFunction) => {
+export const post_create = []
+
+export const post_detail = (req: Request, res: Response, next: NextFunction) => {
   Post.findById(req.params.postId)
     .populate("author")
     .exec()
@@ -25,3 +27,9 @@ exports.post_detail = (req: Request, res: Response, next: NextFunction) => {
       next(err);
     });
 };
+
+export const post_update = []
+
+export const post_delete = (req: Request, res: Response, next: NextFunction) => {
+
+}
