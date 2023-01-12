@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server";
 
+let mongoServer: MongoMemoryServer;
+
 async function initializeMongoServer() {
-  const mongoServer = await MongoMemoryServer.create();
+  mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();
 
   mongoose.connect(mongoUri);
@@ -20,4 +22,4 @@ async function initializeMongoServer() {
   });
 }
 
-module.exports = initializeMongoServer;
+export default initializeMongoServer;

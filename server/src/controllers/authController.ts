@@ -43,15 +43,15 @@ export const register_user = [
 
       if (!errors.isEmpty()) {
         // There are errors.
-      } else {
-        user.save((err) => {
-          if (err) {
-            return next(err);
-          }
-          // Successful - redirect to the log in page
-          res.json({ user });
-        });
+        return res.status(400).json({ errors: errors.array() });
       }
+      user.save((err) => {
+        if (err) {
+          return next(err);
+        }
+        // Successful - redirect to the log in page
+        res.json({ user });
+      });
     });
   },
 ];
@@ -81,6 +81,8 @@ export const login_user = [
   },
 ];
 
-export const logout_user = (req: Request, res: Response, next: NextFunction) => {
-
-}
+export const logout_user = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {};
