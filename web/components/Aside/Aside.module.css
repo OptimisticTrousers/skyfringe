@@ -44,10 +44,23 @@
   height: 100%;
 }
 
+.aside__user {
+  display: flex;
+  align-items: center;
+}
+
 .aside__list {
   padding: 0.5rem 0 0.75rem;
   list-style-type: none;
   margin: 0;
+}
+
+.aside__subtitle {
+  font-size: 1.5rem;
+  margin: 0;
+  padding-left: 2rem;
+  color: white;
+  margin-bottom: 1rem;
 }
 
 .aside__item {
@@ -67,6 +80,24 @@
 
 .aside__name {
   margin: 0;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  letter-spacing: 1.5px;
+  overflow: hidden;
+}
+
+.aside__friends {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.aside__avatar {
+  height: 100%;
+  width: 60px;
+  border-radius: 50%;
+  margin-right: 12px;
 }
 
 .aside__icon {
@@ -74,7 +105,7 @@
   margin-right: 1.25rem;
   margin-left: 0.75rem;
   font-weight: 900;
-  width: 25px;
+  width: 30px;
   height: 100%;
 }
 
