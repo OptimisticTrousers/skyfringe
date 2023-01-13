@@ -1,0 +1,29 @@
+.friends {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  overflow-x: scroll;
+  padding: 1rem;
+  max-width: 1026px;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+}
+
+.friends__avatar {
+  height: 100%;
+  width: 70px;
+  border-radius: 30px;
+  border: 6px solid #2e2828;
+  outline: 3px solid white;
+}
+
+.friends__avatar:hover {
+  outline: 3px solid #7c7d54;
+}
+
+.friends__friend {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
