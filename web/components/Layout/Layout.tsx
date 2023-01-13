@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import CSSModules from "react-css-modules";
+import Aside from "../Aside/Aside";
 import styles from "./Layout.module.css";
 
 interface Props {
@@ -10,7 +11,7 @@ const Layout: FC<Props> = ({ children }) => {
   return (
     <>
       <div styleName="container">
-        <nav></nav>
+        <Aside />
         <main styleName="main">{children}</main>
       </div>
       <footer></footer>

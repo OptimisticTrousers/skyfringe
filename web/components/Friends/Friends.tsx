@@ -41,10 +41,6 @@ const Friends = () => {
         <img src="optimistictrousers.jpg" styleName="friends__avatar" />
         <p styleName="friends__name">Amanda</p>
       </div>
-      <div styleName="friends__friend">
-        <img src="optimistictrousers.jpg" styleName="friends__avatar" />
-        <p styleName="friends__name">Amanda</p>
-      </div>
     </div>
   )
 }

@@ -98,10 +98,6 @@
   background-color: #292631;
 }
 
-.home__content {
-    width: 78%;
-}
-
 .home__main {
     display: grid;
     grid-template-columns: 2.42fr 1fr;

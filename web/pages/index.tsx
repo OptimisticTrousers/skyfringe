@@ -21,26 +21,19 @@ import Suggestions from "../components/Suggestions/Suggestions";
 import Recent from "../components/Recent/Recent";
 import Friends from "../components/Friends/Friends";
 
-const inter = Inter({ subsets: ["latin"] });
-
 function Home() {
   return (
     <div styleName="home">
-      <div styleName="home__flex">
-        <Aside />
-        <div styleName="home__content">
-          <div styleName="home__main">
-            <div styleName="home__center">
-              <Friends />
-              <CreatePost />
-              <Post />
-            </div>
-            <div styleName="home__right">
-              <Suggestions />
-              <Recent />
-            </div>
-          </div>
+      <div styleName="home__main">
+        <div styleName="home__center">
+          <Friends />
+          <CreatePost />
+          <Post />
         </div>
+        <aside styleName="home__right">
+          <Suggestions />
+          <Recent />
+        </aside>
       </div>
     </div>
   );

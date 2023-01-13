@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   gap: 30px;
-  overflow-x: scroll;
   padding: 1rem;
   max-width: 1026px;
   box-sizing: border-box;
