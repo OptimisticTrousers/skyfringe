@@ -7,7 +7,9 @@ import {
 } from "react-icons/ai";
 import { BsFillEmojiSmileFill } from "react-icons/bs";
 import { MdLocationOn } from "react-icons/md";
+import {AiOutlinePicture} from "react-icons/ai";
 import styles from "./CreatePost.module.css";
+import {BsEmojiHeartEyes} from "react-icons/bs";
 
 const CreatePost = () => {
   return (
@@ -18,11 +20,8 @@ const CreatePost = () => {
       </div>
       <div styleName="create__bottom">
         <div styleName="create__icons">
-          <AiFillCamera styleName="create__icon" />
-          <AiFillPicture styleName="create__icon" />
-          <AiOutlinePaperClip styleName="create__icon" />
-          <MdLocationOn styleName="create__icon" />
-          <BsFillEmojiSmileFill styleName="create__icon" />
+          <AiOutlinePicture styleName="create__icon" />
+          <BsEmojiHeartEyes styleName="create__icon" />
         </div>
         <button styleName="create__button">Post</button>
       </div>

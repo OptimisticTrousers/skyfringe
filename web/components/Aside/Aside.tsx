@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillHome } from "react-icons/ai";
-import { BsFillCalendarDateFill } from "react-icons/bs";
-import { FaShoppingBag } from "react-icons/fa";
 import { IoIosPeople } from "react-icons/io";
 import { RiNewspaperFill } from "react-icons/ri";
-import styles from "./Aside.module.css";
-import { GrFormClose } from "react-icons/gr";
-import { RiSettings3Line } from "react-icons/ri";
 import { AiFillCloseSquare } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { RiSettingsFill } from "react-icons/ri";
+import styles from "./Aside.module.css";
 
 const Aside = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -19,6 +15,7 @@ const Aside = () => {
   const toggle = () => {
     setToggleSidebar((prevToggleValue) => !prevToggleValue);
   };
+  
   return (
     <>
       <div styleName="hamburger" onClick={toggle}>

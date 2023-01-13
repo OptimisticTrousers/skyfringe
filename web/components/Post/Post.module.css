@@ -80,7 +80,7 @@
   width: 100%;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   border-bottom: 3px solid #24262a;
 }
 

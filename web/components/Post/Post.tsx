@@ -50,11 +50,6 @@ const Post = () => {
           <span styleName="post__control-name">Comment</span>
           <span styleName="post__number">45</span>
         </div>
-        <div styleName="post__control">
-          <FaShareSquare styleName="post__icon post__icon--control" />
-          <span styleName="post__control-name">Share</span>
-          <span styleName="post__number">12</span>
-        </div>
       </div>
       <section styleName="post__comments">
         <div styleName="post__form">

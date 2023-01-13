@@ -9,15 +9,15 @@
 .create__top {
   display: flex;
   align-items: center;
-  gap: 16px;
 }
 
 .create__image {
   width: 40px;
   height: 40px;
   border-radius: 100px;
-  padding-left: 8px;
-  padding-top: 10px;
+  margin-left: 8px;
+  margin-right: 12px;
+  margin-top: 10px;
 }
 
 .create__input {
