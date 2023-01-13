@@ -9,12 +9,13 @@
 .hamburger__line {
   width: 40px;
   height: 4px;
-  background-color: #E1E1E1;
+  background-color: #e1e1e1;
   margin: 6px 0;
   border-radius: 2px;
 }
 
 .aside {
+  --aside-width: 350px;
   position: sticky;
   top: 0;
   left: 0;
@@ -23,7 +24,7 @@
   display: flex;
   flex-direction: column;
   background-color: #1f1e22;
-  width: 280px;
+  width: var(--aside-width);
   color: #a4a6b3;
   padding-top: 0.35rem;
   user-select: none;
@@ -72,15 +73,16 @@
   color: #60626e;
   margin-right: 1.25rem;
   margin-left: 0.75rem;
-  min-width: 25px;
   font-weight: 900;
+  width: 25px;
+  height: 100%;
 }
 
 .aside__icon--exit {
   position: absolute;
-  top: 0.75rem;
+  top: 0;
   right: -0.25rem;
-  font-size: 2rem;
+  width: 40px;
   transition: transform 300ms ease, color 300ms ease;
   cursor: pointer;
   display: none;
@@ -93,7 +95,7 @@
 
 @media (max-width: 740px) {
   .aside--open {
-    transform: translateX(-280px);
+    transform: translateX(calc(var(--aside-width) * -1));
   }
   .aside {
     position: fixed;
