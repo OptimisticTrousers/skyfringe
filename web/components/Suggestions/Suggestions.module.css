@@ -1,0 +1,58 @@
+.suggestions {
+  padding: 2.9rem 0rem;
+  margin-right: 3.6rem;
+  margin-top: 3rem;
+  border-bottom: 1px solid #dee9f4;
+}
+
+.suggestions__text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestions__link {
+  color: #a875ff;
+  font-size: 1.5rem;
+}
+
+.suggestions__avatar {
+  height: 100%;
+  width: 60px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.suggestions__user {
+  display: flex;
+  align-items: center;
+}
+
+.suggestions__suggestion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestions__suggestion:not(:last-child) {
+    margin-bottom: 2rem;
+}
+
+.suggestions__button {
+  border: none;
+  padding: 0.8rem 2.2rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  width: 140px;
+}
+
+.suggestions__button--follow {
+  background-color: #a875ff;
+  color: inherit;
+}
+
+.suggestions__button--followed {
+  background-color: #f1f5fe;
+  border: 2px solid #d9e4f3;
+  color: #283c71;
+}
