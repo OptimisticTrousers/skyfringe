@@ -1,0 +1,47 @@
+.recent {
+  background-color: #282929;
+  margin-top: 2rem;
+  margin-right: 3.6rem;
+  padding: 1rem;
+  border-radius: 16px;
+}
+
+.recent__activity {
+  background-color: #232223;
+  border-radius: 16px;
+  padding: 0.5rem 1rem;
+}
+
+.recent__avatar {
+  height: 100%;
+  width: 60px;
+  border-radius: 50%;
+  margin-right: 16px;
+}
+
+.recent__name {
+  margin-bottom: 0;
+}
+
+.recent__event {
+  color: #88878f;
+}
+
+.recent__flex {
+  display: flex;
+  align-items: center;
+}
+
+.recent__time {
+  color: #cecf74;
+  margin-left: 8px;
+}
+
+.recent__button {
+  background-color: #fefe00;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
