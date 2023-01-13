@@ -29,17 +29,6 @@ function Home() {
       <div styleName="home__flex">
         <Aside />
         <div styleName="home__content">
-          {/* <nav styleName="home__navigation">
-            <h2>
-              { <img src="optimistictrousers.jpg" /> }
-              Home
-            </h2>
-            <div>
-              <a>Explore</a>
-              <a>Community Feed</a>
-              <a>Mutual friend</a>
-            </div>
-          </nav> */}
           <div styleName="home__main">
             <div styleName="home__center">
               <Friends />
