@@ -57,12 +57,6 @@ const Aside = () => {
                 <p styleName="aside__name">Notifications</p>
               </li>
             </Link>
-            <Link href="/users">
-              <li styleName="aside__item">
-                <BiFileFind styleName="aside__icon" />
-                <p styleName="aside__name">Find Friends</p>
-              </li>
-            </Link>
             <Link href="/chat">
               <li styleName="aside__item">
                 <BsFillChatSquareDotsFill styleName="aside__icon" />
