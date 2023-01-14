@@ -7,7 +7,9 @@ import { AiFillCloseSquare } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { RiSettingsFill } from "react-icons/ri";
+import { BiLogOut } from "react-icons/bi";
 import styles from "./Aside.module.css";
+import {BiFileFind} from "react-icons/bi";
 import Link from "next/link";
 
 const Aside = () => {
@@ -49,6 +51,18 @@ const Aside = () => {
                 <p styleName="aside__name">Friends</p>
               </li>
             </Link>
+            <Link href="/notifications">
+              <li styleName="aside__item">
+                <IoMdNotifications styleName="aside__icon" />
+                <p styleName="aside__name">Notifications</p>
+              </li>
+            </Link>
+            <Link href="/users">
+              <li styleName="aside__item">
+                <BiFileFind styleName="aside__icon" />
+                <p styleName="aside__name">Find Friends</p>
+              </li>
+            </Link>
             <Link href="/chat">
               <li styleName="aside__item">
                 <BsFillChatSquareDotsFill styleName="aside__icon" />
@@ -59,6 +73,12 @@ const Aside = () => {
               <li styleName="aside__item">
                 <RiSettingsFill styleName="aside__icon" />
                 <p styleName="aside__name">Settings</p>
+              </li>
+            </Link>
+            <Link href="/log-out">
+              <li styleName="aside__item">
+                <BiLogOut styleName="aside__icon" />
+                <p styleName="aside__name">Log Out</p>
               </li>
             </Link>
           </ul>
