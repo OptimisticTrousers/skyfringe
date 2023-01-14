@@ -8,6 +8,7 @@ import { IoMdNotifications } from "react-icons/io";
 import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { RiSettingsFill } from "react-icons/ri";
 import styles from "./Aside.module.css";
+import Link from "next/link";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
@@ -15,7 +16,7 @@ const Aside = () => {
   const toggle = () => {
     setCloseSidebar((prevToggleValue) => !prevToggleValue);
   };
-  
+
   return (
     <>
       <div styleName="hamburger" onClick={toggle}>
@@ -36,42 +37,44 @@ const Aside = () => {
         </div>
         <nav styleName="aside__nav">
           <ul styleName="aside__list">
-            <li styleName="aside__item">
-              <AiFillHome styleName="aside__icon" />
-              <p styleName="aside__name">Home</p>
-            </li>
-            <li styleName="aside__item">
-              <IoIosPeople styleName="aside__icon" />
-              <p styleName="aside__name">Friends</p>
-            </li>
-            <li styleName="aside__item">
-              <IoMdNotifications styleName="aside__icon" />
-              <p styleName="aside__name">Notifications</p>
-            </li>
-            <li styleName="aside__item">
-              <BsFillChatSquareDotsFill styleName="aside__icon" />
-              <p styleName="aside__name">Chat</p>
-            </li>
-            <li styleName="aside__item">
-              <RiNewspaperFill styleName="aside__icon" />
-              <p styleName="aside__name">Saved Posts</p>
-            </li>
-            <li styleName="aside__item">
-              <RiSettingsFill styleName="aside__icon" />
-              <p styleName="aside__name">Settings</p>
-            </li>
+            <Link href="/">
+              <li styleName="aside__item">
+                <AiFillHome styleName="aside__icon" />
+                <p styleName="aside__name">Home</p>
+              </li>
+            </Link>
+            <Link href="/friends">
+              <li styleName="aside__item">
+                <IoIosPeople styleName="aside__icon" />
+                <p styleName="aside__name">Friends</p>
+              </li>
+            </Link>
+            <Link href="/chat">
+              <li styleName="aside__item">
+                <BsFillChatSquareDotsFill styleName="aside__icon" />
+                <p styleName="aside__name">Chat</p>
+              </li>
+            </Link>
+            <Link href="/settings">
+              <li styleName="aside__item">
+                <RiSettingsFill styleName="aside__icon" />
+                <p styleName="aside__name">Settings</p>
+              </li>
+            </Link>
           </ul>
           <ul styleName="aside__list">
             <p styleName="aside__subtitle">Account</p>
-            <li styleName="aside__item">
-              <div styleName="aside__user">
-                <img src="optimistictrousers.jpg" styleName="aside__avatar" />
-                <div styleName="aside__details">
-                  <h2 styleName="aside__name">Bob Jones</h2>
-                  <p styleName="aside__friends">10 friends</p>
+            <Link href="/profile">
+              <li styleName="aside__item">
+                <div styleName="aside__user">
+                  <img src="optimistictrousers.jpg" styleName="aside__avatar" />
+                  <div styleName="aside__details">
+                    <h2 styleName="aside__name">Bob Jones</h2>
+                    <p styleName="aside__friends">10 friends</p>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
+            </Link>
           </ul>
         </nav>
       </aside>
