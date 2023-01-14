@@ -1,10 +1,11 @@
 import React from "react";
 import CSSModules from "react-css-modules";
+import Card from "../Card/Card";
 import styles from "./Recent.module.css";
 
 const Recent = () => {
   return (
-    <div styleName="recent">
+    <Card>
       <h2 styleName="recent__title">Recent activity</h2>
       <div styleName="recent__activity">
         <div styleName="recent__flex">
@@ -19,7 +20,7 @@ const Recent = () => {
         </div>
         <button styleName="recent__button">View Post</button>
       </div>
-    </div>
+    </Card>
   );
 };
 

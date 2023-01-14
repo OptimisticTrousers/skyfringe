@@ -11,10 +11,11 @@ import { IoIosArrowDown } from "react-icons/io";
 import { TbArrowForward } from "react-icons/tb";
 import { RiArrowUpFill } from "react-icons/ri";
 import { RiArrowDownFill } from "react-icons/ri";
+import Card from "../Card/Card";
 
 const Post = () => {
   return (
-    <article styleName="post">
+    <Card>
       <div styleName="post__top">
         <div styleName="post__container">
           <img src="optimistictrousers.jpg" styleName="post__avatar" />
@@ -105,7 +106,7 @@ const Post = () => {
         </div>
       </section>
       <p styleName="post__view">View all comments</p>
-    </article>
+    </Card>
   );
 };
 

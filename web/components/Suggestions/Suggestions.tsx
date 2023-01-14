@@ -1,10 +1,11 @@
 import React from "react";
 import CSSModules from "react-css-modules";
+import Card from "../Card/Card";
 import styles from "./Suggestions.module.css";
 
 const Suggestions = () => {
   return (
-    <div styleName="suggestions">
+    <Card>
       <div styleName="suggestions__text">
         <h2 styleName="suggestions__title">Suggestions For You</h2>
         <a styleName="suggestions__link">See All</a>
@@ -36,7 +37,7 @@ const Suggestions = () => {
           Follow
         </button>
       </div>
-    </div>
+    </Card>
   );
 };
 

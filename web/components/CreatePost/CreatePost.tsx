@@ -10,10 +10,11 @@ import { MdLocationOn } from "react-icons/md";
 import {AiOutlinePicture} from "react-icons/ai";
 import styles from "./CreatePost.module.css";
 import {BsEmojiHeartEyes} from "react-icons/bs";
+import Card from "../Card/Card";
 
 const CreatePost = () => {
   return (
-    <div styleName="create">
+    <Card>
       <div styleName="create__top">
         <img src="optimistictrousers.jpg" styleName="create__image" />
         <input styleName="create__input" placeholder="What's on your mind?" />
@@ -25,7 +26,7 @@ const CreatePost = () => {
         </div>
         <button styleName="create__button">Post</button>
       </div>
-    </div>
+    </Card>
   );
 };
 

@@ -19,8 +19,7 @@
   position: sticky;
   top: 0;
   left: 0;
-  max-height: 100vh;
-  min-height: min-content;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #1f1e22;
