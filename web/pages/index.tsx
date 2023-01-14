@@ -25,7 +25,6 @@ import TopMenu from "../components/TopMenu/TopMenu";
 function Home() {
   return (
     <div styleName="home">
-      <div styleName="home__main">
         <div styleName="home__center">
           <div styleName="home__menu">
             <TopMenu />
@@ -38,7 +37,6 @@ function Home() {
           <Suggestions />
           <Recent />
         </aside>
-      </div>
     </div>
   );
 }

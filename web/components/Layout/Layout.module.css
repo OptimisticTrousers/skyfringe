@@ -2,3 +2,17 @@
     display: flex;
     min-height: 100%;
 }
+
+.main {
+    background-color: #17171c;
+    padding: 3rem 4.3rem;
+}
+
+@media(max-width: 840px) {
+    .main {
+        padding: 0;
+        padding-top: 5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}

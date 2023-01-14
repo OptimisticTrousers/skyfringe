@@ -1,37 +1,12 @@
 .home {
   min-height: 100%;
-}
-
-.home__main {
-  background-color: #17171c;
-}
-
-.home__main {
   display: grid;
   grid-template-columns: 2fr 1fr;
-}
-.home__right {
-  margin-right: 3.6rem;
-}
-
-.home__center {
-  padding: 3rem 4.3rem;
+  gap: 2rem;
 }
 
 .home__menu {
   display: none;
-}
-
-@media (max-width: 840px) {
-  .home__main {
-    display: block;
-  }
-  .home__center {
-    padding: 0;
-    padding-top: 5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
 }
 
 @media (max-width: 1253px) {
@@ -43,11 +18,7 @@
     display: block;
   }
 
-  .home__main {
+  .home {
     grid-template-columns: 1fr;
-  }
-  .home__center {
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 }
