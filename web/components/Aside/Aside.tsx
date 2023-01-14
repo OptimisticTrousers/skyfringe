@@ -10,10 +10,10 @@ import { RiSettingsFill } from "react-icons/ri";
 import styles from "./Aside.module.css";
 
 const Aside = () => {
-  const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [closeSidebar, setCloseSidebar] = useState(true);
 
   const toggle = () => {
-    setToggleSidebar((prevToggleValue) => !prevToggleValue);
+    setCloseSidebar((prevToggleValue) => !prevToggleValue);
   };
   
   return (
@@ -23,7 +23,7 @@ const Aside = () => {
         <div styleName="hamburger__line"></div>
         <div styleName="hamburger__line"></div>
       </div>
-      <aside styleName={`aside ${toggleSidebar && "aside--open"}`}>
+      <aside styleName={`aside ${closeSidebar && "aside--closed"}`}>
         <div styleName="aside__container">
           <img
             src="https://mmackz.github.io/admin-dashboard/images/logoipsum-logo-54.svg"

@@ -125,7 +125,7 @@
 }
 
 @media (max-width: 820px) {
-  .aside--open {
+  .aside--closed {
     transform: translateX(calc(var(--aside-width) * -1));
   }
   .aside {
