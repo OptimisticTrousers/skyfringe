@@ -6,7 +6,6 @@
   max-width: 1026px;
   box-sizing: border-box;
   margin-bottom: 2rem;
-  overflow-x: scroll;
 }
 
 .friends__avatar {

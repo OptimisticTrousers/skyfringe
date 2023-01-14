@@ -1,13 +1,20 @@
 .recent {
   background-color: #282929;
   margin-top: 2rem;
-  margin-right: 3.6rem;
   padding: 1rem;
-  border-radius: 16px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #1f1e22;
+  border: 2px solid #2d3034;
+}
+
+.recent__title {
+  margin-top: 0;
 }
 
 .recent__activity {
   background-color: #232223;
+  background-color: #282929;
   border-radius: 16px;
   padding: 0.5rem 1rem;
 }
@@ -44,4 +51,9 @@
   border-radius: 12px;
   width: 100%;
   margin-bottom: 0.5rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+.recent__button:hover {
+  background-color: #cecf74;
 }

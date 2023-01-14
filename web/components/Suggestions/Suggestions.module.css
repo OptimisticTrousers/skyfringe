@@ -1,18 +1,37 @@
 .suggestions {
-  padding: 2.9rem 0rem;
-  margin-right: 3.6rem;
-  border-bottom: 1px solid #dee9f4;
+  margin: 2.9rem 0rem;
+  padding: 0 1rem 1rem;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: #1f1e22;
+  border: 2px solid #2d3034;
 }
 
 .suggestions__text {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1rem;
+}
+
+.suggestions__title {
+  font-size: 1.4rem;
+}
+
+.suggestions__subtitle {
+  margin-right: 8px;
+  max-width: 125px;
+  word-wrap: break-word;
 }
 
 .suggestions__link {
   color: #a875ff;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.suggestions__link:hover {
+  color: #d2bcff;
 }
 
 .suggestions__avatar {
@@ -34,15 +53,17 @@
 }
 
 .suggestions__suggestion:not(:last-child) {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .suggestions__button {
   border: none;
-  padding: 0.8rem 2.2rem;
+  padding: 0.7rem 2rem;
   border-radius: 12px;
   font-size: 1.1rem;
   width: 140px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
 }
 
 .suggestions__button--follow {
@@ -50,8 +71,16 @@
   color: inherit;
 }
 
+.suggestions__button--follow:hover {
+  background-color: #8346e0;
+}
+
 .suggestions__button--followed {
-  background-color: #f1f5fe;
   border: 2px solid #d9e4f3;
   color: #283c71;
+}
+
+.suggestions__button--followed:hover {
+  background-color: rgb(200, 202, 204);
+  border-color: transparent;
 }

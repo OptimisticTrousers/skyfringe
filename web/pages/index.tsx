@@ -30,7 +30,7 @@ function Home() {
           <div styleName="home__menu">
             <TopMenu />
           </div>
-          {/* <Friends /> */}
+          <Friends />
           <CreatePost />
           <Post />
         </div>

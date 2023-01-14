@@ -12,7 +12,7 @@ const Suggestions = () => {
       <div styleName="suggestions__suggestion">
         <div styleName="suggestions__user">
           <img styleName="suggestions__avatar" src="optimistictrousers.jpg" />
-          <div styleName="suggestions__subtitle">Sarah Tancredi</div>
+          <p styleName="suggestions__subtitle">Sarah Tancredia</p>
         </div>
         <button styleName="suggestions__button suggestions__button--follow">
           Follow
@@ -21,7 +21,7 @@ const Suggestions = () => {
       <div styleName="suggestions__suggestion">
         <div styleName="suggestions__user">
           <img styleName="suggestions__avatar" src="optimistictrousers.jpg" />
-          <div styleName="suggestions__subtitle">Aruthur Shelby</div>
+          <p styleName="suggestions__subtitle">Aruthur Shelby</p>
         </div>
         <button styleName="suggestions__button suggestions__button--followed">
           Followed
@@ -30,7 +30,7 @@ const Suggestions = () => {
       <div styleName="suggestions__suggestion">
         <div styleName="suggestions__user">
           <img styleName="suggestions__avatar" src="optimistictrousers.jpg" />
-          <div styleName="suggestions__subtitle">Vin Diesel</div>
+          <p styleName="suggestions__subtitle">Vin Diesel</p>
         </div>
         <button styleName="suggestions__button suggestions__button--follow">
           Follow

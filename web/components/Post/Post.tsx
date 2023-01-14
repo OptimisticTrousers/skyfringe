@@ -19,7 +19,7 @@ const Post = () => {
         <div styleName="post__container">
           <img src="optimistictrousers.jpg" styleName="post__avatar" />
           <div styleName="post__details">
-            <h3 styleName="post__title">Lucky Andreas</h3>
+            <h3 styleName="post__author">Lucky Andreas</h3>
             <p styleName="post__date">
               <BiTime />
               <span styleName="post__time">12 minutes ago</span>
