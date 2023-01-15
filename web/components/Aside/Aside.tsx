@@ -79,7 +79,10 @@ const Aside = () => {
             <Link href="/profile">
               <li styleName="aside__item">
                 <div styleName="aside__user">
-                  <img src="optimistictrousers.jpg" styleName="aside__avatar" />
+                  <img
+                    src="/images/optimistictrousers.jpg"
+                    styleName="aside__avatar"
+                  />
                   <div styleName="aside__details">
                     <h2 styleName="aside__name">Bob Jones</h2>
                     <p styleName="aside__friends">10 friends</p>

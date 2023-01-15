@@ -11,7 +11,10 @@ const FindFriends = () => {
         <input styleName="friend__input" placeholder="Search Users" />
         <div styleName="friend__flex">
           <div styleName="friend__details">
-            <img src="optimistictrousers.jpg" styleName="friend__avatar" />
+            <img
+              src="/images/optimistictrousers.jpg"
+              styleName="friend__avatar"
+            />
             <p styleName="friend__name">Bob Jones</p>
           </div>
           <button styleName="friend__button">Send Friend Request</button>

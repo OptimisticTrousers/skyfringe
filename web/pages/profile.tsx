@@ -8,9 +8,12 @@ const Profile = () => {
   return (
     <div styleName="profile">
       <header styleName="profile__header">
-        <img src="optimistictrousers.jpg" styleName="profile__image" />
+        <img src="/images/optimistictrousers.jpg" styleName="profile__image" />
         <div styleName="profile__details">
-          <img src="optimistictrousers.jpg" styleName="profile__avatar" />
+          <img
+            src="/images/optimistictrousers.jpg"
+            styleName="profile__avatar"
+          />
           <div styleName="profile__text">
             <h2 styleName="profile__name">Samantha Nelson</h2>
             <p>Product designer</p>
@@ -33,15 +36,42 @@ const Profile = () => {
             <div styleName="profile__card">
               <h3 styleName="profile__subtitle">Media</h3>
               <div styleName="profile__friends">
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
               </div>
             </div>
           </Card>
@@ -55,15 +85,42 @@ const Profile = () => {
                 <a styleName="profile__link">See all friends</a>
               </div>
               <div styleName="profile__friends">
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
-                <img src="optimistictrousers.jpg" styleName="profile__friend" />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
+                <img
+                  src="/images/optimistictrousers.jpg"
+                  styleName="profile__friend"
+                />
               </div>
             </div>
           </Card>

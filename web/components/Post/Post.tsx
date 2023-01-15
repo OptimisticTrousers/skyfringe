@@ -18,7 +18,7 @@ const Post = () => {
     <Card>
       <div styleName="post__top">
         <div styleName="post__container">
-          <img src="optimistictrousers.jpg" styleName="post__avatar" />
+          <img src="/images/optimistictrousers.jpg" styleName="post__avatar" />
           <div styleName="post__details">
             <h3 styleName="post__author">Lucky Andreas</h3>
             <p styleName="post__date">
@@ -38,7 +38,7 @@ const Post = () => {
           approved it but when today I tried to upload they say we no longer
           accept this type of content
         </p>
-        <img src="optimistictrousers.jpg" styleName="post__image" />
+        <img src="/images/optimistictrousers.jpg" styleName="post__image" />
       </div>
       <div styleName="post__controls">
         <div styleName="post__control">
@@ -55,7 +55,7 @@ const Post = () => {
       <section styleName="post__comments">
         <div styleName="post__form">
           <img
-            src="optimistictrousers.jpg"
+            src="/images/optimistictrousers.jpg"
             styleName="post__avatar post__avatar--comments"
           />
           <input styleName="post__input" placeholder="What's on your mind?" />
@@ -73,7 +73,7 @@ const Post = () => {
         <div styleName="post__comment">
           <div styleName="post__container">
             <img
-              src="optimistictrousers.jpg"
+              src="/images/optimistictrousers.jpg"
               styleName="post__avatar post__avatar--comment"
             />
             <div styleName="post__comment-details">

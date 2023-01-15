@@ -9,7 +9,7 @@ const CreatePost = () => {
   return (
     <Card>
       <div styleName="create__top">
-        <img src="optimistictrousers.jpg" styleName="create__image" />
+        <img src="/images/optimistictrousers.jpg" styleName="create__image" />
         <input styleName="create__input" placeholder="What's on your mind?" />
       </div>
       <div styleName="create__bottom">

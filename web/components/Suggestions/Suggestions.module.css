@@ -21,6 +21,11 @@
   align-items: center;
 }
 
+.suggestions__user {
+  display: flex;
+  align-items: center;
+}
+
 .suggestions__suggestion:not(:last-child) {
   margin-bottom: 2rem;
 }
