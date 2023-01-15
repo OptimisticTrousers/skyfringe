@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillHome } from "react-icons/ai";
 import { IoIosPeople } from "react-icons/io";
-import { RiNewspaperFill } from "react-icons/ri";
 import { AiFillCloseSquare } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { RiSettingsFill } from "react-icons/ri";
 import { BiLogOut } from "react-icons/bi";
 import styles from "./Aside.module.css";
-import {BiFileFind} from "react-icons/bi";
 import Link from "next/link";
 
 const Aside = () => {

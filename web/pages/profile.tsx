@@ -23,8 +23,9 @@ const Profile = () => {
             <div styleName="profile__card">
               <h3 styleName="profile__subtitle">About</h3>
               <p styleName="profile__description">
-                Hi! My name is Samantha Nelson, I'm a creative geek from Prague.
-                I enjoy creating eye canday solutions for web and mobile apps
+                Hi! My name is Samantha Nelson, I am a creative geek from
+                Prague. I enjoy creating eye canday solutions for web and mobile
+                apps
               </p>
             </div>
           </Card>
@@ -69,18 +70,10 @@ const Profile = () => {
         </aside>
         <div styleName="profile__main">
           <ul styleName="profile__list">
-            <li styleName="profile__item">
-              Friends
-            </li>
-            <li styleName="profile__item">
-              Your posts
-            </li>
-            <li styleName="profile__item">
-              Liked posts
-            </li>
-            <li styleName="profile__item">
-              Saved posts
-            </li>
+            <li styleName="profile__item">Friends</li>
+            <li styleName="profile__item">Your posts</li>
+            <li styleName="profile__item">Liked posts</li>
+            <li styleName="profile__item">Saved posts</li>
           </ul>
           <div styleName="profile__posts">
             <Post />

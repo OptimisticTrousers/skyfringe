@@ -1,15 +1,8 @@
 import React from "react";
 import CSSModules from "react-css-modules";
-import {
-  AiFillCamera,
-  AiFillPicture,
-  AiOutlinePaperClip,
-} from "react-icons/ai";
-import { BsFillEmojiSmileFill } from "react-icons/bs";
-import { MdLocationOn } from "react-icons/md";
-import {AiOutlinePicture} from "react-icons/ai";
+import { AiOutlinePicture } from "react-icons/ai";
 import styles from "./CreatePost.module.css";
-import {BsEmojiHeartEyes} from "react-icons/bs";
+import { BsEmojiHeartEyes } from "react-icons/bs";
 import Card from "../Card/Card";
 
 const CreatePost = () => {

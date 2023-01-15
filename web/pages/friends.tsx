@@ -1,6 +1,5 @@
 import React from "react";
 import CSSModules from "react-css-modules";
-import Card from "../components/Card/Card";
 import CurrentFriends from "../components/CurrentFriends/CurrentFriends";
 import FindFriends from "../components/FindFriends/FindFriends";
 import FriendRequestsReceived from "../components/FriendRequestsReceived/FriendRequestsReceived";

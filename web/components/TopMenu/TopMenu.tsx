@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import CSSModules from "react-css-modules";
 import styles from "./TopMenu.module.css";
-import { MdOutlineRecommend } from "react-icons/md";
 import Suggestions from "../Suggestions/Suggestions";
 import Recent from "../Recent/Recent";
-// import {MdRecentActors} from "react-icons/md;"
 
 const TopMenu = () => {
   const [toggleSuggestions, setToggleSuggestions] = useState(false);
@@ -28,8 +26,18 @@ const TopMenu = () => {
           Recent Activity
         </button>
       </div>
-      <div styleName={`menu__action ${toggleSuggestions && "menu__action--active"}`}>{toggleSuggestions && <Suggestions />}</div>
-      <div styleName={`menu__action ${toggleActivities && "menu__action--active"}`}>{toggleActivities && <Recent />}</div>
+      <div
+        styleName={`menu__action ${
+          toggleSuggestions && "menu__action--active"
+        }`}
+      >
+        {toggleSuggestions && <Suggestions />}
+      </div>
+      <div
+        styleName={`menu__action ${toggleActivities && "menu__action--active"}`}
+      >
+        {toggleActivities && <Recent />}
+      </div>
     </header>
   );
 };

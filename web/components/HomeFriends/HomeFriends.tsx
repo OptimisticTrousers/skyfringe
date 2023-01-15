@@ -1,5 +1,5 @@
-import React from "react"
-import CSSModules from "react-css-modules"
+import React from "react";
+import CSSModules from "react-css-modules";
 import styles from "./HomeFriends.module.css";
 
 const HomeFriends = () => {
@@ -22,10 +22,10 @@ const HomeFriends = () => {
         <p styleName="friends__name">Amanda</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default CSSModules(HomeFriends, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "ignore"
-})
+  handleNotFoundStyleName: "ignore",
+});
