@@ -19,7 +19,7 @@ import CreatePost from "../components/CreatePost/CreatePost";
 import Post from "../components/Post/Post";
 import Suggestions from "../components/Suggestions/Suggestions";
 import Recent from "../components/Recent/Recent";
-import Friends from "../components/Friends/Friends";
+import HomeFriends from "../components/HomeFriends/HomeFriends";
 import TopMenu from "../components/TopMenu/TopMenu";
 
 function Home() {
@@ -29,7 +29,7 @@ function Home() {
           <div styleName="home__menu">
             <TopMenu />
           </div>
-          <Friends />
+          <HomeFriends />
           <CreatePost />
           <Post />
         </div>

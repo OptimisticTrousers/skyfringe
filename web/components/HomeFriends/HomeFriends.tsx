@@ -1,8 +1,8 @@
 import React from "react"
 import CSSModules from "react-css-modules"
-import styles from "./Friends.module.css";
+import styles from "./HomeFriends.module.css";
 
-const Friends = () => {
+const HomeFriends = () => {
   return (
     <div styleName="friends">
       <div styleName="friends__friend">
@@ -25,7 +25,7 @@ const Friends = () => {
   )
 }
 
-export default CSSModules(Friends, styles, {
+export default CSSModules(HomeFriends, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore"
 })

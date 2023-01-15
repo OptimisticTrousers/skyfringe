@@ -6,6 +6,8 @@
 .main {
   background-color: #17171c;
   padding: 3rem 4.3rem;
+  width: 100%;
+  min-height: 100%;
 }
 
 @media (max-width: 840px) {

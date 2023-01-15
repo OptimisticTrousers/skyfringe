@@ -1,13 +1,13 @@
 import React from "react";
 import CSSModules from "react-css-modules";
 import Card from "../Card/Card";
-import styles from "../Friends/Friends.module.css";
+import styles from "../../styles/Friends.module.css";
 const FindFriends = () => {
   return (
     <div styleName="friend">
       <Card>
         <h2 styleName="friend__title">All Other Users = make new friends!</h2>
-        <input styleName="friend__input" placeholder="Search Users"/>
+        <input styleName="friend__input" placeholder="Search Users" />
         <div styleName="friend__flex">
           <div styleName="friend__details">
             <img src="optimistictrousers.jpg" styleName="friend__avatar" />

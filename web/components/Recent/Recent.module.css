@@ -1,13 +1,3 @@
-.recent {
-  background-color: #282929;
-  margin-top: 2rem;
-  padding: 1rem;
-  box-sizing: border-box;
-  border-radius: 8px;
-  background-color: #1f1e22;
-  border: 2px solid #2d3034;
-}
-
 .recent__title {
   margin-top: 0;
 }
@@ -17,6 +7,11 @@
   background-color: #282929;
   border-radius: 16px;
   padding: 0.5rem 1rem;
+}
+
+.recent__flex {
+  display: flex;
+  align-items: center;
 }
 
 .recent__avatar {
@@ -34,11 +29,6 @@
   color: #88878f;
 }
 
-.recent__flex {
-  display: flex;
-  align-items: center;
-}
-
 .recent__time {
   color: #cecf74;
   margin-left: 8px;
@@ -54,6 +44,7 @@
   transition: all 0.15s ease-in-out;
   cursor: pointer;
 }
+
 .recent__button:hover {
   background-color: #cecf74;
 }

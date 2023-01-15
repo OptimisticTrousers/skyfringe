@@ -7,19 +7,6 @@
   display: flex;
 }
 
-.menu__action {
-    transition-property: all;
-    transition-duration: 350ms;
-    transition-delay: 0ms;
-    animation-timing-function: ease-in-out;
-    height: 0px;
-    overflow: auto;
-}
-
-.menu__action--active {
-    height: 100%;
-}
-
 .menu__button {
   display: inline-block;
   text-align: center;
@@ -39,11 +26,6 @@
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-.menu__button:hover {
-  color: #fff;
-  background-color: #202030;
-}
-
 .menu__button:first-child {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -52,4 +34,22 @@
 .menu__button:last-child {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.menu__button:hover {
+  color: #fff;
+  background-color: #202030;
+}
+
+.menu__action {
+  transition-property: all;
+  transition-duration: 350ms;
+  transition-delay: 0ms;
+  animation-timing-function: ease-in-out;
+  height: 0px;
+  overflow: auto;
+}
+
+.menu__action--active {
+  height: 100%;
 }
