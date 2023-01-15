@@ -1,0 +1,51 @@
+.aside {
+    background-color: #202542;
+    padding: 1rem;
+    min-height: 100%;
+    border-right: 3px solid #292d4b;
+}
+
+.aside__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.aside__details {
+    display: flex;
+    align-items: center;
+}
+
+.aside__title {
+    margin-right: 8px;
+}
+
+.aside__input {
+    background-color: #24284b;
+    border: none;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    box-sizing: border-box;
+    color: inherit;
+}
+
+.aside__number {
+  padding: 0.3rem 0.7rem;
+  border-radius: 100px;
+  background-color: #ee6774;
+}
+
+.aside__button {
+    background-color: inherit;
+    border: none;
+    color: #afafaf;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.aside__button:hover {
+    color: white;
+}

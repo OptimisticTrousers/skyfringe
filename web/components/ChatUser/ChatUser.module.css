@@ -1,0 +1,71 @@
+.user {
+  background-color: #24284b;
+  padding: 1rem;
+  border-radius: 16px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.user:hover {
+  background-color: #406be1;
+}
+
+.user:hover .user__message {
+  color: white;
+}
+
+.user:hover .user__time {
+  color: white;
+}
+
+.user__container {
+  display: flex;
+  align-items: center;
+}
+
+.user__avatar {
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.user__details {
+  width: 100%;
+}
+
+.user__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.user__name {
+  margin: 0;
+}
+
+.user__time {
+  margin: 0;
+  color: #afafaf;
+  transition: all 0.15s ease;
+}
+
+.user__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user__message {
+  margin: 0;
+  color: #afafaf;
+  transition: all 0.15s ease;
+}
+
+.user__number {
+  padding: 0.3rem 0.7rem;
+  border-radius: 100px;
+  background-color: #ee6774;
+  margin: 0;
+}
