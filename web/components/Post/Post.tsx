@@ -6,11 +6,6 @@ import { BsBookmark } from "react-icons/bs";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineLike } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
-import { FaShareSquare } from "react-icons/fa";
-import { IoIosArrowDown } from "react-icons/io";
-import { TbArrowForward } from "react-icons/tb";
-import { RiArrowUpFill } from "react-icons/ri";
-import { RiArrowDownFill } from "react-icons/ri";
 import Card from "../Card/Card";
 import Comments from "../Comments/Comments";
 
