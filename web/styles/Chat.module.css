@@ -1,5 +1,5 @@
 .chat {
     display: grid;
     grid-template-columns: 1.25fr 3fr;
-    min-height: 100%;
+    height: 100%;
 }

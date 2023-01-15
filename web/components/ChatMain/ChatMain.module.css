@@ -1,0 +1,11 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.main__content {
+    padding: 1.3rem 2rem;
+    height: 598px;
+    overflow-y: scroll;
+}

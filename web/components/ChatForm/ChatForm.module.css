@@ -1,0 +1,37 @@
+.form {
+  margin-top: auto;
+  padding: 1.75rem 2rem;
+  background-color: #262837;
+  display: flex;
+  align-items: center;
+  border-top: 2px solid #373543;
+}
+
+.form__icon {
+  font-size: 2rem;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.form__input {
+  padding: 1.2rem;
+  border-radius: 8px;
+  background-color: #1f1c2d;
+  border: none;
+  width: 100%;
+  font-size: 1.5rem;
+  margin-right: 24px;
+  color: inherit;
+}
+
+.form__icon--send {
+  background-color: #416bdf;
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+.form__icon--send:hover {
+  background-color: #5762c8;
+  transform: scale(1.05);
+}

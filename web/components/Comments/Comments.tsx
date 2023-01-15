@@ -17,7 +17,7 @@ const Comments = () => {
         <input styleName="comments__input" placeholder="What's on your mind?" />
       </div>
       <p styleName="comments__text">
-        <span styleName="comments__allcomments">
+        <span styleName="comments__all">
           All comments
           <IoIosArrowDown styleName="comments__icon comments__icon--arrow" />
         </span>
