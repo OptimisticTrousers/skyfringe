@@ -4,22 +4,23 @@ import { AiOutlinePicture } from "react-icons/ai";
 import styles from "./CreatePost.module.css";
 import { BsEmojiHeartEyes } from "react-icons/bs";
 import Card from "../Card/Card";
+import { FcPlus } from "react-icons/fc";
 
 const CreatePost = () => {
   return (
-    <Card>
-      <div styleName="create__top">
-        <img src="/images/optimistictrousers.jpg" styleName="create__image" />
-        <input styleName="create__input" placeholder="What's on your mind?" />
-      </div>
-      <div styleName="create__bottom">
-        <div styleName="create__icons">
-          <AiOutlinePicture styleName="create__icon" />
-          <BsEmojiHeartEyes styleName="create__icon" />
+    <div styleName="create">
+      <Card>
+        <div styleName="create__container">
+          <FcPlus styleName="create__icon" />
+          <div styleName="create__text">
+            <h3 styleName="create__title">Create a Post</h3>
+            <p styleName="create__description">
+              What's on your mind, Tony? Write a post or upload a picture!
+            </p>
+          </div>
         </div>
-        <button styleName="create__button">Post</button>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 

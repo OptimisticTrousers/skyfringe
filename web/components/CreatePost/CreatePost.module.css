@@ -1,62 +1,34 @@
-.create__top {
+.create > div:hover{
+  background-color: rgb(12, 11, 9);
+  cursor: pointer;
+}
+
+.create__container {
   display: flex;
   align-items: center;
-}
-
-.create__image {
-  width: 50px;
-  height: 50px;
-  border-radius: 100px;
-  margin-left: 8px;
-  margin-right: 12px;
-  margin-top: 10px;
-}
-
-.create__input {
-  background-color: #28262e;
-  margin-top: 6px;
-  width: 91%;
-  box-sizing: border-box;
-  padding-left: 1.5rem;
-  height: 50px;
-  font-size: 1.1rem;
-  border-radius: 30px;
-  border: none;
-  color: inherit;
-}
-
-.create__bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.create__icons {
-  padding-top: 32px;
-  padding-left: 8px;
-  display: flex;
-  gap: 18px;
 }
 
 .create__icon {
-  width: 30px;
-  height: 30px;
+  width: 3rem;
+  height: 3rem;
+  margin-right: 12px;
 }
 
-.create__button {
-  background-color: #1f1e22;
-  color: inherit;
-  width: 114px;
-  height: 38px;
-  margin-right: 8px;
-  margin-top: 26px;
-  border: 2px solid #363542;
-  border-radius: 8px;
-  transition: all 0.15s ease-in-out;
-  cursor: pointer;
-  font-size: 1.1rem;
+.create__text {
+  display: flex;
+  flex-direction: column;
 }
 
-.create__button:hover {
-  background-color: #242526;
+.create__title {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.create__description {
+  margin-top: 0;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: rgb(107, 114, 128);
 }
