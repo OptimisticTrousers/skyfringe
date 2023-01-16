@@ -3,8 +3,9 @@
 }
 
 .settings__header {
-  position: relative;
+  position: absolute;
   height: 322px;
+  width: 100%;
 }
 
 .settings__button--banner {
@@ -18,23 +19,23 @@
   width: 190px;
   border-radius: 8px;
   color: inherit;
-  border: 3px solid #5a74d3;
+  border: 2px solid #121212;
   font-size: 1.1rem;
 }
 
 .settings__banner {
-  position: absolute;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .settings__grid {
   padding: 3.4rem;
+  padding-top: 226px;
+  position: relative;
   display: grid;
   grid-template-columns: 0.9fr 3fr;
   gap: 34px;
-  position: absolute;
-  top: 52%;
 }
 
 .settings__card {
@@ -133,7 +134,7 @@
 }
 
 .settings__label {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .settings__input {
@@ -146,11 +147,11 @@
 }
 
 .settings__button--update {
-    background-color: #4165e2;
-    margin-top: 1.5rem;
-    border: none;
-    padding: 1.4rem 2.8rem;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    color: inherit;
+  background-color: #4165e2;
+  margin-top: 1.5rem;
+  border: none;
+  padding: 1.4rem 2.8rem;
+  border-radius: 4px;
+  font-size: 1.1rem;
+  color: inherit;
 }

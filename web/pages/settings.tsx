@@ -47,9 +47,8 @@ const Settings = () => {
           <Card>
             <h3 styleName="settings__subtitle">Close account</h3>
             <p styleName="settings__description">
-              Once you delete your account, it cannot be retrieved. All traces
-              of you will be removed from odinbook, including likes, comments,
-              and posts. Proceed with caution.
+              By deleting your account, you will lose all of your data. This
+              action cannot be reversed.
             </p>
             <button styleName="settings__button--delete">Close Account</button>
           </Card>
