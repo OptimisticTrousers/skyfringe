@@ -3,6 +3,7 @@
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
+  padding: 3rem 4.3rem;
 }
 
 .home__menu {
@@ -20,5 +21,11 @@
 
   .home {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 840px) {
+  .home {
+    padding: 5rem 1rem 2rem;
   }
 }

@@ -3,7 +3,6 @@ import CSSModules from "react-css-modules";
 import CreatePost from "../components/CreatePost/CreatePost";
 import Post from "../components/Post/Post";
 import Suggestions from "../components/Suggestions/Suggestions";
-import Recent from "../components/Recent/Recent";
 import HomeFriends from "../components/HomeFriends/HomeFriends";
 import TopMenu from "../components/TopMenu/TopMenu";
 import SideFooter from "../components/SideFooter/SideFooter";

@@ -1,6 +1,7 @@
 .notifications {
-    max-width: 500px;
-    margin: 0 auto;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .notifications__title {
