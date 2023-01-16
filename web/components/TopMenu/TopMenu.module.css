@@ -5,6 +5,7 @@
 
 .menu__buttons {
   display: flex;
+  margin-bottom: 2rem;
 }
 
 .menu__button {
