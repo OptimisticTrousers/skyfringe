@@ -6,6 +6,7 @@ import Suggestions from "../components/Suggestions/Suggestions";
 import Recent from "../components/Recent/Recent";
 import HomeFriends from "../components/HomeFriends/HomeFriends";
 import TopMenu from "../components/TopMenu/TopMenu";
+import SideFooter from "../components/SideFooter/SideFooter";
 
 function Home() {
   return (
@@ -20,7 +21,8 @@ function Home() {
       </div>
       <aside styleName="home__right">
         <Suggestions />
-        <Recent />
+        {/* <Recent /> */}
+        <SideFooter />
       </aside>
     </div>
   );

@@ -1,0 +1,28 @@
+.footer {
+  text-align: center;
+}
+
+.footer__name {
+  margin-bottom: 0;
+  margin-bottom: 8px;
+  font-size: 2rem;
+}
+
+.footer__copyright {
+  margin-top: 0;
+  line-height: 1.25rem;
+  margin-bottom: 12px;
+  color: #E7E7E7;
+  font-size: 1.25rem;
+}
+
+.footer__icon {
+  height: 100px;
+  width: 100px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.footer__icon:hover {
+  opacity: 1;
+}
