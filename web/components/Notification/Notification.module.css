@@ -1,40 +1,37 @@
-.recent__title {
-  margin-top: 0;
-}
-
-.recent__activity {
+.notification__activity {
   background-color: #232223;
   background-color: #282929;
   border-radius: 16px;
   padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.recent__flex {
+.notification__flex {
   display: flex;
   align-items: center;
 }
 
-.recent__avatar {
+.notification__avatar {
   height: 100%;
   width: 60px;
   border-radius: 50%;
   margin-right: 16px;
 }
 
-.recent__name {
+.notification__name {
   margin-bottom: 0;
 }
 
-.recent__event {
+.notification__event {
   color: #88878f;
 }
 
-.recent__time {
+.notification__time {
   color: #cecf74;
   margin-left: 8px;
 }
 
-.recent__button {
+.notification__button {
   background-color: #fefe00;
   border: none;
   padding: 0.7rem 1.5rem;
@@ -45,6 +42,6 @@
   cursor: pointer;
 }
 
-.recent__button:hover {
+.notification__button:hover {
   background-color: #cecf74;
 }
