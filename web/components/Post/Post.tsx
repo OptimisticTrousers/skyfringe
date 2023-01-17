@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CSSModules from "react-css-modules";
 import styles from "./Post.module.css";
 import { BiTime } from "react-icons/bi";
@@ -8,8 +8,16 @@ import { AiOutlineLike } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import Card from "../Card/Card";
 import Comments from "../Comments/Comments";
+import MoreOptionsDropdown from "../MoreOptionsDropdown/MoreOptionsDropdown";
 
 const Post = () => {
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(prevValue => !prevValue)
+  }
+
   return (
     <Card>
       <div styleName="post__top">
@@ -25,7 +33,8 @@ const Post = () => {
         </div>
         <div styleName="post__actions">
           <BsBookmark styleName="post__icon post__icon--bookmark" />
-          <BsThreeDotsVertical styleName="post__icon post__icon--threedots" />
+          <BsThreeDotsVertical onClick={toggleDropdown} styleName="post__icon post__icon--threedots" />
+          {isDropdownOpen && <MoreOptionsDropdown />}
         </div>
       </div>
       <div styleName="post__content">
