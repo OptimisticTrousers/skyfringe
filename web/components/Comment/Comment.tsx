@@ -19,11 +19,11 @@ const Comment = () => {
             that contains ai generated content, but this is definitely not AI.
           </span>
           <div styleName="comment__actions">
-            <div styleName="comment__reply">
+            {/* <div styleName="comment__reply">
               <TbArrowForward styleName="comment__icon comment__icon--comment" />
               <span styleName="comment__name">Reply comment</span>
               <span styleName="comment__number">12</span>
-            </div>
+            </div> */}
             <div styleName="comment__votes">
               <div styleName="comment__vote">
                 <RiArrowUpFill styleName="comment__icon comment__icon--vote" />{" "}
