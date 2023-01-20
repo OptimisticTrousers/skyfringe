@@ -2,12 +2,16 @@ import React from "react";
 import CSSModules from "react-css-modules";
 import Card from "../components/Card/Card";
 import styles from "../styles/Settings.module.css";
+import {AiFillCamera} from "react-icons/ai";
+import {AiOutlineCamera} from "react-icons/ai";
 
 const Settings = () => {
   return (
     <div styleName="settings">
       <header styleName="settings__header">
         <button styleName="settings__button settings__button--banner">
+          <AiOutlineCamera styleName="settings__icon" />
+          {/* <AiFillCamera styleName="settings__icon" /> */}
           Change Cover
         </button>
         <img
