@@ -124,33 +124,36 @@
 @media(max-width: 1190px) {
   .profile__content {
     grid-template-columns: 1fr;
+    padding: 1rem;
   }
   .profile__friends {
     justify-items: center;
   }
+  .profile__card {
+    padding: 0;
+  }
+  .profile__friend {
+    width: 100%;
+    object-fit: cover;
+  }
 }
 
-@media(max-width: 490px) {
-  .profile__details {
-    bottom: -115px;
+@media(max-width: 820px) {
+  .profile {
+    margin-top: 6rem;
   }
-  .profile__content {
-    padding: 0.5rem;
-  }
-  .profile__friends {
-    grid-template-columns: 1fr 1fr;
-  }
+}
+
+@media(max-width: 420px) {
   .profile__list {
     display: block;
   }
-}
-
-@media(max-width: 300px) {
-  .profile__container {
-    display: block;
-  }
-  .profile__link {
-    margin-left: 0;
+  .profile__content {
     padding: 0;
+    padding-top: 2rem;
+  }
+  .profile__details {
+    bottom: -130px;
+    left: 8px;
   }
 }
