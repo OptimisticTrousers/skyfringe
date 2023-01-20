@@ -127,7 +127,6 @@ const Profile = () => {
         </aside>
         <div styleName="profile__main">
           <ul styleName="profile__list">
-            <li styleName="profile__item">Friends</li>
             <li styleName="profile__item">Your posts</li>
             <li styleName="profile__item">Liked posts</li>
             <li styleName="profile__item">Saved posts</li>

@@ -120,3 +120,37 @@
   height: 80px;
   border-radius: 8px;
 }
+
+@media(max-width: 1190px) {
+  .profile__content {
+    grid-template-columns: 1fr;
+  }
+  .profile__friends {
+    justify-items: center;
+  }
+}
+
+@media(max-width: 490px) {
+  .profile__details {
+    bottom: -115px;
+  }
+  .profile__content {
+    padding: 0.5rem;
+  }
+  .profile__friends {
+    grid-template-columns: 1fr 1fr;
+  }
+  .profile__list {
+    display: block;
+  }
+}
+
+@media(max-width: 300px) {
+  .profile__container {
+    display: block;
+  }
+  .profile__link {
+    margin-left: 0;
+    padding: 0;
+  }
+}
