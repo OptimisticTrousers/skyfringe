@@ -20,12 +20,13 @@
 
   .home {
     grid-template-columns: 1fr;
-    padding: 5rem 1rem 2rem;
+    padding: 1rem;
   }
 }
 
-@media (max-width: 840px) {
+@media (max-width: 820px) {
   .home {
-    padding: 5rem 0rem 2rem;
+    padding: 0;
+    margin-top: 6rem;
   }
 }
