@@ -10,13 +10,13 @@
 
 .settings__button--banner {
   position: absolute;
-  left: 85.5%;
+  left: 84%;
   top: 10%;
   z-index: 1;
   background-color: #2f4cb8;
   border: none;
   padding: 1.2rem 1rem;
-  width: 190px;
+  max-width: 190px;
   border-radius: 8px;
   color: inherit;
   border: 2px solid #121212;
@@ -154,4 +154,10 @@
   border-radius: 4px;
   font-size: 1.1rem;
   color: inherit;
+}
+
+@media(max-width: 1070px) {
+  .settings__grid {
+    grid-template-columns: 1fr;
+  }
 }
