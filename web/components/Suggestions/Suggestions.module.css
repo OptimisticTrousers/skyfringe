@@ -10,7 +10,7 @@
 }
 
 .suggestions__link {
-  color: #a875ff;
+  color: rgb(59, 130, 246);
   font-size: 1.2rem;
   cursor: pointer;
 }
@@ -31,7 +31,7 @@
 }
 
 .suggestions__link:hover {
-  color: #d2bcff;
+  filter: brightness(0.8);
 }
 
 .suggestions__avatar {
@@ -58,12 +58,12 @@
 }
 
 .suggestions__button--follow {
-  background-color: #a875ff;
+  background-color: rgb(59, 130, 246);
   color: inherit;
 }
 
 .suggestions__button--follow:hover {
-  background-color: #8346e0;
+  background-color: rgb(37, 99, 235);
 }
 
 .suggestions__button--followed {
