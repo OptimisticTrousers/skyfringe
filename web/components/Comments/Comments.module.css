@@ -18,7 +18,7 @@
 }
 
 .comments__avatar--comments {
-  margin-right: auto;
+  margin-right: 12px;
 }
 
 .comments__input {
@@ -53,4 +53,14 @@
 .comments__gray {
   color: #88878f;
   margin-right: 8px;
+}
+
+@media(max-width: 430px) {
+  .comments {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .comments__input {
+    font-size: 0.9rem;
+  }
 }

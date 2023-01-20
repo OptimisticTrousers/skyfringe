@@ -68,3 +68,17 @@
 .comment__icon--vote {
   margin-right: 8px;
 }
+
+@media (max-width: 400px) {
+  .comment__container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .comment__avatar {
+    width: 80px;
+    margin-bottom: 1rem;
+  }
+  .comment__actions {
+    justify-content: center;
+  }
+}

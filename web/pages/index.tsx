@@ -17,7 +17,7 @@ function Home() {
           <div styleName="home__menu">
             <TopMenu />
           </div>
-          <HomeFriends />
+          {/* <HomeFriends /> */}
           <CreatePost />
           <Post />
         </div>

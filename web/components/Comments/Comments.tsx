@@ -21,10 +21,10 @@ const Comments = () => {
           All comments
           <IoIosArrowDown styleName="comments__icon comments__icon--arrow" />
         </span>
-        <span styleName="comments__filter">
+        {/* <span styleName="comments__filter">
           <span styleName="comments__gray">Sort by</span>
           Most popular
-        </span>
+        </span> */}
       </p>
       <Comment />
     </section>
