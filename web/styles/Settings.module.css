@@ -116,11 +116,18 @@
   color: inherit;
   width: 100%;
   font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.settings__button--view:hover {
+  background-color: #2d313f;
 }
 
 .settings__subtitle {
   border-bottom: 1px solid #e5e6ea;
   padding-bottom: 1rem;
+  margin-top: 0;
+  font-size: 1.5rem;
 }
 
 .settings__description {
@@ -172,10 +179,15 @@
   background-color: #4165e2;
   margin-top: 1.5rem;
   border: none;
-  padding: 1.4rem 2.8rem;
+  padding: 1rem 2.8rem;
   border-radius: 4px;
   font-size: 1.1rem;
   color: inherit;
+  cursor: pointer;
+}
+
+.settings__button--update:hover {
+  filter: brightness(0.9)
 }
 
 @media(max-width: 1370px) {
