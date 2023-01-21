@@ -1,33 +1,38 @@
 .aside {
-    background-color: #202542;
-    padding: 1rem;
-    border-right: 3px solid #292d4b;
+  background-color: #202542;
+  padding: 1rem;
+  border-right: 3px solid #292d4b;
+  display: none;
+}
+
+.aside--appear {
+  display: block;
 }
 
 .aside__top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .aside__details {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .aside__title {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
 .aside__input {
-    background-color: #24284b;
-    border: none;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    width: 100%;
-    border-radius: 12px;
-    box-sizing: border-box;
-    color: inherit;
+  background-color: #24284b;
+  border: none;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  width: 100%;
+  border-radius: 12px;
+  box-sizing: border-box;
+  color: inherit;
 }
 
 .aside__number {
@@ -37,14 +42,20 @@
 }
 
 .aside__button {
-    background-color: inherit;
-    border: none;
-    color: #afafaf;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.15s ease;
+  background-color: inherit;
+  border: none;
+  color: #afafaf;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 .aside__button:hover {
-    color: white;
+  color: white;
+}
+
+@media(min-width: 1390px) {
+    .aside {
+        display: block;
+    }
 }

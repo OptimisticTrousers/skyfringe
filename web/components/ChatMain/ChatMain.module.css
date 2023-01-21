@@ -1,11 +1,21 @@
 .main {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main--appear {
+    display: flex !important;
 }
 
 .main__content {
-    padding: 1.3rem 2rem;
-    height: 598px;
-    overflow-y: scroll;
+  padding: 1.3rem 2rem;
+  height: 598px;
+  overflow-y: scroll;
+}
+
+@media (max-width: 1390px) {
+  .main {
+    display: none;
+  }
 }

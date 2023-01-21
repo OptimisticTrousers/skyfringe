@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import CSSModules from "react-css-modules";
+import { ChatContext } from "../../context/ChatProvider";
 import styles from "./ChatUser.module.css";
 
 const ChatUser = () => {
+  const { toggleAside } = useContext(ChatContext);
+
   return (
-    <div styleName="user">
+    <div styleName="user" onClick={toggleAside}>
       <div styleName="user__container">
         <img src="/images/optimistictrousers.jpg" styleName="user__avatar" />
         <div styleName="user__details">

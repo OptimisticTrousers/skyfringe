@@ -13,7 +13,7 @@ interface ChatContext {
 export const ChatContext = createContext<ChatContext>({} as ChatContext);
 
 export const ChatProvider: FC<Props> = ({ children }) => {
-  const [isAsideOpen, setIsAsideOpen] = useState(false);
+  const [isAsideOpen, setIsAsideOpen] = useState(true);
 
   const toggleAside = () => {
     setIsAsideOpen((prevValue) => !prevValue);

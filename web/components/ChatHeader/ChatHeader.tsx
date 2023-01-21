@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import CSSModules from "react-css-modules";
 import styles from "./ChatHeader.module.css";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import {AiFillInfoCircle} from "react-icons/ai";
+import { AiFillInfoCircle } from "react-icons/ai";
+import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import { ChatContext } from "../../context/ChatProvider";
 
 const ChatHeader = () => {
+
+  const {isAsideOpen, toggleAside} = useContext(ChatContext);
+
   return (
     <header styleName="header">
       <div styleName="header__flex">
+        <MdOutlineArrowBackIosNew styleName="header__icon header__icon--back" onClick={toggleAside}/>
         <img src="/images/optimistictrousers.jpg" styleName="header__avatar" />
         <div styleName="header__text">
           <h3 styleName="header__name">Ada Vishneva</h3>

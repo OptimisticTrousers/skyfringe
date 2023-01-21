@@ -1,12 +1,15 @@
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import CSSModules from "react-css-modules";
+import { ChatContext } from "../../context/ChatProvider";
 import ChatUser from "../ChatUser/ChatUser";
 import styles from "./ChatAside.module.css";
 
 const ChatAside = () => {
+  const { isAsideOpen } = useContext(ChatContext);
+
   return (
-    <aside styleName="aside">
+    <aside styleName={`aside ${isAsideOpen && "aside--appear"}`}>
       <div styleName="aside__top">
         <div styleName="aside__details">
           <h2 styleName="aside__title">Messages</h2>
