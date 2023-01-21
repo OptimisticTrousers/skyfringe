@@ -10,9 +10,9 @@ interface ChatContext {
 }
 
 // Create an instance of React Context
-const ChatContext = createContext<ChatContext>({} as ChatContext);
+export const ChatContext = createContext<ChatContext>({} as ChatContext);
 
-const ChatProvider: FC<Props> = ({ children }) => {
+export const ChatProvider: FC<Props> = ({ children }) => {
   const [isAsideOpen, setIsAsideOpen] = useState(false);
 
   const toggleAside = () => {
@@ -25,5 +25,3 @@ const ChatProvider: FC<Props> = ({ children }) => {
     </ChatContext.Provider>
   );
 };
-
-export default ChatProvider;
