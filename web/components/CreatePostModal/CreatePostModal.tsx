@@ -5,14 +5,14 @@ import styles from "./CreatePostModal.module.css";
 import { FcGallery } from "react-icons/fc";
 
 interface Props {
-  title: string;
+  toggleModal: () => void;
 }
 
-const CreatePostModal = () => {
+const CreatePostModal: FC<Props> = ({toggleModal}) => {
   return (
     <div styleName="modal">
       <form styleName="modal__form">
-        <button styleName="modal__button modal__button--exit">
+        <button styleName="modal__button modal__button--exit" type="button" onClick={toggleModal}>
           <AiFillCloseSquare styleName="modal__icon" />
         </button>
         <div styleName="modal__title-bar">

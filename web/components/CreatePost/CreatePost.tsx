@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlinePicture } from "react-icons/ai";
 import styles from "./CreatePost.module.css";
@@ -6,9 +6,13 @@ import { BsEmojiHeartEyes } from "react-icons/bs";
 import Card from "../Card/Card";
 import { FcPlus } from "react-icons/fc";
 
-const CreatePost = () => {
+interface Props {
+  toggleModal: () => void;
+}
+
+const CreatePost: FC<Props> = ({ toggleModal }) => {
   return (
-    <div styleName="create">
+    <div styleName="create" onClick={toggleModal}>
       <Card>
         <div styleName="create__container">
           <FcPlus styleName="create__icon" />

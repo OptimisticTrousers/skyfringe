@@ -7,8 +7,14 @@ import HomeFriends from "../components/HomeFriends/HomeFriends";
 import TopMenu from "../components/TopMenu/TopMenu";
 import SideFooter from "../components/SideFooter/SideFooter";
 import CreatePostModal from "../components/CreatePostModal/CreatePostModal";
+import { useState } from "react";
 
 function Home() {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsCreateModalOpen((prevValue) => !prevValue);
+  };
 
   return (
     <>
@@ -18,7 +24,7 @@ function Home() {
             <TopMenu />
           </div>
           {/* <HomeFriends /> */}
-          <CreatePost />
+          <CreatePost toggleModal={toggleModal} />
           <Post />
         </div>
         <aside styleName="home__right">
@@ -27,7 +33,7 @@ function Home() {
           <SideFooter />
         </aside>
       </div>
-      <CreatePostModal />
+      {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} />}
     </>
   );
 }
