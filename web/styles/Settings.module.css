@@ -47,7 +47,7 @@
 }
 
 .settings__grid {
-  padding: 3.4rem;
+  padding: 3.4rem 2rem;
   padding-top: 226px;
   position: relative;
   display: grid;
@@ -187,20 +187,20 @@
 }
 
 .settings__button--update:hover {
-  filter: brightness(0.9)
+  filter: brightness(0.9);
 }
 
-@media(max-width: 1370px) {
+@media (max-width: 1300px) {
   .settings__grid {
     grid-template-columns: 1fr;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem;
+  }
+  .settings__form {
+    grid-template-columns: 1fr;
   }
 }
 
-@media(max-width: 820px) {
-  .settings__form {
+@media (max-width: 820px) {
+  .settings__grid {
     grid-template-columns: 1fr;
   }
   .settings__button--banner {
@@ -211,14 +211,14 @@
   }
 }
 
-@media(max-width: 380px) {
+@media (max-width: 380px) {
   .settings__form {
     padding: 0;
     padding-top: 1rem;
   }
   .settings__grid {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 0rem;
+    padding-right: 0rem;
     padding-bottom: 0;
   }
 }
