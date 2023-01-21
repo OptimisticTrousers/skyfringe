@@ -57,7 +57,7 @@
 }
 
 .aside__icon--exit:hover {
-  color: #8f5f5f;
+  color: rgb(59, 130, 246);
   transform: scale(1.075);
 }
 

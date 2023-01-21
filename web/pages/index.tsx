@@ -6,7 +6,7 @@ import Suggestions from "../components/Suggestions/Suggestions";
 import HomeFriends from "../components/HomeFriends/HomeFriends";
 import TopMenu from "../components/TopMenu/TopMenu";
 import SideFooter from "../components/SideFooter/SideFooter";
-import Modal from "../components/Modal/Modal";
+import CreatePostModal from "../components/CreatePostModal/CreatePostModal";
 
 function Home() {
 
@@ -27,6 +27,7 @@ function Home() {
           <SideFooter />
         </aside>
       </div>
+      <CreatePostModal />
     </>
   );
 }

@@ -1,14 +1,14 @@
 import React, { FC } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillCloseSquare } from "react-icons/ai";
-import styles from "./Modal.module.css";
-import {FcGallery} from "react-icons/fc";
+import styles from "./CreatePostModal.module.css";
+import { FcGallery } from "react-icons/fc";
 
 interface Props {
   title: string;
 }
 
-const Modal = () => {
+const CreatePostModal = () => {
   return (
     <div styleName="modal">
       <form styleName="modal__form">
@@ -26,29 +26,28 @@ const Modal = () => {
           </div>
         </div>
         <div styleName="modal__content">
-          <textarea styleName="modal__textarea" placeholder="What's cooking, Bob?"></textarea>
+          <textarea
+            styleName="modal__textarea"
+            placeholder="What's cooking, Bob?"
+          ></textarea>
         </div>
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <div styleName="modal__emoji">
-              🙂
-            </div>
+            <div styleName="modal__emoji">🙂</div>
             <label styleName="modal__label">
-              <input type="file"styleName="modal__file" />
+              <input type="file" styleName="modal__file" />
               <FcGallery styleName="modal__icon modal__icon--gallery" />
               Add picture
             </label>
           </div>
-          <button styleName="modal__button modal__button--submit">
-            Post
-          </button>
+          <button styleName="modal__button modal__button--submit">Post</button>
         </div>
       </form>
     </div>
   );
 };
 
-export default CSSModules(Modal, styles, {
+export default CSSModules(CreatePostModal, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
 });
