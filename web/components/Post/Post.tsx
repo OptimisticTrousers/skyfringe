@@ -11,12 +11,16 @@ import Comments from "../Comments/Comments";
 import MoreOptionsDropdown from "../MoreOptionsDropdown/MoreOptionsDropdown";
 
 const Post = () => {
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+
+  const toggleComments = () => {
+    setIsCommentsOpen((prevValue) => !prevValue);
+  };
 
   const toggleDropdown = () => {
-    setIsDropdownOpen(prevValue => !prevValue)
-  }
+    setIsDropdownOpen((prevValue) => !prevValue);
+  };
 
   return (
     <Card>
@@ -33,7 +37,10 @@ const Post = () => {
         </div>
         <div styleName="post__actions">
           <BsBookmark styleName="post__icon post__icon--bookmark" />
-          <BsThreeDotsVertical onClick={toggleDropdown} styleName="post__icon post__icon--threedots" />
+          <BsThreeDotsVertical
+            onClick={toggleDropdown}
+            styleName="post__icon post__icon--threedots"
+          />
           {isDropdownOpen && <MoreOptionsDropdown />}
         </div>
       </div>
@@ -51,14 +58,13 @@ const Post = () => {
           <span styleName="post__name">Liked post</span>
           <span styleName="post__number">1</span>
         </div>
-        <div styleName="post__control">
+        <div styleName="post__control" onClick={toggleComments}>
           <BiCommentDetail styleName="post__icon post__icon--control" />
           <span styleName="post__name">Comment</span>
           <span styleName="post__number">45</span>
         </div>
       </div>
-      <Comments />
-      <p styleName="post__view">View all comments</p>
+      <>{isCommentsOpen && <Comments />}</>
     </Card>
   );
 };

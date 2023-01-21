@@ -1,5 +1,5 @@
 .post__top {
-  --icon-hover: #ff79c6;
+  --icon-hover: rgb(59, 130, 246);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -97,21 +97,24 @@
 }
 
 .post__control:hover {
-  color: var(--icon-hover);
 }
 
 .post__icon--control {
   margin-right: 8px;
+  color: inherit;
+  color: var(--icon-hover);
 }
 
 .post__name {
   margin-right: 4px;
+  color: inherit;
 }
 
 .post__number {
   padding: 0.3rem 0.7rem;
   border-radius: 100px;
   background-color: #292631;
+  color: inherit;
 }
 
 .post__view {
