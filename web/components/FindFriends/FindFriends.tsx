@@ -5,7 +5,7 @@ import styles from "../../styles/Friends.module.css";
 
 const FindFriends = () => {
   return (
-    <div styleName="friend">
+    <div styleName="friend" id="find">
       <Card>
         <h2 styleName="friend__title">All Other Users = make new friends!</h2>
         <input styleName="friend__input" placeholder="Search Users" />

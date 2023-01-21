@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import CSSModules from "react-css-modules";
 import Card from "../Card/Card";
@@ -8,7 +9,9 @@ const Suggestions = () => {
     <Card>
       <div styleName="suggestions__text">
         <h2 styleName="suggestions__title">Suggestions For You</h2>
-        <a styleName="suggestions__link">See All</a>
+        <Link href="/friends#find" styleName="suggestions__link">
+          See All
+        </Link>
       </div>
       <div styleName="suggestions__suggestion">
         <div styleName="suggestions__user">
