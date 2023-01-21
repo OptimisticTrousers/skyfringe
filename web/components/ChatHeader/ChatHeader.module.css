@@ -41,3 +41,9 @@
 .header__icon:hover {
   color: #a1a2bd;
 }
+
+@media(min-width: 1391px) {
+  .header__icon--back {
+    display: none;
+  }
+}

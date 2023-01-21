@@ -13,7 +13,7 @@ const ChatHeader = () => {
   return (
     <header styleName="header">
       <div styleName="header__flex">
-        <MdOutlineArrowBackIosNew styleName="header__icon header__icon--back" onClick={toggleAside}/>
+        {!isAsideOpen && <MdOutlineArrowBackIosNew styleName="header__icon header__icon--back" onClick={toggleAside}/>}
         <img src="/images/optimistictrousers.jpg" styleName="header__avatar" />
         <div styleName="header__text">
           <h3 styleName="header__name">Ada Vishneva</h3>

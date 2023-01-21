@@ -5,7 +5,7 @@ import styles from "../../styles/Friends.module.css";
 
 const CurrentFriends = () => {
   return (
-    <div styleName="friend">
+    <div styleName="friend" id="current">
       <Card>
         <h2 styleName="friend__title">Current Friends</h2>
         <div styleName="friend__flex">
