@@ -27,6 +27,7 @@ function Home() {
           {/* <HomeFriends /> */}
           <CreatePost toggleModal={toggleModal} />
           <SkeletonPost />
+          <Post />
         </div>
         <aside styleName="home__right">
           <Suggestions />
