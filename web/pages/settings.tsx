@@ -5,9 +5,11 @@ import styles from "../styles/Settings.module.css";
 import { AiFillCamera } from "react-icons/ai";
 import { AiOutlineCamera } from "react-icons/ai";
 import DeletePostModal from "../components/DeletePostModal/DeletePostModal";
+import ChangePictureModal from "../components/ChangePictureModal/ChangePictureModal";
 
 const Settings = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isChangeProfileModalOpen, setIsChangeProfileModalOpen] = useState(false);
 
   const toggleModal = () => {
     setIsDeleteModalOpen((prevValue) => !prevValue);

@@ -34,9 +34,9 @@ a {
 
 @keyframes skeleton-loading {
   0% {
-    background-color: hsl(200, 20%, 70%);
+    background: #272729;
   }
   100% {
-    background-color: hsl(200, 20%, 95%);
+    background: #343536;
   }
 }
