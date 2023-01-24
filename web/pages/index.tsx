@@ -9,6 +9,7 @@ import SideFooter from "../components/SideFooter/SideFooter";
 import CreatePostModal from "../components/CreatePostModal/CreatePostModal";
 import { useState } from "react";
 import SkeletonPost from "../components/skeletons/SkeletonPost/SkeletonPost";
+import EditPostModal from "../components/EditPostModal/EditPostModal";
 
 function Home() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -36,6 +37,7 @@ function Home() {
         </aside>
       </div>
       {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} />}
+      <EditPostModal />
     </>
   );
 }
