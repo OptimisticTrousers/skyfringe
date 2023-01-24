@@ -78,3 +78,12 @@
     background-color: hsl(200, 20%, 95%);
   }
 }
+
+@media (max-width: 440px) {
+  .skeleton__controls {
+    justify-content: space-between;
+  }
+  .skeleton__control {
+    width: 100px;
+  }
+}
