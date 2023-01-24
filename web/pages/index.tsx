@@ -8,6 +8,7 @@ import TopMenu from "../components/TopMenu/TopMenu";
 import SideFooter from "../components/SideFooter/SideFooter";
 import CreatePostModal from "../components/CreatePostModal/CreatePostModal";
 import { useState } from "react";
+import SkeletonPost from "../components/skeletons/SkeletonPost/SkeletonPost";
 
 function Home() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -25,7 +26,7 @@ function Home() {
           </div>
           {/* <HomeFriends /> */}
           <CreatePost toggleModal={toggleModal} />
-          <Post />
+          <SkeletonPost />
         </div>
         <aside styleName="home__right">
           <Suggestions />
