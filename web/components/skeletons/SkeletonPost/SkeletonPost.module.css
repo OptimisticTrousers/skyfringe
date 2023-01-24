@@ -42,11 +42,13 @@
 .skeleton__content {
 }
 
-.skeleton__content > .skeleton__text {
+.skeleton__description {
+  width: 100%;
+  margin-bottom: 0.35rem;
   height: 16px;
 }
 
-.skeleton__content > .skeleton__text:last-child {
+.skeleton__description--last {
   margin-bottom: 0;
   width: 80%;
 }
@@ -64,7 +66,7 @@
 }
 
 .skeleton__control {
-  height: 24px;
+  height: 28px;
   width: 160px;
 }
 

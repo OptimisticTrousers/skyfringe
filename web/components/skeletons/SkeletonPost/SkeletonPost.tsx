@@ -18,15 +18,15 @@ const SkeletonPost = () => {
         <div styleName="skeleton__actions skeleton"></div>
       </div>
       <div styleName="skeleton__content">
-        <div styleName="skeleton__text skeleton"></div>
-        <div styleName="skeleton__text skeleton"></div>
-        <div styleName="skeleton__text skeleton"></div>
-        <div styleName="skeleton__text skeleton"></div>
+        <div styleName="skeleton__description skeleton"></div>
+        <div styleName="skeleton__description skeleton"></div>
+        <div styleName="skeleton__description skeleton"></div>
+        <div styleName="skeleton__description skeleton__description--last skeleton"></div>
         <div styleName="skeleton__image skeleton"></div>
-        {/* <div styleName="skeleton__controls">
+        <div styleName="skeleton__controls">
           <div styleName="skeleton__control skeleton"></div>
           <div styleName="skeleton__control skeleton"></div>
-        </div> */}
+        </div>
       </div>
     </Card>
   );
