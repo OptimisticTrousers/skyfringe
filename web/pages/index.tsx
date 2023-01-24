@@ -37,7 +37,6 @@ function Home() {
         </aside>
       </div>
       {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} />}
-      <EditPostModal />
     </>
   );
 }

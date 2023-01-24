@@ -1,6 +1,7 @@
 .modal {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .modal__author-bar {

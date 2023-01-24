@@ -7,15 +7,16 @@ import { AiFillCloseSquare } from "react-icons/ai";
 interface Props {
   children: JSX.Element[] | JSX.Element;
   title: string;
+  toggleModal: () => void;
 }
 
-const ModalContainer: FC<Props> = ({ children, title }) => {
+const ModalContainer: FC<Props> = ({ children, title, toggleModal }) => {
   useDisableScroll();
   return (
     <div styleName="modal">
       <div styleName="modal__container">
         <header styleName="modal__header">
-          <button styleName="modal__button">
+          <button styleName="modal__button" onClick={toggleModal}>
             <AiFillCloseSquare styleName="modal__icon" />
           </button>
           <div styleName="modal__title-bar">

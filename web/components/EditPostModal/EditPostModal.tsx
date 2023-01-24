@@ -1,12 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
 import ModalContainer from "../ModalContainer/ModalContainer";
 import styles from "./EditPostModal.module.css";
 
-const EditPostModal = () => {
+interface Props {
+  toggleModal: () => void;
+}
+
+const EditPostModal: FC<Props> = ({ toggleModal }) => {
   return (
-    <ModalContainer title="Edit Post">
+    <ModalContainer title="Edit Post" toggleModal={toggleModal}>
       <form styleName="modal">
         <div styleName="modal__author-bar">
           <img src="/images/optimistictrousers.jpg" styleName="modal__avatar" />
@@ -30,7 +34,7 @@ const EditPostModal = () => {
               Add picture
             </label>
           </div>
-          <button styleName="modal__button">Post</button>
+          <button styleName="modal__button">Save</button>
         </div>
       </form>
     </ModalContainer>

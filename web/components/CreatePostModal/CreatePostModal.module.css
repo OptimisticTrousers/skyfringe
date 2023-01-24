@@ -13,16 +13,9 @@
 }
 
 .modal__form {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 4px 4px 20px rgb(0 0 0 / 30%);
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  min-height: min(100%, 428px);
-  min-width: 310px;
-  position: relative;
-  width: min(100%, 500px);
+  flex: 1;
 }
 
 .modal__button--exit {
