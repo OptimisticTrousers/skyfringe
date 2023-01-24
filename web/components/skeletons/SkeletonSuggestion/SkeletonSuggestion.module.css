@@ -1,0 +1,30 @@
+.skeleton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.skeleton__details {
+  display: flex;
+  align-items: center;
+}
+
+.skeleton__avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 9999px;
+  margin-right: 1rem;
+}
+
+.skeleton__text {
+  width: 100px;
+  height: 20px;
+  border-radius: 0.25rem;
+}
+
+.skeleton__button {
+  width: 140px;
+  height: 32px;
+}

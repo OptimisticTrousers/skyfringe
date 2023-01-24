@@ -26,3 +26,17 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+  border-radius: 0.25rem;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}

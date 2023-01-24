@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import CSSModules from "react-css-modules";
 import Card from "../Card/Card";
+import SkeletonSuggestion from "../skeletons/SkeletonSuggestion/SkeletonSuggestion";
 import styles from "./Suggestions.module.css";
 
 const Suggestions = () => {
@@ -13,6 +14,7 @@ const Suggestions = () => {
           See All
         </Link>
       </div>
+      <SkeletonSuggestion />
       <div styleName="suggestions__suggestion">
         <div styleName="suggestions__user">
           <img
