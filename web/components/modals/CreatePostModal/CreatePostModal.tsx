@@ -3,7 +3,6 @@ import CSSModules from "react-css-modules";
 import { AiFillCloseSquare } from "react-icons/ai";
 import styles from "./CreatePostModal.module.css";
 import { FcGallery } from "react-icons/fc";
-import useDisableScroll from "../../hooks/useDisableScroll";
 import ModalContainer from "../ModalContainer/ModalContainer";
 
 interface Props {

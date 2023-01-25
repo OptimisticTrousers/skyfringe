@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import CSSModules from "react-css-modules";
 import styles from "./ModalContainer.module.css";
-import useDisableScroll from "../../hooks/useDisableScroll";
 import { AiFillCloseSquare } from "react-icons/ai";
+import useDisableScroll from "../../../hooks/useDisableScroll";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;

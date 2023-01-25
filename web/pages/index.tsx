@@ -6,10 +6,10 @@ import Suggestions from "../components/Suggestions/Suggestions";
 import HomeFriends from "../components/HomeFriends/HomeFriends";
 import TopMenu from "../components/TopMenu/TopMenu";
 import SideFooter from "../components/SideFooter/SideFooter";
-import CreatePostModal from "../components/CreatePostModal/CreatePostModal";
+import CreatePostModal from "../components/modals/CreatePostModal/CreatePostModal";
 import { useState } from "react";
 import SkeletonPost from "../components/skeletons/SkeletonPost/SkeletonPost";
-import EditPostModal from "../components/EditPostModal/EditPostModal";
+import EditPostModal from "../components/modals/EditPostModal/EditPostModal";
 
 function Home() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);

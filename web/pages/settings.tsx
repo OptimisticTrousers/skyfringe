@@ -4,8 +4,8 @@ import Card from "../components/Card/Card";
 import styles from "../styles/Settings.module.css";
 import { AiFillCamera } from "react-icons/ai";
 import { AiOutlineCamera } from "react-icons/ai";
-import DeletePostModal from "../components/DeletePostModal/DeletePostModal";
-import ChangePictureModal from "../components/ChangePictureModal/ChangePictureModal";
+import DeletePostModal from "../components/modals/DeletePostModal/DeletePostModal";
+import ChangePictureModal from "../components/modals/ChangePictureModal/ChangePictureModal";
 
 const Settings = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
