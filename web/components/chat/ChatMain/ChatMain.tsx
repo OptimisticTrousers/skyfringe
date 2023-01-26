@@ -3,7 +3,7 @@ import { useContext } from "react";
 import ChatForm from "../ChatForm";
 import ChatHeader from "../ChatHeader";
 import ChatMessage from "../ChatMessage";
-import { ChatContext } from "../../../context/ChatProvider";
+import { ChatContext } from "../../../context/ChatContext";
 import styles from "./ChatMain.module.css";
 
 const ChatMain = () => {

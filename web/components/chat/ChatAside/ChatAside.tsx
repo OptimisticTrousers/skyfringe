@@ -1,7 +1,7 @@
 import CSSModules from "react-css-modules";
 import { useContext } from "react";
 import ChatUser from "../ChatUser";
-import { ChatContext } from "../../../context/ChatProvider";
+import { ChatContext } from "../../../context/ChatContext";
 import styles from "./ChatAside.module.css";
 
 const ChatAside = () => {

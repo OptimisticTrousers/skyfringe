@@ -2,7 +2,7 @@ import CSSModules from "react-css-modules";
 import { useContext } from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
-import { ChatContext } from "../../../context/ChatProvider";
+import { ChatContext } from "../../../context/ChatContext";
 import styles from "./ChatHeader.module.css";
 
 const ChatHeader = () => {
