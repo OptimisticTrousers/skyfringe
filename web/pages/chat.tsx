@@ -1,7 +1,5 @@
-import React from "react";
 import CSSModules from "react-css-modules";
-import ChatAside from "../components/ChatAside/ChatAside";
-import ChatMain from "../components/ChatMain/ChatMain";
+import { ChatAside, ChatMain } from "../components/chat";
 import { ChatProvider } from "../context/ChatProvider";
 import styles from "../styles/Chat.module.css";
 

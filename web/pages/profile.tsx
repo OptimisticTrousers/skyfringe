@@ -1,7 +1,6 @@
-import React from "react";
 import CSSModules from "react-css-modules";
-import Card from "../components/Card/Card";
-import Post from "../components/Post/Post";
+import { Post } from "../components/common";
+import { Card } from "../components/ui";
 import styles from "../styles/Profile.module.css";
 
 const Profile = () => {

@@ -1,0 +1,9 @@
+export { default as Aside } from "./Aside";
+export { default as Comment } from "./Comment";
+export { default as Comments } from "./Comments";
+export { default as CreatePost } from "./CreatePost";
+export { default as Layout } from "./Layout";
+export { default as Post } from "./Post";
+export { default as SideFooter } from "./SideFooter";
+export { default as Suggestions } from "./Suggestions";
+export { default as TopMenu } from "./TopMenu";

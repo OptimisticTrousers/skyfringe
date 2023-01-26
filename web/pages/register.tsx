@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CSSModules from "react-css-modules";
 import styles from "../styles/Auth.module.css";
 

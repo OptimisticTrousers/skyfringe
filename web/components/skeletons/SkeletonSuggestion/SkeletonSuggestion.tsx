@@ -1,6 +1,4 @@
-import React from "react"
-import CSSModules from "react-css-modules"
-import Card from "../../Card/Card";
+import CSSModules from "react-css-modules";
 import styles from "./SkeletonSuggestion.module.css";
 
 const SkeletonSuggestion = () => {
@@ -12,10 +10,10 @@ const SkeletonSuggestion = () => {
       </div>
       <div styleName="skeleton__button" className="skeleton"></div>
     </div>
-  )
-}
+  );
+};
 
 export default CSSModules(SkeletonSuggestion, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "ignore"
-})
+  handleNotFoundStyleName: "ignore",
+});

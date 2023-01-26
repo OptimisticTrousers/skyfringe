@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import CSSModules from "react-css-modules";
+import ModalContainer from "../ModalContainer";
 import styles from "./DeletePostModal.module.css";
-import ModalContainer from "../ModalContainer/ModalContainer";
 
 interface Props {
   toggleModal: () => void;

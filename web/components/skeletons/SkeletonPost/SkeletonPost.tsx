@@ -1,8 +1,6 @@
-import React from "react";
-import styles from "./SkeletonPost.module.css";
-import postStyles from "../../Post/Post.module.css";
 import CSSModules from "react-css-modules";
-import Card from "../../Card/Card";
+import { Card } from "../../ui";
+import styles from "./SkeletonPost.module.css";
 
 const SkeletonPost = () => {
   return (

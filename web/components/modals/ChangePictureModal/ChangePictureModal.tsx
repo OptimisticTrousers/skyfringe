@@ -1,10 +1,9 @@
-import React, { FC } from "react";
 import CSSModules from "react-css-modules";
-import { AiFillCloseSquare } from "react-icons/ai";
+import { FC } from "react";
 import { FcGallery } from "react-icons/fc";
-import ModalContainer from "../ModalContainer/ModalContainer";
+import { VscClose } from "react-icons/vsc";
+import ModalContainer from "../ModalContainer";
 import styles from "./ChangePictureModal.module.css";
-import {VscClose} from "react-icons/vsc";
 
 interface Props {
   toggleModal: () => void;

@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
-import ModalContainer from "../ModalContainer/ModalContainer";
+import ModalContainer from "../ModalContainer";
 import styles from "./EditPostModal.module.css";
 
 interface Props {

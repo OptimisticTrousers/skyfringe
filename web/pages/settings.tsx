@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CSSModules from "react-css-modules";
-import Card from "../components/Card/Card";
+import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
+import { DeletePostModal } from "../components/modals";
+import { Card } from "../components/ui";
 import styles from "../styles/Settings.module.css";
-import { AiFillCamera } from "react-icons/ai";
-import { AiOutlineCamera } from "react-icons/ai";
-import DeletePostModal from "../components/modals/DeletePostModal/DeletePostModal";
-import ChangePictureModal from "../components/modals/ChangePictureModal/ChangePictureModal";
 
 const Settings = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isChangeProfileModalOpen, setIsChangeProfileModalOpen] = useState(false);
+  const [isChangeProfileModalOpen, setIsChangeProfileModalOpen] =
+    useState(false);
 
   const toggleModal = () => {
     setIsDeleteModalOpen((prevValue) => !prevValue);
@@ -115,7 +114,7 @@ const Settings = () => {
           </div>
         </div>
       </div>
-      {isDeleteModalOpen && <DeletePostModal toggleModal={toggleModal}/>}
+      {isDeleteModalOpen && <DeletePostModal toggleModal={toggleModal} />}
     </>
   );
 };

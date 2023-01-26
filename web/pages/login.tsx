@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import CSSModules from "react-css-modules";
 import styles from "../styles/Auth.module.css";
-// import invisible from "../public/svgs/invisible.svg";
-// import visible from "../public/svgs/visible.svg";
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -10,8 +8,8 @@ const Login = () => {
   const handleSubmit = () => {};
 
   const handlePasswordVisiblity = () => {
-    setPasswordVisible(prevVisibility => !prevVisibility);
-  }
+    setPasswordVisible((prevVisibility) => !prevVisibility);
+  };
 
   return (
     <section styleName="auth">
@@ -44,7 +42,10 @@ const Login = () => {
               styleName="auth__input"
             />
             {passwordVisible ? (
-              <div styleName="auth__container" onClick={handlePasswordVisiblity}>
+              <div
+                styleName="auth__container"
+                onClick={handlePasswordVisiblity}
+              >
                 <img
                   src="/svgs/invisible.svg"
                   alt="crossed out eye"
@@ -52,7 +53,10 @@ const Login = () => {
                 />
               </div>
             ) : (
-              <div styleName="auth__container" onClick={handlePasswordVisiblity}>
+              <div
+                styleName="auth__container"
+                onClick={handlePasswordVisiblity}
+              >
                 <img
                   src="/svgs/visible.svg"
                   alt="open eye"

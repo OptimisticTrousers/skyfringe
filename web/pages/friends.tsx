@@ -1,9 +1,10 @@
-import React from "react";
 import CSSModules from "react-css-modules";
-import CurrentFriends from "../components/CurrentFriends/CurrentFriends";
-import FindFriends from "../components/FindFriends/FindFriends";
-import FriendRequestsReceived from "../components/FriendRequestsReceived/FriendRequestsReceived";
-import FriendRequestsSent from "../components/FriendRequestsSent/FriendRequestsSent";
+import {
+  CurrentFriends,
+  FriendRequestsReceived,
+  FriendRequestsSent,
+  FindFriends,
+} from "../components/friends";
 import styles from "../styles/Friends.module.css";
 
 const Friends = () => {

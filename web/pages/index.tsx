@@ -1,15 +1,15 @@
-import styles from "../styles/Home.module.css";
 import CSSModules from "react-css-modules";
-import CreatePost from "../components/CreatePost/CreatePost";
-import Post from "../components/Post/Post";
-import Suggestions from "../components/Suggestions/Suggestions";
-import HomeFriends from "../components/HomeFriends/HomeFriends";
-import TopMenu from "../components/TopMenu/TopMenu";
-import SideFooter from "../components/SideFooter/SideFooter";
-import CreatePostModal from "../components/modals/CreatePostModal/CreatePostModal";
 import { useState } from "react";
-import SkeletonPost from "../components/skeletons/SkeletonPost/SkeletonPost";
-import EditPostModal from "../components/modals/EditPostModal/EditPostModal";
+import { SkeletonPost } from "../components/skeletons";
+import {
+  TopMenu,
+  CreatePost,
+  Post,
+  SideFooter,
+  Suggestions,
+} from "../components/common";
+import { CreatePostModal } from "../components/modals";
+import styles from "../styles/Home.module.css";
 
 function Home() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
