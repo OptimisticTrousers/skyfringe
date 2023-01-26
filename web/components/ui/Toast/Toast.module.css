@@ -1,0 +1,23 @@
+.toast {
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  background-color: rgb(220, 38, 38);
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+  display: flex;
+  width: 18rem;
+  align-items: center;
+  justify-content: flex-start;
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 0.1);
+}
+
+.toast--visible {
+  visibility: hidden;
+}
+
+.toast--invisible {
+  visibility: visible;
+}
