@@ -19,12 +19,12 @@ export const ToastProvider: FC<Props> = ({ children }) => {
   const showToast = useCallback((type: string, message: string) => {
     setToastVisible(true);
 
+    // Provide safe defaults if there is no message of type explicitly set
     setToastParams({
       type: type ? type : "error",
       message: message ? message : "",
     });
 
-    // Provide safe defaults if there is no message of type explicitly set
     setTimeout(() => {
       setToastVisible(false);
     }, durationMilliseconds);
@@ -46,5 +46,6 @@ export const useToastContext = () => {
 
   // Can optionally add conditional here to ensure toast context is used only by those components wrapped in a toast context provider
 
+  console.log(context)
   return context;
 };

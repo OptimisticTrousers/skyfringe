@@ -1,7 +1,7 @@
 import { FC } from "react";
 import CSSModules from "react-css-modules";
 import { CgCloseO } from "react-icons/cg";
-import { GrClose } from "react-icons/gr";
+import { CgClose } from "react-icons/cg";
 import { useToastContext } from "../../../context/ToastContext";
 import styles from "./Toast.module.css";
 
@@ -17,20 +17,17 @@ const Toast: FC<Props> = ({ visible, params }) => {
   const { setToastVisible }: any = useToastContext();
 
   // Class is dynamically set according to toast param and visible boolean
-  console.log(visible)
   return (
-    <div styleName={`toast ${visible ? "toast--visible": "toast--invisible"}`}>
-      <button
-        onClick={() => setToastVisible(false)}
-        styleName="toast__button"
-      >
-        <GrClose styleName="toast__icon" />
+    <div styleName={`toast ${visible ? "toast--visible" : "toast--invisible"}`}>
+      <button onClick={() => setToastVisible(false)} styleName="toast__button">
+        <CgClose styleName="toast__icon toast__icon--exit" />
       </button>
       <div styleName="toast__container">
-        <CgCloseO styleName="toast__icon" />
+        <CgCloseO styleName="toast__icon toast__icon--main" />
       </div>
       <div styleName="toast__content">
-        <p styleName="toast__message"></p>
+        <p styleName="toast__bold">Error</p>
+        <p styleName="toast__text">Invalid credentials</p>
       </div>
     </div>
   );

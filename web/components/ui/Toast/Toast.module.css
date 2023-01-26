@@ -4,7 +4,7 @@
   background-color: rgb(220, 38, 38);
   position: fixed;
   top: 5rem;
-  right: 1rem;
+  right: 2rem;
   display: flex;
   width: 18rem;
   align-items: center;
@@ -12,6 +12,7 @@
   transition-duration: 0.3s;
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 0.1);
+  box-shadow: 1px 1px 10px 2px rgb(255, 255, 255, 0.2);
 }
 
 .toast--visible {
@@ -20,4 +21,42 @@
 
 .toast--invisible {
   visibility: visible;
+}
+
+.toast__button {
+  border: none;
+  padding: 0.5rem;
+  width: 2rem;
+  right: 0;
+  top: 0;
+  position: absolute;
+  background-color: inherit;
+}
+
+.toast__container {
+  margin-right: 1rem;
+}
+
+.toast__icon {
+  color: white;
+}
+
+.toast__icon--exit {
+  width: 18px;
+  height: 18px;
+}
+
+.toast__icon--main {
+  width: 24px;
+  height: 24px;
+}
+
+.toast__bold {
+  font-weight: 600;
+  margin: 0;
+}
+
+.toast__text {
+  line-height: 1.25rem;
+  margin: 0;
 }
