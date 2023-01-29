@@ -1,9 +1,87 @@
 .auth {
-  margin: auto;
-  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.auth__box {
+  display: flex;
   background-color: #292929;
-  padding: 2rem;
-  max-width: 600px;
+  padding: 1.25rem;
+  border-radius: 6px;
+  box-shadow: 0 0.5em 2em -0.125em rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.auth__hero {
+  flex: 1;
+  align-self: center;
+}
+
+.auth__divider {
+  text-transform: uppercase;
+  font-weight: 600;
+  color: white;
+}
+
+.auth__divider::before,
+.auth__divider::after {
+  background-color: #dbdbdb;
+  content: "";
+  display: block;
+}
+
+.auth__divider--vertical {
+  display: flex;
+  flex-direction: column;
+  margin: 0 25px;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth__divider--vertical::after {
+  margin-left: 0;
+  margin-top: 10px;
+  flex: 1;
+  width: 1px;
+}
+
+.auth__divider--vertical::before {
+  margin-bottom: 10px;
+  margin-right: 0;
+  flex: 1;
+  width: 1px;
+}
+
+.auth__divider--horizontal {
+  display: flex;
+  align-items: center;
+  margin: 25px 0;
+  letter-spacing: 0.5px;
+}
+
+.auth__divider--horizontal::before {
+  margin-right: 10px;
+  height: 1px;
+  flex: 0.5;
+}
+
+.auth__divider--horizontal::after {
+  margin-left: 10px;
+  height: 1px;
+  flex: 0.5;
+}
+
+.auth__logo {
+  color: #4255fe;
+  font-size: 6rem;
+  text-align: center;
+  margin: 0;
+}
+
+.auth__description {
+  text-align: center;
 }
 
 .auth__flex {
@@ -14,7 +92,13 @@
 }
 
 .auth__icon {
+  width: 40px;
   height: 40px;
+  color: black;
+}
+
+.auth__icon--facebook {
+  color: white;
 }
 
 .auth__container {
@@ -23,8 +107,6 @@
   border-bottom-width: 1px;
   border-top-width: 1px;
   border-right-width: 1px;
-  border-top-right-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
   border-color: #121212;
   cursor: pointer;
   background-color: rgb(243, 244, 246);
@@ -33,6 +115,10 @@
 
 .auth__form {
   width: 100%;
+  margin: auto;
+  padding: 2rem;
+  color: white;
+  flex: 1;
 }
 
 .auth__control {
@@ -46,27 +132,26 @@
   line-height: 1.5rem;
 }
 
+.auth__bold {
+  font-weight: 700;
+}
+
 .auth__input {
   width: 100%;
   box-sizing: border-box;
   height: 40px;
-  border-radius: 0.125rem;
-  padding: 0.75rem;
-  border: none;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgb(203, 213, 225);
   background-color: rgb(243, 244, 246);
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
 }
 
 .auth__input:focus {
-  outline: none;
-  border-bottom: 2px solid #1877f2;
-  caret-color: #1877f2;
+  border-color: rgb(88, 93, 137);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
 }
 
 .auth__input:focus-visible {
-  outline: -webkit-focus-ring-color black 1px;
-  border: none;
+  outline: none;
 }
 
 .auth__button {
@@ -77,19 +162,68 @@
   padding-top: 0.5rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  background-color: rgb(88, 93, 173);
-  border-color: rgb(88, 93, 137);
   border-width: 1px;
   margin-top: 1.5rem;
   cursor: pointer;
   color: inherit;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
 }
 
-.auth__button:hover {
+.auth__icon--guest {
+  color: white;
+  flex: 1;
+}
+
+.auth__button--submit {
+  background-color: rgb(88, 93, 173);
+  border-color: rgb(88, 93, 137);
+}
+
+.auth__button--oauth {
+  background-color: rgb(35, 116, 242);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.auth__button--guest {
+  background-color: rgb(66, 183, 42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.auth__button--create {
+  background-color: rgb(37, 147, 145);
+  border: 1px solid rba(37, 147, 145);
+}
+
+.auth__button--create:hover {
+  background-color: rgb(41, 163, 161);
+}
+
+.auth__button--guest:hover {
+  background-color: rgb(54, 164, 32);
+}
+
+.auth__button--oauth:hover {
+  background-color: rgb(22, 11, 229);
+}
+
+.auth__button--submit:hover {
   background-color: rgba(106, 112, 160);
 }
 
 .auth__button:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.auth__bottom {
+  display: flex;
+  gap: 2rem;
 }
