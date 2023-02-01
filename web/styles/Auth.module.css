@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Filmotype-Alice";
+  src: url("/fonts/FontsFree-Net-Filmotype-Alice.woff2");
+}
+
 .auth {
   display: flex;
   align-items: center;
@@ -22,7 +27,7 @@
 .auth__divider {
   text-transform: uppercase;
   font-weight: 600;
-  color: white;
+  color: rgb(181, 181, 181);
 }
 
 .auth__divider::before,
@@ -57,7 +62,7 @@
 .auth__divider--horizontal {
   display: flex;
   align-items: center;
-  margin: 25px 0;
+  margin-top: 25px;
   letter-spacing: 0.5px;
 }
 
@@ -78,6 +83,18 @@
   font-size: 6rem;
   text-align: center;
   margin: 0;
+  font-family: "Filmotype-Alice";
+  letter-spacing: 10px;
+  transform: rotate(4deg);
+  display: flex;
+  align-items: center;
+}
+
+.auth__image {
+  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg) brightness(106%) contrast(103%);
+  width: 110px;
+  height: 110px;
+  margin-right: 8px;
 }
 
 .auth__description {
@@ -88,12 +105,11 @@
   display: flex;
   align-items: center;
   height: 40px;
-  margin-top: 8px;
 }
 
 .auth__icon {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   color: black;
 }
 
@@ -111,6 +127,14 @@
   cursor: pointer;
   background-color: rgb(243, 244, 246);
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.auth__container:hover {
+  background-color: rgb(209, 213, 219);
 }
 
 .auth__form {
@@ -130,6 +154,7 @@
 .auth__label {
   font-size: 1rem;
   line-height: 1.5rem;
+  margin-bottom: 8px;
 }
 
 .auth__bold {
@@ -158,8 +183,8 @@
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 500;
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
+  padding-bottom: 0.6rem;
+  padding-top: 0.6rem;
   padding-left: 1rem;
   padding-right: 1rem;
   border-width: 1px;
