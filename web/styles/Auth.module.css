@@ -1,7 +1,3 @@
-@font-face {
-  font-family: "Filmotype-Alice";
-  src: url("/fonts/FontsFree-Net-Filmotype-Alice.woff2");
-}
 
 .auth {
   display: flex;

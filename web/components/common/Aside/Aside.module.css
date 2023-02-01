@@ -31,9 +31,20 @@
   transition: transform 350ms ease-in-out;
 }
 
+.aside__logo {
+  color: #4255fe;
+  font-size: 2rem;
+  text-align: center;
+  margin: 0;
+  font-family: "Filmotype-Alice";
+  letter-spacing: 6px;
+  transform: rotate(-3deg);
+  display: flex;
+  align-items: center;
+  height: 100px;
+}
+
 .aside__container {
-  padding: 1.25rem;
-  padding-bottom: 1.75rem;
   position: relative;
 }
 
@@ -44,6 +55,15 @@
   font-weight: 900;
   width: 27px;
   height: 100%;
+}
+
+.aside__icon--logo {
+  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg)
+    brightness(106%) contrast(103%);
+  width: 40px;
+  height: 400px;
+  margin-right: 8px;
+  margin-bottom: 1rem;
 }
 
 .aside__icon--exit {
@@ -140,7 +160,7 @@
   }
 }
 
-@media(max-width: 370px) {
+@media (max-width: 370px) {
   .aside {
     width: 100%;
   }

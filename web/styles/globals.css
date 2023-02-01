@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@font-face {
+  font-family: "Filmotype-Alice";
+  src: url("/fonts/FontsFree-Net-Filmotype-Alice.woff2");
+}
 
 html,
 body {

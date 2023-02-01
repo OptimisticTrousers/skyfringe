@@ -26,10 +26,10 @@ const Aside = () => {
       </div>
       <aside styleName={`aside ${closeSidebar && "aside--closed"}`}>
         <div styleName="aside__container">
-          <img
-            src="https://mmackz.github.io/admin-dashboard/images/logoipsum-logo-54.svg"
-            alt="logo"
-          />
+          <h1 styleName="aside__logo">
+            <img styleName="aside__icon aside__icon--logo" src="/svgs/logo.svg" alt="logo" />
+            Skyfringe
+          </h1>
           <AiFillCloseSquare
             styleName="aside__icon aside__icon--exit"
             onClick={toggle}
