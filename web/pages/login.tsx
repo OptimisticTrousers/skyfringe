@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
@@ -10,8 +10,24 @@ import Link from "next/link";
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = () => {};
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const emailRegex = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
+    setEmail(e.target.value)
+    if(emailRegex.test(e.target.value)) {
+    }
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+    if(e.target.value.length >= 8) {
+      
+    }
+  }
 
   const handlePasswordVisiblity = () => {
     setPasswordVisible((prevVisibility) => !prevVisibility);
@@ -90,7 +106,10 @@ const Login = () => {
               <RxPerson styleName="auth__icon auth__icon--guest" />
               Continue as guest
             </button>
-            <Link href="/register" styleName="auth__button auth__button--create">
+            <Link
+              href="/register"
+              styleName="auth__button auth__button--create"
+            >
               Create new account
             </Link>
           </div>

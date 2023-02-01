@@ -1,7 +1,6 @@
 .toast {
   padding: 0.75rem 1rem;
   border-radius: 0.25rem;
-  background-color: rgb(220, 38, 38);
   position: fixed;
   top: 5rem;
   right: 2rem;
@@ -13,6 +12,14 @@
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 0.1);
   box-shadow: 1px 1px 10px 2px rgb(255, 255, 255, 0.2);
+}
+
+.toast--error {
+  background-color: rgb(220, 38, 38);
+}
+
+.toast--success {
+  background-color: rgb(22, 163, 74);
 }
 
 .toast--visible {
@@ -47,8 +54,8 @@
 }
 
 .toast__icon--main {
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
 }
 
 .toast__bold {
