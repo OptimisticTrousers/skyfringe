@@ -1,21 +1,22 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RxPerson } from "react-icons/rx";
 import { SiFacebook } from "react-icons/si";
-import styles from "../styles/Auth.module.css";
+import styles from "./AuthLayout.module.css";
 
-const Register = () => {
+interface Props {
+  children: JSX.Element[] | JSX.Element;
+}
+
+const AuthLayout: FC<Props> = ({ children }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleSubmit = () => {
-    console.log("Bob Jones Locos Pollos");
-  };
+  const handleSubmit = () => {};
 
   const handlePasswordVisiblity = () => {
     setPasswordVisible((prevVisibility) => !prevVisibility);
   };
-
   return (
     <section styleName="auth">
       <div styleName="auth__box">
@@ -30,35 +31,9 @@ const Register = () => {
           </h1>
           <p styleName="auth__description">A place to meet friends</p>
         </div>
-        <div styleName="auth__divider auth__divider--vertical">Register</div>
+        <div styleName="auth__divider auth__divider--vertical">Login</div>
         <form onSubmit={handleSubmit} styleName="auth__form">
-          <h2>Register</h2>
-          <div styleName="auth__control">
-            <label htmlFor="email" styleName="auth__label">
-              <span styleName="auth__bold">First Name</span>
-            </label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              placeholder="Bob"
-              required
-              styleName="auth__input"
-            />
-          </div>
-          <div styleName="auth__control">
-            <label htmlFor="email" styleName="auth__label">
-              <span styleName="auth__bold">Last Name</span>
-            </label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              placeholder="Jones"
-              required
-              styleName="auth__input"
-            />
-          </div>
+          <h2>Log In</h2>
           <div styleName="auth__control">
             <label htmlFor="email" styleName="auth__label">
               <span styleName="auth__bold">Email Address</span> (required)
@@ -103,7 +78,7 @@ const Register = () => {
             </div>
           </div>
           <button type="submit" styleName="auth__button auth__button--submit">
-            Create Account
+            Log In
           </button>
           <button styleName="auth__button auth__button--oauth">
             <SiFacebook styleName="auth__icon auth__icon--facebook" />
@@ -125,7 +100,7 @@ const Register = () => {
   );
 };
 
-export default CSSModules(Register, styles, {
+export default CSSModules(AuthLayout, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
 });
