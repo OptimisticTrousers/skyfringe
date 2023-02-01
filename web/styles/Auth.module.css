@@ -20,8 +20,8 @@
 }
 
 .auth__hero {
-  flex: 1;
   align-self: center;
+  flex: 1;
 }
 
 .auth__divider {
@@ -85,20 +85,24 @@
   margin: 0;
   font-family: "Filmotype-Alice";
   letter-spacing: 10px;
-  transform: rotate(4deg);
+  transform: rotate(-4deg);
   display: flex;
   align-items: center;
 }
 
 .auth__image {
-  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg) brightness(106%) contrast(103%);
+  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg)
+    brightness(106%) contrast(103%);
   width: 110px;
   height: 110px;
   margin-right: 8px;
+  margin-bottom: 2rem;
 }
 
 .auth__description {
   text-align: center;
+  font-size: 2rem;
+  margin-top: 0;
 }
 
 .auth__flex {
@@ -142,6 +146,7 @@
   margin: auto;
   padding: 2rem;
   color: white;
+  min-width: 394px;
   flex: 1;
 }
 
@@ -225,6 +230,7 @@
 .auth__button--create {
   background-color: rgb(37, 147, 145);
   border: 1px solid rba(37, 147, 145);
+  padding-right: 0;
 }
 
 .auth__button--create:hover {
@@ -250,5 +256,25 @@
 
 .auth__bottom {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.auth__link {
+  text-decoration: underline;
+}
+
+.auth__link:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 1150px) {
+  .auth__box {
+    flex-direction: column;
+    width: 100%;
+  }
+  .auth__form {
+    min-width: unset;
+    width: unset;
+  }
 }

@@ -6,6 +6,7 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { SiFacebook } from "react-icons/si";
 import { RxPerson } from "react-icons/rx";
 import styles from "../styles/Auth.module.css";
+import Link from "next/link";
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -89,9 +90,9 @@ const Login = () => {
               <RxPerson styleName="auth__icon auth__icon--guest" />
               Continue as guest
             </button>
-            <button styleName="auth__button auth__button--create">
+            <Link href="/register" styleName="auth__button auth__button--create">
               Create new account
-            </button>
+            </Link>
           </div>
         </form>
       </div>

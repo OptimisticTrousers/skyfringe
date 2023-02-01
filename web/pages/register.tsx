@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -105,19 +106,10 @@ const Register = () => {
           <button type="submit" styleName="auth__button auth__button--submit">
             Create Account
           </button>
-          <button styleName="auth__button auth__button--oauth">
-            <SiFacebook styleName="auth__icon auth__icon--facebook" />
-            Continue with Facebook
-          </button>
           <div styleName="auth__divider auth__divider--horizontal">Or</div>
           <div styleName="auth__bottom">
-            <button styleName="auth__button auth__button--guest">
-              <RxPerson styleName="auth__icon auth__icon--guest" />
-              Continue as guest
-            </button>
-            <button styleName="auth__button auth__button--create">
-              Create new account
-            </button>
+            <span styleName="auth__question">Already have an account?</span>
+            <Link styleName="auth__link" href="/login">Log In</Link>
           </div>
         </form>
       </div>
