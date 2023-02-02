@@ -9,6 +9,7 @@ import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { RiSettingsFill } from "react-icons/ri";
 import { BiLogOut } from "react-icons/bi";
 import styles from "./Aside.module.css";
+import Logo from "../../ui/Logo/Logo";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
@@ -25,16 +26,7 @@ const Aside = () => {
         <div styleName="hamburger__line"></div>
       </div>
       <aside styleName={`aside ${closeSidebar && "aside--closed"}`}>
-        <div styleName="aside__container">
-          <h1 styleName="aside__logo">
-            <img styleName="aside__icon aside__icon--logo" src="/svgs/logo.svg" alt="logo" />
-            Skyfringe
-          </h1>
-          <AiFillCloseSquare
-            styleName="aside__icon aside__icon--exit"
-            onClick={toggle}
-          />
-        </div>
+        <Logo type="sm" />
         <nav styleName="aside__nav">
           <ul styleName="aside__list">
             <Link href="/">

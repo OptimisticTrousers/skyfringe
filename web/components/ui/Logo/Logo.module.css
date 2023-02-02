@@ -1,0 +1,45 @@
+.logo {
+  padding-top: 1rem;
+  padding-left: 2rem;
+}
+
+.logo__name {
+  color: #4255fe;
+  text-align: center;
+  margin: 0;
+  font-family: "Filmotype-Alice";
+  display: flex;
+  align-items: center;
+}
+
+.logo__name--large {
+  font-size: 6rem;
+  letter-spacing: 10px;
+  transform: rotate(-6deg);
+}
+
+.logo__name--small {
+  font-size: 2rem;
+  letter-spacing: 6px;
+  transform: rotate(-3deg);
+}
+
+.logo__image {
+  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg)
+    brightness(106%) contrast(103%);
+  width: 110px;
+  height: 110px;
+  margin-right: 8px;
+}
+
+.logo__image--large {
+  width: 110px;
+  height: 110px;
+  margin-bottom: 2rem;
+}
+
+.logo__image--small {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1rem;
+}

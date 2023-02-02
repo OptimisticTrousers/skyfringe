@@ -7,6 +7,7 @@ import { SiFacebook } from "react-icons/si";
 import { RxPerson } from "react-icons/rx";
 import styles from "../styles/Auth.module.css";
 import Link from "next/link";
+import Logo from "../components/ui/Logo/Logo";
 
 const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -37,14 +38,7 @@ const Login = () => {
     <section styleName="auth">
       <div styleName="auth__box">
         <div styleName="auth__hero">
-          <h1 styleName="auth__logo">
-            <img
-              styleName="auth__image"
-              src="/svgs/logo.svg"
-              alt="circular lightning bolt surrounded by a blue circle"
-            />
-            Skyfringe
-          </h1>
+          <Logo type="lg" />
           <p styleName="auth__description">A place to meet friends</p>
         </div>
         <div styleName="auth__divider auth__divider--vertical">Login</div>
