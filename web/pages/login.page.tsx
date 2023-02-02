@@ -71,19 +71,23 @@ const Login = () => {
                 styleName="auth__input"
               />
               {passwordVisible ? (
-                <div
+                <button
                   styleName="auth__container"
+                  type="button"
+                  aria-pressed={true}
                   onClick={handlePasswordVisiblity}
                 >
                   <AiOutlineEye styleName="auth__icon auth__icon--password" />
-                </div>
+                </button>
               ) : (
-                <div
+                <button
                   styleName="auth__container"
+                  type="button"
+                  aria-pressed={false}
                   onClick={handlePasswordVisiblity}
                 >
                   <AiOutlineEyeInvisible styleName="auth__icon auth__icon--password" />
-                </div>
+                </button>
               )}
             </div>
           </div>

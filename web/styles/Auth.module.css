@@ -131,6 +131,9 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  border-top: 0;
+  border-bottom: 0;
+  border-bottom: 0;
 }
 
 .auth__container:hover {
