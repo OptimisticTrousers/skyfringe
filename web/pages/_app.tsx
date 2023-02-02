@@ -17,7 +17,9 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
 
   if (
     ["/login"].includes(appProps.router.pathname) ||
-    ["/register"].includes(appProps.router.pathname)
+    ["/register"].includes(appProps.router.pathname) ||
+    ["/404"].includes(appProps.router.pathname) ||
+    ["/500"].includes(appProps.router.pathname)
   ) {
     // Excluding the 'Layout' component for the login and register pages to prevent the rendering of the 'Aside' component
     children = <Component {...pageProps} />;
