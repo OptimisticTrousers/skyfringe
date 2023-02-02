@@ -18,17 +18,16 @@ const Login = () => {
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const emailRegex = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
-    setEmail(e.target.value)
-    if(emailRegex.test(e.target.value)) {
+    setEmail(e.target.value);
+    if (emailRegex.test(e.target.value)) {
     }
   };
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
-    if(e.target.value.length >= 8) {
-      
+    setPassword(e.target.value);
+    if (e.target.value.length >= 8) {
     }
-  }
+  };
 
   const handlePasswordVisiblity = () => {
     setPasswordVisible((prevVisibility) => !prevVisibility);
@@ -74,7 +73,11 @@ const Login = () => {
                 <button
                   styleName="auth__container"
                   type="button"
-                  aria-pressed={true}
+                  aria-label={`${
+                    passwordVisible
+                      ? "Show password as plain text. Warning: this will display your password on the screen."
+                      : "Hide password."
+                  }`}
                   onClick={handlePasswordVisiblity}
                 >
                   <AiOutlineEye styleName="auth__icon auth__icon--password" />
@@ -83,8 +86,12 @@ const Login = () => {
                 <button
                   styleName="auth__container"
                   type="button"
-                  aria-pressed={false}
                   onClick={handlePasswordVisiblity}
+                  aria-label={`${
+                    passwordVisible
+                      ? "Show password as plain text. Warning: this will display your password on the screen."
+                      : "Hide password."
+                  }`}
                 >
                   <AiOutlineEyeInvisible styleName="auth__icon auth__icon--password" />
                 </button>
