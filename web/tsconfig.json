@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/skeletons/SkeletonElement"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/skeletons/SkeletonElement", "jest.config.js", "jest.setup.js"],
   "exclude": ["node_modules"]
 }
