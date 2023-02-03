@@ -54,7 +54,7 @@ const Post = () => {
       <div styleName="post__controls">
         <div styleName="post__control">
           <AiOutlineLike styleName="post__icon post__icon--control" />
-          <span styleName="post__name">Liked post</span>
+          <span styleName="post__name">Like</span>
           <span styleName="post__number">1</span>
         </div>
         <div styleName="post__control" onClick={toggleComments}>

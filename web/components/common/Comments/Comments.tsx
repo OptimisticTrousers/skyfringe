@@ -5,7 +5,7 @@ import Comment from "../Comment";
 
 const Comments = () => {
   return (
-    <section styleName="comments">
+    <section styleName="comments" data-testid="comments">
       <div styleName="comments__form">
         <img
           src="/images/optimistictrousers.jpg"
