@@ -1,3 +1,16 @@
+.create {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  color: white;
+  height: min-content;
+  margin-bottom: 2rem;
+}
+
+.create > div {
+  margin-bottom: 0;
+}
+
 .create > div:hover{
   background-color: rgb(12, 11, 9);
   cursor: pointer;
@@ -24,6 +37,7 @@
   line-height: 1.75rem;
   font-weight: 600;
   margin-bottom: 0;
+  text-align: start;
 }
 
 .create__description {

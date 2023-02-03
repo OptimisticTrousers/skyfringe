@@ -1,5 +1,4 @@
 import CSSModules from "react-css-modules";
-import { useState } from "react";
 import { SkeletonPost } from "../components/skeletons";
 import {
   TopMenu,
@@ -8,16 +7,9 @@ import {
   SideFooter,
   Suggestions,
 } from "../components/common";
-import { CreatePostModal } from "../components/modals";
 import styles from "../styles/Home.module.css";
 
 function Home() {
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-
-  const toggleModal = () => {
-    setIsCreateModalOpen((prevValue) => !prevValue);
-  };
-
   return (
     <>
       <div styleName="home">
@@ -26,7 +18,7 @@ function Home() {
             <TopMenu />
           </div>
           {/* <HomeFriends /> */}
-          <CreatePost toggleModal={toggleModal} />
+          <CreatePost />
           <SkeletonPost />
           <Post />
         </div>
@@ -36,7 +28,6 @@ function Home() {
           <SideFooter />
         </aside>
       </div>
-      {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} />}
     </>
   );
 }
