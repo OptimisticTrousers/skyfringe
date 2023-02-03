@@ -10,7 +10,7 @@ const SideFooter = () => {
       <Card>
         <h2 styleName="footer__name">Skyfringe</h2>
         <p styleName="footer__copyright">© Tony Isern 2023</p>
-        <Link href="/">
+        <Link href="https://github.com/OptimisticTrousers?tab=repositories">
           <FaGithubSquare styleName="footer__icon" />
         </Link>
       </Card>
