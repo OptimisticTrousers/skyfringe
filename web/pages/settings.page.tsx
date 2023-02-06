@@ -61,13 +61,14 @@ const Settings = () => {
               <h3 styleName="settings__subtitle">Close account</h3>
               <p styleName="settings__description">
                 By deleting your account, you will lose all of your data. This
-                action cannot be reversed.
+                action cannot be reversed. NOTE: Popup will show up confirming
+                if you want to delete your account
               </p>
               <button
                 styleName="settings__button--delete"
                 onClick={toggleModal}
               >
-                Close Account
+                Delete
               </button>
             </Card>
           </aside>

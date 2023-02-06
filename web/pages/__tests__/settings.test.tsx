@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import Settings from "../settings.page";
 
 describe("Settings page", () => {
-  describe("Hides modal by default", () => {
+  test("Hides modal by default", () => {
     render(<Settings />);
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
@@ -13,7 +13,7 @@ describe("Settings page", () => {
 
     // Click the close account button to reveal the delete account modal
     const closeAccountButton = screen.getByRole("button", {
-      name: "Close Account",
+      name: "Delete",
     });
     await userEvent.click(closeAccountButton);
 
