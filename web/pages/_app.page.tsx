@@ -28,7 +28,7 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Capitlize | Talk with your friends!</title>
+        <title>Skyfringe | Talk with your friends!</title>
       </Head>
       {children}
       <Toast visible={toastVisible} params={toastParams} />

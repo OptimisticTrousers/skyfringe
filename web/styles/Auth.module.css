@@ -273,6 +273,9 @@
   .auth {
     margin: 0;
   }
+  .auth__description {
+    font-size: 4vw;
+  }
   .auth__box {
     flex-direction: column;
     width: 100%;
