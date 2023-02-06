@@ -81,19 +81,31 @@ const Register = () => {
                 styleName="auth__input"
               />
               {passwordVisible ? (
-                <div
+                <button
                   styleName="auth__container"
                   onClick={handlePasswordVisiblity}
+                  type="button"
+                  aria-label={`${
+                    passwordVisible
+                      ? "Show password as plain text. Warning: this will display your password on the screen."
+                      : "Hide password."
+                  }`}
                 >
                   <AiOutlineEye styleName="auth__icon auth__icon--password" />
-                </div>
+                </button>
               ) : (
-                <div
+                <button
                   styleName="auth__container"
                   onClick={handlePasswordVisiblity}
+                  type="button"
+                  aria-label={`${
+                    passwordVisible
+                      ? "Show password as plain text. Warning: this will display your password on the screen."
+                      : "Hide password."
+                  }`}
                 >
                   <AiOutlineEyeInvisible styleName="auth__icon auth__icon--password" />
-                </div>
+                </button>
               )}
             </div>
           </div>
