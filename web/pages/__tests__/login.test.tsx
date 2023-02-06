@@ -6,15 +6,16 @@ describe("Login page", () => {
   describe("Button text changes", () => {
     test("Renders 'Log in' text by default", () => {
       render(<Login />);
-
-      const button = screen.getByRole("button", { name: "Log in" });
+      const button = screen.getByRole("button", { name: "Log In" });
       expect(button).toBeInTheDocument();
     });
     test("Renders loading text appropriately", async () => {
-      const button = screen.getByRole("button", { name: /logging in/i });
+      render(<Login />);
+      const button = screen.getByRole("button", { name: "Logging in..." });
       expect(button).toBeInTheDocument();
     });
     test("Reverts to default button text on error", () => {
+      render(<Login />);
       const button = screen.getByRole("button", { name: "Log In" });
       expect(button).toBeInTheDocument();
     });

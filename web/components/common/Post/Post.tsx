@@ -51,17 +51,17 @@ const Post = () => {
         </p>
         <img src="/images/optimistictrousers.jpg" styleName="post__image" />
       </div>
-      <div styleName="post__controls">
-        <div styleName="post__control">
+      <div styleName="post__buttons">
+        <button styleName="post__button">
           <AiOutlineLike styleName="post__icon post__icon--control" />
           <span styleName="post__name">Like</span>
           <span styleName="post__number">1</span>
-        </div>
-        <div styleName="post__control" onClick={toggleComments}>
+        </button>
+        <button styleName="post__button" onClick={toggleComments}>
           <BiCommentDetail styleName="post__icon post__icon--control" />
           <span styleName="post__name">Comment</span>
           <span styleName="post__number">45</span>
-        </div>
+        </button >
       </div>
       <>{isCommentsOpen && <Comments />}</>
     </Card>

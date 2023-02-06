@@ -1,5 +1,4 @@
 .post__top {
-  --icon-hover: rgb(59, 130, 246);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,7 +80,7 @@
   object-fit: cover;
 }
 
-.post__controls {
+.post__buttons {
   padding: 0.9rem 1.5rem;
   width: 100%;
   box-sizing: border-box;
@@ -90,18 +89,16 @@
   border-bottom: 3px solid #24262a;
 }
 
-.post__control {
+.post__button {
   display: flex;
   align-items: center;
   cursor: pointer;
-}
-
-.post__control:hover {
-}
-
-.post__icon--control {
-  margin-right: 8px;
+  background-color: inherit;
   color: inherit;
+  border: none;
+}
+
+.post__button:hover {
   color: var(--icon-hover);
 }
 

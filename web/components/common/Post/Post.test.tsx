@@ -13,26 +13,26 @@ describe("Post component", () => {
     });
     test("Display correct comment count for three comments", () => {
       setup();
-      const comments = screen.getByText(/3/i);
-      expect(comments).toBeInTheDocument();
+      const commentsButton = screen.getByRole("button", { name: "Comment 3" });
+      expect(commentsButton).toBeInTheDocument();
     });
     test("Displays correct like count for >1 like", () => {
       setup();
-      const likes = screen.getByTestId(/2/i);
-      expect(likes).toBeInTheDocument();
+      const likeButton = screen.getByRole("button", { name: "Like 2" });
+      expect(likeButton).toBeInTheDocument();
     });
     test("Hides comments section by default", () => {
       setup();
       const comments = screen.queryByTestId(/comments/i);
       expect(comments).not.toBeInTheDocument();
     });
-    test("Shows comments section upon clicking comments button", () => {
+    test("Shows comments section upon clicking comments button", async () => {
       setup();
 
-      const commentsButton = screen.getByRole("button", { name: /comments/i });
-      userEvent.click(commentsButton);
+      const commentsButton = screen.getByRole("button", { name: "Comment 45" });
+      await userEvent.click(commentsButton);
 
-      const comments = screen.getByTestId(/comments/i);
+      const comments = screen.getByTestId("comments");
       expect(comments).toBeInTheDocument();
     });
   });
@@ -51,16 +51,15 @@ describe("Post component", () => {
     });
     test("Displays correct like count for single like", () => {
       setup();
-      const likes = screen.getByTestId(/1/i);
-      expect(likes).toBeInTheDocument();
+      const likesButton = screen.getByRole("button", { name: "Like 1" });
+      expect(likesButton).toBeInTheDocument();
     });
     test("Increases local like count when clicking like button", () => {
       setup();
-      const likeButton = screen.getByRole("button", { name: "like" });
+      const likeButton = screen.getByRole("button", { name: "Like 1" });
       userEvent.click(likeButton);
 
-      const likes = screen.getByText(/2/i);
-      expect(likes).toBeInTheDocument();
+      expect(likeButton).toHaveAccessibleName("Like 2")
     });
   });
 });
