@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { ChangeEvent, FC, useState } from "react";
 import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
 import ModalContainer from "../ModalContainer";
@@ -9,6 +9,14 @@ interface Props {
 }
 
 const CreatePostModal: FC<Props> = ({ toggleModal }) => {
+  const [postText, setPostText] = useState("");
+
+  const isPostButtonDisabled = postText.length === 0;
+
+  const handleChangePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setPostText(e.target.value);
+  };
+
   return (
     <ModalContainer title="Create Post" toggleModal={toggleModal}>
       <form styleName="modal__form">
@@ -23,6 +31,8 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
           <textarea
             styleName="modal__textarea"
             placeholder="What's cooking, Bob?"
+            onChange={handleChangePostText}
+            value={postText}
           ></textarea>
         </div>
         <div styleName="modal__controls">
@@ -34,7 +44,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
               Add picture
             </label>
           </div>
-          <button styleName="modal__button modal__button--submit">Post</button>
+          <button styleName="modal__button modal__button--submit" disabled={isPostButtonDisabled}>Post</button>
         </div>
       </form>
     </ModalContainer>

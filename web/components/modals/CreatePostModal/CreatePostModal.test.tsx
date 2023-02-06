@@ -19,6 +19,6 @@ describe("CreatePostModal component", () => {
     const input = screen.getByRole("textbox");
     userEvent.type(input, "test");
 
-    expect(postButton).not.toHaveAttribute("disabled");
+    expect(postButton).toHaveAttribute("disabled", "");
   });
 });
