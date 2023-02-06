@@ -1,9 +1,9 @@
-
 .auth {
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
+  margin: 3rem;
 }
 
 .auth__box {
@@ -202,6 +202,8 @@
 
 .auth__icon--guest {
   color: white;
+  width: 32px;
+  height: 32px;
   flex: 1;
 }
 
@@ -268,6 +270,9 @@
 }
 
 @media (max-width: 1150px) {
+  .auth {
+    margin: 0;
+  }
   .auth__box {
     flex-direction: column;
     width: 100%;
