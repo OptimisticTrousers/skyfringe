@@ -5,6 +5,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { RxPerson } from "react-icons/rx";
 import { SiFacebook } from "react-icons/si";
 import Logo from "../components/ui/Logo/Logo";
+import { PasswordContainer } from "../components/ui/PasswordContainer";
 import styles from "../styles/Auth.module.css";
 
 const Register = () => {
@@ -68,10 +69,13 @@ const Register = () => {
             />
           </div>
           <div styleName="auth__control">
-            <label htmlFor="password" styleName="auth__label">
-              <span styleName="auth__bold">Password</span> (required)
-            </label>
-            <div styleName="auth__flex">
+            <PasswordContainer
+              showPassword={passwordVisible}
+              handleClick={handlePasswordVisiblity}
+            >
+              <label htmlFor="password" styleName="auth__label">
+                <span styleName="auth__bold">Password</span> (required)
+              </label>
               <input
                 type={passwordVisible ? "text" : "password"}
                 id="password"
@@ -80,34 +84,7 @@ const Register = () => {
                 required
                 styleName="auth__input"
               />
-              {passwordVisible ? (
-                <button
-                  styleName="auth__container"
-                  onClick={handlePasswordVisiblity}
-                  type="button"
-                  aria-label={`${
-                    passwordVisible
-                      ? "Show password as plain text. Warning: this will display your password on the screen."
-                      : "Hide password."
-                  }`}
-                >
-                  <AiOutlineEye styleName="auth__icon auth__icon--password" />
-                </button>
-              ) : (
-                <button
-                  styleName="auth__container"
-                  onClick={handlePasswordVisiblity}
-                  type="button"
-                  aria-label={`${
-                    passwordVisible
-                      ? "Show password as plain text. Warning: this will display your password on the screen."
-                      : "Hide password."
-                  }`}
-                >
-                  <AiOutlineEyeInvisible styleName="auth__icon auth__icon--password" />
-                </button>
-              )}
-            </div>
+            </PasswordContainer>
           </div>
           <button type="submit" styleName="auth__button auth__button--submit">
             Create Account
@@ -115,7 +92,9 @@ const Register = () => {
           <div styleName="auth__divider auth__divider--horizontal">Or</div>
           <div styleName="auth__bottom">
             <span styleName="auth__question">Already have an account?</span>
-            <Link styleName="auth__link" href="/login">Log In</Link>
+            <Link styleName="auth__link" href="/login">
+              Log In
+            </Link>
           </div>
         </form>
       </div>
