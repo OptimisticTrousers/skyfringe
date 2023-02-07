@@ -20,13 +20,25 @@ const Aside = () => {
 
   return (
     <>
-      <div styleName="hamburger" onClick={toggle}>
+      <button
+        styleName="hamburger"
+        onClick={toggle}
+        aria-label="Open menu aside"
+      >
         <div styleName="hamburger__line"></div>
         <div styleName="hamburger__line"></div>
         <div styleName="hamburger__line"></div>
-      </div>
+      </button>
       <aside styleName={`aside ${closeSidebar && "aside--closed"}`}>
-        <Logo type="sm" />
+        <div styleName="aside__container">
+          <Logo type="sm" />
+          <button styleName="aside__button" aria-label="Close menu aside">
+            <AiFillCloseSquare
+              styleName="aside__icon aside__icon--exit"
+              onClick={toggle}
+            />
+          </button>
+        </div>
         <nav styleName="aside__nav">
           <ul styleName="aside__list">
             <Link href="/">

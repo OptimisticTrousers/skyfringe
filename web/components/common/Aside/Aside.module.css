@@ -4,6 +4,8 @@
   left: 1.5rem;
   top: 1.85rem;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 
 .hamburger__line {
@@ -46,6 +48,8 @@
 
 .aside__container {
   position: relative;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
 }
 
 .aside__icon {
@@ -66,17 +70,26 @@
   margin-bottom: 1rem;
 }
 
-.aside__icon--exit {
+.aside__button {
   position: absolute;
   top: 0;
   right: -0.25rem;
-  width: 40px;
   transition: transform 300ms ease, color 300ms ease;
-  cursor: pointer;
+  background-color: transparent;
+  border: none;
   display: none;
+  color: #60626e;
+  cursor: pointer;
 }
 
-.aside__icon--exit:hover {
+.aside__icon--exit {
+  width: 40px;
+  height: 40px;
+  color: inherit;
+  margin: 0;
+}
+
+.aside__button:hover {
   color: rgb(59, 130, 246);
   transform: scale(1.075);
 }
@@ -155,7 +168,7 @@
   .aside--closed {
     transform: translateX(calc(var(--aside-width) * -1));
   }
-  .aside__icon--exit {
+  .aside__button {
     display: block;
   }
 }
