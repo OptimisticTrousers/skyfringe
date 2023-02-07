@@ -32,11 +32,12 @@ const Aside = () => {
       <aside styleName={`aside ${closeSidebar && "aside--closed"}`}>
         <div styleName="aside__container">
           <Logo type="sm" />
-          <button styleName="aside__button" aria-label="Close menu aside">
-            <AiFillCloseSquare
-              styleName="aside__icon aside__icon--exit"
-              onClick={toggle}
-            />
+          <button
+            styleName="aside__button"
+            aria-label="Close menu aside"
+            onClick={toggle}
+          >
+            <AiFillCloseSquare styleName="aside__icon aside__icon--exit" />
           </button>
         </div>
         <nav styleName="aside__nav">
