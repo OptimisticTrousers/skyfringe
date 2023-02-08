@@ -69,3 +69,21 @@
   min-width: 394px;
   flex: 1;
 }
+
+@media (max-width: 1150px) {
+  .auth {
+    margin: 0;
+  }
+  .auth__description {
+    font-size: 4vw;
+  }
+  .auth__box {
+    flex-direction: column;
+    width: 100%;
+  }
+  .auth__form {
+    min-width: unset;
+    width: unset;
+  }
+}
+
