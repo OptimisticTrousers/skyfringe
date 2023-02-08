@@ -18,7 +18,7 @@ const Register = () => {
 
   return (
     <AuthLayout handleSubmit={handleSubmit}>
-      <h2>Register</h2>
+      <h2 styleName="auth__title">Register</h2>
       <div styleName="auth__control">
         <label htmlFor="email" styleName="auth__label">
           <span styleName="auth__bold">First Name</span>
