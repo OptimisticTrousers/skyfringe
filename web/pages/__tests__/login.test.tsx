@@ -7,7 +7,7 @@ describe("Login page", () => {
     it("displays error message when the user clicks on the email input field, then clicks away", () => {
       render(<Login />);
       const emailInput = screen.getByRole("textbox", {
-        name: "Email Address (required) ",
+        name: "Email Address ",
       });
       userEvent.click(emailInput);
       // Click away from the email input field to remove the focus on the email input field
@@ -27,7 +27,7 @@ describe("Login page", () => {
     test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", () => {
       render(<Login />);
       const emailInput = screen.getByRole("textbox", {
-        name: "Email Address (required)",
+        name: "Email Address",
       });
       userEvent.type(emailInput, "bob jones");
       // Remove focus from the email input
@@ -39,7 +39,7 @@ describe("Login page", () => {
     });
     test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", () => {
       render(<Login />);
-      const passwordInput = screen.getByLabelText("Password (required)");
+      const passwordInput = screen.getByLabelText("Password");
       userEvent.type(passwordInput, "bobjone");
       // Remove focus from the password input
       userEvent.click(document.body);

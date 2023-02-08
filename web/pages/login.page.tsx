@@ -26,6 +26,8 @@ const Login = () => {
     const emailRegex = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
     setEmail(e.target.value);
     if (emailRegex.test(e.target.value)) {
+      setEmailValid(true)
+      setEmailError("")
     }
   };
 
