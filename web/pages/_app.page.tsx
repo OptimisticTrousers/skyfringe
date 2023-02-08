@@ -32,9 +32,7 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
       <Head>
         <title>Skyfringe | Talk with your friends!</title>
       </Head>
-      <ThemeProvider>
-        <div style={{backgroundColor: theme === "light" ? "#"}}>{children}</div>
-      </ThemeProvider>
+      <ThemeProvider>{children}</ThemeProvider>
       <Toast visible={toastVisible} params={toastParams} />
     </>
   );

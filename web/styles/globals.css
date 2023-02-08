@@ -14,6 +14,10 @@ body {
   color: rgba(255, 255, 255);
   background-color: #121212;
   --icon-hover: rgb(59, 130, 246);
+  --dark-bg-color: #121212;
+  --dark-text-cilor: white;
+  --light-bg-color: white;
+  --light-text-color: black;
 }
 
 #__next {
