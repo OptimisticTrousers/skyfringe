@@ -45,7 +45,6 @@ const Login = () => {
           type="email"
           id="email"
           name="email"
-          placeholder="you@example.com"
           required
           styleName="auth__input"
         />
@@ -62,7 +61,6 @@ const Login = () => {
             type={passwordVisible ? "text" : "password"}
             id="password"
             name="password"
-            placeholder="1234"
             required
             styleName="auth__input"
           />
