@@ -1,5 +1,5 @@
-import CSSModules from "react-css-modules";
 import { FC } from "react";
+import CSSModules from "react-css-modules";
 import styles from "./ChatMessage.module.css";
 
 interface Props {

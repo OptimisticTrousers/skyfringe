@@ -1,7 +1,6 @@
 import CSSModules from "react-css-modules";
+import { AiFillPicture, AiOutlineFileGif } from "react-icons/ai";
 import { FiPaperclip } from "react-icons/fi";
-import { AiFillPicture } from "react-icons/ai";
-import { AiOutlineFileGif } from "react-icons/ai";
 import { RiSendPlaneFill } from "react-icons/ri";
 import styles from "./ChatForm.module.css";
 

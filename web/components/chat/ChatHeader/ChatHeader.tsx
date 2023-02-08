@@ -1,5 +1,5 @@
-import CSSModules from "react-css-modules";
 import { useContext } from "react";
+import CSSModules from "react-css-modules";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { ChatContext } from "../../../context/ChatContext";
