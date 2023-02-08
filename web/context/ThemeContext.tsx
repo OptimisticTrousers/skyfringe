@@ -1,4 +1,4 @@
-import { FC, useState, createContext } from "react";
+import { FC, useState, createContext, useContext } from "react";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
@@ -31,4 +31,10 @@ export const ThemeProvider: FC<Props> = ({ children }) => {
       {children}
     </ThemeContext.Provider>
   );
+};
+
+export const useThemeContext = () => {
+  const context = useContext(ThemeContext);
+
+  return context;
 };

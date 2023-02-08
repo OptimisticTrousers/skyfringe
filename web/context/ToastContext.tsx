@@ -46,6 +46,5 @@ export const useToastContext = () => {
 
   // Can optionally add conditional here to ensure toast context is used only by those components wrapped in a toast context provider
 
-  console.log(context)
   return context;
 };
