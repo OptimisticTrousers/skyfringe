@@ -87,3 +87,8 @@
   }
 }
 
+@media (max-width: 545px) {
+  .auth__form {
+    padding: 0rem;
+  }
+}

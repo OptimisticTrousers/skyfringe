@@ -11,9 +11,14 @@ import { PasswordContainer } from "../components/ui/PasswordContainer";
 import AuthLayout from "../components/common/AuthLayout";
 
 const Login = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [emailValid, setEmailValid] = useState(true);
+  const [emailError, setEmailError] = useState("");
+
+  const [password, setPassword] = useState("");
+  const [passwordValid, setPasswordValid] = useState(true);
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleSubmit = () => {};
 

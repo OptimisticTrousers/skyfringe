@@ -198,6 +198,7 @@
   width: 100%;
   border: none;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .auth__icon--guest {
@@ -283,5 +284,17 @@
   .auth__form {
     min-width: unset;
     width: unset;
+  }
+}
+
+@media (max-width: 545px) {
+  .auth__bottom {
+    flex-direction: column;
+  }
+  .auth__button {
+    text-align: center;
+  }
+  .auth__icon--guest {
+    flex: unset;
   }
 }
