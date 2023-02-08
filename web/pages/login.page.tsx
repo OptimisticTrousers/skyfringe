@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineEye } from "react-icons/ai";

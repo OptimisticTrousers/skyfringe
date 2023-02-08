@@ -1,11 +1,7 @@
-import Link from "next/link";
 import { useState } from "react";
 import CSSModules from "react-css-modules";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { RxPerson } from "react-icons/rx";
-import { SiFacebook } from "react-icons/si";
+import Link from "next/link";
 import AuthLayout from "../components/common/AuthLayout";
-import Logo from "../components/ui/Logo/Logo";
 import { PasswordContainer } from "../components/ui/PasswordContainer";
 import styles from "../styles/Auth.module.css";
 

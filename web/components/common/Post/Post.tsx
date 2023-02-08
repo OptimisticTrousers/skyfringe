@@ -1,10 +1,8 @@
-import CSSModules from "react-css-modules";
 import { useState } from "react";
-import { BiTime } from "react-icons/bi";
-import { BsBookmark } from "react-icons/bs";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import CSSModules from "react-css-modules";
 import { AiOutlineLike } from "react-icons/ai";
-import { BiCommentDetail } from "react-icons/bi";
+import { BiTime, BiCommentDetail } from "react-icons/bi";
+import { BsBookmark, BsThreeDotsVertical } from "react-icons/bs";
 import Comments from "../Comments";
 import { Card, MoreOptionsDropdown } from "../../ui";
 import styles from "./Post.module.css";
@@ -61,7 +59,7 @@ const Post = () => {
           <BiCommentDetail styleName="post__icon post__icon--control" />
           <span styleName="post__name">Comment</span>
           <span styleName="post__number">45</span>
-        </button >
+        </button>
       </div>
       <>{isCommentsOpen && <Comments />}</>
     </Card>

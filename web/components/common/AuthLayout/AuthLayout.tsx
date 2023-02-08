@@ -1,8 +1,5 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import CSSModules from "react-css-modules";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import { RxPerson } from "react-icons/rx";
-import { SiFacebook } from "react-icons/si";
 import Logo from "../../ui/Logo/Logo";
 import styles from "./AuthLayout.module.css";
 

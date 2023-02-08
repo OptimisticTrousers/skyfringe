@@ -1,5 +1,5 @@
-import Link from "next/link";
 import CSSModules from "react-css-modules";
+import Link from "next/link";
 import Logo from "../components/ui/Logo/Logo";
 import styles from "../styles/Error.module.css";
 

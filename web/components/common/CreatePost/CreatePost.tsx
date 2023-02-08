@@ -1,9 +1,9 @@
+import { useState } from "react";
 import CSSModules from "react-css-modules";
-import { FC, useState } from "react";
 import { FcPlus } from "react-icons/fc";
 import { Card } from "../../ui";
-import styles from "./CreatePost.module.css";
 import { CreatePostModal } from "../../modals";
+import styles from "./CreatePost.module.css";
 
 const CreatePost = () => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);

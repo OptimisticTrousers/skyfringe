@@ -1,13 +1,11 @@
+import { useState } from "react";
 import CSSModules from "react-css-modules";
 import Link from "next/link";
-import { useState } from "react";
-import { AiFillHome } from "react-icons/ai";
-import { IoIosPeople } from "react-icons/io";
-import { AiFillCloseSquare } from "react-icons/ai";
-import { IoMdNotifications } from "react-icons/io";
-import { BsFillChatSquareDotsFill } from "react-icons/bs";
-import { RiSettingsFill } from "react-icons/ri";
+import { AiFillHome, AiFillCloseSquare } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
+import { BsFillChatSquareDotsFill } from "react-icons/bs";
+import { IoIosPeople, IoMdNotifications } from "react-icons/io";
+import { RiSettingsFill } from "react-icons/ri";
 import styles from "./Aside.module.css";
 import Logo from "../../ui/Logo/Logo";
 

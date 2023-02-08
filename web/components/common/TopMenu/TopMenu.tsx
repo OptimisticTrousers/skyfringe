@@ -1,5 +1,5 @@
-import CSSModules from "react-css-modules";
 import { useState } from "react";
+import CSSModules from "react-css-modules";
 import Suggestions from "../Suggestions/Suggestions";
 import styles from "./TopMenu.module.css";
 

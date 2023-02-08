@@ -1,5 +1,5 @@
-import CSSModules from "react-css-modules";
 import { FC } from "react";
+import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
 import { VscClose } from "react-icons/vsc";
 import ModalContainer from "../ModalContainer";
