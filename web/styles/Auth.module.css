@@ -155,6 +155,13 @@
   flex-direction: column;
 }
 
+.auth__message {
+  color: rgb(166, 183, 206);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  margin-bottom: 0;
+}
+
 .auth__label {
   font-size: 1rem;
   line-height: 1.5rem;

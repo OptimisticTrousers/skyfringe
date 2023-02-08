@@ -44,7 +44,7 @@ const Login = () => {
       <h2 styleName="auth__title">Log In</h2>
       <div styleName="auth__control">
         <label htmlFor="email" styleName="auth__label">
-          <span styleName="auth__bold">Email Address</span> (required)
+          <span styleName="auth__bold">Email Address</span>
         </label>
         <input
           type="email"
@@ -60,7 +60,7 @@ const Login = () => {
           handleClick={handlePasswordVisiblity}
         >
           <label htmlFor="password" styleName="auth__label">
-            <span styleName="auth__bold">Password</span> (required)
+            <span styleName="auth__bold">Password</span>
           </label>
           <input
             type={passwordVisible ? "text" : "password"}

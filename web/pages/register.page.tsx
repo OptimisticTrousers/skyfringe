@@ -27,10 +27,12 @@ const Register = () => {
           type="text"
           id="firstName"
           name="firstName"
-          placeholder="Bob"
           required
           styleName="auth__input"
         />
+        <p styleName="auth__message">
+          Your first name will be used for your display avatar
+        </p>
       </div>
       <div styleName="auth__control">
         <label htmlFor="email" styleName="auth__label">
@@ -40,23 +42,24 @@ const Register = () => {
           type="text"
           id="lastName"
           name="lastName"
-          placeholder="Jones"
           required
           styleName="auth__input"
         />
       </div>
       <div styleName="auth__control">
         <label htmlFor="email" styleName="auth__label">
-          <span styleName="auth__bold">Email Address</span> (required)
+          <span styleName="auth__bold">Email Address</span>
         </label>
         <input
           type="email"
           id="email"
           name="email"
-          placeholder="you@example.com"
           required
           styleName="auth__input"
         />
+        <p styleName="auth__message">
+          You'll use your email address to log in.
+        </p>
       </div>
       <div styleName="auth__control">
         <PasswordContainer
@@ -64,13 +67,29 @@ const Register = () => {
           handleClick={handlePasswordVisiblity}
         >
           <label htmlFor="password" styleName="auth__label">
-            <span styleName="auth__bold">Password</span> (required)
+            <span styleName="auth__bold">Password</span>
           </label>
           <input
             type={passwordVisible ? "text" : "password"}
             id="password"
             name="password"
-            placeholder="1234"
+            required
+            styleName="auth__input"
+          />
+        </PasswordContainer>
+      </div>
+      <div styleName="auth__control">
+        <PasswordContainer
+          showPassword={passwordVisible}
+          handleClick={handlePasswordVisiblity}
+        >
+          <label htmlFor="password" styleName="auth__label">
+            <span styleName="auth__bold">Confirm Password</span>
+          </label>
+          <input
+            type={passwordVisible ? "text" : "password"}
+            id="password"
+            name="password"
             required
             styleName="auth__input"
           />
