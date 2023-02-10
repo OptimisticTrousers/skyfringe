@@ -177,14 +177,22 @@
   margin-top: 8px;
   height: 40px;
   padding: 0.5rem 0.75rem;
-  border: 1px solid rgb(203, 213, 225);
+  border: 3px solid rgb(88, 93, 137);
   background-color: rgb(243, 244, 246);
 }
 
-.auth__input:focus {
+.auth__input--validation:valid {
+  border: 3px solid #5eda87;
+}
+
+.auth__input--validation:invalid{
+  border: 3px solid #dc3545;
+}
+
+/* .auth__input:focus {
   border-color: rgb(88, 93, 137);
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
-}
+} */
 
 .auth__input:focus-visible {
   outline: none;

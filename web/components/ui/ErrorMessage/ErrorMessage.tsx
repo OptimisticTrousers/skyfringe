@@ -1,5 +1,6 @@
 import { FC } from "react";
 import CSSModules from "react-css-modules";
+import { GoAlert } from "react-icons/go";
 import styles from "./ErrorMessage.module.css";
 
 interface Props {
@@ -7,7 +8,12 @@ interface Props {
 }
 
 const ErrorMessage: FC<Props> = ({ message }) => {
-  return <p styleName="message">{message}</p>;
+  return (
+    <p styleName="message">
+      <GoAlert styleName="message__icon" />
+      {message}
+    </p>
+  );
 };
 
 export default CSSModules(ErrorMessage, styles, {

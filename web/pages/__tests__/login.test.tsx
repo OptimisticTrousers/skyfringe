@@ -1,52 +1,98 @@
-import { render, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  getByLabelText,
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { useReducer } from "react";
 import Login from "../login.page";
 
 describe("Login page", () => {
   describe("Form validation", () => {
-    it("displays error message when the user clicks on the email input field, then clicks away", () => {
-      render(<Login />);
-      const emailInput = screen.getByRole("textbox", {
-        name: "Email Address ",
-      });
-      userEvent.click(emailInput);
-      // Click away from the email input field to remove the focus on the email input field
-      userEvent.click(document.body);
-      //https://stackoverflow.com/questions/56978283/unit-testing-react-click-outside-component-using-jest-and-react-testing-library
-      const errorMessage = screen.getByText("Input is required.");
-      expect(errorMessage).toBeInTheDocument();
-    });
-    it("displays error message on input fields when all of the fields are empty and the user tries to log in", () => {
-      render(<Login />);
-      const loginButton = screen.getByRole("button", { name: "Log In" });
-      userEvent.click(loginButton);
-      const errorMessages = screen.getAllByText("Input is required.");
-      // Expect the number of error messages to be two since there are two input fields on the login page
-      expect(errorMessages.length).toBe(2);
-    });
     test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", () => {
+      const user = userEvent.setup();
       render(<Login />);
-      const emailInput = screen.getByRole("textbox", {
-        name: "Email Address",
-      });
-      userEvent.type(emailInput, "bob jones");
-      // Remove focus from the email input
-      userEvent.click(document.body);
+      const emailInput = screen.getByLabelText("Email Address");
+      user.type(emailInput, "locospollos");
+      // Remove focus from the password input
+      fireEvent.focusOut(emailInput);
+      expect(emailInput).not.toHaveFocus();
       const errorMessage = screen.getByText(
-        "Input is not a valid e-mail address."
+        "The email field must be a valid email"
       );
       expect(errorMessage).toBeInTheDocument();
     });
     test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", () => {
+      const user = userEvent.setup();
       render(<Login />);
       const passwordInput = screen.getByLabelText("Password");
-      userEvent.type(passwordInput, "bobjone");
+      user.type(passwordInput, "bobjone");
       // Remove focus from the password input
-      userEvent.click(document.body);
+      fireEvent.focusOut(passwordInput);
+      expect(passwordInput).not.toHaveFocus();
       const errorMessage = screen.getByText(
-        "Input must be at least 8 characters long."
+        "The password field must be at least 8 characters"
       );
       expect(errorMessage).toBeInTheDocument();
+    });
+    test("if the users enters an invalid input into the email field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
+      const user = userEvent.setup();
+      render(<Login />);
+      const emailInput = screen.getByLabelText("Email Address");
+      user.type(emailInput, "locospollos");
+      // Remove focus from the password input
+      fireEvent.focusOut(emailInput);
+      expect(emailInput).not.toHaveFocus();
+      const errorMessage = screen.getByText(
+        "The email field must be a valid email"
+      );
+      expect(errorMessage).toBeInTheDocument();
+      user.clear(emailInput);
+      user.type(emailInput, "bobjones@gmail.com");
+      await waitFor(() => {
+        expect(errorMessage).not.toBeInTheDocument();
+      });
+    });
+    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
+      const user = userEvent.setup();
+      render(<Login />);
+      const passwordInput = screen.getByLabelText("Password");
+      user.type(passwordInput, "bobjone");
+      // Remove focus from the password input
+      fireEvent.focusOut(passwordInput);
+      expect(passwordInput).not.toHaveFocus();
+      const errorMessage = screen.getByText(
+        "The password field must be at least 8 characters"
+      );
+      expect(errorMessage).toBeInTheDocument();
+      user.clear(passwordInput);
+      user.type(passwordInput, "bobjones");
+      await waitFor(() => {
+        expect(errorMessage).not.toBeInTheDocument();
+      });
+    });
+    test("if the user enters a correct email input, no error message should appear", async () => {
+      const user = userEvent.setup();
+      render(<Login />);
+      const emailInput = screen.getByLabelText("Email Address");
+      await user.type(emailInput, "bobjones@gmail.com");
+      const errorMessage = screen.queryByText(
+        "Input is not a valid e-mail address."
+      );
+      expect(errorMessage).not.toBeInTheDocument();
+    });
+    test("if the user enters a correct password input, no error message should appear", async () => {
+      const user = userEvent.setup();
+      render(<Login />);
+      const passwordInput = screen.getByLabelText("Password");
+      await user.type(passwordInput, "bobjones@gmail.com");
+      const errorMessage = screen.queryByText(
+        "The password field must be at least 8 characters"
+      );
+      expect(errorMessage).not.toBeInTheDocument();
     });
   });
   // describe("Button text changes", () => {

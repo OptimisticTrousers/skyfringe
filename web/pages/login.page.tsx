@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
@@ -21,49 +21,43 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const handleSubmit = () => {};
+  const [emailValidationStyles, setEmailValidationStyles] = useState(false);
+  const [passwordValidationStyles, setPasswordValidationStyles] =
+    useState(false);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const emailRegex = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
-    setEmail(e.target.value);
-    if (emailRegex.test(e.target.value)) {
+    if (!e.target.checkValidity()) {
       setEmailValid(true);
       setEmailError("");
     }
+    setEmail(e.target.value);
   };
 
-  const checkEmailValidation = () => {
-    const emailRegex = /^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$/;
-    if (email === "" || email === "null" || email === null) {
+  const checkEmailValidation = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.checkValidity()) {
+      setEmailValidationStyles(true);
       setEmailValid(false);
-      setEmailError("Input is required.");
-    } else if (!emailRegex.test(email)) {
-      setEmailValid(false);
-      setEmailError("Input is not a valid email-address.");
-    } else {
-      setEmailValid(true);
+      setEmailError("The email field must be a valid email");
     }
   };
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    if (e.target.value.length >= 8) {
+    if (!e.target.checkValidity()) {
       setPasswordValid(true);
       setPasswordError("");
     }
+    setPassword(e.target.value);
   };
 
-  const checkPasswordValidation = () => {
-    // Password must be at least 8 characters
-    if (password.length === 0) {
+  const checkPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.checkValidity()) {
+      setPasswordValidationStyles(true);
       setPasswordValid(false);
-      setPasswordError(`Input is required.`);
-    } else if (password.length < 8) {
-      setPasswordValid(false);
-      setPasswordError("Input must be at least 8 characters long.");
-    } else {
-      setPasswordValid(true);
-      setPasswordError("");
+      setPasswordError("The password field must be at least 8 characters");
     }
   };
 
@@ -82,9 +76,11 @@ const Login = () => {
           type="email"
           id="email"
           name="email"
-          required
-          styleName="auth__input"
+          styleName={`auth__input ${
+            emailValidationStyles && "auth__input--validation"
+          }`}
           value={email}
+          required
           onChange={handleEmailChange}
           onBlur={checkEmailValidation}
         />
@@ -102,9 +98,12 @@ const Login = () => {
             type={passwordVisible ? "text" : "password"}
             id="password"
             name="password"
+            styleName={`auth__input ${
+              passwordValidationStyles&& "auth__input--validation"
+            }`}
             required
-            styleName="auth__input"
             value={password}
+            minLength={8}
             onChange={handlePasswordChange}
             onBlur={checkPasswordValidation}
           />
