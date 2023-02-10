@@ -5,16 +5,15 @@ const reducer = (state, action) => {
     case "HANDLE_EMAIL":
       return { ...state, email: action.payload };
     case "EMAIL_ERROR":
-      return {...state, }
+      return { ...state };
   }
 };
 
-const useForm = (...inputs) => {
-
+const useForm = (...inputs: string[]) => {
   const [form, dispatch] = useReducer(
     reducer,
     inputs.map((input) => {
-      return {...input, valid: true, error: ""}
+      return { value: input, valid: true, error: "" };
     })
   );
 

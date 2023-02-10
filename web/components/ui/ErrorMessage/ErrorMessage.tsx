@@ -3,11 +3,11 @@ import CSSModules from "react-css-modules";
 import styles from "./ErrorMessage.module.css";
 
 interface Props {
-  text: string;
+  message: string;
 }
 
-const ErrorMessage: FC<Props> = ({ text }) => {
-  return <p styleName="message">{text}</p>;
+const ErrorMessage: FC<Props> = ({ message }) => {
+  return <p styleName="message">{message}</p>;
 };
 
 export default CSSModules(ErrorMessage, styles, {
