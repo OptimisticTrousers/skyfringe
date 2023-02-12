@@ -99,7 +99,7 @@ const Login = () => {
             id="password"
             name="password"
             styleName={`auth__input ${
-              passwordValidationStyles&& "auth__input--validation"
+              passwordValidationStyles && "auth__input--validation"
             }`}
             required
             value={password}
