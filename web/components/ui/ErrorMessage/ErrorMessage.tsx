@@ -11,7 +11,7 @@ const ErrorMessage: FC<Props> = ({ message }) => {
   return (
     <p styleName="message">
       <GoAlert styleName="message__icon" />
-      {message}
+      <span styleName="message__text">{message}</span>
     </p>
   );
 };

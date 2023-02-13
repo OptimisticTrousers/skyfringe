@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
+    if (e.target.checkValidity()) {
       setEmailValid(true);
       setEmailError("");
     }
@@ -46,7 +46,7 @@ const Login = () => {
   };
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
+    if (e.target.checkValidity()) {
       setPasswordValid(true);
       setPasswordError("");
     }
@@ -77,7 +77,7 @@ const Login = () => {
           id="email"
           name="email"
           styleName={`auth__input ${
-            emailValidationStyles && "auth__input--validation"
+            emailValidationStyles ? "auth__input--validation" : ""
           }`}
           value={email}
           required
@@ -99,7 +99,7 @@ const Login = () => {
             id="password"
             name="password"
             styleName={`auth__input ${
-              passwordValidationStyles && "auth__input--validation"
+              passwordValidationStyles ? "auth__input--validation" : ""
             }`}
             required
             value={password}

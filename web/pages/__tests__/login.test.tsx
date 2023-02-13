@@ -5,34 +5,34 @@ import {
   screen,
   waitFor,
   waitForElementToBeRemoved,
+  act,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useReducer } from "react";
-import { act } from "react-dom/test-utils";
 import Login from "../login.page";
 
 describe("Login page", () => {
   describe("Form validation", () => {
-    test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", () => {
+    test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", async () => {
       const user = userEvent.setup();
       render(<Login />);
       const emailInput = screen.getByLabelText("Email Address");
-      user.type(emailInput, "locospollos");
+      await user.type(emailInput, "locospollos");
       // Remove focus from the password input
-      fireEvent.focusOut(emailInput);
+      await user.tab();
       expect(emailInput).not.toHaveFocus();
       const errorMessage = screen.getByText(
         "The email field must be a valid email"
       );
       expect(errorMessage).toBeInTheDocument();
     });
-    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", () => {
+    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", async () => {
       const user = userEvent.setup();
       render(<Login />);
       const passwordInput = screen.getByLabelText("Password");
-      user.type(passwordInput, "bobjone");
+      await user.type(passwordInput, "bobjone");
       // Remove focus from the password input
-      fireEvent.focusOut(passwordInput);
+      await user.tab();
       expect(passwordInput).not.toHaveFocus();
       const errorMessage = screen.getByText(
         "The password field must be at least 8 characters"
@@ -53,7 +53,7 @@ describe("Login page", () => {
       expect(errorMessage).toBeInTheDocument();
       await user.clear(emailInput);
       await user.type(emailInput, "bobjones@gmail.com");
-        expect(errorMessage).not.toBeInTheDocument();
+      expect(errorMessage).not.toBeInTheDocument();
     });
     test("if the user enters a correct email input, no error message should appear", async () => {
       const user = userEvent.setup();
@@ -75,27 +75,19 @@ describe("Login page", () => {
       );
       expect(errorMessage).not.toBeInTheDocument();
     });
-    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
+    test("if the users enters an invalid input into the password field, then clicks away, then, when the user enters the field correctly, the message goes away", async () => {
       const user = userEvent.setup();
       render(<Login />);
       const passwordInput = screen.getByLabelText("Password");
-      act(async () => {
-        await user.type(passwordInput, "bobjone");
-        // Remove focus from the password input
-        await user.tab();
-        expect(passwordInput).not.toHaveFocus();
-        const errorMessage = screen.getByText(
-          "The password field must be at least 8 characters"
-        );
-        expect(errorMessage).toBeInTheDocument();
-      });
+      await user.type(passwordInput, "bobjone");
+      // Remove focus from the password input
+      await user.tab();
+      expect(passwordInput).not.toHaveFocus();
       await user.type(passwordInput, "bobjones");
-      // await waitForElementToBeRemoved(() => screen.queryByText("The password field must be at least 8 characters"))
-      const newErrorMessage = screen.queryByText(
+      const errorMessage = screen.queryByText(
         "The password field must be at least 8 characters"
       );
-      expect(newErrorMessage).not.toBeInTheDocument();
-      // expect(errorMessage).not.toBeInTheDocument();
+      expect(errorMessage).not.toBeInTheDocument();
     });
   });
   // describe("Button text changes", () => {
