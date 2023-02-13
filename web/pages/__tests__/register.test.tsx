@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { act } from "react-dom/test-utils";
 import Register from "../register.page";
 
 describe("Register page", () => {
@@ -110,11 +111,39 @@ describe("Register page", () => {
       const passwordConfInput = screen.getByLabelText("Confirm Password");
       await user.type(passwordConfInput, "locospollo");
       // Focus out of the password confirmation input so that the onBlur event can occur
-      fireEvent.focusOut(passwordConfInput)
+      fireEvent.focusOut(passwordConfInput);
       const passwordConfErrorMessage = screen.getByText(
         "Passwords do not match"
       );
       expect(passwordConfErrorMessage).toBeInTheDocument();
+    });
+    test("if the user enters a matching password and confirm password field, but the password input is less than 8 characters, render an error message below the password confirm field", async () => {
+      const user = userEvent.setup();
+      render(<Register />);
+      const passwordInput = screen.getByLabelText("Password");
+      await user.type(passwordInput, "pollos");
+      fireEvent.focusOut(passwordInput);
+      const passwordConfInput = screen.getByLabelText("Confirm Password");
+      await user.type(passwordConfInput, "pollos");
+      fireEvent.focusOut(passwordConfInput);
+      const passwordErrorMessage = screen.getByText(
+        "The password field must be at least 8 characters"
+      );
+      expect(passwordErrorMessage).toBeInTheDocument();
+    });
+    test("if the user enters text into the confirm password, but does not enter text in the password field, render an error message below the password field", () => {
+      const user = userEvent.setup();
+      render(<Register />);
+      const passwordConfInput = screen.getByLabelText("Confirm Password");
+      user.type(passwordConfInput, "pollos");
+      user.tab();
+      // fireEvent.focusOut(passwordConfInput);
+      // passwordConfInput.blur();
+      expect(passwordConfInput).not.toHaveFocus();
+      const passwordErrorMessage = screen.getByText(
+        "The password field must be at least 8 characters"
+      );
+      expect(passwordErrorMessage).toBeInTheDocument();
     });
   });
   describe("Password confirmation input", () => {
