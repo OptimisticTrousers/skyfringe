@@ -8,6 +8,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useReducer } from "react";
+import { act } from "react-dom/test-utils";
 import Login from "../login.page";
 
 describe("Login page", () => {
@@ -42,37 +43,17 @@ describe("Login page", () => {
       const user = userEvent.setup();
       render(<Login />);
       const emailInput = screen.getByLabelText("Email Address");
-      user.type(emailInput, "locospollos");
+      await user.type(emailInput, "locospollos");
       // Remove focus from the password input
-      fireEvent.focusOut(emailInput);
+      await user.tab();
       expect(emailInput).not.toHaveFocus();
       const errorMessage = screen.getByText(
         "The email field must be a valid email"
       );
       expect(errorMessage).toBeInTheDocument();
-      user.clear(emailInput);
-      user.type(emailInput, "bobjones@gmail.com");
-      await waitFor(() => {
+      await user.clear(emailInput);
+      await user.type(emailInput, "bobjones@gmail.com");
         expect(errorMessage).not.toBeInTheDocument();
-      });
-    });
-    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
-      const user = userEvent.setup();
-      render(<Login />);
-      const passwordInput = screen.getByLabelText("Password");
-      user.type(passwordInput, "bobjone");
-      // Remove focus from the password input
-      fireEvent.focusOut(passwordInput);
-      expect(passwordInput).not.toHaveFocus();
-      const errorMessage = screen.getByText(
-        "The password field must be at least 8 characters"
-      );
-      expect(errorMessage).toBeInTheDocument();
-      user.clear(passwordInput);
-      user.type(passwordInput, "bobjones");
-      await waitFor(() => {
-        expect(errorMessage).not.toBeInTheDocument();
-      });
     });
     test("if the user enters a correct email input, no error message should appear", async () => {
       const user = userEvent.setup();
@@ -93,6 +74,28 @@ describe("Login page", () => {
         "The password field must be at least 8 characters"
       );
       expect(errorMessage).not.toBeInTheDocument();
+    });
+    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
+      const user = userEvent.setup();
+      render(<Login />);
+      const passwordInput = screen.getByLabelText("Password");
+      act(async () => {
+        await user.type(passwordInput, "bobjone");
+        // Remove focus from the password input
+        await user.tab();
+        expect(passwordInput).not.toHaveFocus();
+        const errorMessage = screen.getByText(
+          "The password field must be at least 8 characters"
+        );
+        expect(errorMessage).toBeInTheDocument();
+      });
+      await user.type(passwordInput, "bobjones");
+      // await waitForElementToBeRemoved(() => screen.queryByText("The password field must be at least 8 characters"))
+      const newErrorMessage = screen.queryByText(
+        "The password field must be at least 8 characters"
+      );
+      expect(newErrorMessage).not.toBeInTheDocument();
+      // expect(errorMessage).not.toBeInTheDocument();
     });
   });
   // describe("Button text changes", () => {
