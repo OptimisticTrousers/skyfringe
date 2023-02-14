@@ -8,9 +8,9 @@ import {
 
 const router = Router();
 
-router.route("/register").get(register_user);
+router.route("/register").post(register_user);
 
-router.route("/login").get(login_user);
+router.route("/login").post(login_user);
 
 router
   .route("/logout")

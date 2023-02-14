@@ -4,12 +4,16 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
   {
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    friends: [{ type: Schema.Types.ObjectId, ref: "User", required: true }],
-    photo: { type: Map },
+    fullName: { type: String, required: true },
+    userName: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, minLength: 8, required: true },
+    friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    photo: {
+      photoId: String,
+      imageUrl: String,
+      altText: String,
+    },
     outgoingFriendRequests: [{ type: Schema.Types.ObjectId, ref: "User" }],
     incomingFriendRequests: [{ type: Schema.Types.ObjectId, ref: "User" }],
   },

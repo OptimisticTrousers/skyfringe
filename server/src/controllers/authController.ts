@@ -8,8 +8,8 @@ import User from "../models/user";
 // Handle register on POST
 export const register_user = [
   // Validate and sanitize fields.
-  body("firstName").trim().isLength({ min: 1 }).escape(),
-  body("lastName").trim().isLength({ min: 1 }).escape(),
+  body("fullName").trim().isLength({ min: 1 }).escape(),
+  body("userName").trim().isLength({ min: 5 }).escape(),
   body("email")
     .isEmail()
     .normalizeEmail({ gmail_remove_dots: false })
@@ -23,7 +23,7 @@ export const register_user = [
         return Promise.reject("Server Error");
       }
     }),
-  body("password").trim().isLength({ min: 1 }).escape(),
+  body("password").trim().isLength({ min: 8 }).escape(),
   // Process request after validation and sanitization.
   (req: any, res: Response, next: NextFunction) => {
     // Extract validation errors from a request.
