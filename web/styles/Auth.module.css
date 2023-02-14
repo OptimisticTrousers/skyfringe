@@ -185,7 +185,7 @@
   border: 3px solid #5eda87;
 }
 
-.auth__input--validation:invalid{
+.auth__input--validation:invalid {
   border: 3px solid #dc3545;
 }
 
@@ -264,11 +264,6 @@
 
 .auth__button--submit:hover {
   background-color: rgba(106, 112, 160);
-}
-
-.auth__button:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
 }
 
 .auth__bottom {
