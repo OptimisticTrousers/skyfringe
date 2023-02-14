@@ -185,7 +185,7 @@
   border: 3px solid #5eda87;
 }
 
-.auth__input--validation:invalid {
+.auth__input--validation:invalid{
   border: 3px solid #dc3545;
 }
 
@@ -259,7 +259,7 @@
 }
 
 .auth__button--oauth:hover {
-  background-color: rgb(22, 11, 229);
+  background-color: #0081fe;
 }
 
 .auth__button--submit:hover {
