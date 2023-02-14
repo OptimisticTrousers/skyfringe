@@ -8,8 +8,11 @@ import { PasswordStrengthMeter } from "../components/ui/PasswordStrengthMeter";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
+
+  const [username, setUsername] = useState("");
+  const [usernameValid, setUsernameValid] = useState(true);
+  const [usernameError, setUsernameError] = useState("");
 
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
@@ -25,19 +28,25 @@ const Register = () => {
   const [passwordConfError, setPasswordConfError] = useState("");
 
   const [emailValidationStyles, setEmailValidationStyles] = useState(false);
+  const [usernameValidationStyles, setUsernameValidationStyles] =
+    useState(false);
   const [passwordValidationStyles, setPasswordValidationStyles] =
     useState(false);
 
-  const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFirstName(e.target.value);
+  const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFullName(e.target.value);
   };
 
-  const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLastName(e.target.value);
+  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checkValidity()) {
+      setUsernameValid(true);
+      setUsernameError("");
+    }
+    setUsername(e.target.value);
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
+    if (e.target.checkValidity()) {
       setEmailValid(true);
       setEmailError("");
     }
@@ -70,7 +79,7 @@ const Register = () => {
   };
 
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
+    if (e.target.checkValidity()) {
       setPasswordValid(true);
       setPasswordError("");
     }
@@ -82,6 +91,14 @@ const Register = () => {
       setPasswordValidationStyles(true);
       setPasswordValid(false);
       setPasswordError("The password field must be at least 8 characters");
+    }
+  };
+
+  const checkUsernameValidation = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.checkValidity()) {
+      setUsernameValidationStyles(true);
+      setUsernameValid(false);
+      setUsernameError("No spaces, uppercase letters, or special characters");
     }
   };
 
@@ -97,35 +114,40 @@ const Register = () => {
     <AuthLayout handleSubmit={handleSubmit}>
       <h2 styleName="auth__title">Register</h2>
       <div styleName="auth__control">
-        <label htmlFor="email" styleName="auth__label">
-          <span styleName="auth__bold">First Name</span>
+        <label htmlFor="fullName" styleName="auth__label">
+          <span styleName="auth__bold">Full Name</span>
         </label>
         <input
           type="text"
-          id="firstName"
-          name="firstName"
+          id="fullName"
+          name="fullName"
           required
           styleName="auth__input"
-          value={firstName}
-          onChange={handleFirstNameChange}
+          value={fullName}
+          onChange={handleFullNameChange}
         />
         <p styleName="auth__message">
           Your first name will be used for your display avatar
         </p>
       </div>
       <div styleName="auth__control">
-        <label htmlFor="email" styleName="auth__label">
-          <span styleName="auth__bold">Last Name</span>
+        <label htmlFor="username" styleName="auth__label">
+          <span styleName="auth__bold">Username</span>
         </label>
         <input
           type="text"
-          id="lastName"
-          name="lastName"
+          id="username"
+          name="username"
           required
-          styleName="auth__input"
-          value={lastName}
-          onChange={handleLastNameChange}
+          styleName={`auth__input ${
+            usernameValidationStyles ? "auth__input--validation" : ""
+          }`}
+          value={username}
+          onChange={handleUsernameChange}
+          pattern="^[a-z\d\.]{5,}$"
+          onBlur={checkUsernameValidation}
         />
+        {usernameValid === false && <ErrorMessage message={usernameError} />}
       </div>
       <div styleName="auth__control">
         <label htmlFor="email" styleName="auth__label">
@@ -137,7 +159,7 @@ const Register = () => {
           name="email"
           required
           styleName={`auth__input ${
-            emailValidationStyles && "auth__input--validation"
+            emailValidationStyles ? "auth__input--validation" : ""
           }`}
           onChange={handleEmailChange}
           onBlur={checkEmailValidation}
@@ -162,7 +184,7 @@ const Register = () => {
             name="password"
             required
             styleName={`auth__input ${
-              passwordValidationStyles && "auth__input--validation"
+              passwordValidationStyles ? "auth__input--validation" : ""
             }`}
             value={password}
             minLength={8}

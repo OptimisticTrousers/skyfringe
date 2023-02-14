@@ -141,6 +141,45 @@ describe("Register page", () => {
     //   );
     //   expect(passwordErrorMessage).toBeInTheDocument();
     // });
+    test("if the user enters a correct username, then no error message should appear", async () => {
+      const user = userEvent.setup();
+      render(<Register />);
+      const usernameInput = screen.getByLabelText("Username");
+      await user.type(usernameInput, "bobjones");
+      // Focus out of input element
+      await user.tab();
+      const errorMessage = screen.queryByText(
+        "No spaces, uppercase letters, or special characters"
+      );
+      expect(errorMessage).not.toBeInTheDocument();
+    });
+    test("if the user enters an incorrect username, then focuses out of the element, an error message should appear below the input", async () => {
+      const user = userEvent.setup();
+      render(<Register />);
+      const usernameInput = screen.getByLabelText("Username");
+      await user.type(usernameInput, "AdsaA2@ad asdasd");
+      // Focus out of input element
+      await user.tab();
+      const errorMessage = screen.getByText(
+        "No spaces, uppercase letters, or special characters"
+      );
+      expect(errorMessage).toBeInTheDocument();
+    });
+    test("if the user enters an incorrect username, then focuses out of the element, then corrects the username field, show no error message", async () => {
+      const user = userEvent.setup();
+      render(<Register />);
+      const usernameInput = screen.getByLabelText("Username");
+      await user.type(usernameInput, "AdsaA2@ad asdasd");
+      // Focus out of input element
+      await user.tab();
+      const errorMessage = screen.getByText(
+        "No spaces, uppercase letters, or special characters"
+      );
+      expect(errorMessage).toBeInTheDocument();
+      await user.clear(usernameInput);
+      await user.type(usernameInput, "bobjones");
+      expect(errorMessage).not.toBeInTheDocument();
+    });
   });
   describe("Password confirmation input", () => {
     // test("hides confirmPassword input by default", () => {

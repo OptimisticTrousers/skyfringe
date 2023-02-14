@@ -1,10 +1,11 @@
 .message {
   font-size: 1rem;
-  line-height: 1rem;
+  line-height: 1.5rem;
   color: rgb(239, 68, 68);
   margin-bottom: 0;
   display: flex;
   align-items: center;
+  max-width: 364px;
 }
 
 .message__icon {
