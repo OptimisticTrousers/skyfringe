@@ -1,6 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { act } from "react-dom/test-utils";
 import Register from "../register.page";
 
 describe("Register page", () => {
@@ -43,11 +42,9 @@ describe("Register page", () => {
         "The email field must be a valid email"
       );
       expect(errorMessage).toBeInTheDocument();
-      user.clear(emailInput);
-      user.type(emailInput, "bobjones@gmail.com");
-      await waitFor(() => {
-        expect(errorMessage).not.toBeInTheDocument();
-      });
+      await user.clear(emailInput);
+      await user.type(emailInput, "bobjones@gmail.com");
+      expect(errorMessage).not.toBeInTheDocument();
     });
     // test("if the users enters an invalid input into the password field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
     //   const user = userEvent.setup();
@@ -130,12 +127,12 @@ describe("Register page", () => {
     //   );
     //   expect(passwordErrorMessage).toBeInTheDocument();
     // });
-    // test("if the user enters text into the confirm password, but does not enter text in the password field, render an error message below the password field", () => {
+    // test("if the user enters text into the confirm password, but does not enter text in the password field, render an error message below the password field", async () => {
     //   const user = userEvent.setup();
     //   render(<Register />);
     //   const passwordConfInput = screen.getByLabelText("Confirm Password");
-    //   user.type(passwordConfInput, "pollos");
-    //   user.tab();
+    //   await user.type(passwordConfInput, "pollos");
+    //   await user.tab();
     //   // fireEvent.focusOut(passwordConfInput);
     //   // passwordConfInput.blur();
     //   expect(passwordConfInput).not.toHaveFocus();

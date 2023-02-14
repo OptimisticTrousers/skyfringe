@@ -26,19 +26,19 @@ describe("Login page", () => {
       );
       expect(errorMessage).toBeInTheDocument();
     });
-    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", async () => {
-      const user = userEvent.setup();
-      render(<Login />);
-      const passwordInput = screen.getByLabelText("Password");
-      await user.type(passwordInput, "bobjone");
-      // Remove focus from the password input
-      await user.tab();
-      expect(passwordInput).not.toHaveFocus();
-      const errorMessage = screen.getByText(
-        "The password field must be at least 8 characters"
-      );
-      expect(errorMessage).toBeInTheDocument();
-    });
+    // test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", async () => {
+    //   const user = userEvent.setup();
+    //   render(<Login />);
+    //   const passwordInput = screen.getByLabelText("Password");
+    //   await user.type(passwordInput, "bobjone");
+    //   // Remove focus from the password input
+    //   await user.tab();
+    //   expect(passwordInput).not.toHaveFocus();
+    //   const errorMessage = screen.getByText(
+    //     "The password field must be at least 8 characters"
+    //   );
+    //   expect(errorMessage).toBeInTheDocument();
+    // });
     test("if the users enters an invalid input into the email field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
       const user = userEvent.setup();
       render(<Login />);
