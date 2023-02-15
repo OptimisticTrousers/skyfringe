@@ -6,26 +6,35 @@ interface Props {
 
 interface AuthContext {
   user: any;
+  dispatch: any;
 }
 
 const authReducer = (state: any, action: any) => {
   switch (action.type) {
     case "LOGIN":
-      return { user: action.payload };
+      return { ...state, user: action.payload };
     case "LOGOUT":
-      return { user: null };
+      return { ...state, user: null };
+    case "FETCHED_AUTH":
+      return { ...state, fetchedAuth: true };
+    case "UPDATE":
+      return { ...state, user: action.payload };
     default:
       return state;
   }
 };
 
-const AuthContext = createContext({} as AuthContext);
+export const AuthContext = createContext({} as AuthContext);
 
-const AuthProvider: FC<Props> = ({ children }) => {
+export const AuthProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
+    fetchedAuth: false,
   });
+
   return (
-    <AuthContext.Provider value={{ state }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user: state, dispatch }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
