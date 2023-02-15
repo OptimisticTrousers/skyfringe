@@ -3,6 +3,9 @@ import { Strategy as LocalStrategy } from "passport-local";
 import passportJWT from "passport-jwt";
 import User from "../models/user";
 import bcrypt from "bcryptjs";
+import { config } from "dotenv";
+
+config();
 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;

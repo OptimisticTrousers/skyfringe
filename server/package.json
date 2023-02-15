@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "example.js",
-  "type": "module",
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/server.ts",

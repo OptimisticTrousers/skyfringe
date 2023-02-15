@@ -35,8 +35,8 @@ export const register_user = [
       }
 
       const user = new User({
-        firstName: req.body.firstname,
-        lastName: req.body.lastName,
+        fullName: req.body.fullName,
+        userName: req.body.userName,
         email: req.body.email,
         password: hashedPassword,
       });
