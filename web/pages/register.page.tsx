@@ -6,13 +6,16 @@ import { PasswordContainer } from "../components/ui/PasswordContainer";
 import styles from "../styles/Auth.module.css";
 import { PasswordStrengthMeter } from "../components/ui/PasswordStrengthMeter";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
+import useRegister from "../hooks/useRegister";
 
 const Register = () => {
+  const { register, loading, error, formError } = useRegister();
+
   const [fullName, setFullName] = useState("");
 
-  const [username, setUsername] = useState("");
-  const [usernameValid, setUsernameValid] = useState(true);
-  const [usernameError, setUsernameError] = useState("");
+  const [userName, setuserName] = useState("");
+  const [userNameValid, setuserNameValid] = useState(true);
+  const [userNameError, setuserNameError] = useState("");
 
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
@@ -28,21 +31,27 @@ const Register = () => {
   const [passwordConfError, setPasswordConfError] = useState("");
 
   const [emailValidationStyles, setEmailValidationStyles] = useState(false);
-  const [usernameValidationStyles, setUsernameValidationStyles] =
+  const [userNameValidationStyles, setuserNameValidationStyles] =
     useState(false);
   const [passwordValidationStyles, setPasswordValidationStyles] =
     useState(false);
+
+  const handleSubmit = () => {
+    if (!(emailValid && passwordValid && passwordConf && userNameValid)) return;
+    register({ email, password, fullName, userName });
+    console.log("Success");
+  };
 
   const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFullName(e.target.value);
   };
 
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleuserNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checkValidity()) {
-      setUsernameValid(true);
-      setUsernameError("");
+      setuserNameValid(true);
+      setuserNameError("");
     }
-    setUsername(e.target.value);
+    setuserName(e.target.value);
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -94,16 +103,12 @@ const Register = () => {
     }
   };
 
-  const checkUsernameValidation = (e: ChangeEvent<HTMLInputElement>) => {
+  const checkuserNameValidation = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.checkValidity()) {
-      setUsernameValidationStyles(true);
-      setUsernameValid(false);
-      setUsernameError("No spaces, uppercase letters, or special characters");
+      setuserNameValidationStyles(true);
+      setuserNameValid(false);
+      setuserNameError("No spaces, uppercase letters, or special characters");
     }
-  };
-
-  const handleSubmit = () => {
-    console.log("Bob Jones Locos Pollos");
   };
 
   const handlePasswordVisiblity = () => {
@@ -140,14 +145,14 @@ const Register = () => {
           name="username"
           required
           styleName={`auth__input ${
-            usernameValidationStyles ? "auth__input--validation" : ""
+            userNameValidationStyles ? "auth__input--validation" : ""
           }`}
-          value={username}
-          onChange={handleUsernameChange}
+          value={userName}
+          onChange={handleuserNameChange}
           pattern="^[a-z\d\.]{5,}$"
-          onBlur={checkUsernameValidation}
+          onBlur={checkuserNameValidation}
         />
-        {usernameValid === false && <ErrorMessage message={usernameError} />}
+        {userNameValid === false && <ErrorMessage message={userNameError} />}
       </div>
       <div styleName="auth__control">
         <label htmlFor="email" styleName="auth__label">
@@ -204,13 +209,13 @@ const Register = () => {
           showPassword={passwordVisible}
           handleClick={handlePasswordVisiblity}
         >
-          <label htmlFor="password" styleName="auth__label">
+          <label htmlFor="confirmPassword" styleName="auth__label">
             <span styleName="auth__bold">Confirm Password</span>
           </label>
           <input
             type={passwordVisible ? "text" : "password"}
-            id="password"
-            name="password"
+            id="confirmPassword"
+            name="confirmPassword"
             required
             styleName="auth__input"
             value={passwordConf}

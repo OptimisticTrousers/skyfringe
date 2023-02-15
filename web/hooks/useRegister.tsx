@@ -57,3 +57,5 @@ const useRegister = () => {
 
   return { register, loading, error, formError };
 };
+
+export default useRegister;

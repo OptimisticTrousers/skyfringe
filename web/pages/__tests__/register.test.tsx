@@ -141,11 +141,11 @@ describe("Register page", () => {
     //   );
     //   expect(passwordErrorMessage).toBeInTheDocument();
     // });
-    test("if the user enters a correct username, then no error message should appear", async () => {
+    test("if the user enters a correct userName, then no error message should appear", async () => {
       const user = userEvent.setup();
       render(<Register />);
-      const usernameInput = screen.getByLabelText("Username");
-      await user.type(usernameInput, "bobjones");
+      const userNameInput = screen.getByLabelText("userName");
+      await user.type(userNameInput, "bobjones");
       // Focus out of input element
       await user.tab();
       const errorMessage = screen.queryByText(
@@ -153,11 +153,11 @@ describe("Register page", () => {
       );
       expect(errorMessage).not.toBeInTheDocument();
     });
-    test("if the user enters an incorrect username, then focuses out of the element, an error message should appear below the input", async () => {
+    test("if the user enters an incorrect userName, then focuses out of the element, an error message should appear below the input", async () => {
       const user = userEvent.setup();
       render(<Register />);
-      const usernameInput = screen.getByLabelText("Username");
-      await user.type(usernameInput, "AdsaA2@ad asdasd");
+      const userNameInput = screen.getByLabelText("userName");
+      await user.type(userNameInput, "AdsaA2@ad asdasd");
       // Focus out of input element
       await user.tab();
       const errorMessage = screen.getByText(
@@ -165,19 +165,19 @@ describe("Register page", () => {
       );
       expect(errorMessage).toBeInTheDocument();
     });
-    test("if the user enters an incorrect username, then focuses out of the element, then corrects the username field, show no error message", async () => {
+    test("if the user enters an incorrect userName, then focuses out of the element, then corrects the userName field, show no error message", async () => {
       const user = userEvent.setup();
       render(<Register />);
-      const usernameInput = screen.getByLabelText("Username");
-      await user.type(usernameInput, "AdsaA2@ad asdasd");
+      const userNameInput = screen.getByLabelText("userName");
+      await user.type(userNameInput, "AdsaA2@ad asdasd");
       // Focus out of input element
       await user.tab();
       const errorMessage = screen.getByText(
         "No spaces, uppercase letters, or special characters"
       );
       expect(errorMessage).toBeInTheDocument();
-      await user.clear(usernameInput);
-      await user.type(usernameInput, "bobjones");
+      await user.clear(userNameInput);
+      await user.type(userNameInput, "bobjones");
       expect(errorMessage).not.toBeInTheDocument();
     });
   });
