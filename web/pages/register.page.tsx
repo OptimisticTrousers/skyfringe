@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import CSSModules from "react-css-modules";
 import Link from "next/link";
 import AuthLayout from "../components/common/AuthLayout";
@@ -7,9 +7,13 @@ import styles from "../styles/Auth.module.css";
 import { PasswordStrengthMeter } from "../components/ui/PasswordStrengthMeter";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
 import useRegister from "../hooks/useRegister";
+import useErrorToast from "../hooks/useErrorToast";
 
 const Register = () => {
   const { register, loading, error, formError } = useRegister();
+
+  // All non-form validation errors
+  useErrorToast(error, error && error.message);
 
   const [fullName, setFullName] = useState("");
 
@@ -36,10 +40,10 @@ const Register = () => {
   const [passwordValidationStyles, setPasswordValidationStyles] =
     useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!(emailValid && passwordValid && passwordConf && userNameValid)) return;
     register({ email, password, fullName, userName });
-    console.log("Success");
   };
 
   const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -127,6 +131,7 @@ const Register = () => {
           id="fullName"
           name="fullName"
           required
+          disabled={loading}
           styleName="auth__input"
           value={fullName}
           onChange={handleFullNameChange}
@@ -143,6 +148,7 @@ const Register = () => {
           type="text"
           id="username"
           name="username"
+          disabled={loading}
           required
           styleName={`auth__input ${
             userNameValidationStyles ? "auth__input--validation" : ""
@@ -163,6 +169,7 @@ const Register = () => {
           id="email"
           name="email"
           required
+          disabled={loading}
           styleName={`auth__input ${
             emailValidationStyles ? "auth__input--validation" : ""
           }`}
@@ -193,6 +200,7 @@ const Register = () => {
             }`}
             value={password}
             minLength={8}
+            disabled={loading}
             onChange={handlePasswordChange}
             onBlur={checkPasswordValidation}
           />
@@ -220,6 +228,7 @@ const Register = () => {
             styleName="auth__input"
             value={passwordConf}
             onChange={handlePasswordConfChange}
+            disabled={loading}
             onBlur={checkPasswordConfValidation}
           />
         </PasswordContainer>
@@ -227,8 +236,12 @@ const Register = () => {
           <ErrorMessage message={passwordConfError} />
         )}
       </div>
-      <button type="submit" styleName="auth__button auth__button--submit">
-        Create Account
+      <button
+        type="submit"
+        styleName="auth__button auth__button--submit"
+        disabled={loading}
+      >
+        {loading ? "Creating..." : "Create Account"}
       </button>
       <div styleName="auth__divider auth__divider--horizontal">Or</div>
       <div styleName="auth__bottom">
