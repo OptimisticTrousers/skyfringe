@@ -23,7 +23,8 @@ const user = {
 };
 
 jest.mock("../../hooks/useAuthContext", () => ({
-  useAuthContext: () => ({
+  __esModule: true,
+  default: () => ({
     user,
   }),
 }));
@@ -223,18 +224,24 @@ describe("Register page", () => {
     // });
   });
   describe("Button text changes", () => {
-    test("Renders 'Create Account' text by default", () => {
+    it("renders 'Create Account' text by default", () => {
+      mockLoading = false;
+      mockError = false;
       render(<Register />);
       const button = screen.getByRole("button", { name: "Create Account" });
       expect(button).toBeInTheDocument();
     });
     test("Renders loading text appropriately", () => {
+      mockLoading = true;
+      mockError = false;
       render(<Register />);
 
-      const button = screen.getByRole("button", { name: "Creating..." });
+      const button = screen.getByRole("button", { name: /creating/i });
       expect(button).toBeInTheDocument();
     });
     test("Reverts to default button text on error", () => {
+      mockLoading = false;
+      mockError = true;
       render(<Register />);
       const button = screen.getByRole("button", { name: "Create Account" });
       expect(button).toBeInTheDocument();
