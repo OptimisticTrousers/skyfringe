@@ -2,6 +2,32 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Register from "../register.page";
 
+// Customize loading/error/data states to properly test UI in different states
+let mockLoading: any;
+let mockError: any;
+let mockFormError: any;
+
+jest.mock("../../hooks/useRegister", () => ({
+  __esModule: true,
+  default: () => ({
+    register: jest.fn,
+    loading: mockLoading,
+    error: mockError,
+    formError: mockFormError,
+  }),
+}));
+
+const user = {
+  fullName: "Bob Jones",
+  userName: "bobjones",
+};
+
+jest.mock("../../hooks/useAuthContext", () => ({
+  useAuthContext: () => ({
+    user,
+  }),
+}));
+
 describe("Register page", () => {
   describe("Form validation", () => {
     test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", async () => {
@@ -205,7 +231,7 @@ describe("Register page", () => {
     test("Renders loading text appropriately", () => {
       render(<Register />);
 
-      const button = screen.getByRole("button", { name: "Creating..."});
+      const button = screen.getByRole("button", { name: "Creating..." });
       expect(button).toBeInTheDocument();
     });
     test("Reverts to default button text on error", () => {
