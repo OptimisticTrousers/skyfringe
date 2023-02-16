@@ -120,7 +120,7 @@ const Register = () => {
   };
 
   return (
-    <AuthLayout handleSubmit={handleSubmit}>
+    <AuthLayout handleSubmit={handleSubmit} title="Register">
       <h2 styleName="auth__title">Register</h2>
       <div styleName="auth__control">
         <label htmlFor="fullName" styleName="auth__label">

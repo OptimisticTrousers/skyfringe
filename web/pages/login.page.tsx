@@ -66,7 +66,7 @@ const Login = () => {
   };
 
   return (
-    <AuthLayout handleSubmit={handleSubmit}>
+    <AuthLayout handleSubmit={handleSubmit} title="Login">
       <h2 styleName="auth__title">Log In</h2>
       <div styleName="auth__control">
         <label htmlFor="email" styleName="auth__label">

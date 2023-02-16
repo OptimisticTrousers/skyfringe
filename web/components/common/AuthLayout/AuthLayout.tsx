@@ -6,9 +6,10 @@ import styles from "./AuthLayout.module.css";
 interface Props {
   children: JSX.Element[] | JSX.Element;
   handleSubmit: any;
+  title: string;
 }
 
-const AuthLayout: FC<Props> = ({ children, handleSubmit }) => {
+const AuthLayout: FC<Props> = ({ children, handleSubmit, title}) => {
   return (
     <section styleName="auth">
       <div styleName="auth__box">
@@ -16,7 +17,7 @@ const AuthLayout: FC<Props> = ({ children, handleSubmit }) => {
           <Logo type="lg" />
           <p styleName="auth__description">A place to meet friends</p>
         </div>
-        <div styleName="auth__divider auth__divider--vertical">Login</div>
+        <div styleName="auth__divider auth__divider--vertical">{title}</div>
         <form onSubmit={handleSubmit} styleName="auth__form">
           {children}
         </form>
