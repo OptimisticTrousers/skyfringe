@@ -196,22 +196,22 @@ describe("Register page", () => {
     //   expect(confirm).toBeInTheDocument();
     // });
   });
-  // describe("Button text changes", () => {
-  //   test("Renders 'Create Account' text by default", () => {
-  //     render(<Register />);
-  //     const button = screen.getByRole("button", { name: "Create Account" });
-  //     expect(button).toBeInTheDocument();
-  //   });
-  //   test("Renders loading text appropriately", () => {
-  //     render(<Register />);
+  describe("Button text changes", () => {
+    test("Renders 'Create Account' text by default", () => {
+      render(<Register />);
+      const button = screen.getByRole("button", { name: "Create Account" });
+      expect(button).toBeInTheDocument();
+    });
+    test("Renders loading text appropriately", () => {
+      render(<Register />);
 
-  //     const button = screen.getByRole("button", { name: /creating/i });
-  //     expect(button).toBeInTheDocument();
-  //   });
-  //   test("Reverts to default button text on error", () => {
-  //     render(<Register />);
-  //     const button = screen.getByRole("button", { name: "Create Account" });
-  //     expect(button).toBeInTheDocument();
-  //   });
-  // });
+      const button = screen.getByRole("button", { name: "Creating..."});
+      expect(button).toBeInTheDocument();
+    });
+    test("Reverts to default button text on error", () => {
+      render(<Register />);
+      const button = screen.getByRole("button", { name: "Create Account" });
+      expect(button).toBeInTheDocument();
+    });
+  });
 });
