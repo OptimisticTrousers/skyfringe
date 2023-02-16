@@ -23,11 +23,11 @@
 }
 
 .toast--visible {
-  visibility: hidden;
+  visibility: visible;
 }
 
 .toast--invisible {
-  visibility: visible;
+  visibility: hidden;
 }
 
 .toast__button {
