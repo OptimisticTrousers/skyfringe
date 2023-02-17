@@ -25,7 +25,7 @@ const useRegister = () => {
 
       const responseJSON = await response.json();
 
-      if (responseJSON.user) {
+      if (responseJSON.hasOwnProperty("user")) {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
         setLoading(false);
         setError({ message: "" });
@@ -34,23 +34,23 @@ const useRegister = () => {
         return;
       } else {
         // error with login reject
-        if (responseJSON.errorMsg === "Email already in use") {
+        if (responseJSON.error.message === "Email already in use") {
           // user must select a different email. Set to formError
-          setFormError([{ message: "This email is taken. Choose another." }]);
+          setFormError([{ msg: "This email is taken. Choose another." }]);
           setLoading(false);
-        } else if (responseJSON.length) {
+        } else if (responseJSON.hasOwnProperty("errors")) {
           // length indicates form validation errors (i. e. JSON response is array)
-          setFormError(responseJSON);
+          setFormError(responseJSON.errors);
           setLoading(false);
         } else {
           // unspecified error, return generic error msg
-          setError({ message: "An unknown error occured while signing up." });
+          setError({ msg: "An unknown error occured while signing up." });
           setLoading(false);
         }
       }
     } catch (err) {
       // internal React hook error
-      setError({ message: "An unknown error occured while signing up." });
+      setError({ msg: "An unknown error occured while signing up." });
       setLoading(false);
     }
   };

@@ -10,7 +10,7 @@ import useRegister from "../hooks/useRegister";
 import useErrorToast from "../hooks/useErrorToast";
 
 const Register = () => {
-  const { register, loading, error, formError } = useRegister();
+  const { register, loading, error, formError }: any = useRegister();
 
   // All non-form validation errors
   useErrorToast(error, error && error.message);
@@ -243,6 +243,13 @@ const Register = () => {
       >
         {loading ? "Creating..." : "Create Account"}
       </button>
+      {formError && (
+        <div styleName="auth__errors">
+          {formError.errors.map((error: any, index: any) => {
+            return <ErrorMessage key={index} message={error.message} />;
+          })}
+        </div>
+      )}
       <div styleName="auth__divider auth__divider--horizontal">Or</div>
       <div styleName="auth__bottom">
         <span styleName="auth__question">Already have an account?</span>
