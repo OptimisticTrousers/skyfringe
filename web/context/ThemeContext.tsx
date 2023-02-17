@@ -32,9 +32,3 @@ export const ThemeProvider: FC<Props> = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
-
-export const useThemeContext = () => {
-  const context = useContext(ThemeContext);
-
-  return context;
-};

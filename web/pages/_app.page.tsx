@@ -3,8 +3,10 @@ import Head from "next/head";
 import { Layout } from "../components/common";
 import { Toast } from "../components/ui";
 import { AuthProvider } from "../context/AuthContext";
-import { ThemeProvider, useThemeContext } from "../context/ThemeContext";
-import { ToastProvider, useToastContext } from "../context/ToastContext";
+import { ThemeProvider } from "../context/ThemeContext";
+import { ToastProvider } from "../context/ToastContext";
+import useThemeContext from "../hooks/useThemeContext";
+import useToastContext from "../hooks/useToastContext";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps, ...appProps }: AppProps) {

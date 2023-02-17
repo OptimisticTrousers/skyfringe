@@ -4,7 +4,7 @@ import { CgCloseO } from "react-icons/cg";
 import { CgClose } from "react-icons/cg";
 import { FcCheckmark } from "react-icons/fc";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
-import { useToastContext } from "../../../context/ToastContext";
+import useToastContext from "../../../hooks/useToastContext";
 import styles from "./Toast.module.css";
 
 interface Props {

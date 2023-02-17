@@ -39,12 +39,3 @@ export const ToastProvider: FC<Props> = ({ children }) => {
     </ToastContext.Provider>
   );
 };
-
-// Custom hook to allow components to access the context
-export const useToastContext = () => {
-  const context = useContext(ToastContext);
-
-  // Can optionally add conditional here to ensure toast context is used only by those components wrapped in a toast context provider
-
-  return context;
-};
