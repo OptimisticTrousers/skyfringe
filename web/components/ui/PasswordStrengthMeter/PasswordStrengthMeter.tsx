@@ -1,6 +1,6 @@
 import { FC } from "react";
 import CSSModules from "react-css-modules";
-import zxcvbn from "zxcvbn";
+import zxcvbn, { ZXCVBNResult } from "zxcvbn";
 import styles from "./PasswordStrengthMeter.module.css";
 
 interface Props {
@@ -8,9 +8,9 @@ interface Props {
 }
 
 const PasswordStrengthMeter: FC<Props> = ({ password }) => {
-  const createPasswordLabel = (result) => {
+  const createPasswordLabel = (result: ZXCVBNResult) => {
     let value = null;
-    if (result.password === "") {
+    if (password === "") {
       value = 0;
     } else {
       value = result.score + 1;
@@ -34,11 +34,11 @@ const PasswordStrengthMeter: FC<Props> = ({ password }) => {
     }
   };
 
-  const calculateWidth = (result) => {
+  const calculateWidth = (result: ZXCVBNResult) => {
     const transitionStyle = "width 0.5s ease-in-out";
 
     let value = null;
-    if (result.password === "") {
+    if (password === "") {
       value = 0;
     } else {
       value = result.score + 1;

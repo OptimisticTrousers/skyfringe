@@ -6,7 +6,7 @@ import styles from "./PasswordContainer.module.css";
 interface Props {
   children: JSX.Element[] | JSX.Element;
   showPassword: boolean;
-  handleClick: any;
+  handleClick: () => void;
 }
 
 // Used to house a input/label, and provide a show/hide functionality for passwords

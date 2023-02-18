@@ -1,22 +1,36 @@
-import { createContext, FC, useCallback, useContext, useState } from "react";
+import { createContext, FC, useCallback, useState } from "react";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
 }
 
+type ShowToast = (type: string, message: string) => void;
+
+export interface ToastParams {
+  type: string;
+  message: string;
+}
+
+export interface ToastContext {
+  showToast: ShowToast;
+  toastVisible: boolean;
+  setToastVisible: (visible: boolean) => void;
+  toastParams: ToastParams | null;
+}
+
 // Create an instance of React Context
-export const ToastContext = createContext({} as any);
+export const ToastContext = createContext({} as ToastContext);
 
 // Provide ability to spawn Toast notification globally within the application
 export const ToastProvider: FC<Props> = ({ children }) => {
   const [toastVisible, setToastVisible] = useState(false);
-  const [toastParams, setToastParams] = useState({});
+  const [toastParams, setToastParams] = useState<ToastParams | null>(null);
 
   // Set time that toast is visible
   const durationMilliseconds = 3000;
 
   // Call this function from any component when a toast message needs to be displayed.
-  const showToast = useCallback((type: string, message: string) => {
+  const showToast = useCallback<ShowToast>((type, message) => {
     setToastVisible(true);
 
     // Provide safe defaults if there is no message of type explicitly set

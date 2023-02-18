@@ -1,15 +1,15 @@
-import { FC } from "react";
+import { FC, FormEvent } from "react";
 import CSSModules from "react-css-modules";
 import Logo from "../../ui/Logo/Logo";
 import styles from "./AuthLayout.module.css";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
-  handleSubmit: any;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
   title: string;
 }
 
-const AuthLayout: FC<Props> = ({ children, handleSubmit, title}) => {
+const AuthLayout: FC<Props> = ({ children, handleSubmit, title }) => {
   return (
     <section styleName="auth">
       <div styleName="auth__box">

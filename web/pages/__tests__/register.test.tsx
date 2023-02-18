@@ -2,12 +2,13 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AuthProvider } from "../../context/AuthContext";
 import { ToastProvider } from "../../context/ToastContext";
+import { FormErrors } from "../../types";
 import Register from "../register.page";
 
 // Customize loading/error/data states to properly test UI in different states
-let mockLoading: any;
-let mockError: any;
-let mockFormError: any;
+let mockLoading: boolean;
+let mockError: boolean;
+let mockFormError: FormErrors;
 
 jest.mock("../../hooks/useRegister", () => ({
   __esModule: true,

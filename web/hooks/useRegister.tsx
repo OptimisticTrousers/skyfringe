@@ -1,15 +1,16 @@
-import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { Error, FormData, FormError, FormErrors } from "../types";
 import useRequests from "./useRequests";
 
 const useRegister = () => {
-  const [error, setError] = useState<any>(null);
-  const [formError, setFormError] = useState<any[] | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+  const [formError, setFormError] = useState<FormErrors | null>(null);
   const [loading, setLoading] = useState(false);
-  const { dispatch } = useAuthContext();
+  const { dispatch } = useContext(AuthContext);
 
   // Call this function with the object created using relevant user sign up data
-  const register = async (formData: any) => {
+  const register = async (formData: FormData) => {
     setLoading(true);
     setError({ message: "" });
     setFormError(null);
@@ -37,7 +38,9 @@ const useRegister = () => {
         // error with login reject
         if (responseJSON.error.message === "Email already in use") {
           // user must select a different email. Set to formError
-          setFormError([{ msg: "This email is taken. Choose another." }]);
+          setFormError({
+            errors: [{ msg: "This email is taken. Choose another." }],
+          });
           setLoading(false);
         } else if (responseJSON.hasOwnProperty("errors")) {
           // length indicates form validation errors (i. e. JSON response is array)
@@ -45,13 +48,13 @@ const useRegister = () => {
           setLoading(false);
         } else {
           // unspecified error, return generic error msg
-          setError({ msg: "An unknown error occured while signing up." });
+          setError({ message: "An unknown error occured while signing up." });
           setLoading(false);
         }
       }
     } catch (err) {
       // internal React hook error
-      setError({ msg: "An unknown error occured while signing up." });
+      setError({ message: "An unknown error occured while signing up." });
       setLoading(false);
     }
   };

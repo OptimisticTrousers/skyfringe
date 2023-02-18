@@ -8,12 +8,13 @@ import { PasswordStrengthMeter } from "../components/ui/PasswordStrengthMeter";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
 import useRegister from "../hooks/useRegister";
 import useErrorToast from "../hooks/useErrorToast";
+import { FormError } from "../types";
 
 const Register = () => {
-  const { register, loading, error, formError }: any = useRegister();
+  const { register, loading, error, formError } = useRegister();
 
   // All non-form validation errors
-  useErrorToast(error, error && error.message);
+  useErrorToast(error, error ? error.message : "");
 
   const [fullName, setFullName] = useState("");
 
@@ -243,13 +244,12 @@ const Register = () => {
       >
         {loading ? "Creating..." : "Create Account"}
       </button>
-      {formError && (
-        <div styleName="auth__errors">
-          {formError.errors.map((error: any, index: any) => {
-            return <ErrorMessage key={index} message={error.message} />;
+      <div styleName="auth__errors">
+        {formError &&
+          formError.errors.map((error: FormError, index: number) => {
+            return <ErrorMessage key={index} message={error.msg} />;
           })}
-        </div>
-      )}
+      </div>
       <div styleName="auth__divider auth__divider--horizontal">Or</div>
       <div styleName="auth__bottom">
         <span styleName="auth__question">Already have an account?</span>
