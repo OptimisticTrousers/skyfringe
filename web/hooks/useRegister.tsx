@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import useRequests from "./useRequests";
 
 const useRegister = () => {
   const [error, setError] = useState<any>(null);
@@ -13,7 +14,7 @@ const useRegister = () => {
     setError({ message: "" });
     setFormError(null);
     try {
-      const response = await fetch(`${process.env.API_DOMAIN}/register`, {
+      const response = await fetch(`http://localhost:5000/api/auth/register`, {
         method: "POST",
         mode: "cors",
         headers: {
