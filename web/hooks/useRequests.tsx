@@ -5,15 +5,23 @@ const useRequests = () => {
     return fetch(url, options);
   };
   const POST = (url: string, options = {}, formData: FormData) => {
-    return fetch(url, { ...options, body: JSON.stringify(formData) });
+    return fetch(url, {
+      ...options,
+      method: "POST",
+      body: JSON.stringify(formData),
+    });
   };
 
   const PUT = (url: string, options = {}, formData: FormData) => {
-    return fetch(url, { ...options, body: JSON.stringify(formData) });
+    return fetch(url, {
+      ...options,
+      method: "PUT",
+      body: JSON.stringify(formData),
+    });
   };
 
   const DELETE = (url: string, options = {}) => {
-    return fetch(url, { ...options });
+    return fetch(url, { ...options, method: "DELETE" });
   };
 
   return { GET, POST, PUT, DELETE };
