@@ -24,7 +24,7 @@ const passportConfig = () => {
               return done(null, false, { message: "Incorrect username" });
             }
             bcrypt
-              .compare(password, user.password)
+              .compare(password, user.password!)
               .then((res: boolean) => {
                 if (res) {
                   // passwords match! log user in

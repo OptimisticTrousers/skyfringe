@@ -73,7 +73,11 @@ export const login_user = [
         // generate a signed json web token with the contents of the user objects and return it in the response
         const secret = process.env.JWT_SECRET;
         if (secret) {
-          const token = jwt.sign(user, secret);
+          const token = jwt.sign(user, secret, { expiresIn: "1h" });
+          res.cookie("token", token, {
+            secure: false,
+            httpOnly: true,
+          });
           return res.json({ user, token });
         }
       });
