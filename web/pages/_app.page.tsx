@@ -6,7 +6,6 @@ import { Toast } from "../components/ui";
 import { AuthProvider } from "../context/AuthContext";
 import { ThemeContext, ThemeProvider } from "../context/ThemeContext";
 import { ToastContext, ToastProvider } from "../context/ToastContext";
-import useThemeContext from "../hooks/useThemeContext";
 import "../styles/globals.css";
 
 export default function App({ Component, pageProps, ...appProps }: AppProps) {
