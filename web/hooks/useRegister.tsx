@@ -8,6 +8,7 @@ const useRegister = () => {
   const [formError, setFormError] = useState<FormErrors | null>(null);
   const [loading, setLoading] = useState(false);
   const { dispatch } = useContext(AuthContext);
+  const { GET } = useRequests();
 
   // Call this function with the object created using relevant user sign up data
   const register = async (formData: FormData) => {
@@ -15,7 +16,7 @@ const useRegister = () => {
     setError({ message: "" });
     setFormError(null);
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/register`, {
+      const response = await GET(`http://localhost:5000/api/auth/register`, {
         method: "POST",
         mode: "cors",
         headers: {

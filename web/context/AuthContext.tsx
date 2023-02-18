@@ -27,8 +27,6 @@ const authReducer = (state: AuthState, action: Action) => {
       return { ...state, user: action.payload };
     case "LOGOUT":
       return { ...state, user: null };
-    case "FETCHED_AUTH":
-      return { ...state, authLoading: false };
     case "UPDATE":
       return { ...state, user: action.payload };
     default:
