@@ -8,7 +8,7 @@ const useRegister = () => {
   const [formError, setFormError] = useState<FormErrors | null>(null);
   const [loading, setLoading] = useState(false);
   const { dispatch } = useContext(AuthContext);
-  const { POST } = useRequests();
+  const { POST } = useRequests(setError);
 
   // Call this function with the object created using relevant user sign up data
   const register = async (formData: FormData) => {
@@ -18,6 +18,7 @@ const useRegister = () => {
     try {
       const response = await POST(
         `http://localhost:5000/api/auth/register`,
+        formData,
         {
           method: "POST",
           mode: "cors",
@@ -25,8 +26,7 @@ const useRegister = () => {
             "Content-Type": "application/json",
           },
           credentials: "include",
-        },
-        formData
+        }
       );
 
       const responseJSON = await response.json();
