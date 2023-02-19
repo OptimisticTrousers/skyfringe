@@ -20,7 +20,6 @@ const useRegister = () => {
         `http://localhost:5000/api/auth/register`,
         formData,
         {
-          method: "POST",
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
