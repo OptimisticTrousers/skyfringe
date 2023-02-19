@@ -40,6 +40,8 @@ const Register = () => {
     useState(false);
   const [passwordValidationStyles, setPasswordValidationStyles] =
     useState(false);
+  const [passwordConfValidationStyles, setPasswordConfValidationStyles] =
+    useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,13 +74,8 @@ const Register = () => {
   };
 
   const checkPasswordConfValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (
-      password === passwordConf &&
-      password.length > 0 &&
-      passwordConf.length > 0
-    ) {
-      setPasswordConfValid(true);
-    } else if (password !== passwordConf && passwordConf.length > 0) {
+    if (password !== passwordConf && !e.target.checkValidity()) {
+      setPasswordConfValidationStyles(true);
       setPasswordConfValid(false);
       setPasswordConfError("Passwords do not match");
     }
@@ -226,7 +223,10 @@ const Register = () => {
             id="confirmPassword"
             name="confirmPassword"
             required
-            styleName="auth__input"
+            styleName={`auth__input ${
+              passwordConfValidationStyles ? "auth__input--validation" : ""
+            }`}
+            minLength={8}
             value={passwordConf}
             onChange={handlePasswordConfChange}
             disabled={loading}
