@@ -1,17 +1,16 @@
 import { FormData } from "../types";
 
-const defaultSetError = (error: Error) => {
-  console.log(error);
-};
+const useRequests = () => {
+  const throwError = (error: string) => {
+    throw new Error(error);
+  };
 
-type SetError = (error: Error) => void;
-
-const useRequests = (setError: SetError = defaultSetError) => {
   const GET = (url: string, options = {}) => {
     return fetch(url, options)
       .then((res) => res.json())
-      .catch(setError);
+      .catch(throwError);
   };
+
   const POST = (url: string, formData: FormData, options = {}) => {
     return fetch(url, {
       ...options,
@@ -19,7 +18,7 @@ const useRequests = (setError: SetError = defaultSetError) => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .catch(setError);
+      .catch(throwError);
   };
 
   const PUT = (url: string, formData: FormData, options = {}) => {
@@ -29,13 +28,13 @@ const useRequests = (setError: SetError = defaultSetError) => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .catch(setError);
+      .catch(throwError);
   };
 
   const DELETE = (url: string, options = {}) => {
     return fetch(url, { ...options, method: "DELETE" })
       .then((res) => res.json())
-      .catch(setError);
+      .catch(throwError);
   };
 
   return { GET, POST, PUT, DELETE };
