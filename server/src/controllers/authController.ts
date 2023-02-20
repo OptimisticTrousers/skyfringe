@@ -4,6 +4,7 @@ import passport from "passport";
 import { NextFunction, Response, Request } from "express";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
+import cookieExtractor from "../middleware/cookieExtractor";
 
 // Handle register on POST
 export const register_user = [
@@ -49,7 +50,19 @@ export const register_user = [
         if (err) {
           return next(err);
         }
-        // Successful - redirect to the log in page
+        const secret = process.env.JWT_SECRET;
+        if (!cookieExtractor(req) && secret) {
+          // If the JWT secret is available, sign a token and send it as a cookie to the browser
+          const token = jwt.sign(user, secret, { expiresIn: "1h" });
+          res
+            .cookie("jwt", token, {
+              secure: false,
+              httpOnly: true,
+            })
+            .status(200)
+            .json({ user, token });
+        }
+        // If the JWT secret is not available, just return the user
         res.json({ user });
       });
     });

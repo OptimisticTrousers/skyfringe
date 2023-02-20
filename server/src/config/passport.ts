@@ -4,11 +4,14 @@ import passportJWT from "passport-jwt";
 import User from "../models/user";
 import bcrypt from "bcryptjs";
 import { config } from "dotenv";
+import { Request } from "express";
+import cookieExtractor from "../middleware/cookieExtractor";
 
 config();
 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
+
 
 const passportConfig = () => {
   passport.use(
@@ -43,7 +46,7 @@ const passportConfig = () => {
   passport.use(
     new JWTStrategy(
       {
-        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: cookieExtractor,
         secretOrKey: process.env.JWT_SECRET,
       },
       (jwtPayload, cb) => {
