@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Error, FormData, FormErrors } from "../types";
+import { Error, FormErrors, LoginData } from "../types";
 import useRequests from "./useRequests";
 
 const useLogin = () => {
@@ -11,7 +11,7 @@ const useLogin = () => {
   const { POST } = useRequests();
 
   // Call this function with the FormData object created using relevant user login data
-  const login = async (formData: FormData) => {
+  const login = async (formData: LoginData) => {
     setLoading(true);
     setError(null);
     setFormError(null);

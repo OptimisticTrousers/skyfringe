@@ -10,8 +10,15 @@ import Logo from "../components/ui/Logo/Logo";
 import { PasswordContainer } from "../components/ui/PasswordContainer";
 import AuthLayout from "../components/common/AuthLayout";
 import { ErrorMessage } from "../components/ui/ErrorMessage";
+import useLogin from "../hooks/useLogin";
+import useErrorToast from "../hooks/useErrorToast";
+import { FormError } from "../types";
 
 const Login = () => {
+  const { login, loading, error, formError } = useLogin();
+
+  useErrorToast(error, error ? error.message : "");
+
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [emailError, setEmailError] = useState("");
@@ -27,6 +34,8 @@ const Login = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!(emailValid && passwordValid)) return;
+    login({ email, password });
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -110,13 +119,23 @@ const Login = () => {
         </PasswordContainer>
         {passwordValid === false && <ErrorMessage message={passwordError} />}
       </div>
-      <button type="submit" styleName="auth__button auth__button--submit">
-        Log In
+      <button
+        type="submit"
+        styleName="auth__button auth__button--submit"
+        disabled={loading}
+      >
+        {loading ? "Logging in..." : "Log In"}
       </button>
       <button styleName="auth__button auth__button--oauth">
         <SiFacebook styleName="auth__icon auth__icon--facebook" />
         Continue with Facebook
       </button>
+      <div styleName="auth__errors">
+        {formError &&
+          formError.errors.map((error: FormError, index: number) => {
+            return <ErrorMessage key={index} message={error.msg} />;
+          })}
+      </div>
       <div styleName="auth__divider auth__divider--horizontal">Or</div>
       <div styleName="auth__bottom">
         <button styleName="auth__button auth__button--guest">

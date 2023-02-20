@@ -1,5 +1,3 @@
-import { FormData } from "../types";
-
 const useRequests = () => {
   const throwError = (error: string) => {
     throw new Error(error);
@@ -11,7 +9,7 @@ const useRequests = () => {
       .catch(throwError);
   };
 
-  const POST = (url: string, formData: FormData, options = {}) => {
+  const POST = (url: string, formData: unknown, options = {}) => {
     return fetch(url, {
       ...options,
       method: "POST",
@@ -21,7 +19,7 @@ const useRequests = () => {
       .catch(throwError);
   };
 
-  const PUT = (url: string, formData: FormData, options = {}) => {
+  const PUT = (url: string, formData: unknown, options = {}) => {
     return fetch(url, {
       ...options,
       method: "PUT",

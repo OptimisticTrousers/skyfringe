@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Error, FormData, FormErrors } from "../types";
+import { Error, FormErrors, RegisterData } from "../types";
 import useRequests from "./useRequests";
 
 const useRegister = () => {
@@ -11,7 +11,7 @@ const useRegister = () => {
   const { POST } = useRequests();
 
   // Call this function with the object created using relevant user sign up data
-  const register = async (formData: FormData) => {
+  const register = async (formData: RegisterData) => {
     setLoading(true);
     setError(null);
     setFormError(null);
