@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Error, FormData, FormError, FormErrors } from "../types";
+import { Error, FormData, FormErrors } from "../types";
 import useRequests from "./useRequests";
 
 const useRegister = () => {
@@ -13,11 +13,11 @@ const useRegister = () => {
   // Call this function with the object created using relevant user sign up data
   const register = async (formData: FormData) => {
     setLoading(true);
-    setError({ message: "" });
+    setError(null);
     setFormError(null);
     try {
       const data = await POST(
-        `http://localhost:5000/api/auth/register`,
+        `${process.env.API_DOMAIN}/auth/register`,
         formData,
         {
           mode: "cors",
