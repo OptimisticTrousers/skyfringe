@@ -2,13 +2,13 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { AuthProvider } from "../../context/AuthContext";
 import { ToastProvider } from "../../context/ToastContext";
-import { FormErrors } from "../../types";
+import { FormError } from "../../types";
 import Register from "../register.page";
 
 // Customize loading/error/data states to properly test UI in different states
 let mockLoading: boolean;
 let mockError: boolean;
-let mockFormError: FormErrors;
+let mockFormError: FormError[];
 
 jest.mock("../../hooks/useRegister", () => ({
   __esModule: true,
@@ -20,19 +20,51 @@ jest.mock("../../hooks/useRegister", () => ({
   }),
 }));
 
-const user = {
-  fullName: "Bob Jones",
-  userName: "bobjones",
-};
-
-jest.mock("../../hooks/useAuthContext", () => ({
-  __esModule: true,
-  default: () => ({
-    user,
-  }),
-}));
-
 describe("Register page", () => {
+  describe("Form validation", () => {
+    it("shows single form validation error when only one is provided", () => {
+      mockLoading = false;
+      mockError = true;
+      mockFormError = [
+        {
+          value: "",
+          msg: "Email is required",
+          param: "email",
+          location: "body",
+        },
+      ];
+
+      render(<Register />);
+
+      const error = screen.getByText(/email is required/i);
+      expect(error).toBeInTheDocument();
+    });
+    it("shows multiple form validation errors when multiple are set", () => {
+      mockLoading = false;
+      mockError = true;
+      mockFormError = [
+        {
+          value: "",
+          msg: "Email is required",
+          param: "email",
+          location: "body",
+        },
+        {
+          value: "",
+          msg: "Password is required",
+          param: "password",
+          location: "body",
+        },
+      ];
+
+      render(<Register />);
+
+      const errorOne = screen.getByText(/email is required/i);
+      const errorTwo = screen.getByText(/password is required/i);
+      expect(errorOne).toBeInTheDocument();
+      expect(errorTwo).toBeInTheDocument();
+    });
+  });
   describe("Email validation", () => {
     test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", async () => {
       const user = userEvent.setup();
@@ -234,7 +266,7 @@ describe("Register page", () => {
       mockError = false;
       render(
         <AuthProvider>
-          <ToastProvider>
+          <ToastProvider value={{showToast: jest.fn}}>
             <Register />
           </ToastProvider>
         </AuthProvider>
@@ -245,13 +277,7 @@ describe("Register page", () => {
     test("Renders loading text appropriately", () => {
       mockLoading = true;
       mockError = false;
-      render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
-      );
+      render(<Register />);
 
       const button = screen.getByRole("button", { name: /creating/i });
       expect(button).toBeInTheDocument();
@@ -259,13 +285,7 @@ describe("Register page", () => {
     test("Reverts to default button text on error", () => {
       mockLoading = false;
       mockError = true;
-      render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
-      );
+      render(<Register />);
       const button = screen.getByRole("button", { name: "Create Account" });
       expect(button).toBeInTheDocument();
     });
