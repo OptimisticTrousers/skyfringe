@@ -4,10 +4,9 @@ export interface Error {
 
 export interface FormError {
   msg: string;
-}
-
-export interface FormErrors {
-  errors: FormError[];
+  value: string;
+  param: string;
+  location: string;
 }
 
 export interface RegisterData {

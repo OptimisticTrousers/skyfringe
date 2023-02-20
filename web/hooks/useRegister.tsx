@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Error, FormErrors, RegisterData } from "../types";
+import { Error, FormError, RegisterData } from "../types";
 import useRequests from "./useRequests";
 
 const useRegister = () => {
   const [error, setError] = useState<Error | null>(null);
-  const [formError, setFormError] = useState<FormErrors | null>(null);
+  const [formError, setFormError] = useState<FormError[] | null>(null);
   const [loading, setLoading] = useState(false);
   const { dispatch } = useContext(AuthContext);
   const { POST } = useRequests();
@@ -31,17 +31,13 @@ const useRegister = () => {
       if (data.hasOwnProperty("user")) {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
         setLoading(false);
-        setError({ message: "" });
-        setFormError(null);
         dispatch({ type: "LOGIN", payload: data.user });
         return;
       } else {
         // error with login reject
         if (data.error.message === "Email already in use") {
-          // user must select a different email. Set to formError
-          setFormError({
-            errors: [{ msg: "This email is taken. Choose another." }],
-          });
+          // user must select a different email. Set to error
+          setError({ message: "This email is taken. Choose another." });
           setLoading(false);
         } else if (data.hasOwnProperty("errors")) {
           // length indicates form validation errors (i. e. JSON response is array)
