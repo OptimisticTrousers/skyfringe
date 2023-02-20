@@ -9,9 +9,75 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useReducer } from "react";
+import { FormErrors } from "../../types";
 import Login from "../login.page";
 
+let mockLoading: boolean;
+let mockError: boolean;
+let mockFormError: any;
+
+jest.mock("../../hooks/useLogin", () => ({
+  __esModule: true,
+  default: () => ({
+    register: jest.fn,
+    loading: mockLoading,
+    error: mockError,
+    formError: mockFormError,
+  }),
+}));
+
+const user = {
+  fullName: "Bob Jones",
+  userName: "bobjones",
+  email: "bobjones@gmail.com",
+  password: "bobbjones",
+};
+
 describe("Login page", () => {
+  describe("Server validation", () => {
+    it("shows single form validation error when only one is provided", () => {
+      mockLoading = false;
+      mockError = true;
+      mockFormError = [
+        {
+          value: "",
+          msg: "Email is required",
+          param: "email",
+          location: "body",
+        },
+      ];
+
+      render(<Login />);
+
+      const error = screen.getByText(/email is required/i);
+      expect(error).toBeInTheDocument();
+    });
+    it("shows multiple form validation errors when multiple are set", () => {
+      mockLoading = false;
+      mockError = true;
+      mockFormError = [
+        {
+          value: "",
+          msg: "Email is required",
+          param: "email",
+          location: "body",
+        },
+        {
+          value: "",
+          msg: "Password is required",
+          param: "password",
+          location: "body",
+        },
+      ];
+
+      render(<Login />);
+
+      const errorOne = screen.getByText(/email is required/i);
+      const errorTwo = screen.getByText(/password is required/i);
+      expect(errorOne).toBeInTheDocument();
+      expect(errorTwo).toBeInTheDocument();
+    });
+  });
   describe("Form validation", () => {
     test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", async () => {
       const user = userEvent.setup();
@@ -90,21 +156,27 @@ describe("Login page", () => {
       expect(errorMessage).not.toBeInTheDocument();
     });
   });
-  // describe("Button text changes", () => {
-  //   test("Renders 'Log in' text by default", () => {
-  //     render(<Login />);
-  //     const button = screen.getByRole("button", { name: "Log In" });
-  //     expect(button).toBeInTheDocument();
-  //   });
-  //   test("Renders loading text appropriately", async () => {
-  //     render(<Login />);
-  //     const button = screen.getByRole("button", { name: "Logging in..." });
-  //     expect(button).toBeInTheDocument();
-  //   });
-  //   test("Reverts to default button text on error", () => {
-  //     render(<Login />);
-  //     const button = screen.getByRole("button", { name: "Log In" });
-  //     expect(button).toBeInTheDocument();
-  //   });
-  // });
+  describe("Button text changes", () => {
+    mockLoading = false;
+    mockError = false;
+    test("Renders 'Log in' text by default", () => {
+      render(<Login />);
+      const button = screen.getByRole("button", { name: "Log In" });
+      expect(button).toBeInTheDocument();
+    });
+    test("Renders loading text appropriately", async () => {
+      mockLoading = true;
+      mockError = false;
+      render(<Login />);
+      const button = screen.getByRole("button", { name: "Logging in..." });
+      expect(button).toBeInTheDocument();
+    });
+    test("Reverts to default button text on error", () => {
+      mockLoading = false;
+      mockError = true;
+      render(<Login />);
+      const button = screen.getByRole("button", { name: "Log In" });
+      expect(button).toBeInTheDocument();
+    });
+  });
 });
