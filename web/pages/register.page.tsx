@@ -46,7 +46,7 @@ const Register = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!(emailValid && passwordValid && passwordConf && userNameValid)) return;
-    register({ email, password, fullName, userName });
+    register({ email, password, fullName, userName, passwordConf });
   };
 
   const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {

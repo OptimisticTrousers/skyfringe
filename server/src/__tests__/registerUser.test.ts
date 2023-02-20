@@ -3,10 +3,10 @@ import assert from "assert";
 import app from "../app";
 import initializeMongoServer from "../config/mongoConfigTesting";
 
+// Import db setup and teardown
+import "../config/mongoSetup";
+
 describe("POST /register", () => {
-  beforeAll(() => {
-    initializeMongoServer();
-  });
   test("user makes an account with an email that already exists", (done) => {
     const user = {
       firstName: "Bob",

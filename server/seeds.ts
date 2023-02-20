@@ -14,6 +14,9 @@ const createRandomUser = () => {
 };
 
 const seed = async () => {
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error('NODE_ENV must equal "test"!');
+  }
   try {
     mongoConfig();
     console.log("Resetting database...");
