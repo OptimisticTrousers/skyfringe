@@ -34,7 +34,13 @@ describe("Register page", () => {
         },
       ];
 
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
 
       const error = screen.getByText(/email is required/i);
       expect(error).toBeInTheDocument();
@@ -57,7 +63,13 @@ describe("Register page", () => {
         },
       ];
 
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
 
       const errorOne = screen.getByText(/email is required/i);
       const errorTwo = screen.getByText(/password is required/i);
@@ -68,7 +80,13 @@ describe("Register page", () => {
   describe("Email validation", () => {
     test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const emailInput = screen.getByLabelText("Email Address");
       await user.type(emailInput, "locospollos");
       // Remove focus from the password input
@@ -81,7 +99,13 @@ describe("Register page", () => {
     });
     test("if the users enters an invalid input into the email field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const emailInput = screen.getByLabelText("Email Address");
       await user.type(emailInput, "locospollos");
       // Remove focus from the password input
@@ -97,7 +121,13 @@ describe("Register page", () => {
     });
     test("if the user enters a correct email input, no error message should appear", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const emailInput = screen.getByLabelText("Email Address");
       await user.type(emailInput, "bobjones@gmail.com");
       const errorMessage = screen.queryByText(
@@ -109,9 +139,15 @@ describe("Register page", () => {
   describe("Password validation", () => {
     // test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", async () => {
     //   const user = userEvent.setup();
-    //   render(<Register />);
+    //   render(
+    //     <AuthProvider>
+    //       <ToastProvider>
+    //         <Register />
+    //       </ToastProvider>
+    //     </AuthProvider>
+    //   );
     //   const passwordInput = screen.getByLabelText("Password");
-    //   await user.type(passwordInput, "bobjone");
+    //   await user.type(passwordInput, "bobjon");
     //   // Remove focus from the password input
     //   await user.tab();
     //   expect(passwordInput).not.toHaveFocus();
@@ -139,7 +175,13 @@ describe("Register page", () => {
     // });
     test("if the user enters a correct password input, no error message should appear", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const passwordInput = screen.getByLabelText("Password");
       await user.type(passwordInput, "bobjones@gmail.com");
       const errorMessage = screen.queryByText(
@@ -147,22 +189,15 @@ describe("Register page", () => {
       );
       expect(errorMessage).not.toBeInTheDocument();
     });
-    // test("hides confirmPassword input by default", () => {
-    //   render(<Register />);
-    //   const input = screen.queryAllByLabelText("Confirm password");
-    //   expect(input.length).toBe(0);
-    // });
-    // test("shows confirmPassword input when user begins typing in password input", () => {
-    //   render(<Register />);
-    //   const password = screen.getByLabelText("Password");
-    //   userEvent.type(password, "test");
-    //   // Now that user has typed in password field, confirmPassword field should appear
-    //   const confirm = screen.getByLabelText("Confirm password");
-    //   expect(confirm).toBeInTheDocument();
-    // });
     test("if the user enters a correct password and a correct confirm password, then no error should message should appear", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const passwordInput = screen.getByLabelText("Password");
       await user.type(passwordInput, "locospollos");
       const passwordConfInput = screen.getByLabelText("Confirm Password");
@@ -178,7 +213,13 @@ describe("Register page", () => {
     });
     test("if the user enters a password, but the confirm password field does not match, render an error message below the confirm password field", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const passwordInput = screen.getByLabelText("Password");
       await user.type(passwordInput, "locospollos");
       const passwordConfInput = screen.getByLabelText("Confirm Password");
@@ -206,7 +247,14 @@ describe("Register page", () => {
     // });
     // test("if the user enters text into the confirm password, but does not enter text in the password field, render an error message below the password field", async () => {
     //   const user = userEvent.setup();
-    //   render(<Register />);
+    //   render(
+    //     <AuthProvider>
+    //       <ToastProvider>
+    //         <Register />
+    //       </ToastProvider>
+    //     </AuthProvider>
+
+    //   );
     //   const passwordConfInput = screen.getByLabelText("Confirm Password");
     //   await user.type(passwordConfInput, "pollos");
     //   await user.tab();
@@ -222,7 +270,13 @@ describe("Register page", () => {
   describe("Username validation", () => {
     test("if the user enters a correct username, then no error message should appear", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const userNameInput = screen.getByLabelText("Username");
       await user.type(userNameInput, "bobjones");
       // Focus out of input element
@@ -234,7 +288,13 @@ describe("Register page", () => {
     });
     test("if the user enters an incorrect username, then focuses out of the element, an error message should appear below the input", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const userNameInput = screen.getByLabelText("Username");
       await user.type(userNameInput, "AdsaA2@ad asdasd");
       // Focus out of input element
@@ -246,7 +306,13 @@ describe("Register page", () => {
     });
     test("if the user enters an incorrect username, then focuses out of the element, then corrects the userName field, show no error message", async () => {
       const user = userEvent.setup();
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const userNameInput = screen.getByLabelText("Username");
       await user.type(userNameInput, "AdsaA2@ad asdasd");
       // Focus out of input element
@@ -266,7 +332,7 @@ describe("Register page", () => {
       mockError = false;
       render(
         <AuthProvider>
-          <ToastProvider value={{showToast: jest.fn}}>
+          <ToastProvider>
             <Register />
           </ToastProvider>
         </AuthProvider>
@@ -277,7 +343,13 @@ describe("Register page", () => {
     test("Renders loading text appropriately", () => {
       mockLoading = true;
       mockError = false;
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
 
       const button = screen.getByRole("button", { name: /creating/i });
       expect(button).toBeInTheDocument();
@@ -285,7 +357,13 @@ describe("Register page", () => {
     test("Reverts to default button text on error", () => {
       mockLoading = false;
       mockError = true;
-      render(<Register />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Register />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const button = screen.getByRole("button", { name: "Create Account" });
       expect(button).toBeInTheDocument();
     });

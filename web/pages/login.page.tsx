@@ -132,7 +132,7 @@ const Login = () => {
       </button>
       <div styleName="auth__errors">
         {formError &&
-          formError.errors.map((error: FormError, index: number) => {
+          formError.map((error: FormError, index: number) => {
             return <ErrorMessage key={index} message={error.msg} />;
           })}
       </div>

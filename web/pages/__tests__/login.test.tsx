@@ -9,12 +9,14 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useReducer } from "react";
-import { FormErrors } from "../../types";
+import { AuthProvider } from "../../context/AuthContext";
+import { ToastProvider } from "../../context/ToastContext";
+import { FormError } from "../../types";
 import Login from "../login.page";
 
 let mockLoading: boolean;
 let mockError: boolean;
-let mockFormError: any;
+let mockFormError: FormError[];
 
 jest.mock("../../hooks/useLogin", () => ({
   __esModule: true,
@@ -25,13 +27,6 @@ jest.mock("../../hooks/useLogin", () => ({
     formError: mockFormError,
   }),
 }));
-
-const user = {
-  fullName: "Bob Jones",
-  userName: "bobjones",
-  email: "bobjones@gmail.com",
-  password: "bobbjones",
-};
 
 describe("Login page", () => {
   describe("Server validation", () => {
@@ -47,7 +42,13 @@ describe("Login page", () => {
         },
       ];
 
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
 
       const error = screen.getByText(/email is required/i);
       expect(error).toBeInTheDocument();
@@ -70,7 +71,13 @@ describe("Login page", () => {
         },
       ];
 
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
 
       const errorOne = screen.getByText(/email is required/i);
       const errorTwo = screen.getByText(/password is required/i);
@@ -81,7 +88,13 @@ describe("Login page", () => {
   describe("Form validation", () => {
     test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", async () => {
       const user = userEvent.setup();
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const emailInput = screen.getByLabelText("Email Address");
       await user.type(emailInput, "locospollos");
       // Remove focus from the password input
@@ -94,7 +107,13 @@ describe("Login page", () => {
     });
     // test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", async () => {
     //   const user = userEvent.setup();
-    //   render(<Login />);
+    //   render(
+    //     <AuthProvider>
+    //       <ToastProvider>
+    //         <Login />
+    //       </ToastProvider>
+    //     </AuthProvider>
+    //   );
     //   const passwordInput = screen.getByLabelText("Password");
     //   await user.type(passwordInput, "bobjone");
     //   // Remove focus from the password input
@@ -107,7 +126,13 @@ describe("Login page", () => {
     // });
     test("if the users enters an invalid input into the email field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
       const user = userEvent.setup();
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const emailInput = screen.getByLabelText("Email Address");
       await user.type(emailInput, "locospollos");
       // Remove focus from the password input
@@ -123,7 +148,13 @@ describe("Login page", () => {
     });
     test("if the user enters a correct email input, no error message should appear", async () => {
       const user = userEvent.setup();
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const emailInput = screen.getByLabelText("Email Address");
       await user.type(emailInput, "bobjones@gmail.com");
       const errorMessage = screen.queryByText(
@@ -133,7 +164,13 @@ describe("Login page", () => {
     });
     test("if the user enters a correct password input, no error message should appear", async () => {
       const user = userEvent.setup();
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const passwordInput = screen.getByLabelText("Password");
       await user.type(passwordInput, "bobjones@gmail.com");
       const errorMessage = screen.queryByText(
@@ -143,7 +180,13 @@ describe("Login page", () => {
     });
     test("if the users enters an invalid input into the password field, then clicks away, then, when the user enters the field correctly, the message goes away", async () => {
       const user = userEvent.setup();
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const passwordInput = screen.getByLabelText("Password");
       await user.type(passwordInput, "bobjone");
       // Remove focus from the password input
@@ -160,21 +203,39 @@ describe("Login page", () => {
     mockLoading = false;
     mockError = false;
     test("Renders 'Log in' text by default", () => {
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const button = screen.getByRole("button", { name: "Log In" });
       expect(button).toBeInTheDocument();
     });
     test("Renders loading text appropriately", async () => {
       mockLoading = true;
       mockError = false;
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const button = screen.getByRole("button", { name: "Logging in..." });
       expect(button).toBeInTheDocument();
     });
     test("Reverts to default button text on error", () => {
       mockLoading = false;
       mockError = true;
-      render(<Login />);
+      render(
+        <AuthProvider>
+          <ToastProvider>
+            <Login />
+          </ToastProvider>
+        </AuthProvider>
+      );
       const button = screen.getByRole("button", { name: "Log In" });
       expect(button).toBeInTheDocument();
     });
