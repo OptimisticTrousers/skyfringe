@@ -17,7 +17,7 @@ const useRegister = () => {
     setFormError(null);
     try {
       const data = await POST(
-        `${process.env.API_DOMAIN}/auth/register`,
+        `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/register`,
         formData,
         {
           mode: "cors",
