@@ -3,7 +3,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 let mongoServer: MongoMemoryServer;
 
-async function initializeMongoServer() {
+export async function initializeMongoServer() {
   mongoServer = await MongoMemoryServer.create();
   const mongoUri = mongoServer.getUri();
 
@@ -22,4 +22,15 @@ async function initializeMongoServer() {
   });
 }
 
-export default initializeMongoServer;
+export async function stopMongoServer() {
+  await mongoose.connection.dropDatabase();
+  await mongoose.connection.close();
+  await mongoServer.stop();
+}
+
+export async function clearMongoServer() {
+  const collections = mongoose.connection.collections;
+  for (const key in collections) {
+    await collections[key].deleteMany({});
+  }
+}
