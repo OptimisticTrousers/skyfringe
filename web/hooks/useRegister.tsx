@@ -29,7 +29,6 @@ const useRegister = () => {
       );
 
       if (data.hasOwnProperty("user")) {
-        console.log(data);
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
         setLoading(false);
         dispatch({ type: "LOGIN", payload: data.user });

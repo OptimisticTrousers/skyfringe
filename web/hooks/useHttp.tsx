@@ -4,7 +4,7 @@ type HttpMethods = "GET" | "POST" | "PUT" | "DELETE";
 
 const useHttp = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<unknown | null>(null);
 
   const sendRequest = async (
     url: string,
@@ -24,7 +24,7 @@ const useHttp = () => {
       return data;
     } catch (err) {
       setLoading(false);
-      setError(new Error("Failed to fetch. Please try again."));
+      setError(err);
     }
   };
 
