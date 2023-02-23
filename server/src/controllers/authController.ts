@@ -54,14 +54,13 @@ export const register_user = [
         if (!cookieExtractor(req) && secret) {
           // If the JWT secret is available, sign a token and send it as a cookie to the browser
           const token = jwt.sign(user.toJSON(), secret, { expiresIn: "1h" });
-          res
+          return res
             .cookie("jwt", token, {
               secure: false,
               httpOnly: true,
             })
             .status(200)
             .json({ user, token });
-          return;
         }
         // If the JWT secret is not available, just return the user
         res.json({ user });
@@ -88,11 +87,13 @@ export const login_user = [
         const secret = process.env.JWT_SECRET;
         if (secret) {
           const token = jwt.sign(user, secret, { expiresIn: "1h" });
-          res.cookie("token", token, {
-            secure: false,
-            httpOnly: true,
-          });
-          return res.json({ user, token });
+          return res
+            .cookie("jwt", token, {
+              secure: false,
+              httpOnly: true,
+            })
+            .status(200)
+            .json({ user, token });
         }
       });
     })(req, res, next);
