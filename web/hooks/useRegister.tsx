@@ -1,14 +1,14 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Error, FormError, RegisterData } from "../types";
-import useRequests from "./useRequests";
+import useHttp from "./useHttp";
 
 const useRegister = () => {
   const [error, setError] = useState<Error | null>(null);
   const [formError, setFormError] = useState<FormError[] | null>(null);
   const [loading, setLoading] = useState(false);
   const { dispatch } = useContext(AuthContext);
-  const { POST } = useRequests();
+  const { post } = useHttp();
 
   // Call this function with the object created using relevant user sign up data
   const register = async (formData: RegisterData) => {
@@ -16,20 +16,20 @@ const useRegister = () => {
     setError(null);
     setFormError(null);
     try {
-      const data = await POST(
+      const data = await post(
         `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/register`,
         formData,
         {
-          mode: "cors",
           headers: {
             "Content-Type": "application/json",
           },
+          mode: "cors",
           credentials: "include",
         }
       );
 
       if (data.hasOwnProperty("user")) {
-        console.log(data)
+        console.log(data);
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
         setLoading(false);
         dispatch({ type: "LOGIN", payload: data.user });

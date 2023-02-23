@@ -1,14 +1,15 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Error, FormErrors, LoginData } from "../types";
-import useRequests from "./useRequests";
+import { Error, FormError, LoginData } from "../types";
+import useHttp from "./useHttp";
+import useRequests from "./useHttp";
 
 const useLogin = () => {
   const [error, setError] = useState<Error | null>(null);
-  const [formError, setFormError] = useState<FormErrors | null>(null);
+  const [formError, setFormError] = useState<FormError[] | null>(null);
   const [loading, setLoading] = useState(false);
   const { dispatch } = useContext(AuthContext);
-  const { POST } = useRequests();
+  const { post } = useHttp();
 
   // Call this function with the FormData object created using relevant user login data
   const login = async (formData: LoginData) => {
@@ -16,11 +17,11 @@ const useLogin = () => {
     setError(null);
     setFormError(null);
     try {
-      const data = await POST(`${process.env.API_DOMAIN}`, formData, {
-        mode: "cors",
+      const data = await post(`${process.env.API_DOMAIN}`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
+        mode: "cors",
         credentials: "include",
       });
       if (data.hasOwnProperty("user")) {
