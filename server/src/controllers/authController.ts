@@ -1,7 +1,7 @@
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import passport from "passport";
-import { NextFunction, Response, Request } from "express";
+import { NextFunction, Response, Request, response } from "express";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
 import cookieExtractor from "../middleware/cookieExtractor";
@@ -105,3 +105,11 @@ export const logout_user = (
   res: Response,
   next: NextFunction
 ) => {};
+
+export const check_auth_user = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  res.json({ message: "You're logged in!", user: req.user });
+};
