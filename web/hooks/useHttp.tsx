@@ -16,8 +16,8 @@ const useHttp = () => {
       setLoading(true);
       const response = await fetch(url, {
         method,
-        body: body ? JSON.stringify(body) : undefined,
         ...options,
+        body: body ? JSON.stringify(body) : undefined,
       });
       const data = await response.json();
       setLoading(false);
