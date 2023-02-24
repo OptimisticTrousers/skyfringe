@@ -35,20 +35,25 @@ const authReducer = (state: AuthState, action: Action) => {
 };
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token = context.req.cookies["jwt"];
+  const token: any = context.req.headers.cookie;
 
-  const response = await fetch(process.env.SERVER_HOST + "/api/profile", {
-    headers: {
-      cookie: context.req.rookies,
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/current`,
+    {
+      headers: {
+        cookie: token,
+      },
+    }
+  );
 
   const data = await response.json();
+  console.log(data)
 
   if (!data.hasOwnProperty("user")) {
     return {
       redirect: {
         destination: "/login",
+        permanent: false,
       },
     };
   }
