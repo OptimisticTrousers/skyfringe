@@ -34,35 +34,6 @@ const authReducer = (state: AuthState, action: Action) => {
   }
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token: any = context.req.headers.cookie;
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/current`,
-    {
-      headers: {
-        cookie: token,
-      },
-    }
-  );
-
-  const data = await response.json();
-  console.log(data)
-
-  if (!data.hasOwnProperty("user")) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {},
-  };
-}
-
 export const AuthContext = createContext({} as AuthContext);
 
 export const AuthProvider: FC<Props> = ({ children }) => {
