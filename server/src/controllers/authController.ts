@@ -5,6 +5,9 @@ import { NextFunction, Response, Request, response } from "express";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
 import cookieExtractor from "../middleware/cookieExtractor";
+import { config } from "dotenv";
+
+config();
 
 // Handle register on POST
 export const register_user = [
@@ -106,10 +109,32 @@ export const logout_user = (
   next: NextFunction
 ) => {};
 
-export const check_auth_user = (
+export const check_auth_user = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  res.json({ message: "You're logged in!", user: req.user });
+  let token = req.headers.cookie;
+  const secret = process.env.JWT_SECRET;
+  if (!token) {
+    return res.status(401).json({ message: "No token provided" });
+  }
+  token = `Bearer ${req.headers.cookie}`;
+  if (secret) {
+    console.log(token)
+    const decodedToken = jwt.verify(token, secret) as any;
+    const id = decodedToken._id;
+    const user = await User.findById(id);
+
+    if (!user) {
+      // user not found in db, above query returns null
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    return res.status(200).json({
+      message: "You're logged in",
+      user: user,
+    });
+  }
+  res.status(500).json({ message: "Issue getting user. Please try again" });
 };
