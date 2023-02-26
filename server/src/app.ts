@@ -6,6 +6,7 @@ import routes from "./routes/index";
 import passportConfig from "./config/passport";
 import notFoundHandler from "./middleware/notFoundHandler";
 import errorHandler from "./middleware/errorHandler";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cookieParser())
 passportConfig();
 
 // routes
