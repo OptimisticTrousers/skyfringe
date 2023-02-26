@@ -13,6 +13,37 @@ import { ErrorMessage } from "../components/ui/ErrorMessage";
 import useLogin from "../hooks/useLogin";
 import useErrorToast from "../hooks/useErrorToast";
 import { FormError } from "../types";
+import { GetServerSidePropsContext } from "next";
+
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//   const token: any = context.req.headers.cookie;
+
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/current`,
+//     {
+//       headers: {
+//         cookie: token,
+//       },
+//     }
+//   );
+
+//   const data = await response.json();
+//   console.log(data)
+
+//   if (data.hasOwnProperty("user")) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   return {
+//     props: {},
+//   };
+// }
+
 
 const Login = () => {
   const { login, loading, error, formError } = useLogin();
