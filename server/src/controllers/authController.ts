@@ -115,13 +115,13 @@ export const check_auth_user = async (
   next: NextFunction
 ) => {
   let token = req.headers.cookie;
+  console.log(req.cookies);
   const secret = process.env.JWT_SECRET;
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
   }
   token = `Bearer ${req.headers.cookie}`;
   if (secret) {
-    console.log(token)
     const decodedToken = jwt.verify(token, secret) as any;
     const id = decodedToken._id;
     const user = await User.findById(id);
