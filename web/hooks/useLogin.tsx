@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Error, FormError, LoginData } from "../types";
 import useHttp from "./useHttp";
-import useRequests from "./useHttp";
 
 const useLogin = () => {
   const [error, setError] = useState<Error | null>(null);
@@ -17,13 +16,17 @@ const useLogin = () => {
     setError(null);
     setFormError(null);
     try {
-      const data = await post(`${process.env.API_DOMAIN}`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        credentials: "include",
-      });
+      const data = await post(
+        `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/login`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          mode: "cors",
+          credentials: "include",
+        }
+      );
       if (data.hasOwnProperty("user")) {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
         setLoading(false);

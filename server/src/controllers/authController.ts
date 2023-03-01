@@ -89,7 +89,7 @@ export const login_user = [
         // generate a signed json web token with the contents of the user objects and return it in the response
         const secret = process.env.JWT_SECRET;
         if (secret) {
-          const token = jwt.sign(user, secret, { expiresIn: "1h" });
+          const token = jwt.sign(user.toJSON(), secret, { expiresIn: "1h" });
           return res
             .cookie("jwt", token, {
               secure: false,
@@ -98,6 +98,8 @@ export const login_user = [
             .status(200)
             .json({ user, token });
         }
+        // If the JWT secret is not available, just return the user
+        res.json({ user });
       });
     })(req, res, next);
   },
