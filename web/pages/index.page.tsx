@@ -9,38 +9,28 @@ import {
 } from "../components/common";
 import styles from "../styles/Home.module.css";
 import { GetServerSidePropsContext } from "next";
+import { Post as PostInterface } from "../types";
+import { FC } from "react";
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const token: any = context.req.cookies["jwt"];
-  console.log(token)
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/current`,
-    {
-      headers: {
-        cookie: token,
-      },
-    }
-  );
-
-  const data = await response.json();
-  console.log(data)
-
-  if (!data.hasOwnProperty("user")) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
+export async function getServerSideProps() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`);
+  const { posts } = await response.json();
 
   return {
-    props: {},
+    props: {
+      posts,
+    },
   };
 }
 
-function Home() {
+interface Props {
+  posts: PostInterface[];
+}
+
+const Home: FC<Props> = ({ posts }) => {
+  const renderedPosts = posts.map((post: PostInterface) => {
+    return <Post key={post._id} post={post} />;
+  });
   return (
     <>
       <div styleName="home">
@@ -51,7 +41,7 @@ function Home() {
           {/* <HomeFriends /> */}
           <CreatePost />
           <SkeletonPost />
-          <Post />
+          {renderedPosts};
         </div>
         <aside styleName="home__right">
           <Suggestions />
@@ -61,7 +51,7 @@ function Home() {
       </div>
     </>
   );
-}
+};
 
 export default CSSModules(Home, styles, {
   allowMultiple: true,

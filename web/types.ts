@@ -1,3 +1,8 @@
+interface Image {
+  imageUrl: string;
+  altText: string;
+}
+
 export interface Error {
   message: string;
 }
@@ -28,6 +33,26 @@ export interface User {
   userName: string;
   password: string;
   email: string;
+  createdAt: Date;
+  updatedAt: Date;
+  friends?: User[];
+  photo?: Image;
+  cover?: Image;
+}
+
+export interface Comment {
+  user: string;
+  content: string;
+  likes: User[];
+}
+
+export interface Post {
+  _id: string;
+  author: string;
+  content: string;
+  comments: Comment[];
+  likes: User[];
+  image?: Image;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineLike } from "react-icons/ai";
 import { BiTime, BiCommentDetail } from "react-icons/bi";
@@ -6,8 +6,13 @@ import { BsBookmark, BsThreeDotsVertical } from "react-icons/bs";
 import Comments from "../Comments";
 import { Card, MoreOptionsDropdown } from "../../ui";
 import styles from "./Post.module.css";
+import { Post as PostInterface } from "../../../types";
 
-const Post = () => {
+interface Props {
+  post: PostInterface;
+}
+
+const Post: FC<Props> = ({ post }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
@@ -25,7 +30,7 @@ const Post = () => {
         <div styleName="post__container">
           <img src="/images/optimistictrousers.jpg" styleName="post__avatar" />
           <div styleName="post__details">
-            <h3 styleName="post__author">Lucky Andreas</h3>
+            <h3 styleName="post__author">{post.author}</h3>
             <p styleName="post__date">
               <BiTime />
               <span styleName="post__time">12 minutes ago</span>
