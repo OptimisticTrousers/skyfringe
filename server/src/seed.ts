@@ -30,33 +30,128 @@ async function seed(config: any) {
     const frankyId = new mongoose.Types.ObjectId("63ffe3abe057bf774d4f3343");
     const brookId = new mongoose.Types.ObjectId("63ffe3b6ce9d3bc87e11beab");
     const jinbeiId = new mongoose.Types.ObjectId("63ffe3c419931753b2effed0");
+    const crocodileId = new mongoose.Types.ObjectId("64052ec796cf9621788637ab");
 
     console.log("Seeding users...");
 
-    const passwordHash = await bcrypt.hash("password", 11);
+    const password = "password";
+    const salt = 10;
     // Set up array of user/post/comment docs to be later saved to db
     const users = [
       {
+        _id: luffyId,
         fullName: "Monkey D. Luffy",
         userName: "luffy",
-        password: "",
+        password: await bcrypt.hash(password, salt),
         email: "luffy@onepiece.com",
         friends: [
           {
             user: "63ffe28a03861eacdf3b618d",
             status: "friend",
           },
+          {
+            user: "63ffe29611ff85f225e99d8d",
+            status: "incomingFriendRequest",
+          },
+          {
+            user: "63ffe2ad135076c12765b2c1",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe2ad135076c12765b2c1",
+            status: "rejectedFriendRequest",
+          },
         ],
       },
       {
+        _id: zoroId,
         fullName: "Roronoa Zoro",
         userName: "zoro",
-        password: "",
+        password: await bcrypt.hash(password, salt),
         email: "zoro@onepiece.com",
         friends: [
           {
             user: "63ffe2394ba6931001673a16",
             status: "friend",
+          },
+          {
+            user: "63ffe29611ff85f225e99d8d",
+            status: "incomingFriendRequest",
+          },
+          {
+            user: "63ffe2ad135076c12765b2c1",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe2ad135076c12765b2c1",
+            status: "rejectedFriendRequest",
+          },
+        ],
+      },
+      {
+        _id: namiId,
+        fullName: "Nami",
+        userName: "nami",
+        password: await bcrypt.hash(password, salt),
+        email: "nami@onepiece.com",
+        friends: [
+          {
+            user: "63ffe2394ba6931001673a16",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe28a03861eacdf3b618d",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe2ad135076c12765b2c1",
+            status: "rejectedFriendRequest",
+          },
+        ],
+      },
+      {
+        _id: usoppId,
+        fullName: "Usopp",
+        userName: "usopp",
+        password: await bcrypt.hash(password, salt),
+        email: "usopp@onepiece.com",
+        friends: [
+          {
+            user: "63ffe2394ba6931001673a16",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe28a03861eacdf3b618d",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe2ad135076c12765b2c1",
+            status: "rejectedFriendRequest",
+          },
+        ],
+      },
+      {
+        _id: crocodileId,
+        fullName: "Crocodile",
+        userName: "croc",
+        password: await bcrypt.hash(password, salt),
+        email: "crocodileonepiece.com",
+        friends: [
+          {
+            user: "63ffe2394ba6931001673a16",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe28a03861eacdf3b618d",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe29611ff85f225e99d8d",
+            status: "outgoingFriendRequest",
+          },
+          {
+            user: "63ffe2ad135076c12765b2c1",
+            status: "outgoingFriendRequest",
           },
         ],
       },
@@ -90,7 +185,17 @@ async function seed(config: any) {
     ];
 
     // Save seeded users
-    await Promise.all([exampleUser.save(), seedUser.save()]);
+    User.insertMany(users, (err, docs) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+
+    Post.insertMany(posts, (err, docs) => {
+      if (err) {
+        console.log(err);
+      }
+    });
 
     console.log("Done!");
     process.exit(0);

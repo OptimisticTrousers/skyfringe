@@ -16,9 +16,9 @@ const UserSchema = new Schema(
           type: String,
           enum: [
             "friend",
-            "outgoingFriendRequests",
-            "incomingFriendRequests",
-            "rejectedFriendRequests",
+            "outgoingFriendRequest",
+            "incomingFriendRequest",
+            "rejectedFriendRequest",
           ],
         },
       },
