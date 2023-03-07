@@ -16,10 +16,27 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    width: 100%;
 }
 
 .aside__item {
-    
+  list-style: none; 
+}
+
+.aside__link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  padding-bottom: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.aside__icon {
+  width: 1.5rem;
+  margin-right: 0.75rem;
 }
 
 @media(min-width: 768px) {
@@ -28,6 +45,7 @@
         margin: 0;
         margin-left: 0.5rem;
         margin-right: 0.5rem;
+        padding: 0;
     }
 }
 
