@@ -5,21 +5,23 @@
 }
 
 .aside__title {
-    font-weight: 700;
-    font-size: 1.5rem;
-    line-height: 2rem;
-    padding: 1rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  padding: 1rem;
+  margin: 0;
 }
 
 .aside__menu {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0;
 }
 
 .aside__item {
-  list-style: none; 
+  list-style: none;
 }
 
 .aside__link {
@@ -29,23 +31,33 @@
   font-size: 1.125rem;
   line-height: 1.75rem;
   font-weight: 600;
-  padding-bottom: 0.75rem;
-  padding-top: 0.75rem;
+  padding: 0.75rem;
 }
 
 .aside__icon {
-  width: 1.5rem;
+  width: 26px;
+  height: 26px;
   margin-right: 0.75rem;
 }
 
-@media(min-width: 768px) {
-    .aside__menu {
-        flex-direction: column;
-        margin: 0;
-        margin-left: 0.5rem;
-        margin-right: 0.5rem;
-        padding: 0;
-    }
+.aside__text {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .aside__item {
+    width: 95%;
+    box-sizing: border-box;
+  }
+  .aside__menu {
+    flex-direction: column;
+    margin: 0;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .aside__link:hover {
+    background-color: rgb(22, 21, 19);
+  }
 }
 
 @media (min-width: 1024px) {
