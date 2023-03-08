@@ -5,6 +5,10 @@
   margin-bottom: 2rem;
 }
 
+.card {
+  width: 100%;
+}
+
 .friend {
   margin: 0 auto;
   width: 100%;
@@ -62,6 +66,12 @@
 
 .friend__button:hover {
   background-color: rgb(37, 99, 235);
+}
+
+@media(min-width: 1024px) {
+  .card {
+    width: auto;
+  }
 }
 
 @media(max-width: 340px) {

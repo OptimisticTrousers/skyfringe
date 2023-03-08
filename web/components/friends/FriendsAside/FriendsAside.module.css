@@ -1,7 +1,7 @@
 .aside {
-  background-color: black;
-  height: 100vh;
+  background-color: white;
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  color: black;
 }
 
 .aside__title {
@@ -28,23 +28,62 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-size: 1.125rem;
+  font-size: 0.875rem;
   line-height: 1.75rem;
   font-weight: 600;
   padding: 0.75rem;
+  margin: 0.25rem;
+  color: black;
+  border-radius: 0.25rem;
 }
 
 .aside__icon {
   width: 26px;
   height: 26px;
   margin-right: 0.75rem;
+  fill: rgb(64, 65, 100);
 }
 
 .aside__text {
-  font-size: 1.25rem;
+  font-size: inherit;
+  color: inherit;
+}
+
+@media (max-width: 767px) {
+  .aside {
+    background-color: transparent;
+    color: white;
+    margin-left: 0.25rem;
+  }
+  .aside__title {
+    display: none;
+  }
+  .aside__icon {
+    display: none;
+  }
+  .aside__link {
+    background-color: white;
+    padding: 0.25rem 0.75rem;
+  }
+  .aside__link:hover {
+    background-color: rgb(214, 215, 216);
+  }
+  .aside__link--green {
+    color: white;
+    font-weight: 700;
+    background-color: rgb(37, 147, 145);
+  }
+  .aside__link--green:hover {
+    background-color: rgb(17, 127, 125);
+  }
 }
 
 @media (min-width: 768px) {
+  .aside {
+    width: 270px;
+    margin: 0;
+    height: 100vh;
+  }
   .aside__item {
     width: 95%;
     box-sizing: border-box;
@@ -55,13 +94,17 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
+  .aside__link {
+    font-size: 1.125rem;
+  }
   .aside__link:hover {
-    background-color: rgb(22, 21, 19);
+    background-color: rgb(243, 244, 246);
   }
 }
 
 @media (min-width: 1024px) {
   .aside {
     width: 320px;
+    height: 100vh;
   }
 }

@@ -1,10 +1,10 @@
 .friends {
   display: grid;
-  grid-template-columns: 320px 1fr;
 }
 
 .friends__container {
   margin: 1rem;
+  background-color: black;
 }
 
 .friends__title {
@@ -18,10 +18,34 @@
 
 .friends__cards {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: flex-start;
   margin: 0;
   padding: 0;
   list-style: none;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  .friends {
+    margin-top: 4.3rem;
+  }
+  .friends__container {
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .friends {
+    grid-template-columns: 270px 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .friends {
+    grid-template-columns: 320px 1fr;
+  }
+  .friends__cards {
+    background-color: transparent;
+  }
 }

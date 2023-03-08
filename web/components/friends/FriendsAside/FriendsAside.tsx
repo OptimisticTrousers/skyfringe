@@ -14,19 +14,19 @@ const FriendsAside = () => {
           <li styleName="aside__item">
             <Link styleName="aside__link" href={"home"}>
               <GiThreeFriends styleName="aside__icon" />
-              <span styleName="aside__text">bob jones</span>
+              <span styleName="aside__text">Suggested</span>
             </Link>
           </li>
           <li styleName="aside__item">
             <Link styleName="aside__link" href="bob">
               <FaPaperPlane styleName="aside__icon" />
-              <span styleName="aside__text">bob jones</span>
+              <span styleName="aside__text">Friend requests</span>
             </Link>
           </li>
           <li styleName="aside__item">
-            <Link styleName="aside__link" href="tony">
+            <Link styleName="aside__link aside__link--green" href="tony">
               <FaUserFriends styleName="aside__icon" />
-              <span styleName="aside__text">Locos Pollos</span>
+              <span styleName="aside__text">All friends</span>
             </Link>
           </li>
         </ul>
