@@ -1,4 +1,27 @@
 .friends {
-    display: grid;
-    grid-template-columns: 320px 1fr;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+}
+
+.friends__container {
+  margin: 1rem;
+}
+
+.friends__title {
+  margin: 0;
+  padding-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  padding: 1rem;
+}
+
+.friends__cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
