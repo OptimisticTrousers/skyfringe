@@ -5,8 +5,8 @@ import styles from "../../styles/Friends.module.css";
 const FriendsHome = () => {
   return (
     <FriendsLayout>
-      <div>
-        <h2>Friends</h2> 
+      <div styleName="content">
+        <h2 styleName="content__title">Friends</h2> 
         <FriendsCard />
       </div>
     </FriendsLayout>
