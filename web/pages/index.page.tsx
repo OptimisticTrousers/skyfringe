@@ -12,25 +12,25 @@ import { GetServerSidePropsContext } from "next";
 import { Post as PostInterface } from "../types";
 import { FC } from "react";
 
-export async function getServerSideProps() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`);
-  const { posts } = await response.json();
+// export async function getServerSideProps() {
+//   const response = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`);
+//   const { posts } = await response.json();
 
-  return {
-    props: {
-      posts,
-    },
-  };
-}
+//   return {
+//     props: {
+//       posts,
+//     },
+//   };
+// }
 
 interface Props {
   posts: PostInterface[];
 }
 
-const Home: FC<Props> = ({ posts }) => {
-  const renderedPosts = posts.map((post: PostInterface) => {
-    return <Post key={post._id} post={post} />;
-  });
+const Home = () => {
+  // const renderedPosts = posts.map((post: PostInterface) => {
+  //   return <Post key={post._id} post={post} />;
+  // });
   return (
     <>
       <div styleName="home">
@@ -41,7 +41,7 @@ const Home: FC<Props> = ({ posts }) => {
           {/* <HomeFriends /> */}
           <CreatePost />
           <SkeletonPost />
-          {renderedPosts};
+          {/* {renderedPosts}; */}
         </div>
         <aside styleName="home__right">
           <Suggestions />

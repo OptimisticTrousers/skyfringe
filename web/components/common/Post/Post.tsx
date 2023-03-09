@@ -12,7 +12,7 @@ interface Props {
   post: PostInterface;
 }
 
-const Post: FC<Props> = ({ post }) => {
+const Post = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
@@ -30,7 +30,7 @@ const Post: FC<Props> = ({ post }) => {
         <div styleName="post__container">
           <img src="/images/optimistictrousers.jpg" styleName="post__avatar" />
           <div styleName="post__details">
-            <h3 styleName="post__author">{post.author}</h3>
+            <h3 styleName="post__author">Bob Jones</h3>
             <p styleName="post__date">
               <BiTime />
               <span styleName="post__time">12 minutes ago</span>
