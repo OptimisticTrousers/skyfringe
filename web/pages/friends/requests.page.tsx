@@ -2,11 +2,11 @@ import CSSModules from "react-css-modules";
 import styles from "../../styles/Friends.module.css";
 import { FriendsCard, FriendsLayout } from "../../components/friends";
 
-const FriendsHome = () => {
+const FriendsRequests = () => {
   return (
     <FriendsLayout>
       <section styleName="friends">
-        <h2 styleName="friends__title">Friend Requests</h2>
+        <h2 styleName="friends__title">Incoming Requests</h2>
         <ul styleName="friends__cards">
           <li styleName="friends__card">
             <FriendsCard />
@@ -20,7 +20,7 @@ const FriendsHome = () => {
         </ul>
       </section>
       <section styleName="friends">
-        <h2 styleName="friends__title">Find new friends</h2>
+        <h2 styleName="friends__title">Sent requests</h2>
         <ul styleName="friends__cards">
           <li styleName="friends__card">
             <FriendsCard />
@@ -37,7 +37,7 @@ const FriendsHome = () => {
   );
 };
 
-export default CSSModules(FriendsHome, styles, {
+export default CSSModules(FriendsRequests, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "ignore",
-});
+  handleNotFoundStyleName: "ignore"
+})
