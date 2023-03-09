@@ -13,9 +13,13 @@ import { ErrorMessage } from "../components/ui/ErrorMessage";
 import useLogin from "../hooks/useLogin";
 import useErrorToast from "../hooks/useErrorToast";
 import { FormError } from "../types";
+import { signIn, useSession } from "next-auth/react";
 
 const Login = () => {
   const { login, loading, error, formError } = useLogin();
+
+  const session = useSession();
+  console.log(session)
 
   useErrorToast(error, error ? error.message : "");
 
@@ -35,7 +39,8 @@ const Login = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!(emailValid && passwordValid)) return;
-    login({ email, password });
+    // login({ email, password });
+    signIn();
   };
 
   const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
