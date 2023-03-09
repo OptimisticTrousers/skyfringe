@@ -1,11 +1,8 @@
-.friends {
-  gap: 30px;
-  padding: 5rem 1rem;
-  box-sizing: border-box;
-  margin-bottom: 2rem;
+.friends:first-child {
+  border-bottom: 1px solid rgb(209, 213, 219);
 }
 
-.card {
+.friends__card {
   width: 100%;
 }
 
@@ -64,17 +61,39 @@
   margin-left: auto;
 }
 
+.friends__title {
+  margin: 0;
+  padding-bottom: 0.5rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  padding: 1rem;
+}
+
+.friends__cards {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
 .friend__button:hover {
   background-color: rgb(37, 99, 235);
 }
 
-@media(min-width: 1024px) {
-  .card {
+@media (min-width: 1024px) {
+  .friends__cards {
+    background-color: transparent;
+  }
+  .friends__card {
     width: auto;
   }
 }
 
-@media(max-width: 340px) {
+@media (max-width: 340px) {
   .friend__flex {
     flex-direction: column;
     align-items: center;

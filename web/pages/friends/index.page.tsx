@@ -5,15 +5,34 @@ import styles from "../../styles/Friends.module.css";
 const FriendsHome = () => {
   return (
     <FriendsLayout>
-      <li styleName="card">
-        <FriendsCard />
-      </li>
-      <li styleName="card">
-        <FriendsCard />
-      </li>
-      <li styleName="card">
-        <FriendsCard />
-      </li>
+      <section styleName="friends">
+        <h2 styleName="friends__title">Friend Requests</h2>
+        <ul styleName="friends__cards">
+          <li styleName="friends__card">
+            <FriendsCard />
+          </li>
+          <li styleName="friends__card">
+            <FriendsCard />
+          </li>
+          <li styleName="friends__card">
+            <FriendsCard />
+          </li>
+        </ul>
+      </section>
+      <section styleName="friends">
+        <h2 styleName="friends__title">Find new friends</h2>
+        <ul styleName="friends__cards">
+          <li styleName="friends__card">
+            <FriendsCard />
+          </li>
+          <li styleName="friends__card">
+            <FriendsCard />
+          </li>
+          <li styleName="friends__card">
+            <FriendsCard />
+          </li>
+        </ul>
+      </section>
     </FriendsLayout>
   );
 };

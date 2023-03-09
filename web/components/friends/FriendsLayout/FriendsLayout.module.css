@@ -7,25 +7,6 @@
   background-color: black;
 }
 
-.friends__title {
-  margin: 0;
-  padding-bottom: 0.5rem;
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-  padding: 1rem;
-}
-
-.friends__cards {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  flex-wrap: wrap;
-}
-
 @media (max-width: 767px) {
   .friends {
     margin-top: 4.3rem;

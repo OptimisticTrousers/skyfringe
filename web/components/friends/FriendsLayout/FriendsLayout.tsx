@@ -12,8 +12,7 @@ const FriendsLayout: FC<Props> = ({ children }) => {
     <div styleName="friends">
       <FriendsAside />
       <div styleName="friends__container">
-        <h2 styleName="friends__title">Friends</h2>
-        <ul styleName="friends__cards">{children}</ul>
+        {children}
       </div>
     </div>
   );
