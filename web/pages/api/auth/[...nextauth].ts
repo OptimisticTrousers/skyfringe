@@ -24,15 +24,17 @@ export const authOptions: NextAuthOptions = {
         // e.g. return {id: 1, name: "J Smith", email: "jsmith@example.com"}
         // You can also use the 'req' object to obtain additional parameters
         // (i.e., the request IP address)
-        const response = await fetch("http://localhost:5000/api/auth/login", {
+        console.log(credentials, req)
+        const response: any = await fetch(`${process.env.NEXTAUTH_URL}/login`, {
           method: "POST",
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
         });
-        const { user } = await response.json();
+        const { user, token } = await response.json();
 
         // If no error and we have user data, return it
         if (response.ok && user) {
+          user.accessToken = token;
           return user;
         }
         // Return null if user data could not be retrived
@@ -46,11 +48,15 @@ export const authOptions: NextAuthOptions = {
 
       return false;
     },
-    async session({ session, user, token }) {
-      return session;
-    },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: any) {
+      if (user) {
+        token = { accessToken: user.accessToken };
+      }
       return token;
+    },
+    async session({ session, user, token }: any) {
+      session.accessToken = token.accessToken;
+      return session;
     },
   },
   // Configure one or more authentication providers
