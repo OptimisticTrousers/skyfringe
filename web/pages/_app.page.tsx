@@ -8,12 +8,11 @@ import { AuthProvider } from "../context/AuthContext";
 import { ThemeContext, ThemeProvider } from "../context/ThemeContext";
 import { ToastContext, ToastProvider } from "../context/ToastContext";
 import "../styles/globals.css";
+import useCurrentUser from "../hooks/useCurrentUser";
+import { useRouter } from "next/router";
+import AuthRoutes from "../components/common/AuthRoutes/AuthRoutes";
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-  ...appProps
-}: AppProps) {
+export default function App({ Component, pageProps, ...appProps }: AppProps) {
   const { toastVisible, toastParams } = useContext(ToastContext);
 
   const { theme } = useContext(ThemeContext);
@@ -35,16 +34,18 @@ export default function App({
   }
 
   return (
-    <SessionProvider session={session}>
+    <>
       <Head>
         <title>Skyfringe | Talk with your friends!</title>
       </Head>
       <AuthProvider>
         <ToastProvider>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <AuthRoutes>{children}</AuthRoutes>
+          </ThemeProvider>
         </ToastProvider>
       </AuthProvider>
       <Toast visible={toastVisible} params={toastParams} />
-    </SessionProvider>
+    </>
   );
 }
