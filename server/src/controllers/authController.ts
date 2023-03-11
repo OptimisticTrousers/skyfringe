@@ -79,6 +79,7 @@ export const login_user = [
       if (err) {
         return next(err);
       }
+      console.log(err, user, info);
       if (!user) {
         return res.sendStatus(403);
       }
@@ -116,13 +117,11 @@ export const check_auth_user = async (
   res: Response,
   next: NextFunction
 ) => {
-  let token = req.headers.cookie;
-  console.log(req.cookies);
+  const token = req.cookies["jwt"];
   const secret = process.env.JWT_SECRET;
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
   }
-  token = `Bearer ${req.headers.cookie}`;
   if (secret) {
     const decodedToken = jwt.verify(token, secret) as any;
     const id = decodedToken._id;
