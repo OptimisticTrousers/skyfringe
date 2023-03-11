@@ -10,10 +10,12 @@ interface Props {
 interface AuthContext {
   dispatch: (action: Action) => void;
   user: User | null;
+  ready: boolean;
 }
 
 interface AuthState {
   user: User | null;
+  ready: boolean;
 }
 
 interface Action {
@@ -24,9 +26,9 @@ interface Action {
 const authReducer = (state: AuthState, action: Action) => {
   switch (action.type) {
     case "LOGIN":
-      return { ...state, user: action.payload };
+      return { ...state, user: action.payload, ready: true };
     case "LOGOUT":
-      return { ...state, user: null };
+      return { ...state, user: null, ready: true };
     case "UPDATE":
       return { ...state, user: action.payload };
     default:
@@ -39,6 +41,7 @@ export const AuthContext = createContext({} as AuthContext);
 export const AuthProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
+    ready: false,
   });
 
   return (
