@@ -11,6 +11,7 @@ import styles from "../styles/Home.module.css";
 import { GetServerSidePropsContext } from "next";
 import { Post as PostInterface } from "../types";
 import { FC } from "react";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 // export async function getServerSideProps() {
 //   const response = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`);
@@ -28,9 +29,6 @@ interface Props {
 }
 
 const Home = () => {
-  // const renderedPosts = posts.map((post: PostInterface) => {
-  //   return <Post key={post._id} post={post} />;
-  // });
   return (
     <>
       <div styleName="home">
