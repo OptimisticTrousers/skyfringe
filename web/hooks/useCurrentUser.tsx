@@ -20,9 +20,6 @@ const useCurrentUser = () => {
         }
       );
       dispatch({ type: "LOGIN", payload: data.user });
-      if (!(data.hasOwnProperty("user") || loading)) {
-        router.push("/login");
-      }
     })();
   }, []);
 
