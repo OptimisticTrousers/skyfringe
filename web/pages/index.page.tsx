@@ -13,16 +13,22 @@ import { Post as PostInterface } from "../types";
 import { FC } from "react";
 import useCurrentUser from "../hooks/useCurrentUser";
 
-// export async function getServerSideProps() {
-//   const response = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`);
-//   const { posts } = await response.json();
+export async function getServerSideProps() {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`);
+  const data = await response.json();
 
-//   return {
-//     props: {
-//       posts,
-//     },
-//   };
-// }
+  if (!data.posts) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      posts,
+    },
+  };
+}
 
 interface Props {
   posts: PostInterface[];
