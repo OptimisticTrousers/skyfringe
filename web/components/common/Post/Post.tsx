@@ -7,6 +7,7 @@ import Comments from "../Comments";
 import { Card, MoreOptionsDropdown } from "../../ui";
 import styles from "./Post.module.css";
 import { Post as PostInterface } from "../../../types";
+import { getTimeAgo } from "../../../utils";
 
 interface Props {
   post: PostInterface;
@@ -30,10 +31,10 @@ const Post: FC<Props> = ({ post }) => {
         <div styleName="post__container">
           <img src="/images/optimistictrousers.jpg" styleName="post__avatar" />
           <div styleName="post__details">
-            <h3 styleName="post__author">Bob Jones</h3>
+            <h3 styleName="post__author">{post.author.fullName}</h3>
             <p styleName="post__date">
               <BiTime />
-              <span styleName="post__time">12 minutes ago</span>
+              <span styleName="post__time">{getTimeAgo(post.createdAt)}</span>
             </p>
           </div>
         </div>
@@ -47,11 +48,7 @@ const Post: FC<Props> = ({ post }) => {
         </div>
       </div>
       <div styleName="post__content">
-        <p styleName="post__description">
-          What is the reason guys yesterday I uploaded same kind of content they
-          approved it but when today I tried to upload they say we no longer
-          accept this type of content
-        </p>
+        <p styleName="post__description">{post.content}</p>
         <img src="/images/optimistictrousers.jpg" styleName="post__image" />
       </div>
       <div styleName="post__buttons">

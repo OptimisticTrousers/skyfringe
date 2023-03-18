@@ -53,6 +53,6 @@ export interface Post {
   comments: Comment[];
   likes: User[];
   image?: Image;
-  createdAt: string;
+  createdAt: Date;
   updatedAt: Date;
 }
