@@ -8,7 +8,7 @@ const router = Router();
 
 router.use(
   "/posts",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   postRouter
 );
 router.use(
