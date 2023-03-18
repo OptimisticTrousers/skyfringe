@@ -12,7 +12,7 @@ interface Props {
   post: PostInterface;
 }
 
-const Post = () => {
+const Post: FC<Props> = ({ post }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
