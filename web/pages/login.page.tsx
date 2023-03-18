@@ -14,6 +14,7 @@ import useLogin from "../hooks/useLogin";
 import useErrorToast from "../hooks/useErrorToast";
 import { FormError } from "../types";
 import useCurrentUser from "../hooks/useCurrentUser";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const { login, loading, error, formError } = useLogin();
