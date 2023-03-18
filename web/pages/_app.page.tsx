@@ -41,7 +41,7 @@ export default function App({ Component, pageProps, ...appProps }: AppProps) {
       <AuthProvider>
         <ToastProvider>
           <ThemeProvider>
-            <AuthRoutes>{children}</AuthRoutes>
+            {children}
           </ThemeProvider>
         </ToastProvider>
       </AuthProvider>
