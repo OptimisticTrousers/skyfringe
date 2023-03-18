@@ -13,13 +13,13 @@ import { Post as PostInterface } from "../types";
 import { FC } from "react";
 import useCurrentUser from "../hooks/useCurrentUser";
 import { HomeFriends } from "../components/friends";
+import { getSession, useSession } from "next-auth/react";
 
 interface Props {
   posts: PostInterface[];
 }
 
 const Home: FC<Props> = ({ posts }) => {
-
   const renderedPosts = posts.map((post) => {
     return <Post key={post._id} post={post} />;
   });
@@ -46,7 +46,13 @@ const Home: FC<Props> = ({ posts }) => {
 };
 
 export async function getServerSideProps() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    mode: "cors",
+    credentials: "include",
+  });
   const { posts } = await response.json();
 
   if (!posts) {
