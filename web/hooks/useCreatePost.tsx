@@ -10,13 +10,17 @@ const useCreatePost = () => {
   const createPost = async (formData: FormData) => {
     setResponse(null);
 
-    const data = await post(`${process.env.NEXT_PUBLIC_API_DOMAIN}`, formData, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      mode: "cors",
-      credentials: "include",
-    });
+    const data = await post(
+      `${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
+      }
+    );
     setResponse(data);
   };
 
