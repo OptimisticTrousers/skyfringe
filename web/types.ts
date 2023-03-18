@@ -48,11 +48,11 @@ export interface Comment {
 
 export interface Post {
   _id: string;
-  author: string;
+  author: User;
   content: string;
   comments: Comment[];
   likes: User[];
   image?: Image;
-  createdAt: Date;
+  createdAt: string;
   updatedAt: Date;
 }
