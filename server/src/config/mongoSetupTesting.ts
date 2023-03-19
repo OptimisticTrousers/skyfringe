@@ -22,7 +22,7 @@ const namiId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000006");
 const usoppId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000007");
 const crocodileId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000008");
 
-const luffyPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef00009");
+const luffyPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000009");
 const zoroPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000010");
 const namiPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000011");
 const usoppPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000012");
@@ -46,11 +46,11 @@ const users = [
       },
       {
         user: "4c8a331bda76c559ef000006",
-        status: "outgoingRequest",
+        status: "outgoingFriendRequest",
       },
       {
         user: "4c8a331bda76c559ef000007",
-        status: "incomingRequest",
+        status: "incomingFriendRequest",
       },
       {
         user: "4c8a331bda76c559ef000008",
@@ -183,7 +183,7 @@ const comments = [
     user: "4c8a331bda76c559ef000005",
     content: "How did I end up following a captain like this?",
     likes: [
-      "4c8a331bda76c559ef00004",
+      "4c8a331bda76c559ef000004",
       "4c8a331bda76c559ef000006",
       "4c8a331bda76c559ef000007",
     ],
