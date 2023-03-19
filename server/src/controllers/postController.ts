@@ -2,6 +2,10 @@ import { Request, Response, NextFunction } from "express";
 import Post from "../models/post";
 import { body, validationResult } from "express-validator";
 
+interface CustomError extends Error {
+  status?: number;
+}
+
 export const post_list = (req: Request, res: Response, next: NextFunction) => {
   Post.find({})
     .sort({ createdAt: 1 })
@@ -66,11 +70,15 @@ export const post_detail = (
     .populate("author")
     .exec()
     .then((post) => {
+      if (!post) {
+        // No results.
+        const err: CustomError = new Error("Post not found");
+        err.status = 404;
+        return next(err);
+      }
       res.json({ post });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 export const post_update = [];
