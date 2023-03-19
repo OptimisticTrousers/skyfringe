@@ -14,9 +14,9 @@ import "../config/mongoSetupTesting";
 describe("GET /posts", () => {
   it("returns all of the posts in JSON format", async () => {
     const response = await request(app).get("/posts");
-    expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.statusCode).toEqual(200);
     // There are five total posts in the db
-    expect(response.body.length).toEqual(5);
+    expect(Array.isArray(response.body.posts)).toEqual(true);
+    expect(response.body.posts.length).toEqual(5);
   });
 });

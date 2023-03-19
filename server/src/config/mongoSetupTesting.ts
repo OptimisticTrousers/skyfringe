@@ -29,7 +29,10 @@ const usoppPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000012");
 const crocodilePostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000013");
 
 const luffyCommentId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000014");
-const zoroCommentId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000015");
+const luffySecondCommentId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000015"
+);
+const zoroCommentId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000016");
 
 // Set up array of user/post/comment docs to be later saved to db
 const users = [
@@ -190,7 +193,7 @@ const comments = [
   },
   {
     // Luffy comments on Crocodile's post, liked by Zoro, Nami and Usopp
-    _id: luffyCommentId,
+    _id: luffySecondCommentId,
     user: "4c8a331bda76c559ef000004",
     content: "I'll kick your ass!",
     likes: [
