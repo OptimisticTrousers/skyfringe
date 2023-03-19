@@ -1,6 +1,6 @@
 import express from "express";
-import { post_list } from "../controllers/postController";
 import request from "supertest";
+import { post_list } from "../controllers/postController";
 
 // Setup new app instance
 const app = express();
@@ -15,6 +15,7 @@ describe("GET /posts", () => {
   it("returns all of the posts in JSON format", async () => {
     const response = await request(app).get("/posts");
     expect(response.statusCode).toEqual(200);
+    expect(response.headers["content-type"]).toMatch(/json/);
     // There are five total posts in the db
     expect(Array.isArray(response.body.posts)).toEqual(true);
     expect(response.body.posts.length).toEqual(5);
