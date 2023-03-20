@@ -24,8 +24,8 @@ describe("post_detail controller", () => {
     // Luffy's Post ID
     const id = "4c8a331bda76c559ef000009";
     const response = await request(app).get(`/posts/${id}`);
-    expect(response.status).toEqual(200);
     expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.status).toEqual(200);
     expect(response.body.post.content).toBe(
       "I'm going to be the King of the Pirates!"
     );
@@ -34,6 +34,7 @@ describe("post_detail controller", () => {
     // Luffy's Post ID
     const id = "4c8a331bda76c559ef000009";
     const response = await request(app).get(`/posts/${id}`);
+    expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
     expect(response.body.post.likes.length).toEqual(3);
   });
@@ -41,6 +42,7 @@ describe("post_detail controller", () => {
     // Luffy's Post ID
     const id = "4c8a331bda76c559ef000009";
     const response = await request(app).get(`/posts/${id}`);
+    expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
     expect(response.body.post.comments.length).toEqual(1);
   });
