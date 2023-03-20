@@ -139,8 +139,12 @@ const posts = [
     _id: luffyPostId,
     author: "4c8a331bda76c559ef000004",
     content: "I'm going to be the King of the Pirates!",
-    comments: [],
-    likes: [],
+    comments: [zoroCommentId],
+    likes: [
+      "4c8a331bda76c559ef000005",
+      "4c8a331bda76c559ef000006",
+      "4c8a331bda76c559ef000007",
+    ],
   },
   {
     _id: zoroPostId,
