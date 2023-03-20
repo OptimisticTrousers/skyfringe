@@ -1,6 +1,6 @@
+import fs from "fs";
 import aws from "aws-sdk";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import fs from "fs";
 
 export const s3Uploadv3 = async (file: Express.Multer.File) => {
   try {

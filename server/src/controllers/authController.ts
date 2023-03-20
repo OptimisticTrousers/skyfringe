@@ -1,11 +1,11 @@
-import { body, validationResult } from "express-validator";
-import jwt from "jsonwebtoken";
 import passport from "passport";
-import { NextFunction, Response, Request, response } from "express";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { NextFunction, Response, Request } from "express";
+import { body, validationResult } from "express-validator";
+import { config } from "dotenv";
 import User from "../models/user";
 import cookieExtractor from "../middleware/cookieExtractor";
-import { config } from "dotenv";
 
 config();
 

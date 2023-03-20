@@ -1,7 +1,7 @@
 import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
 import passportJWT from "passport-jwt";
 import bcrypt from "bcryptjs";
+import { Strategy as LocalStrategy } from "passport-local";
 import { config } from "dotenv";
 import User from "../models/user";
 import cookieExtractor from "../middleware/cookieExtractor";

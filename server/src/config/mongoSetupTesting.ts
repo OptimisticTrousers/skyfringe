@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
+import Post from "../models/post";
+import User from "../models/user";
+import Comment from "../models/comment";
 import {
   clearMongoServer,
   initializeMongoServer,
   stopMongoServer,
 } from "./mongoConfigTesting";
-import Post from "../models/post";
-import User from "../models/user";
-import Comment from "../models/comment";
 
 // Standard database setup and teardown. Do not clear between each test, as state is often required to persist between tests
 beforeAll(() => initializeMongoServer());

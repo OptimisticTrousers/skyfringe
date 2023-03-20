@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import Post from "../models/post";
 import { body, validationResult } from "express-validator";
+import Post from "../models/post";
 
 interface CustomError extends Error {
   status?: number;
