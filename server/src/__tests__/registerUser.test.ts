@@ -1,8 +1,7 @@
-import request from "supertest";
-import assert from "assert";
-import app from "../app";
-import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
+import request from "supertest";
+import { MongoMemoryServer } from "mongodb-memory-server";
+import app from "../app";
 
 // Import db setup and teardown
 // import "../config/dbSetupTeardown";
@@ -12,7 +11,7 @@ describe("POST /register", () => {
     const mongoServer = await MongoMemoryServer.create({
       binary: {
         version: "5.0.1",
-        platform: "linux"
+        platform: "linux",
       },
     });
 
@@ -61,14 +60,12 @@ describe("POST /register", () => {
       userName: "bobjones",
       email: "bobjones@gmail.com",
       password: "bobjones",
-    })
+    });
     expect(response.headers["Content-Type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
-    expect(response.headers["Set-Cookie"]).toBe(null)
-  })
-  test("the user is authenticated once they register", () => {
-
+    expect(response.headers["Set-Cookie"]).toBe(null);
   });
+  test("the user is authenticated once they register", () => {});
   test("user makes an account with an email that already exists", (done) => {
     const user = {
       firstName: "Bob",

@@ -1,8 +1,6 @@
-import request from "supertest";
 import express from "express";
-import mongoose from "mongoose";
+import request from "supertest";
 import { post_detail } from "../controllers/postController";
-import Post from "../models/post";
 
 // Setup new app instance
 const app = express();
