@@ -4,8 +4,11 @@ import { config } from "dotenv";
 config();
 
 const mongoConfig = () => {
-  const mongoDB = process.env.DB_STRING;
-  mongoose.connect(mongoDB!, {
+  const mongoDb = process.env.DB_STRING;
+  if (!mongoDb) {
+    throw new Error("DB_STRING value is not defined in .env file");
+  }
+  mongoose.connect(mongoDb, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   } as ConnectOptions);

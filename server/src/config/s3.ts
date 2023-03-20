@@ -1,13 +1,8 @@
-import { S3 } from "aws-sdk";
 import aws from "aws-sdk";
-import {
-  S3Client,
-  PutObjectCommand,
-  DeleteObjectCommand,
-} from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import fs from "fs";
 
-export const s3Uploadv3 = async (file: any) => {
+export const s3Uploadv3 = async (file: Express.Multer.File) => {
   try {
     const s3client = new S3Client({ region: "us-east-1" });
 
@@ -26,11 +21,11 @@ export const s3Uploadv3 = async (file: any) => {
   }
 };
 
-export const s3Deletev3 = async (file: any) => {
+export const s3Deletev3 = async (file: Express.Multer.File) => {
   try {
     const param = {
       Bucket: process.env.S3_BUCKET!,
-      Key: `uploads/${file.get("originalname")}`,
+      Key: `uploads/${file.originalname}`,
     };
     const s3 = new aws.S3();
     s3.deleteObject(param, (err, data) => {

@@ -1,17 +1,15 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import passportJWT from "passport-jwt";
-import User from "../models/user";
 import bcrypt from "bcryptjs";
 import { config } from "dotenv";
-import { Request } from "express";
+import User from "../models/user";
 import cookieExtractor from "../middleware/cookieExtractor";
 
 config();
 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
-
 
 const passportConfig = () => {
   passport.use(

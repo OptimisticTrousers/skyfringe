@@ -210,19 +210,24 @@ const comments = [
 
 // IIFE to populate database with intial data. Use insertMany to reduce overall db calls
 (async () => {
-  User.insertMany(users, (err, docs) => {
-    if (err) {
-      console.log(err);
-    }
-  });
-  Post.insertMany(posts, (err, docs) => {
-    if (err) {
-      console.log(err);
-    }
-  });
-  Comment.insertMany(comments, (err, docs) => {
-    if (err) {
-      console.log(err);
-    }
-  });
+  try {
+    const userDocs = await User.insertMany(users);
+    console.log(`${userDocs.length} users seeded successfully.`);
+  } catch (error) {
+    console.log(`Error seeding users: ${error}`);
+  }
+
+  try {
+    const postDocs = await Post.insertMany(posts);
+    console.log(`${postDocs.length} posts seeded successfully.`);
+  } catch (error) {
+    console.log(`Error seeding posts: ${error}`);
+  }
+
+  try {
+    const commentDocs = await Comment.insertMany(comments);
+    console.log(`${commentDocs.length} comments seeded successfully.`);
+  } catch (error) {
+    console.log(`Error seeding comments: ${error}`);
+  }
 })();
