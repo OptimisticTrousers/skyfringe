@@ -90,8 +90,19 @@ export const post_detail = (
 
 export const post_update = [];
 
+// @desc    Delete single post
+// @route   DELETE /api/posts/:postId
+// @access  Private
 export const post_delete = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {};
+) => {
+  // Assume valid Post id in field.
+  Post.findByIdAndRemove(req.body.id)
+    .exec()
+    .then((post) => {
+      res.json({ post });
+    })
+    .catch(next);
+};
