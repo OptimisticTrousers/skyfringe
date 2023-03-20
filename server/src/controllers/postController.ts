@@ -6,17 +6,24 @@ interface CustomError extends Error {
   status?: number;
 }
 
+// @desc    Get all posts
+// @route   GET /api/posts
+// @access  Private
 export const post_list = (req: Request, res: Response, next: NextFunction) => {
   Post.find({})
     .sort({ createdAt: 1 })
     .populate("author")
     .exec()
     .then((posts) => {
+      if (!posts) {
+        // No results.
+        const err: CustomError = new Error("Post not found");
+        err.status = 404;
+        return next(err);
+      }
       res.json({ posts });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 // @desc    Add new post
