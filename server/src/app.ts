@@ -2,11 +2,11 @@ import express from "express";
 import path from "path";
 import logger from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import routes from "./routes/index";
 import passportConfig from "./config/passport";
 import notFoundHandler from "./middleware/notFoundHandler";
 import errorHandler from "./middleware/errorHandler";
-import cookieParser from "cookie-parser";
 
 const app = express();
 

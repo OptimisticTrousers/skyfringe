@@ -10,4 +10,4 @@ const port = process.env.PORT || 5000;
 mongoConfig();
 
 // Server will look for env variable PORT; if not available, will default to 3000
-app.listen(port, () => console.log("Server running"));
+app.listen(port, () => console.log("Server running..."));
