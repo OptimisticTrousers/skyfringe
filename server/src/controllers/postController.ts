@@ -94,7 +94,32 @@ export const post_detail = (
 // @desc    Update single post
 // @route   PUT /api/posts/:postId
 // @access  Private
-export const post_update = [];
+export const post_update = [
+  (req: Request, res: Response, next: NextFunction) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    // Create a Book object with escaped/trimmed data and old id.
+    const post = new Post({
+      _id: req.params.id,
+      author: req.body.author,
+      content: req.body.content,
+      comments: req.body.comments,
+      likes: req.body.likes,
+    });
+
+    Post.findByIdAndUpdate(req.params.postId, post, {})
+      .exec()
+      .then((post) => {
+        res.json({ post });
+      })
+      .catch(next);
+  },
+];
 
 // @desc    Delete single post
 // @route   DELETE /api/posts/:postId
