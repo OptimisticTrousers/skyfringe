@@ -68,6 +68,9 @@ export const post_create = [
   },
 ];
 
+// @desc    Get single post
+// @route   GET /api/posts/:postId
+// @access  Private
 export const post_detail = (
   req: Request,
   res: Response,
@@ -88,6 +91,9 @@ export const post_detail = (
     .catch(next);
 };
 
+// @desc    Update single post
+// @route   PUT /api/posts/:postId
+// @access  Private
 export const post_update = [];
 
 // @desc    Delete single post
