@@ -9,18 +9,11 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, minLength: 8 },
     bio: { type: String },
-    friends: [
+    friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    friendRequests: [
       {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        status: {
-          type: String,
-          enum: [
-            "friend",
-            "outgoingFriendRequest",
-            "incomingFriendRequest",
-            "rejectedFriendRequest",
-          ],
-        },
+        user: { type: Schema.Types.ObjectId, ref: "User" },
+        status: { type: String, enum: ["pending", "accepted", "rejected"] },
       },
     ],
     photo: {
@@ -41,16 +34,8 @@ UserSchema.virtual("url").get(function () {
 });
 
 UserSchema.virtual("friendCount").get(function () {
-  // Don't return a number if the user does not have friends. This is used for projection operationq queries.
-  if (!this.friends) {
-    return;
-  }
-
-  if (this.friends.length !== 0) {
-    return this.friends.filter((friend) => friend.status === "friend").length;
-  } else {
-    return 0;
-  }
+  // Don't return a number if the user does not have friends. This is used for projection operation queries.
+  return this.friends.length;
 });
 
 export default mongoose.model("User", UserSchema);

@@ -8,7 +8,7 @@ const PostSchema = new Schema(
     content: { type: String, required: true, minLength: 4, maxLength: 1000 },
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    image: {
+    photo: {
       imageUrl: String,
       altText: String,
     },
