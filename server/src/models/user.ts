@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
   {
+    facebookId: { type: String },
     fullName: { type: String, required: true },
     userName: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
@@ -17,12 +18,12 @@ const UserSchema = new Schema(
       },
     ],
     photo: {
-      imageUrl: String,
-      altText: String,
+      imageUrl: { type: String },
+      altText: { type: String },
     },
     cover: {
-      imageUrl: String,
-      altText: String,
+      imageUrl: { type: String },
+      altText: { type: String },
     },
   },
   { timestamps: true }
