@@ -159,7 +159,7 @@ const comments = [
     // Luffy comments on Zoro's post, liked by Nami, and Usopp
     _id: luffyCommentId,
     post: zoroPostId,
-    user: "4c8a331bda76c559ef000004",
+    author: "4c8a331bda76c559ef000004",
     content: "Three-Sword Style",
     likes: ["4c8a331bda76c559ef000006", "4c8a331bda76c559ef000007"],
   },
@@ -167,7 +167,7 @@ const comments = [
     // Zoro comments on Luffy's post, liked by Luffy, Nami, and Usopp
     _id: zoroCommentId,
     post: luffyPostId,
-    user: "4c8a331bda76c559ef000005",
+    author: "4c8a331bda76c559ef000005",
     content: "How did I end up following a captain like this?",
     likes: [
       "4c8a331bda76c559ef000004",
@@ -179,7 +179,7 @@ const comments = [
     // Luffy comments on Crocodile's post, liked by Zoro, Nami and Usopp
     _id: luffySecondCommentId,
     post: crocodilePostId,
-    user: "4c8a331bda76c559ef000004",
+    author: "4c8a331bda76c559ef000004",
     content: "I'll kick your ass!",
     likes: [
       "4c8a331bda76c559ef000005",
