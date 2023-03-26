@@ -124,7 +124,7 @@ export const post_delete = (
   next: NextFunction
 ) => {
   // Assume valid Post id in field.
-  Post.findByIdAndRemove(req.body.id)
+  Post.findByIdAndRemove(req.params.postId)
     .exec()
     .then((post) => {
       res.json({ post });
