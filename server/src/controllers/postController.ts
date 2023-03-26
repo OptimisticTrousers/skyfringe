@@ -15,12 +15,6 @@ export const post_list = (req: Request, res: Response, next: NextFunction) => {
     .populate("author")
     .exec()
     .then((posts) => {
-      if (!posts) {
-        // No results.
-        const err: CustomError = new Error("Post not found");
-        err.status = 404;
-        return next(err);
-      }
       res.json({ posts });
     })
     .catch(next);
