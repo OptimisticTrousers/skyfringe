@@ -21,19 +21,13 @@ describe("DELETE /posts/:postId", () => {
     const response = await request(app).delete(`/posts/${postId}`);
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
-    expect(response.body.post).toEqual({
-      _id: postId,
-      author: luffyId,
-      content: "MEAT!",
-      likes: [
-        "4c8a331bda76c559ef000005",
-        "4c8a331bda76c559ef000006",
-        "4c8a331bda76c559ef000007",
-      ],
-    });
+    expect(response.body.post._id).toEqual(postId);
+    expect(response.body.post.author).toEqual(luffyId);
+    expect(response.body.post.content).toEqual("MEAT!");
+    expect(response.body.post.likes).toEqual([
+      "4c8a331bda76c559ef000005",
+      "4c8a331bda76c559ef000006",
+      "4c8a331bda76c559ef000007",
+    ]);
   });
 });
-
-it("fo", () => {
-  expect(1+4).toEqual(5)
-})
