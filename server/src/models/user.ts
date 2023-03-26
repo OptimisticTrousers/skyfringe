@@ -14,7 +14,15 @@ const UserSchema = new Schema(
     friendRequests: [
       {
         user: { type: Schema.Types.ObjectId, ref: "User" },
-        status: { type: String, enum: ["pending", "accepted", "rejected"] },
+        status: {
+          type: String,
+          enum: [
+            "outgoing",
+            "incoming",
+            "rejectedOutgoing",
+            "rejectedIncoming",
+          ],
+        },
       },
     ],
     photo: {
