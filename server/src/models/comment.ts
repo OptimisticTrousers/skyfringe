@@ -9,7 +9,7 @@ const CommentSchema = new Schema(
     content: { type: String, required: true },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   },
-  { timestamps: true }
+  { timestamps: true, toObject: { virtuals: true } }
 );
 
 CommentSchema.virtual("likeCount").get(function () {

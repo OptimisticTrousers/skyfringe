@@ -12,7 +12,7 @@ const PostSchema = new Schema(
       altText: { type: String },
     },
   },
-  { timestamps: true }
+  { timestamps: true, toObject: { virtuals: true } }
 );
 
 PostSchema.virtual("likeCount").get(function () {
