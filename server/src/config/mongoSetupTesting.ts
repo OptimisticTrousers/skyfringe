@@ -120,7 +120,7 @@ const posts = [
   {
     _id: luffyPostId,
     author: "4c8a331bda76c559ef000004",
-    content: "I'm going to be the King of the Pirates!",
+    content: "MEAT!",
     likes: [
       "4c8a331bda76c559ef000005",
       "4c8a331bda76c559ef000006",
