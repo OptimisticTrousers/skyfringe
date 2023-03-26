@@ -42,22 +42,20 @@ const users = [
     userName: "luffy",
     email: "luffy@onepiece.com",
     password: "$2a$10$kny8gRPTSs215f9gc6SJ4.QjiBHa0/E6H6p6y0dvWUrXMzgprQxqy",
-    friends: [
-      {
-        user: "4c8a331bda76c559ef000005",
-        status: "friend",
-      },
+    bio: "I'm going to be the King of the Pirates!",
+    friends: ["4c8a331bda76c559ef000005"],
+    friendRequests: [
       {
         user: "4c8a331bda76c559ef000006",
-        status: "outgoingFriendRequest",
+        status: "outgoing",
       },
       {
         user: "4c8a331bda76c559ef000007",
-        status: "incomingFriendRequest",
+        status: "incoming",
       },
       {
         user: "4c8a331bda76c559ef000008",
-        status: "rejectedFriendRequest",
+        status: "rejectedIncoming",
       },
     ],
   },
@@ -67,19 +65,11 @@ const users = [
     userName: "zoro",
     email: "zoro@onepiece.com",
     password: "$2a$10$qCPh8/C30SpOOrjkaavXquYiqvv5SmQXQNdPgvtasqB9eaJxGDDY.",
+    bio: "Scars On The Back Are A Swordsman Shame",
     friends: [
-      {
-        user: "4c8a331bda76c559ef000004",
-        status: "friend",
-      },
-      {
-        user: "4c8a331bda76c559ef000006",
-        status: "friend",
-      },
-      {
-        user: "4c8a331bda76c559ef000007",
-        status: "friend",
-      },
+      "4c8a331bda76c559ef000004",
+      "4c8a331bda76c559ef000006",
+      "4c8a331bda76c559ef000007",
     ],
   },
   {
@@ -88,19 +78,11 @@ const users = [
     userName: "nami",
     email: "nami@onepiece.com",
     password: "$2a$10$LireFRYIV1YJgzWeHoFG3.iVM.PMWKILHITKmgApmMEfl4fAjDgvu",
+    bio: "The forecast is thunder and lightning!",
     friends: [
-      {
-        user: "4c8a331bda76c559ef000004",
-        status: "friend",
-      },
-      {
-        user: "4c8a331bda76c559ef000005",
-        status: "friend",
-      },
-      {
-        user: "4c8a331bda76c559ef000007",
-        status: "friend",
-      },
+      "4c8a331bda76c559ef000004",
+      "4c8a331bda76c559ef000005",
+      "4c8a331bda76c559ef000007",
     ],
   },
   {
@@ -109,19 +91,11 @@ const users = [
     userName: "usopp",
     email: "usopp@onepiece.com",
     password: "$2a$10$p27n84..B5CTA.of5JUS3e7jNvpSns82qrv6oR4WAwtImCaw7Zuui",
+    bio: "I'm Captain Usopp!",
     friends: [
-      {
-        user: "4c8a331bda76c559ef000004",
-        status: "friend",
-      },
-      {
-        user: "4c8a331bda76c559ef000005",
-        status: "friend",
-      },
-      {
-        user: "4c8a331bda76c559ef000006",
-        status: "friend",
-      },
+      "4c8a331bda76c559ef000004",
+      "4c8a331bda76c559ef000005",
+      "4c8a331bda76c559ef000006",
     ],
   },
   {
@@ -129,8 +103,16 @@ const users = [
     fullName: "Crocodile",
     userName: "crocodile",
     email: "crocodile@onepiece.com",
-    password: "$2a$10$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
+    password:
+      "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
+    bio: "Ahahahahahaha!",
     friends: [],
+    friendRequests: [
+      {
+        user: "4c8a331bda76c559ef000004",
+        status: "rejectedOutgoing",
+      },
+    ],
   },
 ];
 
@@ -139,7 +121,6 @@ const posts = [
     _id: luffyPostId,
     author: "4c8a331bda76c559ef000004",
     content: "I'm going to be the King of the Pirates!",
-    comments: [zoroCommentId],
     likes: [
       "4c8a331bda76c559ef000005",
       "4c8a331bda76c559ef000006",
@@ -150,7 +131,6 @@ const posts = [
     _id: zoroPostId,
     author: "4c8a331bda76c559ef000005",
     content: "Two-Sword Style",
-    coments: [],
     likes: [],
   },
   {
@@ -158,35 +138,35 @@ const posts = [
     author: "4c8a331bda76c559ef000007",
     content:
       "I've sunk countless warship! People fear me as Captain Usopp, Lord of Destruction! Hey... if you wanna run, now's the time!",
-    comments: [],
     likes: [],
   },
   {
     _id: namiPostId,
     author: "4c8a331bda76c559ef000006",
     content: "I’ll have mapped out the entire world!",
-    comments: [],
     likes: [],
   },
   {
     _id: crocodilePostId,
     author: "4c8a331bda76c559ef000008",
     content: "Ahahahahahah",
-    comments: [],
     likes: [],
   },
 ];
 
 const comments = [
   {
-    // Luffy comments on Zoro's post, liked by Nami and Usopp
+    // Luffy comments on Zoro's post, liked by Nami, and Usopp
     _id: luffyCommentId,
+    post: zoroPostId,
     user: "4c8a331bda76c559ef000004",
     content: "Three-Sword Style",
     likes: ["4c8a331bda76c559ef000006", "4c8a331bda76c559ef000007"],
   },
   {
+    // Zoro comments on Luffy's post, liked by Luffy, Nami, and Usopp
     _id: zoroCommentId,
+    post: luffyPostId,
     user: "4c8a331bda76c559ef000005",
     content: "How did I end up following a captain like this?",
     likes: [
@@ -198,6 +178,7 @@ const comments = [
   {
     // Luffy comments on Crocodile's post, liked by Zoro, Nami and Usopp
     _id: luffySecondCommentId,
+    post: crocodilePostId,
     user: "4c8a331bda76c559ef000004",
     content: "I'll kick your ass!",
     likes: [
