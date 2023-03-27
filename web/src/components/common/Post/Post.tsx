@@ -7,7 +7,7 @@ import Comments from "../Comments";
 import { Card, MoreOptionsDropdown } from "../../ui";
 import styles from "./Post.module.css";
 import { Post as PostInterface } from "../../../types";
-import { getTimeAgo } from "../../../utils";
+import getTimeAgo from "../../../utils/getTimeAgo";
 
 interface Props {
   post: PostInterface;

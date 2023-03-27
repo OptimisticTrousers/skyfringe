@@ -1,4 +1,4 @@
-export function getTimeAgo(date: Date) {
+export default function getTimeAgo(date: Date) {
   const dateObj = new Date(date);
   const seconds = Math.floor(Date.now() / 1000 - Number(dateObj) / 1000);
   const minutes = Math.floor(seconds / 60);

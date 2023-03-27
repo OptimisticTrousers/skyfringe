@@ -1,9 +1,7 @@
-import { FC, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { Aside } from "./components/common";
-import { Outlet } from "react-router-dom";
 import CSSModules from "react-css-modules";
-import styles from "./App.module.css";
+import { Outlet } from "react-router-dom";
+import { Aside } from "./components/common";
+import styles from "./assets/App.module.css";
 
 const App = () => {
   return (
