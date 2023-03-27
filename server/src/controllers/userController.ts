@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/user";
 import Post from "../models/post";
+import Comment from "../models/comment";
 
 export const user_list = (
   req: Request,
@@ -27,49 +28,33 @@ export const user_feed = async (
   res: Response,
   next: NextFunction
 ) => {
-  const user = req.user as any;
+  const user = req.user._id as any;
+  const friends = req.user.friends as any;
 
-  // Find all posts from user's friends
-  const friendPosts = await Post.find({
-    author: { $in: user.friends },
-    is_reported: false,
-  })
-    .populate("author", "fullName userName photo")
+  const likedPosts = await Post.find({ likes: user })
+    .populate("author")
+    .populate("comments.author")
+    .sort("-createdAt");
+
+  const commentedPosts = await Comment.find({ author: user })
+    .populate("post")
     .populate({
-      path: "comments",
-      populate: {
-        path: "author",
-        select: "fullName userName photo",
-      },
+      path: "post",
+      populate: { path: "author", select: "fullName" },
+    })
+    .populate({
+      path: "post",
+      populate: { path: "comments", populate: { path: "author" } },
     })
     .sort("-createdAt");
 
-  // Find all posts where the user or their friends have commented
-  const commentedPosts = await Post.find({
-    $or: [
-      { author: user._id },
-      { author: { $in: user.friends } },
-      { "comments.author": { $in: user.friends } },
-      { "comments.author": user._id },
-    ],
-    is_reported: false,
-  })
-    .populate("author", "fullName userName photo")
-    .populate({
-      path: "comments",
-      populate: {
-        path: "author",
-        select: "fullName userName photo",
-      },
-    })
+  const friendPosts = await Post.find({ author: { $in: friends } })
+    .populate("author")
+    .populate("comments.author")
     .sort("-createdAt");
 
-  // Merge the two arrays of posts and remove duplicates
-  const allPosts = [...friendPosts, ...commentedPosts];
-  const uniquePosts = allPosts.filter(
-    (post, index, self) =>
-      index === self.findIndex((p) => p._id.toString() === post._id.toString())
-  );
-
-  res.status(200).json({ posts: uniquePosts });
+  const feed = likedPosts
+    .concat(commentedPosts.map((c: any) => c.post))
+    .concat(friendPosts);
+  res.json(feed);
 };

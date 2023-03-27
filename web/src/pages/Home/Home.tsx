@@ -5,6 +5,7 @@ import {
   CreatePost,
   Suggestions,
   SideFooter,
+  Feed,
 } from "../../components/common";
 import { HomeFriends } from "../../components/friends";
 
@@ -18,7 +19,7 @@ const Home = () => {
           </div>
           <HomeFriends />
           <CreatePost />
-          {/* <SkeletonPost /> */}
+          <Feed />
         </div>
         <aside styleName="home__right">
           <Suggestions />
