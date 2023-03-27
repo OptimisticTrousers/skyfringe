@@ -8,6 +8,7 @@ import { RiSettingsFill } from "react-icons/ri";
 import styles from "./Aside.module.css";
 import Logo from "../../ui/Logo/Logo";
 import { Link } from "react-router-dom";
+import { RiMoonClearFill } from "react-icons/ri";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
@@ -64,6 +65,10 @@ const Aside = () => {
                 <p styleName="aside__name">Chat</p>
               </li>
             </Link>
+            <li styleName="aside__item">
+              <RiMoonClearFill styleName="aside__icon" />
+              <p styleName="aside__name">Theme</p>
+            </li>
             <Link to="/settings">
               <li styleName="aside__item">
                 <RiSettingsFill styleName="aside__icon" />
