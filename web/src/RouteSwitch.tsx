@@ -20,10 +20,6 @@ const RouteSwitch = () => {
 
   useCurrentUser();
 
-  if (!ready) {
-    return null;
-  }
-
   return (
     <BrowserRouter>
       {ready && (

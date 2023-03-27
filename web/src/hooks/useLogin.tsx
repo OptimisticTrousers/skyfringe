@@ -17,7 +17,7 @@ const useLogin = () => {
     setFormError(null);
     try {
       const data = await post(
-        `${process.env.VITE_API_DOMAIN}/auth/login`,
+        `${import.meta.env.VITE_API_DOMAIN}/auth/login`,
         formData,
         {
           headers: {
