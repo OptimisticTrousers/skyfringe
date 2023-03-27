@@ -44,6 +44,10 @@ UserSchema.virtual("url").get(function () {
 
 UserSchema.virtual("friendCount").get(function () {
   // Don't return a number if the user does not have friends. This is used for projection operation queries.
+  if (!this.friends) {
+    return;
+  }
+
   return this.friends.length;
 });
 

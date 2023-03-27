@@ -77,6 +77,7 @@ export const login_user = [
     // Extract validation errors from a
     passport.authenticate("local", { session: false }, (err, user, info) => {
       if (err) {
+        console.log(err)
         return next(err);
       }
       console.log(err, user, info);
