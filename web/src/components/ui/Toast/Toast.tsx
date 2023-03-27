@@ -9,7 +9,7 @@ import styles from "./Toast.module.css";
 
 interface Props {
   visible: boolean;
-  params: ToastParams | null;
+  params: ToastParams;
 }
 
 const Toast: FC<Props> = ({ visible, params }) => {
@@ -18,21 +18,33 @@ const Toast: FC<Props> = ({ visible, params }) => {
   // Class is dynamically set according to toast param and visible boolean
   return (
     <div
-      styleName={`toast toast--error ${
-        visible ? "toast--visible" : "toast--invisible"
-      }`}
+      styleName={`toast ${params.type === "error" && "toast--error"} ${
+        params.type === "success" && "toast--success"
+      } ${visible ? "toast--visible" : "toast--invisible"}`}
     >
       <button onClick={() => setToastVisible(false)} styleName="toast__button">
         <CgClose styleName="toast__icon toast__icon--exit" />
       </button>
       <div styleName="toast__container">
-        <CgCloseO styleName="toast__icon toast__icon--main" />
-        {/* <IoMdCheckmarkCircleOutline styleName="toast__icon toast__icon--main"/> */}
+        {params.type === "error" ? (
+          <CgCloseO styleName="toast__icon toast__icon--main" />
+        ) : (
+          <IoMdCheckmarkCircleOutline styleName="toast__icon toast__icon--main" />
+        )}
       </div>
       <div styleName="toast__content">
-        <p styleName="toast__bold">Error</p>
-        <p styleName="toast__text">Invalid credentials</p>
+        <p styleName="toast__bold">
+          {params.type === "error" ? "Error" : "Success"}
+        </p>
+        <p styleName="toast__text">{params.message}</p>
       </div>
+      <div
+        styleName={`toast__progress ${
+          params.type === "error"
+            ? "toast__progress--error"
+            : "toast__progress--success"
+        } ${visible && "toast__progress--active"}`}
+      ></div>
     </div>
   );
 };

@@ -8,10 +8,10 @@
   width: 18rem;
   align-items: center;
   justify-content: flex-start;
-  transition-duration: 0.3s;
-  transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 0.1);
   box-shadow: 1px 1px 10px 2px rgb(255, 255, 255, 0.2);
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+  overflow: hidden;
 }
 
 .toast--error {
@@ -24,6 +24,7 @@
 
 .toast--visible {
   visibility: visible;
+  transform: translateX(0);
 }
 
 .toast--invisible {
@@ -38,6 +39,12 @@
   top: 0;
   position: absolute;
   background-color: inherit;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.toast__button:hover {
+  background-color: #0fbd35;
 }
 
 .toast__container {
@@ -66,4 +73,40 @@
 .toast__text {
   line-height: 1.25rem;
   margin: 0;
+}
+
+.toast__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: #ddd;
+}
+
+.toast__progress::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.toast__progress--success::before {
+  background-color: #40f467;
+}
+
+.toast__progress--error::before {
+  background-color: #40f467;
+}
+
+.toast__progress--active::before {
+  animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
 }

@@ -1,4 +1,6 @@
 import { createContext, FC, useCallback, useState } from "react";
+import { Toast } from "../components/ui";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
@@ -15,7 +17,7 @@ export interface ToastContext {
   showToast: ShowToast;
   toastVisible: boolean;
   setToastVisible: (visible: boolean) => void;
-  toastParams: ToastParams | null;
+  toastParams: ToastParams;
 }
 
 // Create an instance of React Context
@@ -24,10 +26,12 @@ export const ToastContext = createContext({} as ToastContext);
 // Provide ability to spawn Toast notification globally within the application
 export const ToastProvider: FC<Props> = ({ children }) => {
   const [toastVisible, setToastVisible] = useState(false);
-  const [toastParams, setToastParams] = useState<ToastParams | null>(null);
+  const [toastParams, setToastParams] = useState<ToastParams>({
+    type: "",
+    message: "",
+  });
 
-  // Set time that toast is visible
-  const durationMilliseconds = 3000;
+  const durationMilliseconds = 5000;
 
   // Call this function from any component when a toast message needs to be displayed.
   const showToast = useCallback<ShowToast>((type, message) => {
@@ -50,6 +54,7 @@ export const ToastProvider: FC<Props> = ({ children }) => {
       value={{ showToast, toastVisible, setToastVisible, toastParams }}
     >
       {children}
+      <Toast visible={toastVisible} params={toastParams} />
     </ToastContext.Provider>
   );
 };

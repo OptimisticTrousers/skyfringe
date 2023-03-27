@@ -1,4 +1,5 @@
 import { createContext, FC, useReducer } from "react";
+import useCurrentUser from "../hooks/useCurrentUser";
 import { User } from "../types";
 
 interface Props {
@@ -52,6 +53,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     user: null,
     ready: false,
   });
+
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
