@@ -1,7 +1,7 @@
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import Logo from "../../components/ui/Logo/Logo";
-import styles from "../styles/Error.module.css";
+import styles from "./NotFound.module.css";
 
 const Custom404 = () => (
   <div styleName="not-found">

@@ -3,7 +3,7 @@ import CSSModules from "react-css-modules";
 import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
 import { DeletePostModal } from "../../components/modals";
 import { Card } from "../../components/ui";
-import styles from "../styles/Settings.module.css";
+import styles from "./Settings.module.css";
 
 const Settings = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);

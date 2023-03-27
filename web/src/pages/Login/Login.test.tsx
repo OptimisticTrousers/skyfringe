@@ -12,7 +12,7 @@ import { useReducer } from "react";
 import { AuthProvider } from "../../context/AuthContext";
 import { ToastProvider } from "../../context/ToastContext";
 import { FormError } from "../../types";
-import Login from "../login.page";
+import Login from "./Login";
 
 let mockLoading: boolean;
 let mockError: boolean;

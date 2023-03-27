@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Settings from "../settings.page";
+import Settings from "./Settings";
 
 describe("Settings page", () => {
   test("Hides modal by default", () => {
