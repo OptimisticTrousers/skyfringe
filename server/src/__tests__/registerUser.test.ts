@@ -47,20 +47,18 @@ describe("POST /register", () => {
     expect(response.status).toEqual(200);
     expect(response.headers["Set-Cookie"]).toBe(null);
   });
-  test("the user is authenticated once they register", () => {});
-  test("user makes an account with an email that already exists", (done) => {
+  test("user makes an account with an email that already exists", async () => {
+    // Luffy user already present in the database
     const user = {
-      firstName: "Bob",
-      lastName: "Jones",
-      email: "bobjones@gmail.com",
-      password: "bobjones",
+      fullName: "Monkey D. Luffy",
+      userName: "luffy",
+      email: "luffy@onepiece.com",
+      password: "password",
     };
-    request(app)
+    const response = await request(app)
       .post("/api/auth/register")
-      .send({ user })
-      .set("Accept", "application/json")
-      .expect("Content-Type", /json/)
-      .expect(400, done);
+      .send(user)
+      .expect(400);
+    expect(response.body.errors[0].msg).toBe("E-mail already in use")
   });
-  // test("user creates an account");
 });
