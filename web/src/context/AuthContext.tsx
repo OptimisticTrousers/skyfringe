@@ -1,6 +1,4 @@
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { createContext, FC, useReducer } from "react";
-import useCurrentUser from "../hooks/useCurrentUser";
 import { User } from "../types";
 
 interface Props {
@@ -23,14 +21,25 @@ interface Action {
   payload: User;
 }
 
-const authReducer = (state: AuthState, action: Action) => {
+// Reducer function to handle different auth-related actions. Typically the payload in each case will be a user object
+export const authReducer = (state: AuthState, action: Action) => {
   switch (action.type) {
+    // Login action will always contain a payload of user object
     case "LOGIN":
-      return { ...state, user: action.payload, ready: true };
+      return { ...state, user: action.payload };
+
+    // Remove user object on logout action dispatch
     case "LOGOUT":
-      return { ...state, user: null, ready: true };
+      return { ...state, user: null };
+
+    // Used to set the ready property before initial rendering of any components. This allows conditional rendering
+    case "READY":
+      return { ...state, user: action.payload, ready: true };
+
+    // Update the current state with the most recent version of a user. Used when updating profile details
     case "UPDATE":
       return { ...state, user: action.payload };
+
     default:
       return state;
   }

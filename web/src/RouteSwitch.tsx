@@ -1,5 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useContext } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import App from "./App";
+import { AuthContext } from "./context/AuthContext";
+import useCurrentUser from "./hooks/useCurrentUser";
 import { AllFriends } from "./pages/AllFriends";
 import { Chat } from "./pages/Chat";
 import { FriendRequests } from "./pages/FriendRequests";
@@ -13,25 +16,44 @@ import { Register } from "./pages/Register";
 import { Settings } from "./pages/Settings";
 
 const RouteSwitch = () => {
+  const { user, ready } = useContext(AuthContext);
+
+  useCurrentUser();
+
+  if (!ready) {
+    return null;
+  }
+
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="settings" element={<Settings />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="notifications" element={<Notifications />} />
-          <Route path="chat" element={<Chat />} />
-          <Route path="friends">
-            <Route index element={<FriendsHome />} />
-            <Route path="all" element={<AllFriends />} />
-            <Route path="requests" element={<FriendRequests />} />
+      {ready && (
+        <Routes>
+          <Route path="/" element={!user ? <Navigate to="/login" /> : <App />}>
+            <Route index element={<Home />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="friends">
+              <Route index element={<FriendsHome />} />
+              <Route path="all" element={<AllFriends />} />
+              <Route path="requests" element={<FriendRequests />} />
+            </Route>
           </Route>
-        </Route>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route
+            path="login"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
+          <Route
+            path="register"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
+          <Route
+            path="*"
+            element={user ? <NotFound /> : <Navigate to="/login" />}
+          />
+        </Routes>
+      )}
     </BrowserRouter>
   );
 };
