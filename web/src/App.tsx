@@ -1,31 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { FC, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import { Aside } from "./components/common";
+import { Outlet } from "react-router-dom";
+import CSSModules from "react-css-modules";
+import styles from "./App.module.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <div className="App">
-      <div>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <>
+      <div styleName="container">
+        <Aside />
+        <main styleName="main">
+          <Outlet />
+        </main>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
+      <footer></footer>
+    </>
+  );
+};
 
-export default App
+export default CSSModules(App, styles, {
+  allowMultiple: true,
+  handleNotFoundStyleName: "ignore"
+});

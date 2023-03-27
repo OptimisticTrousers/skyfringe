@@ -1,7 +1,7 @@
 import CSSModules from "react-css-modules";
 import { Post } from "../../components/common";
 import { Card } from "../../components/ui";
-import styles from "../styles/Profile.module.css";
+import styles from "./Profile.module.css";
 
 const Profile = () => {
   return (

@@ -1,5 +1,5 @@
 import CSSModules from "react-css-modules";
-import styles from "../../styles/Friends.module.css";
+import styles from "./FriendsHome.module.css";
 import { FriendsCard, FriendsLayout } from "../../components/friends";
 
 const FriendsHome = () => {

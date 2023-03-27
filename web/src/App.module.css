@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  min-height: 100%;
+}
+
+.main {
+  background-color: #17171c;
+  width: 100%;
+  min-height: 100%;
+}

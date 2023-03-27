@@ -1,8 +1,8 @@
 import CSSModules from "react-css-modules";
-import styles from "../../styles/Friends.module.css";
+import styles from "./FriendRequests.module.css";
 import { FriendsCard, FriendsLayout } from "../../components/friends";
 
-const FriendsRequests = () => {
+const FriendRequests = () => {
   return (
     <FriendsLayout>
       <section styleName="friends">
@@ -37,7 +37,7 @@ const FriendsRequests = () => {
   );
 };
 
-export default CSSModules(FriendsRequests, styles, {
+export default CSSModules(FriendRequests, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore"
 })

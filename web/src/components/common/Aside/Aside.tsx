@@ -1,6 +1,5 @@
 import { useState } from "react";
 import CSSModules from "react-css-modules";
-import Link from "next/link";
 import { AiFillHome, AiFillCloseSquare } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 import { BsFillChatSquareDotsFill } from "react-icons/bs";
@@ -8,6 +7,7 @@ import { IoIosPeople, IoMdNotifications } from "react-icons/io";
 import { RiSettingsFill } from "react-icons/ri";
 import styles from "./Aside.module.css";
 import Logo from "../../ui/Logo/Logo";
+import { Link } from "react-router-dom";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
@@ -40,37 +40,37 @@ const Aside = () => {
         </div>
         <nav styleName="aside__nav">
           <ul styleName="aside__list">
-            <Link href="/">
+            <Link to="/">
               <li styleName="aside__item">
                 <AiFillHome styleName="aside__icon" />
                 <p styleName="aside__name">Home</p>
               </li>
             </Link>
-            <Link href="/friends">
+            <Link to="/friends">
               <li styleName="aside__item">
                 <IoIosPeople styleName="aside__icon" />
                 <p styleName="aside__name">Friends</p>
               </li>
             </Link>
-            <Link href="/notifications">
+            <Link to="/notifications">
               <li styleName="aside__item">
                 <IoMdNotifications styleName="aside__icon" />
                 <p styleName="aside__name">Notifications</p>
               </li>
             </Link>
-            <Link href="/chat">
+            <Link to="/chat">
               <li styleName="aside__item">
                 <BsFillChatSquareDotsFill styleName="aside__icon" />
                 <p styleName="aside__name">Chat</p>
               </li>
             </Link>
-            <Link href="/settings">
+            <Link to="/settings">
               <li styleName="aside__item">
                 <RiSettingsFill styleName="aside__icon" />
                 <p styleName="aside__name">Settings</p>
               </li>
             </Link>
-            <Link href="/log-out">
+            <Link to="/log-out">
               <li styleName="aside__item">
                 <BiLogOut styleName="aside__icon" />
                 <p styleName="aside__name">Log Out</p>
@@ -79,7 +79,7 @@ const Aside = () => {
           </ul>
           <ul styleName="aside__list">
             <p styleName="aside__subtitle">Account</p>
-            <Link href="/profile">
+            <Link to="/profile">
               <li styleName="aside__item">
                 <div styleName="aside__user">
                   <img

@@ -1,6 +1,6 @@
 import CSSModules from "react-css-modules";
 import { Card } from "../../ui";
-import styles from "../../../styles/Friends.module.css";
+import styles from "../FriendsAside/FriendsAside.module.css";
 
 const FriendRequestsReceived = () => {
   return (

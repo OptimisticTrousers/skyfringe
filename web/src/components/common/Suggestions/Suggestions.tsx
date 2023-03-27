@@ -1,15 +1,15 @@
 import CSSModules from "react-css-modules";
-import Link from "next/link";
 import Card from "../../ui/Card/Card";
 import { SkeletonSuggestion } from "../../skeletons";
 import styles from "./Suggestions.module.css";
+import { Link } from "react-router-dom";
 
 const Suggestions = () => {
   return (
     <Card>
       <div styleName="suggestions__text">
         <h2 styleName="suggestions__title">Suggestions For You</h2>
-        <Link href="/friends#find" styleName="suggestions__link">
+        <Link to="/friends#find" styleName="suggestions__link">
           See All
         </Link>
       </div>

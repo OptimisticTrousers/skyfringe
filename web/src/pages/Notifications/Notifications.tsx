@@ -1,6 +1,6 @@
 import CSSModules from "react-css-modules";
 import { Card, Notification } from "../../components/ui";
-import styles from "../styles/Notifications.module.css";
+import styles from "./Notifications.module.css";
 
 const Notifications = () => {
   return (

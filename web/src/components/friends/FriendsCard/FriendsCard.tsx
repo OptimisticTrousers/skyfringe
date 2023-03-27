@@ -1,18 +1,18 @@
-import Link from "next/link";
 import CSSModules from "react-css-modules";
+import { Link } from "react-router-dom";
 import styles from "./FriendsCard.module.css";
 
 const FriendsCard = () => {
   return (
     <div styleName="card">
-      <Link styleName="card__link card__link--image" href="/bob">
+      <Link styleName="card__link card__link--image" to="/bob">
         <img
           styleName="card__image"
           src="https://res.cloudinary.com/dy2ycpgo4/image/upload/v1650335621/odinbook/nyjp0jkji4fbozpyrjy1.jpg"
         />
       </Link>
       <div styleName="card__content">
-        <Link styleName="card__link card__link--name" href="/bob">
+        <Link styleName="card__link card__link--name" to="/bob">
           Bob Jones
         </Link>
         <button styleName="card__button">Unfriend</button>

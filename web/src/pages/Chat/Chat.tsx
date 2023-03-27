@@ -1,7 +1,7 @@
 import CSSModules from "react-css-modules";
 import { ChatAside, ChatMain } from "../../components/chat";
 import { ChatProvider } from "../../context/ChatContext";
-import styles from "../styles/Chat.module.css";
+import styles from "./Chat.module.css";
 
 const Chat = () => {
   return (
