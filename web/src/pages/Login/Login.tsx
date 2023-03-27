@@ -12,11 +12,14 @@ import { SiFacebook } from "react-icons/si";
 import { RxPerson } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import styles from "./Login.module.css";
+import useTestLogin from "../../hooks/useTestLogin";
 
 const Login = () => {
   const { login, loading, error, formError } = useLogin();
+  const { testLogin, testError, testLoading } = useTestLogin();
 
   useErrorToast(error, error ? error.message : "");
+  useErrorToast(testError, "An unknown error occurred while logging in");
 
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
@@ -137,9 +140,13 @@ const Login = () => {
       </div>
       <div styleName="auth__divider auth__divider--horizontal">Or</div>
       <div styleName="auth__bottom">
-        <button styleName="auth__button auth__button--guest">
+        <button
+          styleName="auth__button auth__button--guest"
+          onClick={testLogin}
+          disabled={testLoading}
+        >
           <RxPerson styleName="auth__icon auth__icon--guest" />
-          Continue as guest
+          {testLoading ? "Logging in..." : "Continue as guest"}
         </button>
         <Link to="/register" styleName="auth__button auth__button--create">
           Create new account

@@ -74,10 +74,13 @@ export const register_user = [
 
 export const login_user = [
   (req: any, res: Response, next: NextFunction) => {
+    if (!req.body.email || !req.body.password) {
+      req.body.email = "luffy@onepiece.com";
+      req.body.password = "password";
+    }
     // Extract validation errors from a
     passport.authenticate("local", { session: false }, (err, user, info) => {
       if (err) {
-        console.log(err);
         return next(err);
       }
       console.log(err, user, info);
@@ -104,6 +107,17 @@ export const login_user = [
         res.json({ user });
       });
     })(req, res, next);
+  },
+];
+
+// @desc    Authenticate a test user
+// @route   POST /api/users/login/test
+// @access  Public
+export const login_test_user = [
+  (req: any, res: Response, next: NextFunction) => {
+    req.body.email = "luffy@onepiece.com";
+    req.body.password = "password";
+    next();
   },
 ];
 
