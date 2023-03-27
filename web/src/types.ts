@@ -27,6 +27,10 @@ export interface LoginData {
   password: string;
 }
 
+export interface PostData {
+  content: string;
+}
+
 export interface User {
   _id: string;
   fullName: string;

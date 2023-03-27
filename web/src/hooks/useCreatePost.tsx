@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PostData } from "../types";
 import useHttp from "./useHttp";
 
 const useCreatePost = () => {
@@ -7,7 +8,7 @@ const useCreatePost = () => {
   const { post, loading, error } = useHttp();
 
   // Accepts FormData object that may contain both text and images
-  const createPost = async (formData: any) => {
+  const createPost = async (formData: PostData) => {
     setResponse(null);
 
     const data = await post(
