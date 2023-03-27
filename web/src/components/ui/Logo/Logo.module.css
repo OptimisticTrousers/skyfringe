@@ -41,7 +41,6 @@
 .logo__image--small {
   width: 40px;
   height: 40px;
-  margin-bottom: 1rem;
 }
 
 @media (max-width: 600px) {
