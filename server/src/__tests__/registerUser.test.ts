@@ -1,37 +1,18 @@
-import mongoose from "mongoose";
 import request from "supertest";
-import { MongoMemoryServer } from "mongodb-memory-server";
 import app from "../app";
 
-// Import db setup and teardown
-// import "../config/dbSetupTeardown";
+// Import db setup and teardown functionality
+import "../config/mongoSetupTesting";
 
 describe("POST /register", () => {
-  beforeAll(async () => {
-    const mongoServer = await MongoMemoryServer.create({
-      binary: {
-        version: "5.0.1",
-        platform: "linux",
-      },
-    });
-
-    await mongoose.connect(mongoServer.getUri());
-  });
-  afterAll(async () => {
-    await mongoose.disconnect();
-    await mongoose.connection.close();
-  });
-  // it("returns 4", () => {
-  //   expect(1 + 3).toBe(4);
-  // });
-  it("returns user object after successful user sign up/register (with password hidden)", async () => {
+  it("returns user and token objects after successful user sign up/register (with password hidden)", async () => {
     const response = await request(app).post("/api/auth/register").send({
       fullName: "Bob Jones",
       userName: "bobjones",
       email: "bobjones@gmail.com",
       password: "bobjones",
     });
-    expect(response.headers["Content-Type"]).toMatch(/json/);
+    expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
     expect(response.body.user).toEqual({
       fullName: "Bob Jones",
@@ -39,6 +20,7 @@ describe("POST /register", () => {
       email: "bobjones@gmail.com",
       password: "bobjones",
     });
+    expect(response.body.token).toBeDefined();
   });
   it("returns JWT token as json", async () => {
     const response = await request(app).post("/api/auth/register").send({

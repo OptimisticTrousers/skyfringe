@@ -54,9 +54,9 @@ export const register_user = [
           return next(err);
         }
         const secret = process.env.JWT_SECRET;
-        if (!cookieExtractor(req) && secret) {
+        if (!cookieExtractor(req)) {
           // If the JWT secret is available, sign a token and send it as a cookie to the browser
-          const token = jwt.sign(user.toJSON(), secret, { expiresIn: "1h" });
+          const token = jwt.sign(user.toJSON(), secret!, { expiresIn: "1h" });
           return res
             .cookie("jwt", token, {
               secure: false,
@@ -65,8 +65,6 @@ export const register_user = [
             .status(200)
             .json({ user, token });
         }
-        // If the JWT secret is not available, just return the user
-        res.json({ user });
       });
     });
   },
@@ -83,7 +81,6 @@ export const login_user = [
       if (err) {
         return next(err);
       }
-      console.log(err, user, info);
       if (!user) {
         return res.sendStatus(403);
       }
@@ -93,18 +90,14 @@ export const login_user = [
         }
         // generate a signed json web token with the contents of the user objects and return it in the response
         const secret = process.env.JWT_SECRET;
-        if (secret) {
-          const token = jwt.sign(user.toJSON(), secret, { expiresIn: "1h" });
-          return res
-            .cookie("jwt", token, {
-              secure: false,
-              httpOnly: true,
-            })
-            .status(200)
-            .json({ user, token });
-        }
-        // If the JWT secret is not available, just return the user
-        res.json({ user });
+        const token = jwt.sign(user.toJSON(), secret!, { expiresIn: "1h" });
+        return res
+          .cookie("jwt", token, {
+            secure: false,
+            httpOnly: true,
+          })
+          .status(200)
+          .json({ user, token });
       });
     })(req, res, next);
   },
