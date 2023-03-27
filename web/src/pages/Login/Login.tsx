@@ -18,8 +18,8 @@ const Login = () => {
   const { login, loading, error, formError } = useLogin();
   const { testLogin, testError, testLoading } = useTestLogin();
 
-  useErrorToast(error, error ? error.message : "");
-  useErrorToast(testError, "An unknown error occurred while logging in");
+  useErrorToast(error);
+  useErrorToast(testError);
 
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);

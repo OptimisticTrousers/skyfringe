@@ -17,7 +17,7 @@ const Feed = () => {
   );
 
   // Set up notifications
-  useErrorToast(error, "An error occurred while loading feed.");
+  useErrorToast(error);
 
   return (
     <div>

@@ -14,7 +14,7 @@ const Register = () => {
   const { register, loading, error, formError } = useRegister();
 
   // All non-form validation errors
-  useErrorToast(error, error ? error.message : "");
+  useErrorToast(error);
 
   const [fullName, setFullName] = useState("");
 

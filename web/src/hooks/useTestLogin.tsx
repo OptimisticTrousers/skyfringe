@@ -36,12 +36,16 @@ const useTestLogin = () => {
         return;
       } else {
         // error with login request. Can only be server error (as opposed to wrong username/password)
-        setTestError({ message: "An unknown error occured while logging in." });
+        setTestError({
+          message: "An unknown error occured while logging into the test user.",
+        });
         setTestLoading(false);
       }
     } catch (err) {
       // internal React hook error
-      setTestError({ message: "An unknown error occured while logging in." });
+      setTestError({
+        message: "An unknown error occured while logging into the test user.",
+      });
       setTestLoading(false);
     }
   };

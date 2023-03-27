@@ -10,6 +10,7 @@ import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
 import { ToastContext } from "../../../context/ToastContext";
 import useCreatePost from "../../../hooks/useCreatePost";
+import useToast from "../../../hooks/useToast";
 import ModalContainer from "../ModalContainer";
 import styles from "./CreatePostModal.module.css";
 
@@ -21,6 +22,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
   const [postText, setPostText] = useState("");
   const { createPost, response, loading, error } = useCreatePost();
   const { showToast } = useContext(ToastContext);
+  const { success } = useToast();
 
   const isPostButtonDisabled = postText.length === 0;
 
@@ -43,6 +45,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
   useEffect(() => {
     if (response) {
       toggleModal();
+      success("You have successfully created a post!");
     }
   }, [response, showToast, toggleModal]);
 
