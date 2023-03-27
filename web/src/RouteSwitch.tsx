@@ -42,7 +42,7 @@ const RouteSwitch = () => {
           />
           <Route
             path="register"
-            element={!user ? <Login /> : <Navigate to="/" />}
+            element={!user ? <Register /> : <Navigate to="/" />}
           />
           <Route
             path="*"
