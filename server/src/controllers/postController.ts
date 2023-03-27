@@ -39,14 +39,9 @@ export const post_create = [
     const errors = validationResult(req);
     // Create new post
     const post = new Post({
-      author: "6405360a990e06c35a62b94a", // req.user is created by the auth middle when accessing any protected route
+      author: req.user._id, // req.user is created by the auth middle when accessing any protected route
       content: req.body.content,
       likes: [],
-      comments: [],
-      image: req.file && {
-        imageUrl: req.file.path,
-        altText: "bob",
-      },
     });
 
     if (!errors.isEmpty()) {

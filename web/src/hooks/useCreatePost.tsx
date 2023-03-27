@@ -11,7 +11,7 @@ const useCreatePost = () => {
     setResponse(null);
 
     const data = await post(
-      `${process.env.NEXT_PUBLIC_API_DOMAIN}/posts`,
+      `${import.meta.env.VITE_API_DOMAIN}/posts`,
       formData,
       {
         headers: {
