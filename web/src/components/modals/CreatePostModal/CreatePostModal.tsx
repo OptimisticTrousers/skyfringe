@@ -30,9 +30,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("content", postText);
-    createPost(formData);
+    createPost({ content: postText });
   };
 
   useEffect(() => {

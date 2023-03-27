@@ -25,19 +25,20 @@ export const post_list = (req: Request, res: Response, next: NextFunction) => {
 // @access  Private
 export const post_create = [
   // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
-  body("content").custom((value, { req }) => {
-    if ((!value || value.trim().length === 0) && !req.file) {
-      // neither text nor image has been provided
-      throw new Error("Post text or image is required");
-    }
-    // User has included one of either text or image. Continue with request handling
-    return true;
-  }),
+  // body("content").custom((value, { req }) => {
+  //   if ((!value || value.trim().length === 0) && !req.file) {
+  //     // neither text nor image has been provided
+  //     throw new Error("Post text or image is required");
+  //   }
+  //   // User has included one of either text or image. Continue with request handling
+  //   return true;
+  // }),
   // Process request after validation and sanitization
   (req: any, res: Response, next: NextFunction) => {
     // Extract the validation errors from a request
     const errors = validationResult(req);
     // Create new post
+    console.log(req.body)
     const post = new Post({
       author: req.user._id, // req.user is created by the auth middle when accessing any protected route
       content: req.body.content,
@@ -49,6 +50,7 @@ export const post_create = [
       return res.status(400).json({ errors: errors.array() });
     }
     post.save((err) => {
+      console.log(err)
       if (err) {
         return next(err);
       }

@@ -7,7 +7,7 @@ const useCreatePost = () => {
   const { post, loading, error } = useHttp();
 
   // Accepts FormData object that may contain both text and images
-  const createPost = async (formData: FormData) => {
+  const createPost = async (formData: any) => {
     setResponse(null);
 
     const data = await post(
