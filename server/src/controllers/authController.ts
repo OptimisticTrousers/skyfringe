@@ -77,7 +77,7 @@ export const login_user = [
     // Extract validation errors from a
     passport.authenticate("local", { session: false }, (err, user, info) => {
       if (err) {
-        console.log(err)
+        console.log(err);
         return next(err);
       }
       console.log(err, user, info);
@@ -124,13 +124,16 @@ export const check_auth_user = async (
     return res.status(401).json({ message: "No token provided" });
   }
   if (secret) {
-    const decodedToken = jwt.verify(token, secret) as any;
+    const decodedToken = jwt.verify(token, secret) as { _id: string };
     const id = decodedToken._id;
     const user = await User.findById(id);
 
     if (!user) {
-      // user not found in db, above query returns null
-      return res.status(401).json({ message: "Unauthorized" });
+      // user not found in db, above query returns null and clear the client's cookie
+      return res
+        .status(401)
+        .json({ message: "Unauthorized" })
+        .clearCookie("jwt");
     }
 
     return res.status(200).json({
