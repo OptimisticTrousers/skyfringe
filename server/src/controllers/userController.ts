@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import asyncHandler from "express-async-handler";
 import User from "../models/user";
 import Post from "../models/post";
 
@@ -16,6 +17,18 @@ export const user_detail = (
 
 export const user_update = [];
 
+export const user_posts = asyncHandler(async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+  const user = await User.findById(userId).exec();
+  if (!user) {
+    res.status(404).json({ message: "User not found" });
+    return;
+  }
+  const posts = await Post.find({ author: userId });
+
+  res.json({ posts });
+});
+
 export const user_delete = (
   req: Request,
   res: Response,
@@ -27,7 +40,7 @@ export const user_feed = async (
   res: Response,
   next: NextFunction
 ) => {
-   const user = req.user as any;
+  const user = req.user as any;
 
   // Find all posts from user's friends
   const friendPosts = await Post.find({
@@ -68,11 +81,8 @@ export const user_feed = async (
   const allPosts = [...friendPosts, ...commentedPosts];
   const uniquePosts = allPosts.filter(
     (post, index, self) =>
-      index ===
-      self.findIndex(
-        (p) => p._id.toString() === post._id.toString()
-      )
+      index === self.findIndex((p) => p._id.toString() === post._id.toString())
   );
- 
-  res.status(200).json({posts: uniquePosts})
+
+  res.status(200).json({ posts: uniquePosts });
 };
