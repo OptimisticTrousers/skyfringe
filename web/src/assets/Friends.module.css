@@ -80,6 +80,14 @@
   flex-wrap: wrap;
 }
 
+.friends__message {
+  color: rgb(31, 41, 55);
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+
 .friend__button:hover {
   background-color: rgb(37, 99, 235);
 }

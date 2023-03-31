@@ -1,23 +1,33 @@
 import CSSModules from "react-css-modules";
 import { FriendsCard, FriendsLayout } from "../../components/friends";
 import styles from "../../assets/Friends.module.css";
+import { useFetchGet } from "../../hooks/useFetchGet";
+import { useContext } from "react";
+import { AuthContext} from "../../context/AuthContext";
+import { User } from "../../types";
 
 const FriendsAll = () => {
+  const { user } = useContext(AuthContext);
+
+  const renderedFriends =
+    user && user.friends ? (
+      user.friends.map((friend: User) => {
+        return (
+          <li styleName="friend__card" key={friend._id}>
+            <FriendsCard friend={friend} />
+          </li>
+        );
+      })
+    ) : (
+      <li styleName="friends__message">No friends yet...</li>
+    );
+
+  // const {data, loading, error} = useFetchGet(`${import.meta.env.VITE_API_DOMAIN}/users/${user?._id}`)
   return (
     <FriendsLayout>
       <section styleName="friends">
         <h2 styleName="friends__title">Friends</h2>
-        <ul styleName="friends__cards">
-          <li styleName="friend__card">
-            <FriendsCard />
-          </li>
-          <li styleName="friend__card">
-            <FriendsCard />
-          </li>
-          <li styleName="friend__card">
-            <FriendsCard />
-          </li>
-        </ul>
+        <ul styleName="friends__cards">{renderedFriends}</ul>
       </section>
     </FriendsLayout>
   );

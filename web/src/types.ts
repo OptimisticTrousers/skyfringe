@@ -32,16 +32,25 @@ export interface PostData {
 }
 
 export interface User {
+  facebookId?: string;
   _id: string;
   fullName: string;
   userName: string;
   password: string;
   email: string;
+  bio?: string;
   createdAt: Date;
   updatedAt: Date;
-  friends?: User[];
-  photo?: Image;
-  cover?: Image;
+  friends: User[] | [];
+  friendRequests: User[] | [];
+  photo?: {
+    imageUrl: string;
+    altText: string;
+  };
+  cover?: {
+    imageUrl: string;
+    altText: string;
+  };
 }
 
 export interface Comment {

@@ -1,8 +1,14 @@
+import { FC } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
+import { User } from "../../../types";
 import styles from "./FriendsCard.module.css";
 
-const FriendsCard = () => {
+interface Props {
+  friend: User;
+}
+
+const FriendsCard: FC<Props> = ({ friend }) => {
   return (
     <div styleName="card">
       <Link styleName="card__link card__link--image" to="/bob">
@@ -13,7 +19,7 @@ const FriendsCard = () => {
       </Link>
       <div styleName="card__content">
         <Link styleName="card__link card__link--name" to="/bob">
-          Bob Jones
+          {friend.fullName}
         </Link>
         <button styleName="card__button">Unfriend</button>
       </div>
