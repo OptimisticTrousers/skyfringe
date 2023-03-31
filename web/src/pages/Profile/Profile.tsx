@@ -4,10 +4,13 @@ import { Post } from "../../components/common";
 import { Card } from "../../components/ui";
 import styles from "./Profile.module.css";
 import { AuthContext } from "../../context/AuthContext";
+import { useFetchGet } from "../../hooks/useFetchGet";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const {data, loading, error} = useFetchGet(`${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/posts`)
+
+  console.log(data, loading, error);
   return (
     user && (
       <div styleName="profile">
