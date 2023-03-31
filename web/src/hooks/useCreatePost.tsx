@@ -13,14 +13,7 @@ const useCreatePost = () => {
 
     const data = await post(
       `${import.meta.env.VITE_API_DOMAIN}/posts`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        mode: "cors",
-        credentials: "include",
-      }
+      formData
     );
     setResponse(data);
   };

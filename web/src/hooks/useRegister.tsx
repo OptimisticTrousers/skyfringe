@@ -18,14 +18,7 @@ const useRegister = () => {
     try {
       const data = await post(
         `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/register`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          mode: "cors",
-          credentials: "include",
-        }
+        formData
       );
 
       if (data.hasOwnProperty("user")) {

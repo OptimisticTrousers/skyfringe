@@ -1,7 +1,6 @@
 import CSSModules from "react-css-modules";
 import { FriendsCard, FriendsLayout } from "../../components/friends";
 import styles from "../../assets/Friends.module.css";
-import { useFetchGet } from "../../hooks/useFetchGet";
 import { useContext } from "react";
 import { AuthContext} from "../../context/AuthContext";
 import { User } from "../../types";
@@ -22,7 +21,6 @@ const FriendsAll = () => {
       <li styleName="friends__message">No friends yet...</li>
     );
 
-  // const {data, loading, error} = useFetchGet(`${import.meta.env.VITE_API_DOMAIN}/users/${user?._id}`)
   return (
     <FriendsLayout>
       <section styleName="friends">

@@ -71,15 +71,24 @@
 }
 
 .aside__button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.aside__button--logout {
+  width: 100%;
+  display: flex;
+  color: inherit;
+}
+
+.aside__button--exit {
   position: absolute;
   top: 0;
   right: -0.25rem;
   transition: transform 300ms ease, color 300ms ease;
-  background-color: transparent;
-  border: none;
-  display: none;
   color: #60626e;
-  cursor: pointer;
+  display: none;
 }
 
 .aside__icon--exit {
@@ -89,7 +98,7 @@
   margin: 0;
 }
 
-.aside__button:hover {
+.aside__button--exit:hover {
   color: rgb(59, 130, 246);
   transform: scale(1.075);
 }
@@ -169,7 +178,7 @@
   .aside--closed {
     transform: translateX(calc(var(--aside-width) * -1));
   }
-  .aside__button {
+  .aside__button--exit {
     display: block;
   }
 }

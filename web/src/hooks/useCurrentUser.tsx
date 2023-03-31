@@ -11,15 +11,7 @@ const useCurrentUser = () => {
     (async () => {
       try {
         const data = await get(
-          `${import.meta.env.VITE_API_DOMAIN}/auth/current`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            mode: "cors",
-            credentials: "include",
-            method: "GET",
-          }
+          `${import.meta.env.VITE_API_DOMAIN}/auth/current`
         );
         dispatch({ type: "READY", payload: data.user });
       } catch (err) {

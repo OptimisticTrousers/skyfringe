@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import useErrorToast from "../../../hooks/useErrorToast";
-import { useFetchGet } from "../../../hooks/useFetchGet";
+import { useFetch } from "../../../hooks/useFetch";
 import { SkeletonPost } from "../../skeletons";
 import { ErrorMessage } from "../../ui/ErrorMessage";
 import Post from "../Post";
@@ -12,9 +12,7 @@ const Feed = () => {
     data: posts,
     loading,
     error,
-  }: any = useFetchGet(
-    `${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/feed`
-  );
+  } = useFetch(`${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/feed`);
 
   // Set up notifications
   useErrorToast(error);

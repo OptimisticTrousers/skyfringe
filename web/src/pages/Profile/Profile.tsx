@@ -4,11 +4,13 @@ import { Post } from "../../components/common";
 import { Card } from "../../components/ui";
 import styles from "./Profile.module.css";
 import { AuthContext } from "../../context/AuthContext";
-import { useFetchGet } from "../../hooks/useFetchGet";
+import { useFetch } from "../../hooks/useFetch";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  const {data, loading, error} = useFetchGet(`${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/posts`)
+  const { data, loading, error } = useFetch(
+    `${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/posts`
+  );
 
   console.log(data, loading, error);
   return (
@@ -88,7 +90,9 @@ const Profile = () => {
                 <div styleName="profile__container">
                   <div styleName="profile__text">
                     <h3 styleName="profile__subtitle">Friends</h3>
-                    <p styleName="profile__caption">{user.friendCount} friends</p>
+                    <p styleName="profile__caption">
+                      {user.friendCount} friends
+                    </p>
                   </div>
                   <a styleName="profile__link">See all friends</a>
                 </div>

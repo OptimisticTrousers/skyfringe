@@ -17,15 +17,7 @@ const useTestLogin = () => {
     setTestError(null);
     try {
       const response = await post(
-        `${import.meta.env.VITE_API_DOMAIN}/auth/login`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          mode: "cors",
-          credentials: "include",
-        }
+        `${import.meta.env.VITE_API_DOMAIN}/auth/login`
       );
       if (response.hasOwnProperty("user")) {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state

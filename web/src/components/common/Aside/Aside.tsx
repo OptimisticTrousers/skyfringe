@@ -32,7 +32,7 @@ const Aside = () => {
         <div styleName="aside__container">
           <Logo type="sm" />
           <button
-            styleName="aside__button"
+            styleName="aside__button aside__button--exit"
             aria-label="Close menu aside"
             onClick={toggle}
           >
@@ -75,12 +75,12 @@ const Aside = () => {
                 <p styleName="aside__name">Settings</p>
               </li>
             </Link>
-            <Link to="/log-out">
-              <li styleName="aside__item">
+            <li styleName="aside__item">
+              <button styleName="aside__button aside__button--logout">
                 <BiLogOut styleName="aside__icon" />
                 <p styleName="aside__name">Log Out</p>
-              </li>
-            </Link>
+              </button>
+            </li>
           </ul>
           <ul styleName="aside__list">
             <p styleName="aside__subtitle">Account</p>

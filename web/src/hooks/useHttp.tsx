@@ -16,6 +16,11 @@ const useHttp = () => {
       setLoading(true);
       const response = await fetch(url, {
         method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "cors",
+        credentials: "include",
         ...options,
         body: body ? JSON.stringify(body) : undefined,
       });
@@ -29,23 +34,23 @@ const useHttp = () => {
   };
 
   const get = async (url: string, options: RequestInit = {}) => {
-    return await sendRequest(url, "GET", options);
+    return sendRequest(url, "GET", options);
   };
 
   const post = async (
     url: string,
-    body: unknown,
+    body: unknown = {},
     options: RequestInit = {}
   ) => {
-    return await sendRequest(url, "POST", options, body);
+    return sendRequest(url, "POST", options, body);
   };
 
   const put = async (url: string, body: unknown, options: RequestInit = {}) => {
-    return await sendRequest(url, "PUT", options, body);
+    return sendRequest(url, "PUT", options, body);
   };
 
   const remove = async (url: string, options: RequestInit = {}) => {
-    return await sendRequest(url, "DELETE", options);
+    return sendRequest(url, "DELETE", options);
   };
 
   return { loading, error, get, post, put, remove };
