@@ -9,7 +9,7 @@ const app = express();
 app.post("/posts", post_create);
 
 // Import db setup and teardown functionality
-import "../config/mongoSetupTesting";
+import "../config/testSeeds";
 
 describe("POST /posts", () => {
   it("should return an error if neither text nor image is provided", async () => {

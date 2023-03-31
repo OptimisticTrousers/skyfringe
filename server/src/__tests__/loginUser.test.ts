@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../app";
 
 // Import db setup and teardown functionality
-import "../config/mongoSetupTesting";
+import "../config/testSeeds";
 
 describe("login_user controller", () => {
   it("should return a 403 status code when no user is found", async () => {

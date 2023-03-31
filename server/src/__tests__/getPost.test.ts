@@ -9,7 +9,7 @@ const app = express();
 app.get("/posts/:postId", post_detail);
 
 // Import db setup and teardown functionality
-import "../config/mongoSetupTesting";
+import "../config/testSeeds";
 
 describe("post_detail controller", () => {
   it("should return a 404 if the post is not found", async () => {

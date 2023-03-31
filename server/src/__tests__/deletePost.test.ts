@@ -2,7 +2,7 @@ import express from "express";
 import request from "supertest";
 import { post_delete } from "../controllers/postController";
 // Import db setup and teardown functionality
-import "../config/mongoSetupTesting";
+import "../config/testSeeds";
 
 // Setup new app instance
 const app = express();

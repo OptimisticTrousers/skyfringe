@@ -9,7 +9,7 @@ const app = express();
 app.put("/posts/:postId", post_update);
 
 // Import db setup and teardown functionality
-import "../config/mongoSetupTesting";
+import "../config/testSeeds";
 
 const postId = "4c8a331bda76c559ef000009";
 

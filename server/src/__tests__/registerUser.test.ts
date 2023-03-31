@@ -2,7 +2,7 @@ import request from "supertest";
 import app from "../app";
 
 // Import db setup and teardown functionality
-import "../config/mongoSetupTesting";
+import "../config/testSeeds";
 
 describe("POST /register", () => {
   it("returns user and token objects after successful user sign up/register (with password hidden)", async () => {
@@ -59,6 +59,6 @@ describe("POST /register", () => {
       .post("/api/auth/register")
       .send(user)
       .expect(400);
-    expect(response.body.errors[0].msg).toBe("E-mail already in use")
+    expect(response.body.errors[0].msg).toBe("E-mail already in use");
   });
 });

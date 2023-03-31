@@ -3,7 +3,7 @@ import app from "../app";
 import { logout_user } from "../controllers/authController";
 
 // Import db setup and teardown functionality
-import "../config/mongoSetupTesting";
+import "../config/testSeeds";
 
 describe("DESCRIBE POST /api/auth/logout", () => {
   it("should logout the user", async () => {
@@ -13,7 +13,5 @@ describe("DESCRIBE POST /api/auth/logout", () => {
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
-
-    
   });
 });
