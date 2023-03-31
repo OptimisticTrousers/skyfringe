@@ -34,7 +34,7 @@ const UserSchema = new Schema(
       altText: { type: String },
     },
   },
-  { timestamps: true, toObject: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true } }
 );
 
 // Virtual for user's URL
