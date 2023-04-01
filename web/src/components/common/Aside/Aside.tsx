@@ -9,9 +9,13 @@ import styles from "./Aside.module.css";
 import Logo from "../../ui/Logo/Logo";
 import { Link } from "react-router-dom";
 import { RiMoonClearFill } from "react-icons/ri";
+import useLogout from "../../../hooks/useLogout";
+import useErrorToast from "../../../hooks/useErrorToast";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
+  const { logout, loading, error } = useLogout();
+  useErrorToast(error);
 
   const toggle = () => {
     setCloseSidebar((prevToggleValue) => !prevToggleValue);
@@ -76,9 +80,14 @@ const Aside = () => {
               </li>
             </Link>
             <li styleName="aside__item">
-              <button styleName="aside__button aside__button--logout">
+              <button
+                styleName="aside__button aside__button--logout"
+                onClick={logout}
+              >
                 <BiLogOut styleName="aside__icon" />
-                <p styleName="aside__name">Log Out</p>
+                <p styleName="aside__name">
+                  {loading ? "Logging Out..." : "Log Out"}
+                </p>
               </button>
             </li>
           </ul>
