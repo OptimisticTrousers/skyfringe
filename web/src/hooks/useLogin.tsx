@@ -1,15 +1,15 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { ToastContext } from "../context/ToastContext";
 import { Error, FormError, LoginData } from "../types";
 import useHttp from "./useHttp";
-import useToast from "./useToast";
 
 const useLogin = () => {
   const [error, setError] = useState<Error | null>(null);
   const [formError, setFormError] = useState<FormError[] | null>(null);
   const { dispatch } = useContext(AuthContext);
   const { post, loading } = useHttp();
-  const { success } = useToast();
+  const { showToast } = useContext(ToastContext);
 
   // Call this function with the FormData object created using relevant user login data
   const login = async (formData: LoginData) => {
@@ -25,7 +25,7 @@ const useLogin = () => {
         setError(null);
         setFormError(null);
         dispatch({ type: "LOGIN", payload: data.user });
-        success("Logged in!");
+        showToast("success", "Logged in!");
         return;
       } else {
         if (data.error.message === "Unauthorized") {

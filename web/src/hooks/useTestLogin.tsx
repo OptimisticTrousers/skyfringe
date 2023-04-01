@@ -2,13 +2,13 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import useHttp from "./useHttp";
 import { Error } from "../types";
-import useToast from "./useToast";
+import { ToastContext } from "../context/ToastContext";
 
 const useTestLogin = () => {
   const [testError, setTestError] = useState<Error | null>(null);
   const { dispatch } = useContext(AuthContext);
   const { post, loading } = useHttp();
-  const { success } = useToast();
+  const { showToast } = useContext(ToastContext);
 
   // Submits request to test-specific login route. All login details are kept securely on backend so no data is POSTed
   const testLogin = async () => {
@@ -21,7 +21,7 @@ const useTestLogin = () => {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
         setTestError(null);
         dispatch({ type: "LOGIN", payload: response.user });
-        success("Logged in!");
+        showToast("success", "Logged in!");
         return;
       } else {
         // error with login request. Can only be server error (as opposed to wrong username/password)
