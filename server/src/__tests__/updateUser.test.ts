@@ -13,8 +13,23 @@ import "../config/testSeeds";
 const randomIdNotAssociatedWithUser = "4c8a331bda76c559ef000032";
 
 describe("PUT /api/users/:userId", () => {
-  let user: any;
-  let token: any;
+  const user = new User({
+    fullName: "John Doe",
+    userName: "johndoe",
+    email: "johndoe@example.com",
+    password: "password123",
+    bio: "Test bio",
+    photo: {
+      imageUrl: "https://example.com/profile.jpg",
+      altText: "Profile picture",
+    },
+    cover: {
+      imageUrl: "https://example.com/cover.jpg",
+      altText: "Cover photo",
+    },
+  });
+
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!);
 
   const updatedUser = {
     fullName: "Bob Jones",
@@ -30,26 +45,8 @@ describe("PUT /api/users/:userId", () => {
   };
 
   beforeAll(async () => {
-    // Create a test user and generate a JWT token for it
-    user = new User({
-      fullName: "John Doe",
-      userName: "johndoe",
-      email: "johndoe@example.com",
-      password: "password123",
-      bio: "Test bio",
-      photo: {
-        imageUrl: "https://example.com/profile.jpg",
-        altText: "Profile picture",
-      },
-      cover: {
-        imageUrl: "https://example.com/cover.jpg",
-        altText: "Cover photo",
-      },
-    });
-
+    // Save the new user fields
     await user.save();
-
-    token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!);
   });
 
   it("correctly updates a user", async () => {
