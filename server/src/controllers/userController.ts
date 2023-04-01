@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import User from "../models/user";
 import Post from "../models/post";
 import mongoose from "mongoose";
+import { body, oneOf, validationResult } from "express-validator";
 
 export const user_list = (
   req: Request,
@@ -16,7 +17,56 @@ export const user_detail = (
   next: NextFunction
 ) => {};
 
-export const user_update = [];
+export const user_update = [
+  oneOf(
+    [
+      body("fullName").exists(),
+      body("bio").exists(),
+      body("photo").exists(),
+      body("cover").exists(),
+    ],
+    "At least one of the following fields must be present: fullName, bio, photo, cover"
+  ),
+  asyncHandler(async (req, res, next) => {
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+      return;
+    }
+
+    // Check if the id provided is valid
+    if (!mongoose.Types.ObjectId.isValid(req.params.userId)) {
+      res.status(400).json({ message: "Invalid userId" });
+      return;
+    }
+
+    const updatedFields = {
+      fullName: req.body.fullName,
+      bio: req.body.bio,
+      photo: req.body.photo,
+      cover: req.body.cover,
+    };
+
+    // Get the user to be updated
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.userId,
+      updatedFields,
+      { new: true }
+    ).exec();
+
+    // Check if the id provided is valid
+    if (!updatedUser) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    const user = updatedUser.toObject();
+    delete user.password;
+    res.json({ user });
+  }),
+];
 
 export const user_posts = asyncHandler(async (req: Request, res: Response) => {
   const ObjectId = mongoose.Types.ObjectId;
