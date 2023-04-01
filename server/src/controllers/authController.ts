@@ -114,11 +114,20 @@ export const login_test_user = [
   },
 ];
 
-export const logout_user = (
+export const logout_user = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {};
+) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "User not logged in" });
+  }
+
+  return res
+    .clearCookie("jwt")
+    .status(200)
+    .json({ message: "User successfully logged out" });
+};
 
 export const check_auth_user = async (
   req: Request,

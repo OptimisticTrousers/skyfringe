@@ -50,7 +50,7 @@ const passportConfig = () => {
       },
       (jwtPayload, cb) => {
         // find the user in db if needed. This functionaity may be ommitted if you store everything you'll need in JWT payload.
-        return User.findOne(jwtPayload.id)
+        return User.findById(jwtPayload.id)
           .then((user) => {
             if (!user) {
               return cb(null, false);
