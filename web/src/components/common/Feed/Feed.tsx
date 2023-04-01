@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import useErrorToast from "../../../hooks/useErrorToast";
 import { useFetch } from "../../../hooks/useFetch";
+import { Post as PostInterface } from "../../../types";
 import { SkeletonPost } from "../../skeletons";
 import { ErrorMessage } from "../../ui/ErrorMessage";
 import Post from "../Post";
@@ -31,7 +32,7 @@ const Feed = () => {
       )}
       {posts && (
         <div>
-          {posts.map((post: any) => {
+          {posts.map((post: PostInterface) => {
             return <Post post={post} key={post._id} />;
           })}
         </div>

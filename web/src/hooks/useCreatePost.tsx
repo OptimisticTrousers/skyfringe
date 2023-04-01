@@ -15,6 +15,7 @@ const useCreatePost = () => {
       `${import.meta.env.VITE_API_DOMAIN}/posts`,
       formData
     );
+    
     setResponse(data);
   };
 

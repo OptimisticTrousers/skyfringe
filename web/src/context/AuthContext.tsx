@@ -19,11 +19,11 @@ interface AuthState {
 
 interface Action {
   type: string;
-  payload: User;
+  payload?: any;
 }
 
 // Reducer function to handle different auth-related actions. Typically the payload in each case will be a user object
-export const authReducer = (state: AuthState, action: Action) => {
+export const authReducer = (state: AuthState, action: Action)=> {
   switch (action.type) {
     // Login action will always contain a payload of user object
     case "LOGIN":
@@ -53,7 +53,6 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     user: null,
     ready: false,
   });
-
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
