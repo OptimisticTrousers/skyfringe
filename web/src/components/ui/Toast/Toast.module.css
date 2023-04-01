@@ -43,8 +43,12 @@
   cursor: pointer;
 }
 
-.toast__button:hover {
-  background-color: #0fbd35;
+.toast__button--success:hover {
+  background-color: #1edc64;
+}
+
+.toast__button--error:hover {
+  background-color: #e35151;
 }
 
 .toast__container {
@@ -98,7 +102,7 @@
 }
 
 .toast__progress--error::before {
-  background-color: #40f467;
+  background-color: #e74c3c;
 }
 
 .toast__progress--active::before {

@@ -15,6 +15,10 @@ interface Props {
 const Toast: FC<Props> = ({ visible, params }) => {
   const { setToastVisible } = useContext(ToastContext);
 
+  const disableToast = () => {
+    setToastVisible(false);
+  };
+
   // Class is dynamically set according to toast param and visible boolean
   return (
     <div
@@ -22,7 +26,12 @@ const Toast: FC<Props> = ({ visible, params }) => {
         params.type === "success" && "toast--success"
       } ${visible ? "toast--visible" : "toast--invisible"}`}
     >
-      <button onClick={() => setToastVisible(false)} styleName="toast__button">
+      <button
+        onClick={disableToast}
+        styleName={`toast__button ${
+          params.type === "error" && "toast__button--error"
+        } ${params.type === "success" && "toast__button--success"}`}
+      >
         <CgClose styleName="toast__icon toast__icon--exit" />
       </button>
       <div styleName="toast__container">
@@ -40,10 +49,10 @@ const Toast: FC<Props> = ({ visible, params }) => {
       </div>
       <div
         styleName={`toast__progress ${
-          params.type === "error"
-            ? "toast__progress--error"
-            : "toast__progress--success"
-        } ${visible && "toast__progress--active"}`}
+          params.type === "error" && "toast__progress--error"
+        } ${params.type === "success" && "toast__progress--success"} ${
+          visible && "toast__progress--active"
+        }`}
       ></div>
     </div>
   );
