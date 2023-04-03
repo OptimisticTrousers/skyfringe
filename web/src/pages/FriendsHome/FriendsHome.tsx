@@ -9,13 +9,13 @@ const FriendsHome = () => {
         <h2 styleName="friends__title">Friend Requests</h2>
         <ul styleName="friends__cards">
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
         </ul>
       </section>
@@ -23,13 +23,13 @@ const FriendsHome = () => {
         <h2 styleName="friends__title">Find new friends</h2>
         <ul styleName="friends__cards">
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
         </ul>
       </section>
