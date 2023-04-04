@@ -1,25 +1,19 @@
-import { useState } from "react";
-import { PostData } from "../types";
 import useHttp from "./useHttp";
+import { PostData } from "../types";
 
 const useCreatePost = () => {
-  const [response, setResponse] = useState(null);
-
-  const { post, loading, error } = useHttp();
+  const { post, data, loading, error } = useHttp();
 
   // Accepts FormData object that may contain both text and images
   const createPost = async (formData: PostData) => {
-    setResponse(null);
-
     const data = await post(
       `${import.meta.env.VITE_API_DOMAIN}/posts`,
       formData
     );
-    
-    setResponse(data);
+    return data;
   };
 
-  return { createPost, response, loading, error };
+  return { createPost, data, loading, error };
 };
 
 export default useCreatePost;
