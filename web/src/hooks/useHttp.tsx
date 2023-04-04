@@ -5,6 +5,7 @@ type HttpMethods = "GET" | "POST" | "PUT" | "DELETE";
 const useHttp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | null>(null);
+  const [data, setData] = useState(null);
 
   const sendRequest = async (
     url: string,
@@ -24,12 +25,26 @@ const useHttp = () => {
         ...options,
         body: body ? JSON.stringify(body) : undefined,
       });
-      const data = await response.json();
+      const json = await response.json();
+
+      if (response.status !== 200) {
+        // error with delete operation
+        setError(json);
+        setLoading(false);
+        // Return out of the function here to avoid setting the response below with error JSON
+        return;
+      }
+
+      // No error, operation successful
       setLoading(false);
-      return data;
+      setError(null);
+      setData(json);
+      return json;
     } catch (err) {
-      setLoading(false);
+      // for all unexpected errors not handled on backend error handling
       setError(err);
+      setLoading(false);
+      setData(null);
     }
   };
 
@@ -53,7 +68,7 @@ const useHttp = () => {
     return sendRequest(url, "DELETE", options);
   };
 
-  return { loading, error, get, post, put, remove };
+  return { loading, error, data, get, post, put, remove };
 };
 
 export default useHttp;
