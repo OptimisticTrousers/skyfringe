@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema(
   {
     author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    content: { type: String, required: true, minLength: 4, maxLength: 1000 },
+    content: { type: String, minLength: 4, maxLength: 1000 },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     photo: {
       imageUrl: { type: String },
