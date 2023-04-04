@@ -1,4 +1,3 @@
-import multer from "multer";
 import { Router } from "express";
 import {
   post_list,
@@ -15,13 +14,9 @@ import {
   comment_delete,
 } from "../controllers/commentController";
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-});
-
 const router = Router();
 
-router.route("/").get(post_list).post(upload.single("image"), post_create);
+router.route("/").get(post_list).post(post_create);
 
 router.route("/:postId").get(post_detail).put(post_update).delete(post_delete);
 
