@@ -4,105 +4,125 @@ import User from "../models/user";
 import Comment from "../models/comment";
 
 // Explicitly define IDs here to make it easier to understand relationships in test db.
-const luffyId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000004");
-const zoroId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000005");
-const namiId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000006");
-const usoppId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000007");
-const crocodileId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000008");
+export const luffyId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000004");
+export const zoroId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000005");
+export const namiId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000006");
+export const usoppId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000007");
+export const crocodileId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000008"
+);
 
-const luffyPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000009");
-const zoroPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000010");
-const namiPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000011");
-const usoppPostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000012");
-const crocodilePostId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000013");
+export const luffyPostId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000009"
+);
+export const zoroPostId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000010"
+);
+export const namiPostId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000011"
+);
+export const usoppPostId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000012"
+);
+export const crocodilePostId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000013"
+);
 
-const luffyCommentId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000014");
-const luffySecondCommentId = new mongoose.Types.ObjectId(
+export const luffyCommentId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000014"
+);
+export const luffySecondCommentId = new mongoose.Types.ObjectId(
   "4c8a331bda76c559ef000015"
 );
-const zoroCommentId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000016");
+export const zoroCommentId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000016"
+);
+
+export const luffy = {
+  _id: luffyId,
+  fullName: "Monkey D. Luffy",
+  userName: "luffy",
+  email: "luffy@onepiece.com",
+  password: "$2a$10$kny8gRPTSs215f9gc6SJ4.QjiBHa0/E6H6p6y0dvWUrXMzgprQxqy",
+  bio: "I'm going to be the King of the Pirates!",
+  friends: ["4c8a331bda76c559ef000005"],
+  friendRequests: [
+    {
+      user: "4c8a331bda76c559ef000006",
+      status: "outgoing",
+    },
+    {
+      user: "4c8a331bda76c559ef000007",
+      status: "incoming",
+    },
+    {
+      user: "4c8a331bda76c559ef000008",
+      status: "rejectedIncoming",
+    },
+  ],
+};
+
+export const zoro = {
+  _id: zoroId,
+  fullName: "Roronoa Zoro",
+  userName: "zoro",
+  email: "zoro@onepiece.com",
+  password: "$2a$10$qCPh8/C30SpOOrjkaavXquYiqvv5SmQXQNdPgvtasqB9eaJxGDDY.",
+  bio: "Scars On The Back Are A Swordsman Shame",
+  friends: [
+    "4c8a331bda76c559ef000004",
+    "4c8a331bda76c559ef000006",
+    "4c8a331bda76c559ef000007",
+  ],
+};
+
+export const nami = {
+  _id: namiId,
+  fullName: "Nami",
+  userName: "nami",
+  email: "nami@onepiece.com",
+  password: "$2a$10$LireFRYIV1YJgzWeHoFG3.iVM.PMWKILHITKmgApmMEfl4fAjDgvu",
+  bio: "The forecast is thunder and lightning!",
+  friends: [
+    "4c8a331bda76c559ef000004",
+    "4c8a331bda76c559ef000005",
+    "4c8a331bda76c559ef000007",
+  ],
+};
+
+export const usopp = {
+  _id: usoppId,
+  fullName: "Usopp",
+  userName: "usopp",
+  email: "usopp@onepiece.com",
+  password: "$2a$10$p27n84..B5CTA.of5JUS3e7jNvpSns82qrv6oR4WAwtImCaw7Zuui",
+  bio: "I'm Captain Usopp!",
+  friends: [
+    "4c8a331bda76c559ef000004",
+    "4c8a331bda76c559ef000005",
+    "4c8a331bda76c559ef000006",
+  ],
+};
+
+export const crocodile = {
+  _id: crocodileId,
+  fullName: "Crocodile",
+  userName: "crocodile",
+  email: "crocodile@onepiece.com",
+  password:
+    "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
+  bio: "Ahahahahahaha!",
+  friends: [],
+  friendRequests: [
+    {
+      user: "4c8a331bda76c559ef000004",
+      status: "rejectedOutgoing",
+    },
+  ],
+};
 
 // Set up array of user/post/comment docs to be later saved to db
-const users = [
-  {
-    _id: luffyId,
-    fullName: "Monkey D. Luffy",
-    userName: "luffy",
-    email: "luffy@onepiece.com",
-    password: "$2a$10$kny8gRPTSs215f9gc6SJ4.QjiBHa0/E6H6p6y0dvWUrXMzgprQxqy",
-    bio: "I'm going to be the King of the Pirates!",
-    friends: ["4c8a331bda76c559ef000005"],
-    friendRequests: [
-      {
-        user: "4c8a331bda76c559ef000006",
-        status: "outgoing",
-      },
-      {
-        user: "4c8a331bda76c559ef000007",
-        status: "incoming",
-      },
-      {
-        user: "4c8a331bda76c559ef000008",
-        status: "rejectedIncoming",
-      },
-    ],
-  },
-  {
-    _id: zoroId,
-    fullName: "Roronoa Zoro",
-    userName: "zoro",
-    email: "zoro@onepiece.com",
-    password: "$2a$10$qCPh8/C30SpOOrjkaavXquYiqvv5SmQXQNdPgvtasqB9eaJxGDDY.",
-    bio: "Scars On The Back Are A Swordsman Shame",
-    friends: [
-      "4c8a331bda76c559ef000004",
-      "4c8a331bda76c559ef000006",
-      "4c8a331bda76c559ef000007",
-    ],
-  },
-  {
-    _id: namiId,
-    fullName: "Nami",
-    userName: "nami",
-    email: "nami@onepiece.com",
-    password: "$2a$10$LireFRYIV1YJgzWeHoFG3.iVM.PMWKILHITKmgApmMEfl4fAjDgvu",
-    bio: "The forecast is thunder and lightning!",
-    friends: [
-      "4c8a331bda76c559ef000004",
-      "4c8a331bda76c559ef000005",
-      "4c8a331bda76c559ef000007",
-    ],
-  },
-  {
-    _id: usoppId,
-    fullName: "Usopp",
-    userName: "usopp",
-    email: "usopp@onepiece.com",
-    password: "$2a$10$p27n84..B5CTA.of5JUS3e7jNvpSns82qrv6oR4WAwtImCaw7Zuui",
-    bio: "I'm Captain Usopp!",
-    friends: [
-      "4c8a331bda76c559ef000004",
-      "4c8a331bda76c559ef000005",
-      "4c8a331bda76c559ef000006",
-    ],
-  },
-  {
-    _id: crocodileId,
-    fullName: "Crocodile",
-    userName: "crocodile",
-    email: "crocodile@onepiece.com",
-    password:
-      "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
-    bio: "Ahahahahahaha!",
-    friends: [],
-    friendRequests: [
-      {
-        user: "4c8a331bda76c559ef000004",
-        status: "rejectedOutgoing",
-      },
-    ],
-  },
-];
+const users = [luffy, zoro, nami, usopp, crocodile];
 
 const posts = [
   {
