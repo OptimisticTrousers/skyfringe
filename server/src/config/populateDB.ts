@@ -127,7 +127,7 @@ const users = [luffy, zoro, nami, usopp, crocodile];
 const posts = [
   {
     _id: luffyPostId,
-    author: "4c8a331bda76c559ef000004",
+    author: luffyId,
     content: "MEAT!",
     likes: [
       "4c8a331bda76c559ef000005",
@@ -137,13 +137,13 @@ const posts = [
   },
   {
     _id: zoroPostId,
-    author: "4c8a331bda76c559ef000005",
+    author: zoroId,
     content: "Two-Sword Style",
     likes: [],
   },
   {
     _id: usoppPostId,
-    author: "4c8a331bda76c559ef000007",
+    author: usoppId,
     content:
       "I've sunk countless warship! People fear me as Captain Usopp, Lord of Destruction! Hey... if you wanna run, now's the time!",
     likes: [],
