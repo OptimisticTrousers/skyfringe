@@ -1,6 +1,5 @@
 import express from "express";
 import request from "supertest";
-import errorHandler from "../middleware/errorHandler";
 import mockUser from "../middleware/mockUser";
 import { comment_delete } from "../controllers/commentController";
 import {
@@ -17,8 +16,6 @@ import "../config/testSeeds";
 const app = express();
 // Use the controller
 app.delete("/posts/:postId/comments/:commentId", mockUser, comment_delete);
-// error handler
-app.use(errorHandler);
 
 describe("DELETE /posts/:postId/comments/:commentId", () => {
   it("returns deleted comment ID successful delete operation", async () => {

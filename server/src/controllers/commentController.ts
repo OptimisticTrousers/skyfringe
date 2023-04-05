@@ -12,6 +12,9 @@ export const comment_create = [];
 
 export const comment_update = [];
 
+// @desc    Delete single comment
+// @route   DELETE /api/posts/:postId/comments/:commentId
+// @access  Private
 export const comment_delete = asyncHandler(async (req: any, res: Response) => {
   const commentId = req.params.commentId;
 
