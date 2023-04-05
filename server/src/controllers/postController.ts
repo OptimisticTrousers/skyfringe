@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
-import { body, validationResult } from "express-validator";
+import { body, oneOf, validationResult } from "express-validator";
+import asyncHandler from "express-async-handler";
 import Post from "../models/post";
+import upload from "../config/multer";
 
 interface CustomError extends Error {
   status?: number;
@@ -24,38 +26,43 @@ export const post_list = (req: Request, res: Response, next: NextFunction) => {
 // @route   POST /api/posts
 // @access  Private
 export const post_create = [
+  upload.single("file"),
   // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
-  // body("content").custom((value, { req }) => {
-  //   if ((!value || value.trim().length === 0) && !req.file) {
-  //     // neither text nor image has been provided
-  //     throw new Error("Post text or image is required");
-  //   }
-  //   // User has included one of either text or image. Continue with request handling
-  //   return true;
-  // }),
+  body("content").custom((value, { req }) => {
+    if ((!value || value.trim().length === 0) && !req.file) {
+      // neither text nor image has been provided
+      const error: CustomError = new Error("Post text or image is required");
+      error.status = 400;
+      throw error;
+    }
+    // User has included one of either text or image. Continue with request handling
+    return true;
+  }),
   // Process request after validation and sanitization
-  (req: any, res: Response, next: NextFunction) => {
+  async (req: any, res: Response, next: NextFunction) => {
     // Extract the validation errors from a request
     const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // There are errors.
+      res.status(400).json({ errors: errors.array() });
+      return;
+    }
     // Create new post
-    console.log(req.body)
     const post = new Post({
       author: req.user._id, // req.user is created by the auth middle when accessing any protected route
       content: req.body.content,
       likes: [],
+      photo: req.file && {
+        imageUrl: `${process.env.S3_BUCKET}/${req.file.path}`,
+        altText: "",
+      },
     });
 
-    if (!errors.isEmpty()) {
-      // There are errors.
-      return res.status(400).json({ errors: errors.array() });
-    }
-    post.save((err) => {
-      console.log(err)
-      if (err) {
-        return next(err);
-      }
-      res.status(200).json({ post });
-    });
+    await post.save();
+
+    res.status(200).json({ post });
+    return;
   },
 ];
 
