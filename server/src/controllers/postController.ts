@@ -122,20 +122,18 @@ export const post_update = [
 // @desc    Delete single post
 // @route   DELETE /api/posts/:postId
 // @access  Private
-export const post_delete = asyncHandler(
-  async (req: any, res: Response, next: NextFunction) => {
-    const postId = req.params.postId;
+export const post_delete = asyncHandler(async (req: any, res: Response) => {
+  const postId = req.params.postId;
 
-    const post = await Post.findById(postId).exec();
+  const post = await Post.findById(postId).exec();
 
-    if (post && post.author !== req.user._id) {
-      // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
-      res.status(403).json({ message: "Forbidden" });
-      return;
-    }
-
-    const deletedPost = await Post.findByIdAndDelete(postId);
-
-    res.status(200).json(deletedPost);
+  if (post && post.author !== req.user._id) {
+    // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
+    res.status(403).json({ message: "Forbidden" });
+    return;
   }
-);
+
+  const deletedPost = await Post.findByIdAndDelete(postId);
+
+  res.status(200).json(deletedPost);
+});
