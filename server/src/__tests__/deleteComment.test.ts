@@ -12,5 +12,5 @@ app.delete("/posts/:postId/comments/:commentId", comment_delete);
 import "../config/testSeeds";
 
 describe("DELETE /posts/:postId/comments/:commentId", () => {
-  it("returns deleted comment ID ");
+  it("returns deleted comment ID successful delete operation");
 });
