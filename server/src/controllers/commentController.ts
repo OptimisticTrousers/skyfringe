@@ -18,9 +18,9 @@ export const comment_update = [];
 export const comment_delete = asyncHandler(async (req: any, res: Response) => {
   const commentId = req.params.commentId;
 
-  const comment = await Comment.findById(commentId).populate("author").exec();
+  const comment = await Comment.findById(commentId).exec();
 
-  if (comment && comment.author._id !== req.user._id) {
+  if (comment && comment.author !== req.user._id) {
     // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
     res.status(403).json({ message: "Forbidden" });
     return;
