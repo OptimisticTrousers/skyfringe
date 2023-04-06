@@ -24,7 +24,7 @@ describe("DELETE /posts/:postId/comments/:commentId", () => {
     );
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
-    expect(response.body._id).toBe(luffyCommentId.toString());
+    expect(luffyCommentId.equals(response.body._id)).toBe(true);
   });
   // it("throws an error if the post ID is not valid", async () => {
   //   const response = await request(app).delete(
