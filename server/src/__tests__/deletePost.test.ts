@@ -18,7 +18,7 @@ describe("DELETE /posts/:postId", () => {
     const response = await request(app).delete(`/posts/${luffyPostId}`);
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
-    expect(response.body._id).toBe(luffyPostId.toString());
+    expect(luffyPostId.equals(response.body._id)).toBe(true);
   });
   it("returns a 403 error if the user is not the user who wrote the post", async () => {
     // Return an error if the user somehow is not the same as the user who created the post
