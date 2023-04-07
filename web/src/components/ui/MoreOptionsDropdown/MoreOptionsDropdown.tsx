@@ -12,7 +12,7 @@ interface Props {
 }
 
 const MoreOptionsDropdown: FC<Props> = ({ postId, closeDropdown}) => {
-  const { deletePost } = useDeletePost();
+  const { deletePost } = useDeletePost(closeDropdown);
 
   // useMenuCloseEvents("NavDropdown", closeDropdown)
 
