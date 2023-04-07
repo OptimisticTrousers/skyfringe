@@ -43,14 +43,10 @@
 }
 
 .menu__action {
-  transition-property: all;
-  transition-duration: 350ms;
+  transition-property: height;
+  transition-duration: 300ms;
   transition-delay: 0ms;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: ease;
   height: 0px;
-  overflow: auto;
-}
-
-.menu__action--active {
-  height: 100%;
+  overflow: hidden;
 }

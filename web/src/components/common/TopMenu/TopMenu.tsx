@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CSSModules from "react-css-modules";
 import Suggestions from "../Suggestions/Suggestions";
 import styles from "./TopMenu.module.css";
 
 const TopMenu = () => {
+  const suggestionsParentRef = useRef<any>(null);
   const [toggleSuggestions, setToggleSuggestions] = useState(false);
 
   const handleSuggestions = () => {
@@ -18,11 +19,19 @@ const TopMenu = () => {
         </button>
       </div>
       <div
-        styleName={`menu__action ${
-          toggleSuggestions && "menu__action--active"
-        }`}
+        ref={suggestionsParentRef}
+        style={
+          toggleSuggestions
+            ? {
+                height: suggestionsParentRef.current.scrollHeight + "px",
+              }
+            : {
+                height: "0px",
+              }
+        }
+        styleName={`menu__action`}
       >
-        {toggleSuggestions && <Suggestions />}
+        <Suggestions />
       </div>
     </header>
   );
