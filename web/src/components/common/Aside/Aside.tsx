@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillHome, AiFillCloseSquare } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
@@ -11,10 +11,12 @@ import { Link } from "react-router-dom";
 import { RiMoonClearFill } from "react-icons/ri";
 import useLogout from "../../../hooks/useLogout";
 import useErrorToast from "../../../hooks/useErrorToast";
+import { AuthContext } from "../../../context/AuthContext";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
   const { logout, loading, error } = useLogout();
+  const { user } = useContext(AuthContext);
   useErrorToast(error);
 
   const toggle = () => {
@@ -101,8 +103,12 @@ const Aside = () => {
                     styleName="aside__avatar"
                   />
                   <div styleName="aside__details">
-                    <h2 styleName="aside__name">Bob Jones</h2>
-                    <p styleName="aside__friends">10 friends</p>
+                    <h2 styleName="aside__name">{user!.fullName}</h2>
+                    <p styleName="aside__friends">
+                      {user?.friends.length === 1
+                        ? "1 friend"
+                        : `${user?.friends.length} friends`}
+                    </p>
                   </div>
                 </div>
               </li>
