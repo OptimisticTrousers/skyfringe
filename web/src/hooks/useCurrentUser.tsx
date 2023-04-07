@@ -13,7 +13,7 @@ const useCurrentUser = () => {
         const data = await get(
           `${import.meta.env.VITE_API_DOMAIN}/auth/current`
         );
-        dispatch({ type: "READY", payload: data.user });
+        dispatch({ type: "READY", payload: data?.user});
       } catch (err) {
         // user is not authorized - do not react to this error in UI, console display only
         console.error(err);
