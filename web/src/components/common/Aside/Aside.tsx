@@ -12,6 +12,7 @@ import { RiMoonClearFill } from "react-icons/ri";
 import useLogout from "../../../hooks/useLogout";
 import useErrorToast from "../../../hooks/useErrorToast";
 import { AuthContext } from "../../../context/AuthContext";
+import userImageFallback from "../../../utils/userImageFallback";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
@@ -99,8 +100,11 @@ const Aside = () => {
               <li styleName="aside__item">
                 <div styleName="aside__user">
                   <img
-                    src="/images/optimistictrousers.jpg"
+                    src={`${import.meta.env.VITE_S3_BUCKET}/${
+                      user!.userName
+                    }.webp`}
                     styleName="aside__avatar"
+                    onError={userImageFallback}
                   />
                   <div styleName="aside__details">
                     <h2 styleName="aside__name">{user!.fullName}</h2>

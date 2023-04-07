@@ -38,6 +38,12 @@ export const zoroCommentId = new mongoose.Types.ObjectId(
   "4c8a331bda76c559ef000016"
 );
 
+const S3_BUCKET = process.env.S3_BUCKET;
+
+const coverUrl = "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp";
+const altText =
+  "One Piece Manga Chapter 726 Cover - Characters in childhood and current versions standing side by side, with the caption 'We can live how we want'";
+
 export const luffy = {
   _id: luffyId,
   fullName: "Monkey D. Luffy",
@@ -60,6 +66,14 @@ export const luffy = {
       status: "rejectedIncoming",
     },
   ],
+  photo: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/luffy.webp",
+    altText: "Fictional character Monkey D. Luffy from the One Piece manga",
+  },
+  cover: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    altText: altText,
+  },
 };
 
 export const zoro = {
@@ -74,6 +88,14 @@ export const zoro = {
     "4c8a331bda76c559ef000006",
     "4c8a331bda76c559ef000007",
   ],
+  photo: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/zoro.webp",
+    altText: "Fictional character Roronoa Zoro from the One Piece manga",
+  },
+  cover: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    altText: altText,
+  },
 };
 
 export const nami = {
@@ -88,6 +110,14 @@ export const nami = {
     "4c8a331bda76c559ef000005",
     "4c8a331bda76c559ef000007",
   ],
+  photo: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/nami.webp",
+    altText: "Fictional character Nami from the One Piece manga",
+  },
+  cover: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    altText: altText,
+  },
 };
 
 export const usopp = {
@@ -102,6 +132,14 @@ export const usopp = {
     "4c8a331bda76c559ef000005",
     "4c8a331bda76c559ef000006",
   ],
+  photo: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/usopp.webp",
+    altText: "Fictional character Usopp from the One Piece manga",
+  },
+  cover: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    altText: altText,
+  },
 };
 
 export const crocodile = {
@@ -119,6 +157,14 @@ export const crocodile = {
       status: "rejectedOutgoing",
     },
   ],
+  photo: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/crocodile.webp",
+    altText: "Fictional character Crocodile from the One Piece manga",
+  },
+  cover: {
+    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    altText: altText,
+  },
 };
 
 // Set up array of user/post/comment docs to be later saved to db
