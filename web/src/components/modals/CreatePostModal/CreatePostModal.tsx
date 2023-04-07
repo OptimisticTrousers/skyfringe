@@ -19,8 +19,7 @@ interface Props {
 
 const CreatePostModal: FC<Props> = ({ toggleModal }) => {
   const [postText, setPostText] = useState("");
-  const { createPost, response, loading, error } = useCreatePost();
-  const { showToast } = useContext(ToastContext);
+  const { createPost, data, loading, error } = useCreatePost(toggleModal);
 
   const isPostButtonDisabled = postText.length === 0;
 
@@ -32,20 +31,6 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
     e.preventDefault();
     createPost({ content: postText });
   };
-
-  useEffect(() => {
-    if (error) {
-      toggleModal();
-      showToast("error", "An error occured while creating the post.");
-    }
-  }, [error, showToast, toggleModal]);
-
-  useEffect(() => {
-    if (response) {
-      toggleModal();
-      showToast("success", "You have successfully created a post!");
-    }
-  }, [response, showToast, toggleModal]);
 
   return (
     <ModalContainer title="Create Post" toggleModal={toggleModal}>
