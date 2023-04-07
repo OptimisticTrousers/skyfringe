@@ -3,11 +3,9 @@ import { PostData } from "../types";
 import { useContext, useEffect } from "react";
 import { ToastContext } from "../context/ToastContext";
 
-interface Props {
-  toggleModal: () => void;
-}
+type ToggleModal = () => void;
 
-const useCreatePost = ({ toggleModal }: any) => {
+const useCreatePost = (toggleModal: ToggleModal) => {
   const { post, data, loading, error } = useHttp();
   const { showToast } = useContext(ToastContext);
 
@@ -23,12 +21,12 @@ const useCreatePost = ({ toggleModal }: any) => {
   useEffect(() => {
     if (data) {
       showToast("success", "You have successfully created a post!");
+      toggleModal();
     }
-
     if (error) {
       showToast("error", "An error occured while creating the post.");
+      toggleModal();
     }
-    toggleModal();
   }, [data, showToast, toggleModal]);
 
   return { createPost, data, loading, error };

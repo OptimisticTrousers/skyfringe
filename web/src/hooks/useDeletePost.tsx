@@ -2,8 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { ToastContext } from "../context/ToastContext";
 import useHttp from "./useHttp";
 
+type CloseDropdown = () => void;
+
 // Export easily callable function that can delete posts by ID
-const useDeletePost = (closeDropdown: any) => {
+const useDeletePost = (closeDropdown: CloseDropdown) => {
   const { remove, loading, error, data } = useHttp();
   const { showToast } = useContext(ToastContext);
 
@@ -18,12 +20,13 @@ const useDeletePost = (closeDropdown: any) => {
   useEffect(() => {
     if (data) {
       showToast("success", "You have successfully created a post!");
+      closeDropdown();
     }
 
     if (error) {
       showToast("error", "An error occured while creating the post.");
+      closeDropdown();
     }
-    closeDropdown();
   }, [data, showToast, closeDropdown]);
 
   return { deletePost, data, loading, error };

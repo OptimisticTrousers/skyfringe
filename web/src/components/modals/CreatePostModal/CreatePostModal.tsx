@@ -21,7 +21,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
   const [postText, setPostText] = useState("");
   const { createPost, data, loading, error } = useCreatePost(toggleModal);
 
-  const isPostButtonDisabled = postText.length === 0;
+  const isPostButtonDisabled = postText.length === 0 || loading;
 
   const handleChangePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPostText(e.target.value);
