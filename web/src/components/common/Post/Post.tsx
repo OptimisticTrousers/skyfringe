@@ -25,6 +25,10 @@ const Post: FC<Props> = ({ post }) => {
     setIsDropdownOpen((prevValue) => !prevValue);
   };
 
+  const closeDropdown = () => {
+    setIsDropdownOpen(false);
+  }
+
   return (
     <Card>
       <div styleName="post__top">
@@ -44,7 +48,7 @@ const Post: FC<Props> = ({ post }) => {
             onClick={toggleDropdown}
             styleName="post__icon post__icon--threedots"
           />
-          {isDropdownOpen && <MoreOptionsDropdown />}
+          {isDropdownOpen && <MoreOptionsDropdown postId={post._id} closeDropdown={closeDropdown}/>}
         </div>
       </div>
       <div styleName="post__content">

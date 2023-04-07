@@ -8,7 +8,6 @@ import { ErrorMessage } from "../../ui/ErrorMessage";
 import Post from "../Post";
 
 const Feed = () => {
-  const { user } = useContext(AuthContext);
   const {
     data: posts,
     loading,
