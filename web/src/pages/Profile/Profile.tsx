@@ -5,14 +5,24 @@ import { Card } from "../../components/ui";
 import styles from "./Profile.module.css";
 import { AuthContext } from "../../context/AuthContext";
 import { useFetch } from "../../hooks/useFetch";
+import useErrorToast from "../../hooks/useErrorToast";
+import { SkeletonPost } from "../../components/skeletons";
+import { Post as PostInterface } from "./../../types";
+import { ErrorMessage } from "../../components/ui/ErrorMessage";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  const { data, loading, error } = useFetch(
+  const {
+    data: posts,
+    loading,
+    error,
+  }: any = useFetch(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/posts`
   );
+  useErrorToast(error as Error);
 
-  console.log(data, loading, error);
+  console.log(posts)
+
   return (
     user && (
       <div styleName="profile">
@@ -144,10 +154,23 @@ const Profile = () => {
               <li styleName="profile__item">Saved posts</li>
             </ul>
             <div styleName="profile__posts">
-              {/* <Post />
-            <Post />
-            <Post />
-            <Post /> */}
+              {loading && (
+                <>
+                  <SkeletonPost />
+                  <SkeletonPost />
+                  <SkeletonPost />
+                  <SkeletonPost />
+                  <SkeletonPost />
+                </>
+              )}
+              {posts && (
+                <div>
+                  {posts.map((post: PostInterface) => {
+                    return <Post post={post} key={post._id} />;
+                  })}
+                </div>
+              )}
+              {error && <ErrorMessage message={error} />}
             </div>
           </div>
         </div>

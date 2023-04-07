@@ -68,18 +68,19 @@ export const user_update = [
   }),
 ];
 
+// @desc    Get all posts by a single user
+// @route   GET /api/user/:userId/posts
+// @access  Private
 export const user_posts = asyncHandler(async (req: Request, res: Response) => {
-  const ObjectId = mongoose.Types.ObjectId;
   const userId = req.params.userId;
-  const userObjectId = new ObjectId(userId);
-  const user = await User.findById(userObjectId).exec();
+  const user = await User.findById(userId).exec();
   if (!user) {
     res.status(404).json({ message: "User not found" });
     return;
   }
   const posts = await Post.find({ author: userId }).exec();
 
-  res.json({ posts });
+  res.status(200).json(posts);
 });
 
 export const user_delete = (
