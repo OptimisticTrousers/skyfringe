@@ -17,7 +17,7 @@ export const post_list = (req: Request, res: Response, next: NextFunction) => {
     .populate("author")
     .exec()
     .then((posts) => {
-      res.json({ posts });
+      res.json(posts);
     })
     .catch(next);
 };

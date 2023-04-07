@@ -13,10 +13,10 @@ const Feed = () => {
     data: posts,
     loading,
     error,
-  } = useFetch(`${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/feed`);
+  }: any = useFetch(`${import.meta.env.VITE_API_DOMAIN}/posts`);
 
   // Set up notifications
-  useErrorToast(error);
+  useErrorToast(error as Error);
 
   return (
     <div>

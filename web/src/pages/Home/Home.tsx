@@ -19,7 +19,7 @@ const Home = () => {
           </div>
           <HomeFriends />
           <CreatePost />
-          {/* <Feed /> */}
+          <Feed />
         </div>
         <aside styleName="home__right">
           <Suggestions />
