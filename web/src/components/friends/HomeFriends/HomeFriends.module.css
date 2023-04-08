@@ -2,20 +2,25 @@
   display: flex;
   align-items: center;
   padding: 1rem;
-  max-width: 926px;
   box-sizing: border-box;
-  margin-bottom: 2rem;
   position: relative;
+}
+
+.friends__title {
+  padding: 1rem;
+  margin: 0;
 }
 
 .friends__container {
   display: flex;
+  width: 100%;
   overflow: hidden;
   gap: 30px;
-  justify-content: center;
   scroll-behavior: smooth;
   padding: 0.25rem;
   flex-shrink: 1;
+  flex-basis: 0;
+  flex-grow: 1;
 }
 
 .friends__button {
