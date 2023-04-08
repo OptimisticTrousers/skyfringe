@@ -56,16 +56,12 @@ const Post: FC<Props> = ({ post }) => {
         </div>
         <div styleName="post__actions">
           <BsBookmark styleName="post__icon post__icon--bookmark" />
-          <BsThreeDotsVertical
-            onClick={toggleDropdown}
-            styleName="post__icon post__icon--threedots"
+          <MoreOptionsDropdown
+            postId={post._id}
+            closeDropdown={closeDropdown}
+            toggleDropdown={toggleDropdown}
+            isDropdownOpen={isDropdownOpen}
           />
-          {isDropdownOpen && (
-            <MoreOptionsDropdown
-              postId={post._id}
-              closeDropdown={closeDropdown}
-            />
-          )}
         </div>
       </div>
       <div styleName="post__content">
