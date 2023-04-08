@@ -100,14 +100,12 @@ const Aside = () => {
               <li styleName="aside__item">
                 <div styleName="aside__user">
                   <img
-                    src={`${import.meta.env.VITE_S3_BUCKET}/${
-                      user!.userName
-                    }.webp`}
+                    src={user?.photo?.imageUrl}
                     styleName="aside__avatar"
                     onError={userImageFallback}
                   />
                   <div styleName="aside__details">
-                    <h2 styleName="aside__name">{user!.fullName}</h2>
+                    <h2 styleName="aside__name">{user?.fullName}</h2>
                     <p styleName="aside__friends">
                       {user?.friends.length === 1
                         ? "1 friend"
