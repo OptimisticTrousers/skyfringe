@@ -21,10 +21,11 @@ const useCreatePost = (toggleModal: ToggleModal) => {
   useEffect(() => {
     if (data) {
       showToast("success", "You have successfully created a post!");
-      toggleModal();
     }
     if (error) {
       showToast("error", "An error occured while creating the post.");
+    }
+    if (data || error) {
       toggleModal();
     }
   }, [data, showToast, toggleModal]);
