@@ -1,4 +1,11 @@
-import { useContext } from "react";
+import {
+  MouseEvent,
+  MouseEventHandler,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import CSSModules from "react-css-modules";
 import { AuthContext } from "../../../context/AuthContext";
 import styles from "./HomeFriends.module.css";
@@ -7,6 +14,27 @@ import { Link } from "react-router-dom";
 
 const HomeFriends = () => {
   const { user }: any = useContext(AuthContext);
+
+  const carouselRef = useRef<any>(null);
+  const friendCount = user.friendCount;
+
+  const next = (event: MouseEvent<HTMLButtonElement>) => {
+    if (!carouselRef.current) return;
+    const containerDimensions = carouselRef.current.getBoundingClientRect();
+    const containerWidth = containerDimensions.width;
+
+    console.log(containerDimensions);
+    carouselRef.current.scrollLeft += containerWidth / 3;
+  };
+
+  const previous = (event: MouseEvent<HTMLButtonElement>) => {
+    if (!carouselRef.current) return;
+    const containerDimensions = carouselRef.current.getBoundingClientRect();
+    const containerWidth = containerDimensions.width;
+
+    console.log(containerDimensions);
+    carouselRef.current.scrollLeft -= containerWidth / 3;
+  };
 
   const renderedFriends = user.friends.map((friend: any) => {
     return (
@@ -23,9 +51,225 @@ const HomeFriends = () => {
 
   return (
     <div styleName="friends">
-      <button className="carousel-btn prev">&#60;</button>
-      {renderedFriends}
-      <button className="carousel-btn next">&#62;</button>
+      <button
+        styleName="friends__button friends__button--previous"
+        onClick={previous}
+      >
+        &#60;
+      </button>
+      <div styleName="friends__container" ref={carouselRef}>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+        <Link styleName="friends__friend" to={`/users`}>
+          <img
+            src={`/images/optimistictrousers.jpg`}
+            styleName="friends__avatar"
+            onError={userImageFallback}
+          />
+          <p styleName="friends__name">Bob Jones</p>
+        </Link>
+      </div>
+      <button styleName="friends__button friends__button--next" onClick={next}>
+        &#62;
+      </button>
     </div>
   );
 };
