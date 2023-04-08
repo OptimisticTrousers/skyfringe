@@ -1,13 +1,13 @@
 import { FC } from "react";
 import CSSModules from "react-css-modules";
 import ModalContainer from "../ModalContainer";
-import styles from "./DeletePostModal.module.css";
+import styles from "./DeleteAccountModal.module.css";
 
 interface Props {
   toggleModal: () => void;
 }
 
-const DeletePostModal: FC<Props> = ({ toggleModal }) => {
+const DeleteAccountModal: FC<Props> = ({ toggleModal }) => {
   return (
     <ModalContainer title="Delete Account" toggleModal={toggleModal}>
       <form styleName="modal">
@@ -24,7 +24,7 @@ const DeletePostModal: FC<Props> = ({ toggleModal }) => {
   );
 };
 
-export default CSSModules(DeletePostModal, styles, {
+export default CSSModules(DeleteAccountModal, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
 });
