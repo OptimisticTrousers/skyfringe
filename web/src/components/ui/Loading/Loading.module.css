@@ -1,5 +1,6 @@
 .loading {
   display: flex;
+  margin: 0 auto;
 }
 
 .loading .loading__dot {
