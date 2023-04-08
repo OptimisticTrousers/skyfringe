@@ -66,7 +66,7 @@ export interface Post {
   content: string;
   comments: Comment[];
   likes: User[];
-  image?: Image;
+  photo?: Image;
   createdAt: Date;
   updatedAt: Date;
 }
