@@ -26,7 +26,7 @@ export const post_list = (req: Request, res: Response, next: NextFunction) => {
 // @route   POST /api/posts
 // @access  Private
 export const post_create = [
-  upload.single("file"),
+  upload.single("image"),
   // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
   body("content").custom((value, { req }) => {
     if ((!value || value.trim().length === 0) && !req.file) {
@@ -61,8 +61,7 @@ export const post_create = [
 
     await post.save();
 
-    res.status(200).json({ post });
-    return;
+    res.status(200).json(post);
   },
 ];
 
