@@ -41,6 +41,7 @@ export const zoroCommentId = new mongoose.Types.ObjectId(
 const S3_BUCKET = process.env.S3_BUCKET;
 
 const coverUrl = "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp";
+
 const altText =
   "One Piece Manga Chapter 726 Cover - Characters in childhood and current versions standing side by side, with the caption 'We can live how we want'";
 
@@ -67,11 +68,11 @@ export const luffy = {
     },
   ],
   photo: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/luffy.webp",
+    imageUrl: `${S3_BUCKET}/users/luffy.webp`,
     altText: "Fictional character Monkey D. Luffy from the One Piece manga",
   },
   cover: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
     altText: altText,
   },
 };
@@ -89,11 +90,11 @@ export const zoro = {
     "4c8a331bda76c559ef000007",
   ],
   photo: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/zoro.webp",
+    imageUrl: `${S3_BUCKET}/users/zoro.webp`,
     altText: "Fictional character Roronoa Zoro from the One Piece manga",
   },
   cover: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
     altText: altText,
   },
 };
@@ -111,11 +112,11 @@ export const nami = {
     "4c8a331bda76c559ef000007",
   ],
   photo: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/nami.webp",
+    imageUrl: `${S3_BUCKET}/users/nami.webp`,
     altText: "Fictional character Nami from the One Piece manga",
   },
   cover: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
     altText: altText,
   },
 };
@@ -133,11 +134,11 @@ export const usopp = {
     "4c8a331bda76c559ef000006",
   ],
   photo: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/usopp.webp",
+    imageUrl: `${S3_BUCKET}/users/usopp.webp`,
     altText: "Fictional character Usopp from the One Piece manga",
   },
   cover: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
     altText: altText,
   },
 };
@@ -158,11 +159,11 @@ export const crocodile = {
     },
   ],
   photo: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/crocodile.webp",
+    imageUrl: `${S3_BUCKET}/users/crocodile.webp`,
     altText: "Fictional character Crocodile from the One Piece manga",
   },
   cover: {
-    imageUrl: "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp",
+    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
     altText: altText,
   },
 };
@@ -180,12 +181,20 @@ const posts = [
       "4c8a331bda76c559ef000006",
       "4c8a331bda76c559ef000007",
     ],
+    photo: {
+      imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000009_luffy.webp`,
+      altText: "Monkey D. Luffy eating meat",
+    },
   },
   {
     _id: zoroPostId,
     author: zoroId,
-    content: "Two-Sword Style",
+    content: "Three-Sword Style",
     likes: [],
+    photo: {
+      imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000010_zoro.webp`,
+      altText: "Roronoa Zoro using three swords",
+    },
   },
   {
     _id: usoppPostId,
@@ -197,8 +206,11 @@ const posts = [
   {
     _id: namiPostId,
     author: "4c8a331bda76c559ef000006",
-    content: "I’ll have mapped out the entire world!",
     likes: [],
+    photo: {
+      imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000011_nami.webp`,
+      altText: "Nami creating a map",
+    },
   },
   {
     _id: crocodilePostId,
@@ -214,7 +226,7 @@ const comments = [
     _id: luffyCommentId,
     post: zoroPostId,
     author: luffyId,
-    content: "Three-Sword Style",
+    content: "Four-Sword Style",
     likes: ["4c8a331bda76c559ef000006", "4c8a331bda76c559ef000007"],
   },
   {

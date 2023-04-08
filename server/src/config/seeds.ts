@@ -21,7 +21,6 @@ console.log("Resetting database...");
     );
   }
   console.log("Successfully reset database");
-  process.exit(0);
 })();
 
 // Importing file that populates mock data for the database
