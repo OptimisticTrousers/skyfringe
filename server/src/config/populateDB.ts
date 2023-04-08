@@ -208,7 +208,7 @@ const posts = [
     author: "4c8a331bda76c559ef000006",
     likes: [],
     photo: {
-      imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000011_nami.webp`,
+      imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000011_nami.jpg`,
       altText: "Nami creating a map",
     },
   },
