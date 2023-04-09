@@ -3,32 +3,25 @@ import { PostData } from "../types";
 import { useContext, useEffect } from "react";
 import { ToastContext } from "../context/ToastContext";
 
-type ToggleModal = () => void;
-
-const useCreatePost = (toggleModal: ToggleModal) => {
+const useCreatePost = () => {
   const { post, data, loading, error } = useHttp();
   const { showToast } = useContext(ToastContext);
 
+  console.log(showToast);
+
   // Accepts FormData object that may contain both text and images
   const createPost = async (formData: PostData) => {
-    const data = await post(
+    const response = await post(
       `${import.meta.env.VITE_API_DOMAIN}/posts`,
       formData
     );
-    return data;
-  };
-
-  useEffect(() => {
-    if (data) {
+    if (response) {
       showToast("success", "You have successfully created a post!");
-    }
-    if (error) {
+    } else if (error) {
       showToast("error", "An error occured while creating the post.");
     }
-    if (data || error) {
-      toggleModal();
-    }
-  }, [data, showToast, toggleModal]);
+    return response;
+  };
 
   return { createPost, data, loading, error };
 };

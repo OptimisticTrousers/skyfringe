@@ -25,7 +25,7 @@ interface Props {
 const CreatePostModal: FC<Props> = ({ toggleModal }) => {
   const { user } = useContext(AuthContext);
   const [postText, setPostText] = useState("");
-  const { createPost, data, loading, error } = useCreatePost(toggleModal);
+  const { createPost, data, loading, error } = useCreatePost();
   const { showToast } = useContext(ToastContext);
   const { handleFile, removeThumbnail, imageData, imageError, imageLoading } =
     useImageThumbnail();
@@ -41,6 +41,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createPost({ content: postText });
+    toggleModal();
   };
 
   const handlePhotoPicked = (event: any) => {
