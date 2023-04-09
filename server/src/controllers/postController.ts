@@ -3,6 +3,7 @@ import { body, oneOf, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
 import Post from "../models/post";
 import upload from "../config/multer";
+import { s3Deletev3, s3Uploadv3 } from "../config/s3";
 
 interface CustomError extends Error {
   status?: number;
@@ -53,11 +54,19 @@ export const post_create = [
       author: req.user._id, // req.user is created by the auth middle when accessing any protected route
       content: req.body.content,
       likes: [],
-      photo: req.file && {
-        imageUrl: `${process.env.S3_BUCKET}/${req.file.path}`,
-        altText: "",
-      },
+      ...(req.file && {
+        photo: {
+          imageUrl: `${process.env.S3_BUCKET}/${req.file.path}`,
+          altText: "",
+        },
+      }),
     });
+
+    const path = "posts";
+
+    if (req.file) {
+      await s3Uploadv3(path, req.file);
+    }
 
     await post.save();
 
@@ -92,30 +101,46 @@ export const post_detail = (
 // @route   PUT /api/posts/:postId
 // @access  Private
 export const post_update = [
-  (req: Request, res: Response, next: NextFunction) => {
+  asyncHandler(async (req: any, res: Response, next: NextFunction) => {
+    const postId = req.params.postId;
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      res.status(400).json({ errors: errors.array() });
+      return;
     }
 
-    // Create a Book object with escaped/trimmed data and old id.
-    const post = new Post({
-      _id: req.params.id,
-      author: req.body.author,
+    const post: any = await Post.findById(postId).populate("author").exec();
+
+    if (!post?.author.equals(req.user._id)) {
+      // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
+      res.status(403).json({ message: "Forbidden" });
+      return;
+    }
+
+    const path = "posts";
+
+    if (post?.photo?.imageUrl) {
+      await s3Deletev3(path, `${post._id}${post.author.userName}`);
+    }
+
+    if (req.file) {
+      await s3Uploadv3(path, req.file);
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(postId, {
       content: req.body.content,
-      comments: req.body.comments,
-      likes: req.body.likes,
+      ...(req.file && {
+        photo: {
+          imageUrl: `${post._id}${post.author.userName}`,
+          altText: "test",
+        },
+      }),
     });
 
-    Post.findByIdAndUpdate(req.params.postId, post, {})
-      .exec()
-      .then((post) => {
-        res.json({ post });
-      })
-      .catch(next);
-  },
+    res.status(200).json(updatedPost);
+  }),
 ];
 
 // @desc    Delete single post
