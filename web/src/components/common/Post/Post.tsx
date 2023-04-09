@@ -57,7 +57,7 @@ const Post: FC<Props> = ({ post }) => {
         <div styleName="post__actions">
           <BsBookmark styleName="post__icon post__icon--bookmark" />
           <MoreOptionsDropdown
-            postId={post._id}
+            post={post}
             closeDropdown={closeDropdown}
             toggleDropdown={toggleDropdown}
             isDropdownOpen={isDropdownOpen}

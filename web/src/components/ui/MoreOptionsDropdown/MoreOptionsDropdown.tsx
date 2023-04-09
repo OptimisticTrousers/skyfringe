@@ -5,24 +5,26 @@ import { MdModeEdit } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import useDeletePost from "../../../hooks/useDeletePost";
 import useMenuCloseEvents from "../../../hooks/useMenuCloseEvents";
-import { DeleteAccountModal } from "../../modals";
+import { Post } from "../../../types";
+import { DeleteAccountModal, EditPostModal } from "../../modals";
 import DeletePostModal from "../../modals/DeletePostModal";
 import styles from "./MoreOptionsDropdown.module.css";
 
 interface Props {
-  postId: string;
+  post: any;
   closeDropdown: () => void;
   toggleDropdown: () => void;
   isDropdownOpen: boolean;
 }
 
 const MoreOptionsDropdown: FC<Props> = ({
-  postId,
+  post,
   closeDropdown,
   toggleDropdown,
   isDropdownOpen,
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const dropdownId = "NavDropdown";
   const buttonId = "BtnDropdown";
@@ -31,6 +33,10 @@ const MoreOptionsDropdown: FC<Props> = ({
 
   const toggleDeleteModal = () => {
     setShowDeleteModal((prevValue) => !prevValue);
+  };
+
+  const toggleEditModal = () => {
+    setShowEditModal((prevValue) => !prevValue);
   };
 
   return (
@@ -43,7 +49,7 @@ const MoreOptionsDropdown: FC<Props> = ({
         id={dropdownId}
       >
         <div styleName="dropdown__triangle"></div>
-        <button styleName="dropdown__button">
+        <button styleName="dropdown__button" onClick={toggleEditModal}>
           <MdModeEdit styleName="dropdown__icon" />
           Edit post
         </button>
@@ -53,7 +59,10 @@ const MoreOptionsDropdown: FC<Props> = ({
         </button>
       </div>
       {showDeleteModal && (
-        <DeletePostModal toggleModal={toggleDeleteModal} postId={postId} />
+        <DeletePostModal toggleModal={toggleDeleteModal} postId={post._id} />
+      )}
+      {showEditModal && (
+        <EditPostModal toggleModal={toggleEditModal} post={post} />
       )}
     </>
   );
