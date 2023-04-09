@@ -7,8 +7,6 @@ const useCreatePost = () => {
   const { post, data, loading, error } = useHttp();
   const { showToast } = useContext(ToastContext);
 
-  console.log(showToast);
-
   // Accepts FormData object that may contain both text and images
   const createPost = async (formData: PostData) => {
     const response = await post(

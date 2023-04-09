@@ -10,6 +10,7 @@ import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
 import { AuthContext } from "../../../context/AuthContext";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
+import useUpdatePost from "../../../hooks/useUpdatePost";
 import { Loading } from "../../ui";
 import ImagePreview from "../../ui/ImagePreview";
 import ImageUploadBtn from "../../ui/ImageUploadBtn";
@@ -23,6 +24,8 @@ interface Props {
 
 const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
   const { user } = useContext(AuthContext);
+  const { updatePost, loading } = useUpdatePost();
+
   const {
     handleFile,
     removeThumbnail,
@@ -40,8 +43,8 @@ const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // editPost({})
-    // toggleModal()
+    updatePost(post._id, { content: postText });
+    toggleModal();
   };
 
   const handlePostText = (event: ChangeEvent<HTMLTextAreaElement>) => {

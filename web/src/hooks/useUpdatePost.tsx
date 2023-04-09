@@ -1,19 +1,24 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { ToastContext } from "../context/ToastContext";
+import { PostData } from "../types";
 import useHttp from "./useHttp";
 
 // Used to update both text and images in posts.
 const useUpdatePost = () => {
-  const [data, setData] = useState(null);
+  const { put, data, loading, error } = useHttp();
+  const { showToast } = useContext(ToastContext);
 
-  const { put, loading, error } = useHttp();
-
-   // Accepts FormData object that can include image data
-  const updatePost = async (postId: string, formData: FormData) => {
+  // Accepts FormData object that can include image data
+  const updatePost = async (postId: string, formData: PostData) => {
     const response = await put(
       `${import.meta.env.VITE_API_DOMAIN}/posts/${postId}`,
       formData
     );
-    setData(response);
+    if (response) {
+      showToast("success", "You have successfully deleted a post!");
+    } else if (error) {
+      showToast("error", "An error occured while creating the post.");
+    }
     return response;
   };
 
