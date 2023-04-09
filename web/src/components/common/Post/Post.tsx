@@ -11,6 +11,7 @@ import getTimeAgo from "../../../utils/getTimeAgo";
 import userImageFallback from "../../../utils/userImageFallback";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
+import { BiHeartCircle } from "react-icons/bi";
 
 interface Props {
   post: PostInterface;
@@ -76,20 +77,28 @@ const Post: FC<Props> = ({ post }) => {
             !post?.photo?.imageUrl && "post__image--disappear"
           }`}
         />
+        <div styleName="post__between">
+          <button styleName="post__button post__button--likes">
+            <img styleName="post__icon post__icon--heart" src="/images/heart.png" />
+            <span styleName="post__count">6</span>
+          </button>
+          <button styleName="post__button post__button--comments">
+            1 comment
+          </button>
+        </div>
       </div>
       <div styleName="post__buttons">
-        <button styleName="post__button">
+        <button styleName="post__button post__button--like">
           <AiOutlineLike styleName="post__icon post__icon--control" />
           <span styleName="post__name">Like</span>
-          <span styleName="post__number">1</span>
+          {/* <span styleName="post__number">1</span> */}
         </button>
-        <button styleName="post__button" onClick={toggleComments}>
+        <button styleName="post__button post__button--comment" onClick={toggleComments}>
           <BiCommentDetail styleName="post__icon post__icon--control" />
           <span styleName="post__name">Comment</span>
-          <span styleName="post__number">45</span>
+          {/* <span styleName="post__number">45</span> */}
         </button>
       </div>
-      <>{isCommentsOpen && <Comments />}</>
     </Card>
   );
 };
