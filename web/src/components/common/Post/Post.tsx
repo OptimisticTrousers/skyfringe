@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineLike } from "react-icons/ai";
 import { BiTime, BiCommentDetail } from "react-icons/bi";
@@ -10,12 +10,14 @@ import { Post as PostInterface } from "../../../types";
 import getTimeAgo from "../../../utils/getTimeAgo";
 import userImageFallback from "../../../utils/userImageFallback";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
 
 interface Props {
   post: PostInterface;
 }
 
 const Post: FC<Props> = ({ post }) => {
+  const { user } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
@@ -55,13 +57,15 @@ const Post: FC<Props> = ({ post }) => {
           </div>
         </div>
         <div styleName="post__actions">
+          {post?.author._id === user?._id && (
+            <MoreOptionsDropdown
+              post={post}
+              closeDropdown={closeDropdown}
+              toggleDropdown={toggleDropdown}
+              isDropdownOpen={isDropdownOpen}
+            />
+          )}
           <BsBookmark styleName="post__icon post__icon--bookmark" />
-          <MoreOptionsDropdown
-            post={post}
-            closeDropdown={closeDropdown}
-            toggleDropdown={toggleDropdown}
-            isDropdownOpen={isDropdownOpen}
-          />
         </div>
       </div>
       <div styleName="post__content">
