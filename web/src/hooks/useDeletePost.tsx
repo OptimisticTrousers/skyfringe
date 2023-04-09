@@ -15,7 +15,7 @@ const useDeletePost = () => {
     if (response) {
       showToast("success", "You have successfully deleted a post!");
     } else if (error) {
-      showToast("error", "An error occured while creating the post.");
+      showToast("error", "An error occured while deleting the post.");
     }
     return response;
   };

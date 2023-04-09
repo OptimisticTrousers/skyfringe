@@ -15,9 +15,9 @@ const useUpdatePost = () => {
       formData
     );
     if (response) {
-      showToast("success", "You have successfully deleted a post!");
+      showToast("success", "You have successfully updated a post!");
     } else if (error) {
-      showToast("error", "An error occured while creating the post.");
+      showToast("error", "An error occured while updating the post.");
     }
     return response;
   };
