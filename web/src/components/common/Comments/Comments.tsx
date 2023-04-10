@@ -6,6 +6,7 @@ import Comment from "../Comment";
 const Comments = () => {
   return (
     <section styleName="comments" data-testid="comments">
+      <Comment />
     </section>
   );
 };
