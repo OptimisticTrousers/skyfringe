@@ -3,17 +3,17 @@ import CSSModules from "react-css-modules";
 import styles from "./CommentForm.module.css";
 
 interface Props {
-  isCommentsOpen: boolean;
+  isCommentFormOpen: boolean;
 }
 
-const CommentForm: FC<Props> = ({ isCommentsOpen }) => {
+const CommentForm: FC<Props> = ({ isCommentFormOpen}) => {
   const formRef = useRef<any>(null);
   return (
     <form
-      styleName={`form ${!isCommentsOpen && "form--invisible"}`}
+      styleName="form"
       ref={formRef}
       style={
-        isCommentsOpen
+        isCommentFormOpen
           ? {
               height: "132px",
               paddingTop: "2px",

@@ -1,8 +1,14 @@
 .comments {
-  padding-bottom: 16px;
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 15px;
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-delay: 0ms;
+  animation-timing-function: ease;
+  overflow: hidden;
+  box-sizing: border-box;
+  max-height: 0;
+  margin-top: 1rem;
 }
 
 .comments__form {
@@ -54,7 +60,7 @@
   margin-right: 8px;
 }
 
-@media(max-width: 430px) {
+@media (max-width: 430px) {
   .comments {
     padding-left: 0;
     padding-right: 0;

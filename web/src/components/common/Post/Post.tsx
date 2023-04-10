@@ -21,14 +21,19 @@ interface Props {
 const Post: FC<Props> = ({ post }) => {
   const { user } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
 
-  const toggleComments = () => {
-    setIsCommentsOpen((prevValue) => !prevValue);
+  const toggleForm = () => {
+    setIsCommentFormOpen((prevValue) => !prevValue);
   };
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prevValue) => !prevValue);
+  };
+
+  const toggleComments = () => {
+    setIsCommentsOpen((prevValue) => !prevValue);
   };
 
   const closeDropdown = () => {
@@ -86,11 +91,14 @@ const Post: FC<Props> = ({ post }) => {
             />
             <span styleName="post__count">6 likes</span>
           </button>
-          <button styleName="post__button post__button--comments">
+          <button
+            styleName="post__button post__button--comments"
+            onClick={toggleComments}
+          >
             1 comment
           </button>
         </div>
-        <Comments />
+        <Comments isCommentsOpen={isCommentsOpen}/>
       </div>
       <div styleName="post__buttons">
         <button styleName="post__button post__button--like">
@@ -100,14 +108,14 @@ const Post: FC<Props> = ({ post }) => {
         </button>
         <button
           styleName="post__button post__button--comment"
-          onClick={toggleComments}
+          onClick={toggleForm}
         >
           <BiCommentDetail styleName="post__icon post__icon--control" />
           <span styleName="post__name">Comment</span>
           {/* <span styleName="post__number">45</span> */}
         </button>
       </div>
-      <CommentForm isCommentsOpen={isCommentsOpen} />
+      <CommentForm isCommentFormOpen={isCommentFormOpen} />
     </Card>
   );
 };
