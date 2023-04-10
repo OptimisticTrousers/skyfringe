@@ -10,8 +10,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 1px;
-  padding-bottom: 1px;
 }
 
 .form__input {

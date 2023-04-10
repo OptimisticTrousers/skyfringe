@@ -12,6 +12,12 @@
   margin-right: 12px;
 }
 
+.comment__details {
+  background-color: rgb(228, 228, 231, 0.5);
+  padding: 0.625rem;
+  border-radius: 0.25rem;
+}
+
 .comment__gray {
   color: #88878f;
   margin-right: 8px;

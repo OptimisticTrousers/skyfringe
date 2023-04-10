@@ -4,7 +4,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { BiTime, BiCommentDetail } from "react-icons/bi";
 import { BsBookmark, BsThreeDotsVertical } from "react-icons/bs";
 import Comments from "../Comments";
-import { Card, MoreOptionsDropdown } from "../../ui";
+import { Card, CommentForm, MoreOptionsDropdown } from "../../ui";
 import styles from "./Post.module.css";
 import { Post as PostInterface } from "../../../types";
 import getTimeAgo from "../../../utils/getTimeAgo";
@@ -12,6 +12,7 @@ import userImageFallback from "../../../utils/userImageFallback";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { BiHeartCircle } from "react-icons/bi";
+import Comment from "../Comment";
 
 interface Props {
   post: PostInterface;
@@ -79,13 +80,17 @@ const Post: FC<Props> = ({ post }) => {
         />
         <div styleName="post__between">
           <button styleName="post__button post__button--likes">
-            <img styleName="post__icon post__icon--heart" src="/images/heart.png" />
+            <img
+              styleName="post__icon post__icon--heart"
+              src="/images/heart.png"
+            />
             <span styleName="post__count">6</span>
           </button>
           <button styleName="post__button post__button--comments">
             1 comment
           </button>
         </div>
+        {/* <Comments /> */}
       </div>
       <div styleName="post__buttons">
         <button styleName="post__button post__button--like">
@@ -93,12 +98,16 @@ const Post: FC<Props> = ({ post }) => {
           <span styleName="post__name">Like</span>
           {/* <span styleName="post__number">1</span> */}
         </button>
-        <button styleName="post__button post__button--comment" onClick={toggleComments}>
+        <button
+          styleName="post__button post__button--comment"
+          onClick={toggleComments}
+        >
           <BiCommentDetail styleName="post__icon post__icon--control" />
           <span styleName="post__name">Comment</span>
           {/* <span styleName="post__number">45</span> */}
         </button>
       </div>
+      <CommentForm isCommentsOpen={isCommentsOpen} />
     </Card>
   );
 };

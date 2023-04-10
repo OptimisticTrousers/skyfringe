@@ -15,9 +15,11 @@ const CommentForm: FC<Props> = ({ isCommentsOpen }) => {
       style={
         isCommentsOpen
           ? {
-              height: formRef.current.scrollHeight + "px",
+              height: "132px",
+              paddingTop: "2px",
+              paddingBottom: "2px",
             }
-          : { height: "0px" }
+          : { height: "0px", paddingTop: "0px", paddingBottom: "0px" }
       }
     >
       <textarea
