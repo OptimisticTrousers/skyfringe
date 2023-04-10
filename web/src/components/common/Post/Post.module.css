@@ -145,22 +145,24 @@
   color: inherit;
 }
 
-.post__button--like, .post__button--comment {
+.post__button--like,
+.post__button--comment {
   width: 50%;
-  height: 48px;
+  height: 50px;
   flex: 1 1 auto;
   display: flex;
   justify-content: center;
   border: 1px solid #202030;
   background-color: transparent;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
   font-size: 16px;
   font-weight: 900;
   transition: all 0.2s ease;
 }
 
-.post__button--like:hover, .post__button--comment:hover {
+.post__button--like:hover,
+.post__button--comment:hover {
   background-color: white;
   color: #202030;
 }
