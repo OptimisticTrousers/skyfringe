@@ -14,6 +14,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { BiHeartCircle } from "react-icons/bi";
 import Comment from "../Comment";
 import useLikePost from "../../../hooks/useLikePost";
+import useCreateComment from "../../../hooks/useCreateComment";
 
 interface Props {
   post: PostInterface;
@@ -24,7 +25,8 @@ const Post: FC<Props> = ({ post }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-  const { likePost, loading } = useLikePost();
+  const { likePost, loading: postLoading } = useLikePost();
+  const { createComment, loading: commentLoading } = useCreateComment();
 
   const toggleForm = () => {
     setIsCommentFormOpen((prevValue) => !prevValue);
@@ -112,7 +114,9 @@ const Post: FC<Props> = ({ post }) => {
           onClick={handleLike}
         >
           <AiOutlineLike styleName="post__icon post__icon--control" />
-          <span styleName="post__name">{loading ? "Liking..." : "Like"}</span>
+          <span styleName="post__name">
+            {postLoading ? "Liking..." : "Like"}
+          </span>
           {/* <span styleName="post__number">1</span> */}
         </button>
         <button
@@ -124,7 +128,12 @@ const Post: FC<Props> = ({ post }) => {
           {/* <span styleName="post__number">45</span> */}
         </button>
       </div>
-      <CommentForm isCommentFormOpen={isCommentFormOpen} />
+      <CommentForm
+        isCommentFormOpen={isCommentFormOpen}
+        commentLoading={commentLoading}
+        createComment={createComment}
+        postId={post._id}
+      />
     </Card>
   );
 };

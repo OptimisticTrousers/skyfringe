@@ -31,6 +31,10 @@ export interface PostData {
   content: string;
 }
 
+export interface CommentData {
+  content: string;
+}
+
 export interface User {
   facebookId?: string;
   _id: string;
