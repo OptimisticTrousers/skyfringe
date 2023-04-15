@@ -12,7 +12,6 @@ const useCreateComment = () => {
       `${import.meta.env.VITE_API_DOMAIN}/posts/${postId}/comments`,
       formData
     );
-
     if (response) {
       showToast("success", "You have successfully commented on this post!");
     } else if (error) {
