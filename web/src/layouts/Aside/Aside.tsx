@@ -14,7 +14,7 @@ import styles from "./Aside.module.css";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
-  const { logout, loading} = useLogout();
+  const { logout, loading } = useLogout();
   const { user } = useContext(AuthContext);
 
   const toggle = () => {
@@ -100,6 +100,7 @@ const Aside = () => {
                     src={user?.photo?.imageUrl}
                     styleName="aside__avatar"
                     onError={userImageFallback}
+                    alt={"user avatar"}
                   />
                   <div styleName="aside__details">
                     <h2 styleName="aside__name">{user?.fullName}</h2>
