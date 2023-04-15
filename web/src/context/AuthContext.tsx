@@ -45,7 +45,7 @@ export const authReducer = (state: AuthState, action: Action) => {
   }
 };
 
-export const AuthContext = createContext({} as AuthContext);
+export const AuthContext = createContext({} as any);
 
 export const AuthProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {

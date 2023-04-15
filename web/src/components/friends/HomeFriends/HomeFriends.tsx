@@ -50,10 +50,11 @@ const HomeFriends = () => {
         <button
           styleName="friends__button friends__button--previous"
           onClick={previous}
+          aria-label="Scroll left"
         >
           &#60;
         </button>
-        <div styleName="friends__container" ref={carouselRef}>
+        <div role="list" styleName="friends__container" ref={carouselRef}>
           <Link styleName="friends__friend" to={`/users`}>
             <img
               src={`/images/optimistictrousers.jpg`}
@@ -266,6 +267,7 @@ const HomeFriends = () => {
         <button
           styleName="friends__button friends__button--next"
           onClick={next}
+          aria-label="Scroll right"
         >
           &#62;
         </button>

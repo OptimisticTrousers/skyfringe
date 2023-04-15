@@ -47,7 +47,7 @@ export interface User {
   updatedAt: Date;
   friends: User[] | [];
   friendRequests: User[] | [];
-  friendCount: number;
+  friendCount?: number;
   photo?: {
     imageUrl: string;
     altText: string;
