@@ -3,8 +3,27 @@ import userEvent from "@testing-library/user-event";
 import Post from "./Post";
 
 describe("Post component", () => {
+  const post = {
+    _id: "4c8a331bda76c559ef000009",
+    author: {
+      _id: "4c8a331bda76c559ef000004",
+      email: "luffy@onepiece.com",
+      fullName: "Monkey D. Luffy",
+      userName: "luffy",
+      password: "bob",
+      friends: [],
+      friendRequests: [],
+      createdAt: new Date(),
+      friendCount: 0,
+      updatedAt: new Date(),
+    },
+    content: "Test post 1",
+    likes: [],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+  const setup = () => render(<Post post={post} />);
   describe("Text-only posts", () => {
-    const setup = () => render(<Post />);
     test("Does not attempt to display image when no image url exists for the post", () => {
       setup();
       // Image posts will have blank alt text
@@ -37,7 +56,6 @@ describe("Post component", () => {
     });
   });
   describe("Image-containing posts", () => {
-    const setup = () => render(<Post />);
     test("Does not display post menu btn on other people's post", () => {
       setup();
       const button = screen.queryByTestId(/menu/i);
@@ -59,7 +77,7 @@ describe("Post component", () => {
       const likeButton = screen.getByRole("button", { name: "Like 1" });
       userEvent.click(likeButton);
 
-      expect(likeButton).toHaveAccessibleName("Like 2")
+      expect(likeButton).toHaveAccessibleName("Like 2");
     });
   });
 });

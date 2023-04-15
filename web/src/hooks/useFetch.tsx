@@ -1,8 +1,7 @@
-// Generalised fetch function for API calls (GET method only)
-import { useState, useEffect } from "react";
-import { Error } from "../types";
+import { useEffect } from "react";
 import useHttp from "./useHttp";
 
+// Generalised fetch function for API calls (GET method only)
 // This is intended for once-per-mount fetch calls in components. If your component will need to re-fetch data multiple times in its lifetime, or fetch on comman (e.g. button click), this is not appropriate.
 export const useFetch = (url: string) => {
   const { get, data, loading, error } = useHttp();

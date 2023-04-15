@@ -1,4 +1,3 @@
-import { useState } from "react";
 import useHttp from "./useHttp";
 
 const useDeleteComment = () => {

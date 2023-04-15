@@ -1,11 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext";
-import useErrorToast from "../../../hooks/useErrorToast";
 import { useFetch } from "../../../hooks/useFetch";
-import { Post as PostInterface } from "../../../types";
 import { SkeletonPost } from "../../skeletons";
-import { ErrorMessage } from "../../ui/ErrorMessage";
+import { ErrorMessage } from "../../ui";
 import Post from "../Post";
+import { Post as PostInterface } from "../../../types";
 
 const Feed = () => {
   const {

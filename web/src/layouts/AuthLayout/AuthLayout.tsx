@@ -1,6 +1,6 @@
-import { FC, FormEvent } from "react";
+import { FormEvent, FC } from "react";
 import CSSModules from "react-css-modules";
-import Logo from "../../ui/Logo/Logo";
+import { Logo } from "../../components/ui";
 import styles from "./AuthLayout.module.css";
 
 interface Props {

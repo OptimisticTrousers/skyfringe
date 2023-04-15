@@ -1,20 +1,17 @@
 import {
-  ChangeEvent,
   FC,
-  FormEvent,
   useContext,
-  useEffect,
   useState,
+  FormEvent,
+  ChangeEvent,
+  useEffect,
 } from "react";
 import CSSModules from "react-css-modules";
-import { FcGallery } from "react-icons/fc";
 import { AuthContext } from "../../../context/AuthContext";
 import { ToastContext } from "../../../context/ToastContext";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import useUpdatePost from "../../../hooks/useUpdatePost";
-import { Loading } from "../../ui";
-import ImagePreview from "../../ui/ImagePreview";
-import ImageUploadBtn from "../../ui/ImageUploadBtn";
+import { Loading, ImagePreview, ImageUploadBtn } from "../../ui";
 import ModalContainer from "../ModalContainer";
 import styles from "./EditPostModal.module.css";
 

@@ -1,17 +1,10 @@
-import {
-  MouseEvent,
-  MouseEventHandler,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useContext, useRef, MouseEvent } from "react";
 import CSSModules from "react-css-modules";
-import { AuthContext } from "../../../context/AuthContext";
-import styles from "./HomeFriends.module.css";
-import userImageFallback from "../../../utils/userImageFallback";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext";
+import userImageFallback from "../../../utils/userImageFallback";
 import { Card } from "../../ui";
+import styles from "./HomeFriends.module.css";
 
 const HomeFriends = () => {
   const { user }: any = useContext(AuthContext);

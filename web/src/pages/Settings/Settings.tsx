@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CSSModules from "react-css-modules";
-import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
+import { AiOutlineCamera } from "react-icons/ai";
 import { Card } from "../../components/ui";
 import styles from "./Settings.module.css";
 

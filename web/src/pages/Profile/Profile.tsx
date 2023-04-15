@@ -1,14 +1,13 @@
-import CSSModules from "react-css-modules";
 import { useContext } from "react";
-import { Post } from "../../components/common";
-import { Card } from "../../components/ui";
-import styles from "./Profile.module.css";
-import { AuthContext } from "../../context/AuthContext";
-import { useFetch } from "../../hooks/useFetch";
-import useErrorToast from "../../hooks/useErrorToast";
+import CSSModules from "react-css-modules";
+import { Post } from "../../components/posts";
 import { SkeletonPost } from "../../components/skeletons";
+import { Card, ErrorMessage } from "../../components/ui";
+import { AuthContext } from "../../context/AuthContext";
+import useErrorToast from "../../hooks/useErrorToast";
+import { useFetch } from "../../hooks/useFetch";
 import { Post as PostInterface } from "./../../types";
-import { ErrorMessage } from "../../components/ui/ErrorMessage";
+import styles from "./Profile.module.css";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -19,9 +18,6 @@ const Profile = () => {
   }: any = useFetch(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/posts`
   );
-  useErrorToast(error as Error);
-
-  console.log(posts)
 
   return (
     user && (

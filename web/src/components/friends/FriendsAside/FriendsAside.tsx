@@ -1,9 +1,8 @@
 import CSSModules from "react-css-modules";
-import styles from "./FriendsAside.module.css";
+import { FaPaperPlane, FaUserFriends } from "react-icons/fa";
 import { GiThreeFriends } from "react-icons/gi";
-import { FaPaperPlane } from "react-icons/fa";
-import { FaUserFriends } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import styles from "./FriendsAside.module.css";
 
 const FriendsAside = () => {
   return (
@@ -24,10 +23,7 @@ const FriendsAside = () => {
             </Link>
           </li>
           <li styleName="aside__item">
-            <Link
-              styleName="aside__link aside__link--green"
-              to="/friends/all"
-            >
+            <Link styleName="aside__link aside__link--green" to="/friends/all">
               <FaUserFriends styleName="aside__icon" />
               <span styleName="aside__text">All friends</span>
             </Link>

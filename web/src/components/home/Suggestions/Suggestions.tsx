@@ -1,8 +1,8 @@
 import CSSModules from "react-css-modules";
-import Card from "../../ui/Card/Card";
-import { SkeletonSuggestion } from "../../skeletons";
-import styles from "./Suggestions.module.css";
 import { Link } from "react-router-dom";
+import { SkeletonSuggestion } from "../../skeletons";
+import { Card } from "../../ui";
+import styles from "./Suggestions.module.css";
 
 const Suggestions = () => {
   return (

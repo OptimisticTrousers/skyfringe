@@ -1,5 +1,4 @@
 import { createContext, FC, useReducer } from "react";
-import useCurrentUser from "../hooks/useCurrentUser";
 import { User } from "../types";
 
 interface Props {
@@ -23,7 +22,7 @@ interface Action {
 }
 
 // Reducer function to handle different auth-related actions. Typically the payload in each case will be a user object
-export const authReducer = (state: AuthState, action: Action)=> {
+export const authReducer = (state: AuthState, action: Action) => {
   switch (action.type) {
     // Login action will always contain a payload of user object
     case "LOGIN":

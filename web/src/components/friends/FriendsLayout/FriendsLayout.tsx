@@ -1,6 +1,6 @@
 import { FC } from "react";
 import CSSModules from "react-css-modules";
-import FriendsAside from "../FriendsAside/FriendsAside";
+import FriendsAside from "../FriendsAside";
 import styles from "./FriendsLayout.module.css";
 
 interface Props {
@@ -11,9 +11,7 @@ const FriendsLayout: FC<Props> = ({ children }) => {
   return (
     <div styleName="friends">
       <FriendsAside />
-      <div styleName="friends__container">
-        {children}
-      </div>
+      <div styleName="friends__container">{children}</div>
     </div>
   );
 };

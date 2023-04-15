@@ -68,7 +68,6 @@ export interface Post {
   _id: string;
   author: User;
   content: string;
-  comments: Comment[];
   likes: User[];
   photo?: Image;
   createdAt: Date;

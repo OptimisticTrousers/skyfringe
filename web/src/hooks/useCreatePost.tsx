@@ -1,7 +1,7 @@
-import useHttp from "./useHttp";
-import { PostData } from "../types";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ToastContext } from "../context/ToastContext";
+import { PostData } from "../types";
+import useHttp from "./useHttp";
 
 const useCreatePost = () => {
   const { post, data, loading, error } = useHttp();

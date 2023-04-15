@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, ReactElement, useEffect } from "react";
+import { useEffect } from "react";
 
 // Use this hook for any menu to apply common 'expected' UX features such as closing outside click or escape key press. Takes ID of the element to apply these events to, and the function that closes/dismissed the element
 const useMenuCloseEvents = (

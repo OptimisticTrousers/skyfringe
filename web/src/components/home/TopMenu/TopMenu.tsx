@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import CSSModules from "react-css-modules";
-import Suggestions from "../Suggestions/Suggestions";
+import Suggestions from "../Suggestions";
 import styles from "./TopMenu.module.css";
 
 const TopMenu = () => {

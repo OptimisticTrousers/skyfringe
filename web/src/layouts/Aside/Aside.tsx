@@ -1,24 +1,21 @@
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import CSSModules from "react-css-modules";
-import { AiFillHome, AiFillCloseSquare } from "react-icons/ai";
+import { AiFillCloseSquare, AiFillHome } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { IoIosPeople, IoMdNotifications } from "react-icons/io";
-import { RiSettingsFill } from "react-icons/ri";
-import styles from "./Aside.module.css";
-import Logo from "../../ui/Logo/Logo";
+import { RiMoonClearFill, RiSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { RiMoonClearFill } from "react-icons/ri";
-import useLogout from "../../../hooks/useLogout";
-import useErrorToast from "../../../hooks/useErrorToast";
-import { AuthContext } from "../../../context/AuthContext";
-import userImageFallback from "../../../utils/userImageFallback";
+import { Logo } from "../../components/ui";
+import { AuthContext } from "../../context/AuthContext";
+import useLogout from "../../hooks/useLogout";
+import userImageFallback from "../../utils/userImageFallback";
+import styles from "./Aside.module.css";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
-  const { logout, loading, error } = useLogout();
+  const { logout, loading} = useLogout();
   const { user } = useContext(AuthContext);
-  useErrorToast(error);
 
   const toggle = () => {
     setCloseSidebar((prevToggleValue) => !prevToggleValue);

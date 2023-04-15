@@ -1,8 +1,7 @@
-import CSSModules from "react-css-modules";
-import { IoIosArrowDown } from "react-icons/io";
-import styles from "./Comments.module.css";
-import Comment from "../Comment";
 import { FC, useRef } from "react";
+import CSSModules from "react-css-modules";
+import Comment from "../Comment";
+import styles from "./Comments.module.css";
 
 interface Props {
   isCommentsOpen: boolean;

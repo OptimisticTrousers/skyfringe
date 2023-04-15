@@ -1,6 +1,6 @@
 import CSSModules from "react-css-modules";
-import { FriendsCard, FriendsLayout } from "../../components/friends";
 import styles from "../../assets/Friends.module.css";
+import { FriendsLayout, FriendsCard } from "../../components/friends";
 
 const FriendRequests = () => {
   return (
@@ -9,13 +9,13 @@ const FriendRequests = () => {
         <h2 styleName="friends__title">Incoming Requests</h2>
         <ul styleName="friends__cards">
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
         </ul>
       </section>
@@ -23,13 +23,13 @@ const FriendRequests = () => {
         <h2 styleName="friends__title">Sent requests</h2>
         <ul styleName="friends__cards">
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
           <li styleName="friends__card">
-            <FriendsCard />
+            {/* <FriendsCard /> */}
           </li>
         </ul>
       </section>
@@ -39,5 +39,5 @@ const FriendRequests = () => {
 
 export default CSSModules(FriendRequests, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "ignore"
-})
+  handleNotFoundStyleName: "ignore",
+});

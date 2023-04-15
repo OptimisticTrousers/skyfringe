@@ -1,9 +1,9 @@
 import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
+import { AuthContext } from "../../../context/AuthContext";
+import useDeletePost from "../../../hooks/useDeletePost";
 import ModalContainer from "../ModalContainer";
 import styles from "./DeletePostModal.module.css";
-import useDeletePost from "../../../hooks/useDeletePost";
-import { AuthContext } from "../../../context/AuthContext";
 
 interface Props {
   toggleModal: () => void;

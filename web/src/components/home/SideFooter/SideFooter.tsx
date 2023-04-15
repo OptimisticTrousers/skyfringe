@@ -1,7 +1,7 @@
 import CSSModules from "react-css-modules";
 import { FaGithubSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import Card from "../../ui/Card";
+import { Card } from "../../ui";
 import styles from "./SideFooter.module.css";
 
 const SideFooter = () => {

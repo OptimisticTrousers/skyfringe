@@ -1,20 +1,18 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { useState, FormEvent, ChangeEvent } from "react";
 import CSSModules from "react-css-modules";
-import AuthLayout from "../../components/common/AuthLayout";
-import { ErrorMessage } from "../../components/ui/ErrorMessage";
-import { PasswordContainer } from "../../components/ui/PasswordContainer";
-import { PasswordStrengthMeter } from "../../components/ui/PasswordStrengthMeter";
-import useErrorToast from "../../hooks/useErrorToast";
+import { Link } from "react-router-dom";
+import {
+  ErrorMessage,
+  PasswordContainer,
+  PasswordStrengthMeter,
+} from "../../components/ui";
 import useRegister from "../../hooks/useRegister";
+import { AuthLayout } from "../../layouts";
 import { FormError } from "../../types";
 import styles from "./Register.module.css";
-import { Link } from "react-router-dom";
 
 const Register = () => {
-  const { register, loading, error, formError } = useRegister();
-
-  // All non-form validation errors
-  useErrorToast(error);
+  const { register, loading, formError } = useRegister();
 
   const [fullName, setFullName] = useState("");
 

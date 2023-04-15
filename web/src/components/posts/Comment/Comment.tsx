@@ -1,5 +1,4 @@
 import CSSModules from "react-css-modules";
-import { RiArrowUpFill, RiArrowDownFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import styles from "./Comment.module.css";
 

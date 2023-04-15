@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from "react";
 import CSSModules from "react-css-modules";
-import { Comment, CommentData } from "../../../types";
+import { CommentData } from "../../../types";
 import styles from "./CommentForm.module.css";
 
 interface Props {

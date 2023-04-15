@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import CSSModules from "react-css-modules";
+import { ChatContext } from "../../../context/ChatContext";
 import ChatForm from "../ChatForm";
 import ChatHeader from "../ChatHeader";
 import ChatMessage from "../ChatMessage";
-import { ChatContext } from "../../../context/ChatContext";
 import styles from "./ChatMain.module.css";
 
 const ChatMain = () => {

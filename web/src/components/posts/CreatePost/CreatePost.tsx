@@ -1,8 +1,8 @@
 import { useState } from "react";
 import CSSModules from "react-css-modules";
 import { FcPlus } from "react-icons/fc";
-import { Card } from "../../ui";
 import { CreatePostModal } from "../../modals";
+import { Card } from "../../ui";
 import styles from "./CreatePost.module.css";
 
 const CreatePost = () => {

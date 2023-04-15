@@ -1,13 +1,8 @@
 import CSSModules from "react-css-modules";
-import styles from "./Home.module.css";
-import {
-  TopMenu,
-  CreatePost,
-  Suggestions,
-  SideFooter,
-  Feed,
-} from "../../components/common";
 import { HomeFriends } from "../../components/friends";
+import { TopMenu, Suggestions, SideFooter } from "../../components/home";
+import { CreatePost, Feed } from "../../components/posts";
+import styles from "./Home.module.css";
 
 const Home = () => {
   return (
