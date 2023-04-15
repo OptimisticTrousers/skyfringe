@@ -14,9 +14,6 @@ const Feed = () => {
     error,
   }: any = useFetch(`${import.meta.env.VITE_API_DOMAIN}/posts`);
 
-  // Set up notifications
-  useErrorToast(error as Error);
-
   return (
     <div>
       {loading && (
@@ -36,7 +33,7 @@ const Feed = () => {
           })}
         </div>
       )}
-      {error && <ErrorMessage message={error} />}
+      {error && <ErrorMessage message={"Unable to load feed"} />}
     </div>
   );
 };

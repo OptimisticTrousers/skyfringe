@@ -1,6 +1,5 @@
 import { createContext, FC, useCallback, useState } from "react";
 import { Toast } from "../components/ui";
-import useCurrentUser from "../hooks/useCurrentUser";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
