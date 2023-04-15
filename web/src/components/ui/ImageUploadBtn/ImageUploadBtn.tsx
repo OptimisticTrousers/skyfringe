@@ -19,7 +19,7 @@ const ImageUploadBtn = ({
           value={imageValue}
           name="image"
           id="image"
-          accept=".jpg, .jpeg, .png, .webp"
+          accept="image/jpg, image/jpeg, image/png, image/webp"
           styleName="file__input"
           onChange={(e: any) => {
             setImageValue(e.target.value);
