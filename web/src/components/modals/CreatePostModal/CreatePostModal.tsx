@@ -11,6 +11,7 @@ import { FcGallery } from "react-icons/fc";
 import { AuthContext } from "../../../context/AuthContext";
 import { ToastContext } from "../../../context/ToastContext";
 import useCreatePost from "../../../hooks/useCreatePost";
+import useErrorToast from "../../../hooks/useErrorToast";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import { Loading } from "../../ui";
 import ImagePreview from "../../ui/ImagePreview";
@@ -29,6 +30,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
   const { showToast } = useContext(ToastContext);
   const { handleFile, removeThumbnail, imageData, imageError, imageLoading } =
     useImageThumbnail();
+
   const [imageValue, setImageValue] = useState("");
   const [imageFile, setImageFile] = useState(null);
 
