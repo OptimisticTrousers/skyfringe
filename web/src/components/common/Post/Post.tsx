@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { BiHeartCircle } from "react-icons/bi";
 import Comment from "../Comment";
+import useLikePost from "../../../hooks/useLikePost";
 
 interface Props {
   post: PostInterface;
@@ -23,6 +24,7 @@ const Post: FC<Props> = ({ post }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  const { likePost, loading } = useLikePost();
 
   const toggleForm = () => {
     setIsCommentFormOpen((prevValue) => !prevValue);
@@ -38,6 +40,10 @@ const Post: FC<Props> = ({ post }) => {
 
   const closeDropdown = () => {
     setIsDropdownOpen(false);
+  };
+
+  const handleLike = () => {
+    likePost(post._id);
   };
 
   return (
@@ -98,12 +104,15 @@ const Post: FC<Props> = ({ post }) => {
             1 comment
           </button>
         </div>
-        <Comments isCommentsOpen={isCommentsOpen}/>
+        <Comments isCommentsOpen={isCommentsOpen} />
       </div>
       <div styleName="post__buttons">
-        <button styleName="post__button post__button--like">
+        <button
+          styleName="post__button post__button--like"
+          onClick={handleLike}
+        >
           <AiOutlineLike styleName="post__icon post__icon--control" />
-          <span styleName="post__name">Like</span>
+          <span styleName="post__name">{loading ? "Liking..." : "Like"}</span>
           {/* <span styleName="post__number">1</span> */}
         </button>
         <button
