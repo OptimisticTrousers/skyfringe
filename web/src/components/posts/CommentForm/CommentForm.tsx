@@ -23,7 +23,8 @@ const CommentForm: FC<Props> = ({
     setCommentText(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
     createComment(postId, { content: commentText });
   };
 
@@ -31,6 +32,7 @@ const CommentForm: FC<Props> = ({
     <form
       onSubmit={handleSubmit}
       styleName="form"
+      name="form"
       ref={formRef}
       style={
         isCommentFormOpen
@@ -38,8 +40,14 @@ const CommentForm: FC<Props> = ({
               height: "132px",
               paddingTop: "2px",
               paddingBottom: "2px",
+              visibility: "visible",
             }
-          : { height: "0px", paddingTop: "0px", paddingBottom: "0px" }
+          : {
+              height: "0px",
+              paddingTop: "0px",
+              paddingBottom: "0px",
+              visibility: "hidden",
+            }
       }
     >
       <textarea
