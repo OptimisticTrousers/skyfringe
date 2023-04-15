@@ -8,7 +8,6 @@ const ImageUploadBtn = ({
   imageValue,
   setImageValue,
   setImageFile,
-  handlePhotoPicked,
 }: any) => {
   return (
     // Accepts only the formats specified
@@ -25,7 +24,6 @@ const ImageUploadBtn = ({
             setImageValue(e.target.value);
             setImageFile(e.target.files[0]);
             handleChange(e);
-            handlePhotoPicked(e);
           }}
         />
         <FcGallery styleName="file__icon" />
