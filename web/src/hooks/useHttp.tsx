@@ -60,7 +60,11 @@ const useHttp = () => {
     return sendRequest(url, "POST", options, body);
   };
 
-  const put = async (url: string, body: unknown, options: RequestInit = {}) => {
+  const put = async (
+    url: string,
+    body: unknown = {},
+    options: RequestInit = {}
+  ) => {
     return sendRequest(url, "PUT", options, body);
   };
 
