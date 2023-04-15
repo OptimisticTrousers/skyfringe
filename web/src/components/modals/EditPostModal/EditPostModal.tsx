@@ -9,6 +9,7 @@ import {
 import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
 import { AuthContext } from "../../../context/AuthContext";
+import { ToastContext } from "../../../context/ToastContext";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import useUpdatePost from "../../../hooks/useUpdatePost";
 import { Loading } from "../../ui";
@@ -25,6 +26,7 @@ interface Props {
 const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
   const { user } = useContext(AuthContext);
   const { updatePost, loading } = useUpdatePost();
+  const { showToast } = useContext(ToastContext);
 
   const {
     handleFile,
@@ -47,6 +49,14 @@ const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
     toggleModal();
   };
 
+  const handlePhotoPicked = (event: any) => {
+    if (!event.target.files[0]) return;
+    if (event.target.files[0].size > 10485760) {
+      showToast("error", "File is too big. Max size is 10MB.");
+      return;
+    }
+  };
+
   const handlePostText = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setPostText(event.target.value);
   };
@@ -54,6 +64,8 @@ const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
   const handlePhoto = (event: any) => {
     handleFile(event.target.files[0]);
   };
+
+  const disabled = postText.length === 0 && !imageData;
 
   // Initialise imageData state to any existing image in the post
   useEffect(() => {
@@ -97,9 +109,12 @@ const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
               imageValue={imageValue}
               setImageValue={setImageValue}
               setImageFile={setImageFile}
+              handlePhotoPicked={handlePhotoPicked}
             />
           </div>
-          <button styleName="modal__button">Save</button>
+          <button styleName="modal__button" disabled={disabled}>
+            {loading ? "Posting..." : "Post"}
+          </button>
         </div>
       </form>
     </ModalContainer>
