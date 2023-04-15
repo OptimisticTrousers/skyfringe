@@ -20,7 +20,7 @@ export interface ToastContext {
 }
 
 // Create an instance of React Context
-export const ToastContext = createContext({} as ToastContext);
+export const ToastContext = createContext({} as any);
 
 // Provide ability to spawn Toast notification globally within the application
 export const ToastProvider: FC<Props> = ({ children }) => {

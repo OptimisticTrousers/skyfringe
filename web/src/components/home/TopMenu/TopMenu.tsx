@@ -15,18 +15,21 @@ const TopMenu = () => {
     <header styleName="menu">
       <div styleName="menu__buttons">
         <button styleName="menu__button" onClick={handleSuggestions}>
-          Suggestions For you
+          Suggestions For You
         </button>
       </div>
       <div
+        data-testid="menu"
         ref={suggestionsParentRef}
         style={
           toggleSuggestions
             ? {
                 height: suggestionsParentRef.current.scrollHeight + "px",
+                visibility: "visible",
               }
             : {
                 height: "0px",
+                visibility: "hidden",
               }
         }
         styleName={`menu__action`}
