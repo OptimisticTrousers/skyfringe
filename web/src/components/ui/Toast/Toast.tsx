@@ -21,6 +21,8 @@ const Toast: FC<Props> = ({ visible, params }) => {
   // Class is dynamically set according to toast param and visible boolean
   return (
     <div
+      role="status"
+      aria-hidden={visible ? false : true}
       styleName={`toast ${params.type === "error" && "toast--error"} ${
         params.type === "success" && "toast--success"
       } ${visible ? "toast--visible" : "toast--invisible"}`}
