@@ -98,6 +98,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
               imageValue={imageValue}
               setImageValue={setImageValue}
               setImageFile={setImageFile}
+              handlePhotoPicked={handlePhotoPicked}
             />
           </div>
           <button

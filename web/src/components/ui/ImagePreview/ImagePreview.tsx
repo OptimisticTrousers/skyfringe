@@ -15,8 +15,13 @@ const ImagePreview = ({
   };
   return (
     <div styleName="preview">
-      <img styleName="preview__image" src={imageData} alt="" />
-      <button styleName="preview__button" type="button" onClick={handleClose}>
+      <img styleName="preview__image" src={imageData} alt="Preview image" />
+      <button
+        aria-label="Remove image"
+        styleName="preview__button"
+        type="button"
+        onClick={handleClose}
+      >
         <SlClose styleName="preview__icon" />
       </button>
     </div>
