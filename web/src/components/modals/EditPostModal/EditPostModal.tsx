@@ -46,14 +46,6 @@ const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
     toggleModal();
   };
 
-  const handlePhotoPicked = (event: any) => {
-    if (!event.target.files[0]) return;
-    if (event.target.files[0].size > 10485760) {
-      showToast("error", "File is too big. Max size is 10MB.");
-      return;
-    }
-  };
-
   const handlePostText = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setPostText(event.target.value);
   };
@@ -106,7 +98,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
               imageValue={imageValue}
               setImageValue={setImageValue}
               setImageFile={setImageFile}
-              handlePhotoPicked={handlePhotoPicked}
+              removeThumbnail={removeThumbnail}
             />
           </div>
           <button styleName="modal__button" disabled={disabled}>

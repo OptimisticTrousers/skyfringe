@@ -35,13 +35,6 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
     toggleModal();
   };
 
-  const handlePhotoPicked = (event: any) => {
-    if (!event.target.files[0]) return;
-    if (event.target.files[0].size > 10485760) {
-      showToast("error", "File is too big. Max size is 10MB.");
-      return;
-    }
-  };
 
   const handlePhoto = (event: any) => {
     handleFile(event.target.files[0]);
@@ -89,7 +82,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
               imageValue={imageValue}
               setImageValue={setImageValue}
               setImageFile={setImageFile}
-              handlePhotoPicked={handlePhotoPicked}
+              removeThumbnail={removeThumbnail}
             />
           </div>
           <button
