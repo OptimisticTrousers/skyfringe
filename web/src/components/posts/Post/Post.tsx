@@ -100,7 +100,11 @@ const Post: FC<Props> = ({ post }) => {
                 styleName="post__icon post__icon--heart"
                 src="/images/heart.png"
               />
-              <span styleName="post__count">6 likes</span>
+              <span styleName="post__count">
+                {post?.likes.length === 1
+                  ? "1 like"
+                  : `${post?.likes.length} likes`}
+              </span>
             </button>
             <button
               styleName="post__button post__button--comments"
