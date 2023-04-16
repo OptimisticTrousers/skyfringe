@@ -59,7 +59,8 @@ export interface User {
 }
 
 export interface Comment {
-  user: string;
+  post: Post | string;
+  author: User | string;
   content: string;
   likes: User[];
 }
