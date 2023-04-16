@@ -4,7 +4,7 @@ import styles from "./Comment.module.css";
 
 const Comment = () => {
   return (
-    <div styleName="comment">
+    <article styleName="comment">
       <div styleName="comment__container">
         <img
           src="/images/optimistictrousers.jpg"
@@ -47,7 +47,7 @@ const Comment = () => {
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

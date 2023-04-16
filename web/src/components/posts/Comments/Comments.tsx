@@ -18,9 +18,11 @@ const Comments: FC<Props> = ({ isCommentsOpen }) => {
         isCommentsOpen
           ? {
               maxHeight: "100vh",
+              visibility: "visible"
             }
           : {
               maxHeight: "0px",
+              visibility: "hidden"
             }
       }
     >
