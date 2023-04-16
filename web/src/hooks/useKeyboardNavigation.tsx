@@ -4,28 +4,18 @@ import { useEffect } from "react";
 // ! The menu must have accessible menuitem roles
 export const useKeyboardNavigation = (elementId: string) => {
   useEffect(() => {
-    const menu = document.querySelector(`#${elementId}`) as any;
-    // Grab all focusable elements within the menu
+    const menu = document.querySelector(`#${elementId}`) as HTMLElement;
     const menuItems = menu.querySelectorAll('[role="menuitem"]') as any;
+    const container = menu.parentNode as HTMLElement;
+    let currentFocus: number = 0;
 
     // Focus the first menu item when the menu is first opened
     menuItems[0].focus();
 
-    // Add accessible up/down arroy key navigation to menu
-    const handleKeyPress = (e: any) => {
-      let currentFocus: any;
-
-      // Set currently focused variable to correspond to the index of the currently focused menu item
-      for (let i = 0; i < menuItems.length; i++) {
-        if (menuItems[i] === document.activeElement) {
-          currentFocus = i;
-        }
-      }
-
-      // Perform unique action based on key pressed
+    const handleKeyPress = (e: KeyboardEvent) => {
       switch (e.key) {
         case "ArrowDown":
-          e.preventDefault(); // avoid scrolling the entire browser window
+          e.preventDefault();
           if (currentFocus < menuItems.length - 1) {
             // user is not at last item, move down menu
             currentFocus++;
@@ -35,7 +25,6 @@ export const useKeyboardNavigation = (elementId: string) => {
           }
           menuItems[currentFocus].focus();
           break;
-
         case "ArrowUp":
           e.preventDefault();
           if (currentFocus === 0) {
@@ -47,16 +36,15 @@ export const useKeyboardNavigation = (elementId: string) => {
           }
           menuItems[currentFocus].focus();
           break;
-
         default:
           break;
       }
     };
 
-    menu.addEventListener("keydown", handleKeyPress);
+    container.addEventListener("keydown", handleKeyPress);
 
     return () => {
-      menu.removeEventListener("keydown", handleKeyPress);
+      container.removeEventListener("keydown", handleKeyPress);
     };
   }, [elementId]);
 };

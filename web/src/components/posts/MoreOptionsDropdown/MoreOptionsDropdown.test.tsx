@@ -192,7 +192,7 @@ describe("MoreOptionsDropdown component", () => {
       const secondItem = screen.getByRole("menuitem", { name: "Delete post" });
 
       // Set focus on bottom of menu to start
-      secondItem.focus();
+      await user.keyboard("{ArrowDown}");
 
       // Move up the menu
       await user.keyboard("{ArrowUp}");
@@ -200,7 +200,7 @@ describe("MoreOptionsDropdown component", () => {
       expect(document.activeElement).toEqual(firstItem);
     });
 
-    it("Up arrow moves to bottom of list when already at top of list to begin", async () => {
+    it("Down arrow moves focus to top of list when starting at the bottom", async () => {
       const user = userEvent.setup();
       render(
         <MoreOptionsDropdown
@@ -215,15 +215,15 @@ describe("MoreOptionsDropdown component", () => {
       const secondItem = screen.getByRole("menuitem", { name: "Delete post" });
 
       // Set focus on bottom of menu to start
-      secondItem.focus();
+      await user.keyboard("{ArrowDown}");
 
-      // Move up the menu
+      // Move to the top of menu
       await user.keyboard("{ArrowDown}");
 
       expect(document.activeElement).toEqual(firstItem);
     });
 
-    it("Down arrow moves focus to top of list when starting at the bottom", async () => {
+    it("Up arrow moves to bottom of list when already at top of list to begin", async () => {
       const user = userEvent.setup();
       render(
         <MoreOptionsDropdown

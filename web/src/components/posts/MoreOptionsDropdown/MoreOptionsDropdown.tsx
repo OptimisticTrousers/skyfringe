@@ -39,8 +39,16 @@ const MoreOptionsDropdown: FC<Props> = ({
   };
 
   return (
-    <>
-      <button styleName="button" onClick={toggleDropdown} id={buttonId}>
+    <div styleName="container">
+      <button
+        aria-controls={dropdownId}
+        aria-haspopup="true"
+        aria-expanded={isDropdownOpen}
+        aria-label="Open post options menu"
+        styleName="button"
+        onClick={toggleDropdown}
+        id={buttonId}
+      >
         <BsThreeDotsVertical styleName="icon" />
       </button>
       <ul
@@ -51,13 +59,23 @@ const MoreOptionsDropdown: FC<Props> = ({
       >
         <li role="none" styleName="dropdown__triangle"></li>
         <li role="none" styleName="dropdown__item">
-          <button role="menuitem" styleName="dropdown__button" onClick={toggleEditModal}>
+          <button
+            aria-haspopup="dialog"
+            role="menuitem"
+            styleName="dropdown__button"
+            onClick={toggleEditModal}
+          >
             <MdModeEdit styleName="dropdown__icon" />
             Edit post
           </button>
         </li>
         <li role="none" styleName="dropdown__item">
-          <button role="menuitem" styleName="dropdown__button" onClick={toggleDeleteModal}>
+          <button
+            aria-haspopup="dialog"
+            role="menuitem"
+            styleName="dropdown__button"
+            onClick={toggleDeleteModal}
+          >
             <RiDeleteBin5Line styleName="dropdown__icon" />
             Delete post
           </button>
@@ -69,7 +87,7 @@ const MoreOptionsDropdown: FC<Props> = ({
       {showEditModal && (
         <EditPostModal toggleModal={toggleEditModal} post={post} />
       )}
-    </>
+    </div>
   );
 };
 

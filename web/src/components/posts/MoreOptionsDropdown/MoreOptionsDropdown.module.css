@@ -1,3 +1,7 @@
+.container {
+  display: inline;
+}
+
 .dropdown {
   border-radius: 8px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.275);
@@ -15,6 +19,10 @@
   gap: 8px;
   transition: 0.2s;
   visibility: visible;
+}
+
+.dropdown__item {
+  list-style: none;
 }
 
 .button {
@@ -42,6 +50,7 @@
   top: -6px;
   transform: rotate(45deg);
   width: 12px;
+  list-style: none;
 }
 
 .dropdown__button {
@@ -59,7 +68,7 @@
 }
 
 .icon {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .dropdown__button:hover {
