@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContext, AuthProvider } from "../../context/AuthContext";
-import * as hooks from "../../hooks/useLogout";
 import Aside from "./Aside";
 
 const logoutMock = vi.fn();
