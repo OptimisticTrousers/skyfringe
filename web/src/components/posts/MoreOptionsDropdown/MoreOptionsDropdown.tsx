@@ -37,13 +37,15 @@ const MoreOptionsDropdown: FC<Props> = ({
   };
 
   return (
-    <ul id="PostDropdown" role="menu" aria-label="Post options">
+    <>
       <button styleName="button" onClick={toggleDropdown} id={buttonId}>
         <BsThreeDotsVertical styleName="icon" />
       </button>
       <div
         styleName={`dropdown ${!isDropdownOpen && "dropdown--invisible"}`}
         id={dropdownId}
+        role="menu"
+        aria-label="Post options"
       >
         <div styleName="dropdown__triangle"></div>
         <button styleName="dropdown__button" onClick={toggleEditModal}>
@@ -61,7 +63,7 @@ const MoreOptionsDropdown: FC<Props> = ({
       {showEditModal && (
         <EditPostModal toggleModal={toggleEditModal} post={post} />
       )}
-    </ul>
+    </>
   );
 };
 
