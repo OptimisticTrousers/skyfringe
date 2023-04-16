@@ -1,8 +1,21 @@
+import { FC } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
+import useDeleteComment from "../../../hooks/useDeleteComment";
+import useLikeComment from "../../../hooks/useLikeComment";
+import useUpdateComment from "../../../hooks/useUpdateComment";
+import { Comment } from "../../../types";
 import styles from "./Comment.module.css";
 
+interface Props {
+  comment: Comment;
+}
+
 const Comment = () => {
+  const { updateComment, loading: updateLoading } = useUpdateComment();
+  const { deleteComment, loading: deleteLoading } = useDeleteComment();
+  const { likeComment, loading: likeLoading } = useLikeComment();
+
   return (
     <article styleName="comment">
       <div styleName="comment__container">
