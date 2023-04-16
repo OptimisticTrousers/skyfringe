@@ -64,6 +64,22 @@ describe("Post component", () => {
     });
   });
   describe("All posts", () => {
+    test("if clicking on the like count button opens the modal for likes", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: correctUser }}>
+            <Post post={mockPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+
+      const likeCountButton = screen.getByRole("button", { name: "2 likes" });
+      await user.click(likeCountButton);
+
+      const likesModal = screen.queryByRole("dialog");
+      expect(likesModal).toBeInTheDocument();
+    });
     test("Does not display post menu btn on other people's post", () => {
       render(
         <BrowserRouter>
