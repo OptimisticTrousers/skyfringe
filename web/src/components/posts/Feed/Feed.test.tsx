@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { ToastProvider } from "../../../context/ToastContext";
+import { Error } from "../../../types";
 import Feed from "./Feed";
 
 const user = {
@@ -12,9 +12,9 @@ const user = {
   password: "$2a$10$kny8gRPTSs215f9gc6SJ4.QjiBHa0/E6H6p6y0dvWUrXMzgprQxqy",
 };
 
-let mockLoading: any;
-let mockPosts: any;
-let mockError: any;
+let mockLoading: boolean;
+let mockPosts: { _id: string; author: string; content: string }[] | null;
+let mockError: Error | null;
 
 vi.mock("../../../hooks/useFetch", () => ({
   useFetch: () => ({
@@ -36,17 +36,12 @@ vi.mock("react", async () => {
 });
 
 describe("Feed component", () => {
-  const setup = (jsx: JSX.Element) => {
-    return {
-      ...render(jsx),
-    };
-  };
   it("renders skeleton posts while loading", () => {
     mockLoading = true;
     mockPosts = null;
     mockError = null;
 
-    setup(
+    render(
       <BrowserRouter>
         <ToastProvider>
           <Feed />
@@ -55,7 +50,7 @@ describe("Feed component", () => {
     );
 
     // Error UI not present
-    const error = screen.queryByText(/unable to load/i);
+    const error = screen.queryByText(/unable to load feed/i);
     expect(error).not.toBeInTheDocument();
 
     const loaders = screen.getAllByTestId("skeleton-post");
@@ -64,9 +59,9 @@ describe("Feed component", () => {
   it("renders error message when there is an error", () => {
     mockLoading = false;
     mockPosts = null;
-    mockError = true;
+    mockError = { message: "Unable to load feed" };
 
-    setup(
+    render(
       <BrowserRouter>
         <ToastProvider>
           <Feed />
@@ -74,7 +69,7 @@ describe("Feed component", () => {
       </BrowserRouter>
     );
 
-    const error = screen.getByText(/unable to load/i);
+    const error = screen.getByText(/unable to load feed/i);
     expect(error).toBeInTheDocument();
 
     const loaders = screen.queryAllByTestId("skeleton-post");
@@ -87,30 +82,26 @@ describe("Feed component", () => {
         _id: "4c8a331bda76c559ef000009",
         author: user._id,
         content: "Test post 1",
-        likes: [],
       },
       {
         _id: "4c8a331bda76c559ef000010",
         author: user._id,
         content: "Test post 2",
-        likes: [],
       },
       {
         _id: "4c8a331bda76c559ef000011",
         author: user._id,
         content: "Test post 3",
-        likes: [],
       },
       {
         _id: "4c8a331bda76c559ef000012",
         author: user._id,
         content: "Test post 4",
-        likes: [],
       },
     ];
-    mockError = false;
+    mockError = null;
 
-    setup(
+    render(
       <BrowserRouter>
         <ToastProvider>
           <Feed />
@@ -123,7 +114,7 @@ describe("Feed component", () => {
     expect(posts.length).toBe(4);
 
     // Error UI not present
-    const error = screen.queryByText(/unable to load/i);
+    const error = screen.queryByText(/unable to load feed/i);
     expect(error).not.toBeInTheDocument();
 
     // Loaders not present

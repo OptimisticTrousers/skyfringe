@@ -30,7 +30,7 @@ const Feed = () => {
           })}
         </div>
       )}
-      {error && <ErrorMessage message={"Unable to load feed"} />}
+      {error && <ErrorMessage message={error.message} />}
     </div>
   );
 };
