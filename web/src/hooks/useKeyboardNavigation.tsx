@@ -4,7 +4,7 @@ import { useEffect } from "react";
 // ! The menu must have accessible menuitem roles
 export const useKeyboardNavigation = (elementId: string) => {
   useEffect(() => {
-    const menu = document.querySelector(`#${elementId}`) as HTMLMenuElement;
+    const menu = document.querySelector(`#${elementId}`) as any;
     // Grab all focusable elements within the menu
     const menuItems = menu.querySelectorAll('[role="menuitem"]') as any;
 

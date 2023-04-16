@@ -80,7 +80,7 @@ describe("MoreOptionsDropdown component", () => {
       />
     );
 
-    const deleteButton = screen.getByRole("button", { name: "Delete post" });
+    const deleteButton = screen.getByRole("menuitem", { name: "Delete post" });
 
     await user.click(deleteButton);
 
@@ -98,7 +98,7 @@ describe("MoreOptionsDropdown component", () => {
       />
     );
 
-    const editButton = screen.getByRole("button", { name: "Edit post" });
+    const editButton = screen.getByRole("menuitem", { name: "Edit post" });
 
     await user.click(editButton);
 
@@ -153,7 +153,7 @@ describe("MoreOptionsDropdown component", () => {
         />
       );
 
-      const firstItem = screen.getByRole("button", { name: "Edit post" });
+      const firstItem = screen.getByRole("menuitem", { name: "Edit post" });
 
       expect(document.activeElement).toEqual(firstItem);
     });
@@ -169,7 +169,7 @@ describe("MoreOptionsDropdown component", () => {
         />
       );
 
-      const secondItem = screen.getByRole("button", { name: "Delete post" });
+      const secondItem = screen.getByRole("menuitem", { name: "Delete post" });
 
       // Move down the menu
       await user.keyboard("{ArrowDown}");
@@ -188,8 +188,8 @@ describe("MoreOptionsDropdown component", () => {
         />
       );
 
-      const firstItem = screen.getByRole("button", { name: "Edit post" });
-      const secondItem = screen.getByRole("button", { name: "Delete post" });
+      const firstItem = screen.getByRole("menuitem", { name: "Edit post" });
+      const secondItem = screen.getByRole("menuitem", { name: "Delete post" });
 
       // Set focus on bottom of menu to start
       secondItem.focus();
@@ -211,8 +211,8 @@ describe("MoreOptionsDropdown component", () => {
         />
       );
 
-      const firstItem = screen.getByRole("button", { name: "Edit post" });
-      const secondItem = screen.getByRole("button", { name: "Delete post" });
+      const firstItem = screen.getByRole("menuitem", { name: "Edit post" });
+      const secondItem = screen.getByRole("menuitem", { name: "Delete post" });
 
       // Set focus on bottom of menu to start
       secondItem.focus();
@@ -234,7 +234,7 @@ describe("MoreOptionsDropdown component", () => {
         />
       );
 
-      const secondItem = screen.getByRole("button", { name: "Delete post" });
+      const secondItem = screen.getByRole("menuitem", { name: "Delete post" });
 
       // Move up the menu
       await user.keyboard("{ArrowUp}");
