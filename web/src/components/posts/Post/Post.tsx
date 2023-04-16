@@ -58,6 +58,7 @@ const Post: FC<Props> = ({ post }) => {
                 src={post.author.photo?.imageUrl}
                 styleName="post__avatar"
                 onError={userImageFallback}
+                alt={post.author.photo?.altText}
               />
             </Link>
 
@@ -86,12 +87,13 @@ const Post: FC<Props> = ({ post }) => {
         </div>
         <div styleName="post__content">
           <p styleName="post__description">{post.content}</p>
-          <img
-            src={post.photo?.imageUrl}
-            styleName={`post__image ${
-              !post?.photo?.imageUrl && "post__image--disappear"
-            }`}
-          />
+          {post?.photo?.imageUrl && (
+            <img
+              src={post.photo?.imageUrl}
+              styleName="post__image"
+              alt={post.photo?.altText}
+            />
+          )}
           <div styleName="post__between">
             <button styleName="post__button post__button--likes">
               <img

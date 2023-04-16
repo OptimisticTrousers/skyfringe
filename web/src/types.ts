@@ -68,7 +68,7 @@ export interface Post {
   _id: string;
   author: User;
   content: string;
-  likes: User[];
+  likes: User[] | string[];
   photo?: Image;
   createdAt: Date;
   updatedAt: Date;
