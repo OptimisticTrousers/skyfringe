@@ -3,6 +3,7 @@ import { body, oneOf, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
 import Post from "../models/post";
 import upload from "../config/multer";
+import mongoose from "mongoose";
 
 interface CustomError extends Error {
   status?: number;
@@ -65,6 +66,32 @@ export const post_create = [
     return;
   },
 ];
+
+// @desc    Like a single post (i.e. add new user to likes array)
+// @route   PUT /api/posts/:postId/likes
+// @access  Private
+export const post_like = asyncHandler(async (req: any, res: any) => {
+  // fetch
+  const post: any = await Post.findById(req.params.postId).exec();
+
+  // Check if the user has already liked this post (i.e. their user ID already exists in likes array)
+  // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
+
+  const alreadyLikedIndex = post.likes.findIndex((like: any) =>
+    like.equals(new mongoose.Types.ObjectId(req.user._id))
+  );
+
+  if (alreadyLikedIndex === -1) {
+    // post is not liked
+    post.likes.push(req.user._id);
+  } else {
+    // remove like on the post
+    post.likes.splice(alreadyLikedIndex, 1);
+  }
+
+  await post.save();
+  res.status(200).json(post); // Return status OK and updated comment to client
+});
 
 // @desc    Get single post
 // @route   GET /api/posts/:postId

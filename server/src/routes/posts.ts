@@ -5,6 +5,7 @@ import {
   post_detail,
   post_update,
   post_delete,
+  post_like,
 } from "../controllers/postController";
 
 import {
@@ -19,6 +20,8 @@ const router = Router();
 router.route("/").get(post_list).post(post_create);
 
 router.route("/:postId").get(post_detail).put(post_update).delete(post_delete);
+
+router.route("/:postId/likes").put(post_like);
 
 router.route("/:postId/comments").get(comment_list).post(comment_create);
 
