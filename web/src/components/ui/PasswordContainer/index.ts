@@ -1,1 +1,1 @@
-export { default as PasswordContainer } from "./PasswordContainer";
+export { default } from "./PasswordContainer";

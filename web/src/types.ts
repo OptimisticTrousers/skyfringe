@@ -31,6 +31,10 @@ export interface PostData {
   content: string;
 }
 
+export interface CommentData {
+  content: string;
+}
+
 export interface User {
   facebookId?: string;
   _id: string;
@@ -43,7 +47,7 @@ export interface User {
   updatedAt: Date;
   friends: User[] | [];
   friendRequests: User[] | [];
-  friendCount: number;
+  friendCount?: number;
   photo?: {
     imageUrl: string;
     altText: string;
@@ -55,7 +59,8 @@ export interface User {
 }
 
 export interface Comment {
-  user: string;
+  post: Post | string;
+  author: User | string;
   content: string;
   likes: User[];
 }
@@ -64,9 +69,8 @@ export interface Post {
   _id: string;
   author: User;
   content: string;
-  comments: Comment[];
-  likes: User[];
-  image?: Image;
+  likes: User[] | string[];
+  photo?: Image;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,24 +1,45 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
+import { AuthContext } from "../../../context/AuthContext";
+import useDeletePost from "../../../hooks/useDeletePost";
 import ModalContainer from "../ModalContainer";
 import styles from "./DeletePostModal.module.css";
 
 interface Props {
   toggleModal: () => void;
+  postId: string;
 }
 
-const DeletePostModal: FC<Props> = ({ toggleModal }) => {
+const DeletePostModal: FC<Props> = ({ toggleModal, postId }) => {
+  const { deletePost, loading } = useDeletePost();
+  const { user } = useContext(AuthContext);
+
+  const handleDelete = () => {
+    deletePost(postId);
+    toggleModal();
+  };
+
   return (
-    <ModalContainer title="Delete Account" toggleModal={toggleModal}>
+    <ModalContainer title="Delete Post" toggleModal={toggleModal}>
       <form styleName="modal">
         <p styleName="modal__alert">
-          Are you sure you want to delete your account?
+          Are you sure you want to delete your post, {user?.fullName}?
         </p>
-        <p styleName="modal__message">
-          Once your account has been deleted, it cannot be recovered. You cannot
-          undo this action.
-        </p>
-        <button styleName="modal__button">Delete Account</button>
+        <p styleName="modal__message">You can't undo this action.</p>
+        <div styleName="modal__buttons">
+          <button
+            styleName="modal__button modal__button--cancel"
+            onClick={toggleModal}
+          >
+            Cancel
+          </button>
+          <button
+            styleName="modal__button modal__button--delete"
+            onClick={handleDelete}
+          >
+            {loading ? "Deleting..." : "Delete"}
+          </button>
+        </div>
       </form>
     </ModalContainer>
   );

@@ -1,5 +1,10 @@
 export { default as Card } from "./Card";
-export { default as Dropdown } from "./Dropdown";
-export { default as MoreOptionsDropdown } from "./MoreOptionsDropdown";
+export { default as ErrorMessage } from "./ErrorMessage";
+export { default as ImagePreview } from "./ImagePreview";
+export { default as ImageUploadBtn } from "./ImageUploadBtn";
+export { default as Loading } from "./Loading";
+export { default as Logo } from "./Logo";
 export { default as Notification } from "./Notification";
+export { default as PasswordContainer } from "./PasswordContainer";
+export { default as PasswordStrengthMeter } from "./PasswordStrengthMeter";
 export { default as Toast } from "./Toast";

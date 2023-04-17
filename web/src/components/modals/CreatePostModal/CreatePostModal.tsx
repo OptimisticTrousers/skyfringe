@@ -1,15 +1,10 @@
-import {
-  ChangeEvent,
-  FC,
-  FormEvent,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { FC, useContext, useState, ChangeEvent, FormEvent } from "react";
 import CSSModules from "react-css-modules";
-import { FcGallery } from "react-icons/fc";
+import { AuthContext } from "../../../context/AuthContext";
 import { ToastContext } from "../../../context/ToastContext";
 import useCreatePost from "../../../hooks/useCreatePost";
+import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
+import { Loading, ImagePreview, ImageUploadBtn } from "../../ui";
 import ModalContainer from "../ModalContainer";
 import styles from "./CreatePostModal.module.css";
 
@@ -18,11 +13,17 @@ interface Props {
 }
 
 const CreatePostModal: FC<Props> = ({ toggleModal }) => {
+  const { user } = useContext(AuthContext);
   const [postText, setPostText] = useState("");
-  const { createPost, response, loading, error } = useCreatePost();
+  const { createPost, data, loading, error } = useCreatePost();
   const { showToast } = useContext(ToastContext);
+  const { handleFile, removeThumbnail, imageData, imageError, imageLoading } =
+    useImageThumbnail();
 
-  const isPostButtonDisabled = postText.length === 0;
+  const [imageValue, setImageValue] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+
+  const disabled = postText.length === 0 && !imageData;
 
   const handleChangePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPostText(e.target.value);
@@ -31,30 +32,28 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     createPost({ content: postText });
+    toggleModal();
   };
 
-  useEffect(() => {
-    if (error) {
-      toggleModal();
-      showToast("error", "An error occured while creating the post.");
-    }
-  }, [error, showToast, toggleModal]);
 
-  useEffect(() => {
-    if (response) {
-      toggleModal();
-      showToast("success", "You have successfully created a post!");
-    }
-  }, [response, showToast, toggleModal]);
+  const handlePhoto = (event: any) => {
+    handleFile(event.target.files[0]);
+  };
+
+  const handleClearPhoto = () => {
+    setImageValue("");
+    setImageFile(null);
+    removeThumbnail();
+  };
 
   return (
     <ModalContainer title="Create Post" toggleModal={toggleModal}>
       <form styleName="modal__form" onSubmit={handleSubmit}>
         <div styleName="modal__author-bar">
-          <img src="/images/optimistictrousers.jpg" styleName="modal__avatar" />
+          <img src={user?.photo?.imageUrl} styleName="modal__avatar" />
           <div styleName="modal__text">
             <p styleName="modal__surtitle">posting as</p>
-            <h3 styleName="modal__name">Bob Jones</h3>
+            <h3 styleName="modal__name">{user?.fullName}</h3>
           </div>
         </div>
         <div styleName="modal__content">
@@ -64,19 +63,31 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
             onChange={handleChangePostText}
             value={postText}
           ></textarea>
+          {imageLoading && <Loading />}
+          {imageData && (
+            <ImagePreview
+              imageData={imageData}
+              setImageValue={setImageValue}
+              setImageFile={setImageFile}
+              removeThumbnail={removeThumbnail}
+            />
+          )}
         </div>
+
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
             <div styleName="modal__emoji">🙂</div>
-            <label styleName="modal__label">
-              <input type="file" styleName="modal__file" />
-              <FcGallery styleName="modal__icon modal__icon--gallery" />
-              Add picture
-            </label>
+            <ImageUploadBtn
+              handleChange={handlePhoto}
+              imageValue={imageValue}
+              setImageValue={setImageValue}
+              setImageFile={setImageFile}
+              removeThumbnail={removeThumbnail}
+            />
           </div>
           <button
             styleName="modal__button modal__button--submit"
-            disabled={isPostButtonDisabled}
+            disabled={disabled}
           >
             {loading ? "Posting..." : "Post"}
           </button>

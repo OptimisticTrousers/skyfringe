@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Error, FormError, RegisterData } from "../types";
 import useHttp from "./useHttp";

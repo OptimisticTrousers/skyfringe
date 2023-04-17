@@ -10,7 +10,7 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, minLength: 8 },
     bio: { type: String },
-    friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    friends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
     friendRequests: [
       {
         user: { type: Schema.Types.ObjectId, ref: "User" },
@@ -23,6 +23,7 @@ const UserSchema = new Schema(
             "rejectedIncoming",
           ],
         },
+        default: [],
       },
     ],
     photo: {

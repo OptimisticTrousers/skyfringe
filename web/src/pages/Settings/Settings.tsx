@@ -1,7 +1,6 @@
 import { useState } from "react";
 import CSSModules from "react-css-modules";
-import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
-import { DeletePostModal } from "../../components/modals";
+import { AiOutlineCamera } from "react-icons/ai";
 import { Card } from "../../components/ui";
 import styles from "./Settings.module.css";
 
@@ -115,7 +114,6 @@ const Settings = () => {
           </div>
         </div>
       </div>
-      {isDeleteModalOpen && <DeletePostModal toggleModal={toggleModal} />}
     </>
   );
 };

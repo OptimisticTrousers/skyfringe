@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import useHttp from "./useHttp";
 
 const useCurrentUser = () => {
-  const { user, dispatch } = useContext(AuthContext);
+  const { dispatch } = useContext(AuthContext);
 
   const { get } = useHttp();
 
@@ -13,7 +13,7 @@ const useCurrentUser = () => {
         const data = await get(
           `${import.meta.env.VITE_API_DOMAIN}/auth/current`
         );
-        dispatch({ type: "READY", payload: data.user });
+        dispatch({ type: "READY", payload: data?.user });
       } catch (err) {
         // user is not authorized - do not react to this error in UI, console display only
         console.error(err);

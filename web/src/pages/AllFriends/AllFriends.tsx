@@ -1,8 +1,8 @@
-import CSSModules from "react-css-modules";
-import { FriendsCard, FriendsLayout } from "../../components/friends";
-import styles from "../../assets/Friends.module.css";
 import { useContext } from "react";
-import { AuthContext} from "../../context/AuthContext";
+import CSSModules from "react-css-modules";
+import styles from "../../assets/Friends.module.css";
+import { FriendsCard, FriendsLayout } from "../../components/friends";
+import { AuthContext } from "../../context/AuthContext";
 import { User } from "../../types";
 
 const FriendsAll = () => {

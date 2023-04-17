@@ -1,25 +1,18 @@
-import CSSModules from "react-css-modules";
 import { useState, FormEvent, ChangeEvent } from "react";
-import AuthLayout from "../../components/common/AuthLayout";
-import { ErrorMessage } from "../../components/ui/ErrorMessage";
-import { PasswordContainer } from "../../components/ui/PasswordContainer";
-import useErrorToast from "../../hooks/useErrorToast";
-import useLogin from "../../hooks/useLogin";
-import { FormError } from "../../types";
-import { AiOutlineEye } from "react-icons/ai";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
+import CSSModules from "react-css-modules";
+import { Link } from "react-router-dom";
 import { SiFacebook } from "react-icons/si";
 import { RxPerson } from "react-icons/rx";
-import { Link } from "react-router-dom";
-import styles from "./Login.module.css";
+import { ErrorMessage, PasswordContainer } from "../../components/ui";
+import useLogin from "../../hooks/useLogin";
 import useTestLogin from "../../hooks/useTestLogin";
+import { AuthLayout } from "../../layouts";
+import { FormError } from "../../types";
+import styles from "./Login.module.css";
 
 const Login = () => {
-  const { login, loading, error, formError } = useLogin();
-  const { testLogin, testError, testLoading } = useTestLogin();
-
-  useErrorToast(error);
-  useErrorToast(testError);
+  const { login, loading, formError } = useLogin();
+  const { testLogin, testLoading } = useTestLogin();
 
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);

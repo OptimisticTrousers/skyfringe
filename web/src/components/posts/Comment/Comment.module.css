@@ -1,0 +1,155 @@
+.comment {
+  margin-bottom: 1.25rem;
+}
+
+.comment__container {
+  display: flex;
+}
+
+.comment__avatar {
+  height: 100%;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.comment__avatar--comment {
+  margin-right: 12px;
+}
+
+.comment__top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment__details {
+  background-color: rgb(7, 6, 5);
+  padding: 1rem 0.6rem;
+  border-radius: 0.25rem;
+}
+
+.comment__link {
+  color: white;
+  font-weight: 600;
+}
+
+.comment__link:hover {
+  text-decoration: underline;
+}
+
+.comment__gray {
+  color: rgb(160, 152, 137);
+  margin-right: 8px;
+  font-weight: 300;
+}
+
+.comment__text {
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+.comment__actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 1rem;
+  color: white;
+}
+
+.comment__likes {
+  display: flex;
+}
+
+.comment__button {
+  border: none;
+  font-weight: 500;
+  background-color: transparent;
+  color: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.comment__button--like {
+  margin-right: 0.75rem;
+}
+
+.comment__button--like:hover {
+  background-color: rgb(12, 11, 9);
+}
+
+.comment__button--edit:hover {
+  color: rgb(200, 190, 174);
+}
+
+.comment__button--delete:hover {
+  color: rgb(255, 134, 134);
+}
+
+.comment__button--icon {
+  display: flex;
+  align-items: center;
+}
+
+.comment__icon--heart {
+  margin-right: 6px;
+}
+
+.comment__button--icon:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.comment__reply {
+  display: flex;
+  align-items: center;
+}
+
+.comment__icon {
+  font-size: 1.3rem;
+}
+
+.comment__icon--comment {
+  margin-right: 6px;
+}
+
+.comment__name {
+  margin-right: 4px;
+}
+
+.comment__number {
+  padding: 0.3rem 0.7rem;
+  border-radius: 100px;
+  background-color: #292631;
+}
+
+.comment__votes {
+  display: flex;
+  align-items: center;
+}
+
+.comment__vote {
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+}
+
+.comment__vote:first-child {
+  margin-right: 8px;
+}
+
+.comment__vote:last-child {
+  margin-left: 8px;
+}
+
+.comment__icon--vote {
+  margin-right: 8px;
+}
+
+@media (max-width: 550px) {
+  .comment__top {
+    display: block;
+  }
+  .comment__gray {
+    display: block;
+    margin-top: 6px;
+  }
+}

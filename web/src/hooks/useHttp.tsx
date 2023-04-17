@@ -26,17 +26,16 @@ const useHttp = () => {
         body: body ? JSON.stringify(body) : undefined,
       });
       const json = await response.json();
+      setLoading(false);
 
       if (response.status !== 200) {
         // error with delete operation
         setError(json);
-        setLoading(false);
         // Return out of the function here to avoid setting the response below with error JSON
         return;
       }
 
       // No error, operation successful
-      setLoading(false);
       setError(null);
       setData(json);
       return json;
@@ -60,7 +59,11 @@ const useHttp = () => {
     return sendRequest(url, "POST", options, body);
   };
 
-  const put = async (url: string, body: unknown, options: RequestInit = {}) => {
+  const put = async (
+    url: string,
+    body: unknown = {},
+    options: RequestInit = {}
+  ) => {
     return sendRequest(url, "PUT", options, body);
   };
 

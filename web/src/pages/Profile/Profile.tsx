@@ -1,18 +1,24 @@
-import CSSModules from "react-css-modules";
 import { useContext } from "react";
-import { Post } from "../../components/common";
-import { Card } from "../../components/ui";
-import styles from "./Profile.module.css";
+import CSSModules from "react-css-modules";
+import { Post } from "../../components/posts";
+import { SkeletonPost } from "../../components/skeletons";
+import { Card, ErrorMessage } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
+import useErrorToast from "../../hooks/useErrorToast";
 import { useFetch } from "../../hooks/useFetch";
+import { Post as PostInterface } from "./../../types";
+import styles from "./Profile.module.css";
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  const { data, loading, error } = useFetch(
+  const {
+    data: posts,
+    loading,
+    error,
+  }: any = useFetch(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user!._id}/posts`
   );
 
-  console.log(data, loading, error);
   return (
     user && (
       <div styleName="profile">
@@ -144,10 +150,23 @@ const Profile = () => {
               <li styleName="profile__item">Saved posts</li>
             </ul>
             <div styleName="profile__posts">
-              {/* <Post />
-            <Post />
-            <Post />
-            <Post /> */}
+              {loading && (
+                <>
+                  <SkeletonPost />
+                  <SkeletonPost />
+                  <SkeletonPost />
+                  <SkeletonPost />
+                  <SkeletonPost />
+                </>
+              )}
+              {posts && (
+                <div>
+                  {posts.map((post: PostInterface) => {
+                    return <Post post={post} key={post._id} />;
+                  })}
+                </div>
+              )}
+              {error && <ErrorMessage message={error} />}
             </div>
           </div>
         </div>

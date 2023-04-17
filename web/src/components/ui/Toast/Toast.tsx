@@ -1,10 +1,9 @@
 import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { CgCloseO } from "react-icons/cg";
 import { CgClose } from "react-icons/cg";
-import { FcCheckmark } from "react-icons/fc";
-import { IoMdCheckmarkCircleOutline } from "react-icons/io";
-import { ToastContext, ToastParams } from "../../../context/ToastContext";
+import { ToastParams, ToastContext } from "../../../context/ToastContext";
 import styles from "./Toast.module.css";
 
 interface Props {
@@ -22,6 +21,8 @@ const Toast: FC<Props> = ({ visible, params }) => {
   // Class is dynamically set according to toast param and visible boolean
   return (
     <div
+      role="status"
+      aria-hidden={visible ? false : true}
       styleName={`toast ${params.type === "error" && "toast--error"} ${
         params.type === "success" && "toast--success"
       } ${visible ? "toast--visible" : "toast--invisible"}`}

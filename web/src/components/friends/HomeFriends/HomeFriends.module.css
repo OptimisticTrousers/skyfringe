@@ -1,11 +1,59 @@
 .friends {
   display: flex;
   align-items: center;
-  gap: 30px;
   padding: 1rem;
-  max-width: 1026px;
   box-sizing: border-box;
-  margin-bottom: 2rem;
+  position: relative;
+}
+
+.friends__title {
+  padding: 1rem;
+  margin: 0;
+}
+
+.friends__container {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  gap: 30px;
+  scroll-behavior: smooth;
+  padding: 0.25rem;
+  flex-shrink: 1;
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.friends__button {
+  z-index: 1;
+  cursor: pointer;
+  background: #282929;
+  width: 40px;
+  font-size: 1.5rem;
+  border: 4px solid #1b1a1a;
+  position: absolute;
+  border-radius: 9999px;
+  color: white;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  transition: background-color 0.3s ease-out;
+}
+
+.friends__button:hover {
+  background-color: rgb(85, 85, 85);
+}
+
+.friends__button--previous {
+  left: 0;
+}
+
+.friends__button--next {
+  right: 0;
 }
 
 .friends__friend {
@@ -17,7 +65,7 @@
 
 .friends__avatar {
   height: 100%;
-  width: 70px;
+  width: 100px;
   border-radius: 30px;
   border: 6px solid #2e2828;
   outline: 3px solid white;

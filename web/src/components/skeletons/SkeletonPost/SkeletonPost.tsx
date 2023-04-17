@@ -5,7 +5,7 @@ import styles from "./SkeletonPost.module.css";
 const SkeletonPost = () => {
   return (
     <Card>
-      <div styleName="skeleton__top">
+      <div styleName="skeleton__top" data-testid="skeleton-post">
         <div styleName="skeleton__container">
           <div styleName="skeleton__avatar" className="skeleton"></div>
           <div styleName="skeleton__details">
