@@ -8,7 +8,7 @@ const useLikeComment = () => {
 
   const likeComment = async (commentId: string, postId: string) => {
     const response = await put(
-      `${import.meta.env.VITE_API_DOMAIN}/posts/${postId}/comments/${commentId}`
+      `${import.meta.env.VITE_API_DOMAIN}/posts/${postId}/comments/${commentId}/likes`
     );
     if (response) {
       showToast("success", "You have successfully updated a post!");
