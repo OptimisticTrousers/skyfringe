@@ -116,12 +116,13 @@ const Post: FC<Props> = ({ post }) => {
               </span>
             </button>
             <button
-              styleName="post__button post__button--comments"
+              styleName={`post__button post__button--comments ${!comments && "post__button--disabled"}`}
               onClick={toggleComments}
+              disabled={!comments}
             >
-              {comments?.length === 1
-                ? "1 comment"
-                : `${comments?.length} comments`}
+              {!comments && "0 comments"}
+              {comments?.length === 1 && "1 comment"}
+              {comments?.length > 1 && `${comments.length} comment`}
             </button>
           </div>
           <Comments

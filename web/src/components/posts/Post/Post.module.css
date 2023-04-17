@@ -203,6 +203,14 @@
   color: #445bab;
 }
 
+.post__button--disabled {
+  pointer-events: none;
+}
+
+.post__button--disabled:hover {
+  text-decoration: none;
+}
+
 @media (max-width: 570px) {
   .post__controls {
     justify-content: space-between;

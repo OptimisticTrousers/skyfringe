@@ -14,6 +14,7 @@ interface Props {
 
 const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error }) => {
   const commentsRef = useRef<any>(null);
+  console.log(loading)
   return (
     <section
       styleName="comments"
