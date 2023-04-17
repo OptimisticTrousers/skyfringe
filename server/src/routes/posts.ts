@@ -13,6 +13,7 @@ import {
   comment_create,
   comment_update,
   comment_delete,
+  comment_like,
 } from "../controllers/commentController";
 
 const router = Router();
@@ -30,4 +31,5 @@ router
   .put(comment_update)
   .delete(comment_delete);
 
+router.route("/:postId/comennts/:commentId/likes").put(comment_like);
 export default router;
