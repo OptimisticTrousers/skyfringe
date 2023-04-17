@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 import useDeleteComment from "../../../hooks/useDeleteComment";
 import useLikeComment from "../../../hooks/useLikeComment";
 import useUpdateComment from "../../../hooks/useUpdateComment";
-import { Comment } from "../../../types";
 import styles from "./Comment.module.css";
 
 interface Props {
-  comment: Comment;
+  comment: any;
 }
 
-const Comment = () => {
+const Comment: FC<Props> = ({ comment }) => {
   const { updateComment, loading: updateLoading } = useUpdateComment();
   const { deleteComment, loading: deleteLoading } = useDeleteComment();
   const { likeComment, loading: likeLoading } = useLikeComment();

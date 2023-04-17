@@ -1,13 +1,18 @@
 import { FC, useRef } from "react";
 import CSSModules from "react-css-modules";
+import { SkeletonComment, SkeletonPost } from "../../skeletons";
+import { ErrorMessage } from "../../ui";
 import Comment from "../Comment";
 import styles from "./Comments.module.css";
 
 interface Props {
   isCommentsOpen: boolean;
+  comments: any;
+  loading: any;
+  error: any;
 }
 
-const Comments: FC<Props> = ({ isCommentsOpen }) => {
+const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error }) => {
   const commentsRef = useRef<any>(null);
   return (
     <section
@@ -17,19 +22,35 @@ const Comments: FC<Props> = ({ isCommentsOpen }) => {
       style={
         isCommentsOpen
           ? {
-              maxHeight: "100vh",
-              visibility: "visible"
+              maxHeight: "50vh",
+              visibility: "visible",
+              overflowY: "scroll",
             }
           : {
               maxHeight: "0px",
-              visibility: "hidden"
+              visibility: "hidden",
             }
       }
     >
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
+      {loading && (
+        <>
+          <SkeletonComment />
+          <SkeletonComment />
+          <SkeletonComment />
+          <SkeletonComment />
+          <SkeletonComment />
+          <SkeletonComment />
+          <SkeletonComment />
+        </>
+      )}
+      {comments && (
+        <div>
+          {comments.map((comment: any) => {
+            return <Comment key={comment._id} comment={comment} />;
+          })}
+        </div>
+      )}
+      {error && <ErrorMessage message={error.message} />}
     </section>
   );
 };

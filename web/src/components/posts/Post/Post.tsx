@@ -15,6 +15,7 @@ import Comments from "../Comments";
 import MoreOptionsDropdown from "../MoreOptionsDropdown";
 import { Post as PostInterface } from "../../../types";
 import styles from "./Post.module.css";
+import { useFetch } from "../../../hooks/useFetch";
 
 interface Props {
   post: PostInterface;
@@ -27,6 +28,14 @@ const Post: FC<Props> = ({ post }) => {
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const { likePost, loading: postLoading } = useLikePost();
   const { createComment, loading: commentLoading } = useCreateComment();
+
+  const {
+    data: comments,
+    loading,
+    error,
+  }: any = useFetch(
+    `${import.meta.env.VITE_API_DOMAIN}/posts/${post._id}/comments`
+  );
 
   const toggleForm = () => {
     setIsCommentFormOpen((prevValue) => !prevValue);
@@ -110,10 +119,17 @@ const Post: FC<Props> = ({ post }) => {
               styleName="post__button post__button--comments"
               onClick={toggleComments}
             >
-              1 comment
+              {comments?.length === 1
+                ? "1 comment"
+                : `${comments?.length} comments`}
             </button>
           </div>
-          <Comments isCommentsOpen={isCommentsOpen} />
+          <Comments
+            isCommentsOpen={isCommentsOpen}
+            comments={comments}
+            loading={loading}
+            error={error}
+          />
         </div>
         <div styleName="post__buttons">
           <button

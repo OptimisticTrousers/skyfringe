@@ -38,29 +38,30 @@ vi.mock("../../hooks/useLikeComment", () => {
   };
 });
 
+const user = {
+  _id: "4c8a331bda76c559ef000005",
+  fullName: "Roronoa Zoro",
+  userName: "zoro",
+  email: "zoro@onepiece.com",
+};
+const post = {
+  _id: "4c8a331bda76c559ef000010",
+  author: user,
+  content: "test post",
+  likes: [],
+};
+const comment = {
+  _id: "4c8a331bda76c559ef000014",
+  post,
+  author: user,
+  content: "test comment",
+  likes: [],
+};
+
 describe("Comment component", () => {
-  const user = {
-    _id: "4c8a331bda76c559ef000005",
-    fullName: "Roronoa Zoro",
-    userName: "zoro",
-    email: "zoro@onepiece.com",
-  };
-  const post = {
-    _id: "4c8a331bda76c559ef000010",
-    author: user,
-    content: "test post",
-    likes: [],
-  };
-  const comment = {
-    _id: "4c8a331bda76c559ef000014",
-    post,
-    author: user,
-    content: "test comment",
-    likes: [],
-  };
   test("that clicking the like button increments the like count", async () => {
     const user = userEvent.setup();
-    render(<Comment />);
+    render(<Comment comment={comment} />);
 
     const likeButton = screen.getByRole("button", { name: /like/i });
     await user.click(likeButton);
@@ -70,7 +71,7 @@ describe("Comment component", () => {
   });
   test("that clicking the like count button opens the like count modal", async () => {
     const user = userEvent.setup();
-    render(<Comment />);
+    render(<Comment comment={comment} />);
     const likeCountButton = screen.getByText("0");
     await user.click(likeCountButton);
 
@@ -79,7 +80,7 @@ describe("Comment component", () => {
   });
   test("that clicking the edit button works, that a new textbox appears, and that the save button works", async () => {
     const user = userEvent.setup();
-    render(<Comment />);
+    render(<Comment comment={comment} />);
 
     const editButton = screen.getByRole("button", { name: /edit/i });
     await user.click(editButton);
@@ -96,13 +97,13 @@ describe("Comment component", () => {
   });
   test("that clicking the delete button works and the comment disappears", async () => {
     const user = userEvent.setup();
-    render(<Comment />);
+    render(<Comment comment={comment} />);
 
     const deleteButton = screen.getByRole("button", { name: /delete/i });
     await user.click(deleteButton);
 
-    const comment = screen.getByRole("article");
+    const postComment = screen.getByRole("article");
     expect(deleteCommentMock).toHaveBeenCalled();
-    expect(comment).not.toBeInTheDocument();
+    expect(postComment).not.toBeInTheDocument();
   });
 });
