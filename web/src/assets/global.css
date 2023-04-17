@@ -41,6 +41,29 @@ a {
   border-radius: 0.25rem;
 }
 
+/* Style the scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0081fe;
+  border-radius: 20px;
+  border: 3px solid #121212;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #005eff;
+  border: 3px solid #005eff;
+}
+
 @keyframes skeleton-loading {
   0% {
     background: #272729;
