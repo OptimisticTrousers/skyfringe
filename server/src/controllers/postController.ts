@@ -157,15 +157,21 @@ export const post_update = [
       await s3Uploadv3(path, req.file);
     }
 
-    const updatedPost = await Post.findByIdAndUpdate(postId, {
-      content: req.body.content,
-      ...(req.file && {
-        photo: {
-          imageUrl: `${post._id}${post.author.userName}`,
-          altText: "test",
-        },
-      }),
-    });
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      {
+        content: req.body.content,
+        ...(req.file && {
+          photo: {
+            imageUrl: `${post._id}${post.author.userName}`,
+            altText: "test",
+          },
+        }),
+      },
+      { new: true }
+    ).populate("author");
+
+    console.log(updatedPost);
 
     res.status(200).json(updatedPost);
   }),

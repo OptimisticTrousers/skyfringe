@@ -12,11 +12,11 @@ const Feed = () => {
     error,
   }: any = useFetch(`${import.meta.env.VITE_API_DOMAIN}/posts`);
 
-  const [localPosts, setLocalPosts] = useState([]);
+  const [localPosts, setLocalPosts] = useState(() => posts);
 
   useEffect(() => {
     setLocalPosts(posts);
-  }, []);
+  }, [posts]);
 
   const handleDeletePost = (postId: string) => {
     setLocalPosts((prevPosts: any) => {
@@ -47,7 +47,7 @@ const Feed = () => {
           <SkeletonPost />
         </>
       )}
-      {localPosts&& (
+      {localPosts && (
         <div>
           {localPosts.map((post: PostInterface) => {
             return (
