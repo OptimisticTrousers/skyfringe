@@ -19,11 +19,12 @@
 .comment__top {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.5rem;
 }
 
 .comment__details {
   background-color: rgb(7, 6, 5);
-  padding: 1rem 0.6rem;
+  padding: 1rem 1.2rem;
   border-radius: 0.25rem;
 }
 
@@ -44,7 +45,10 @@
 
 .comment__text {
   margin: 0;
-  margin-top: 0.5rem;
+}
+
+.comment__content {
+  width: 100%;
 }
 
 .comment__actions {

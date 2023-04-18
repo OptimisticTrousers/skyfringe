@@ -4,7 +4,10 @@ import styles from "./EditComment.module.css";
 const EditCommentForm = () => {
   return (
     <form styleName="form">
-      <input styleName="form__input" />
+      <textarea
+        styleName="form__input"
+        placeholder="Edit your comment..."
+      ></textarea>
       <div styleName="form__emoji"></div>
       <button styleName="form__button" type="button">
         Save
