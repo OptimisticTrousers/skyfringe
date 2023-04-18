@@ -45,10 +45,6 @@ const nami = {
   userName: "nami",
   email: "nami@onepiece.com",
   password: "$2a$10$LireFRYIV1YJgzWeHoFG3.iVM.PMWKILHITKmgApmMEfl4fAjDgvu",
-  photo: {
-    imageUrl: `${import.meta.env.ViTE_S3_BUCKET}/users/nami.webp`,
-    altText: "Fictional character Nami from the One Piece manga",
-  },
 };
 
 const luffyPost = {
