@@ -59,7 +59,37 @@ const comment = {
 };
 
 describe("Comment component", () => {
-  test("that clicking the like button increments the like count", async () => {
+  test("that clicking the 'Like' button increments the like count", async () => {
+    const user = userEvent.setup();
+    render(<Comment comment={comment} />);
+
+    const likeButton = screen.getByRole("button", { name: /like/i });
+    await user.click(likeButton);
+    const likeCount = screen.getByText("1");
+    expect(likeCommentMock).toHaveBeenCalled();
+    expect(likeCount).toBeInTheDocument();
+  });
+  test("that when the 'likeComment' request is loading and the user has not already liked the comment, there is a 'Liking...' button that increments the like count", async () => {
+    const user = userEvent.setup();
+    render(<Comment comment={comment} />);
+
+    const likeButton = screen.getByRole("button", { name: /like/i });
+    await user.click(likeButton);
+    const likeCount = screen.getByText("1");
+    expect(likeCommentMock).toHaveBeenCalled();
+    expect(likeCount).toBeInTheDocument();
+  });
+  test("that when the 'likeComment' request is loading and the user has already liked the comment, there is a 'Unliking...' button decrements the like count", async () => {
+    const user = userEvent.setup();
+    render(<Comment comment={comment} />);
+
+    const likeButton = screen.getByRole("button", { name: /like/i });
+    await user.click(likeButton);
+    const likeCount = screen.getByText("1");
+    expect(likeCommentMock).toHaveBeenCalled();
+    expect(likeCount).toBeInTheDocument();
+  });
+  test("that clicking the 'Liked' button decrements the like count", async () => {
     const user = userEvent.setup();
     render(<Comment comment={comment} />);
 

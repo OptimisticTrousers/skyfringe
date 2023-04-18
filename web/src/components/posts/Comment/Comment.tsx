@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import useDeleteComment from "../../../hooks/useDeleteComment";
@@ -8,12 +8,37 @@ import styles from "./Comment.module.css";
 
 interface Props {
   comment: any;
+  deleteLocalComment: any;
+  editLocalComment: any;
 }
 
-const Comment: FC<Props> = ({ comment }) => {
+const Comment: FC<Props> = ({
+  comment,
+  editLocalComment,
+  deleteLocalComment,
+}) => {
   const { updateComment, loading: updateLoading } = useUpdateComment();
   const { deleteComment, loading: deleteLoading } = useDeleteComment();
   const { likeComment, loading: likeLoading } = useLikeComment();
+
+  const [commentText, setCommentText] = useState(false);
+
+  const handleCommentText = (event: any) => {
+    setCommentText(event.target.value);
+  };
+
+  const handleUpdateComment = () => {
+    const updatedComment = updateComment(comment._id, comment.post, {
+      content: "bob",
+    });
+    editLocalComment(comment._id, updatedComment);
+  };
+
+  const handleDeleteComment = () => {
+    const commentId = comment._id;
+    deleteComment(commentId, comment.post);
+    deleteLocalComment(commentId);
+  };
 
   return (
     <article styleName="comment">
@@ -49,10 +74,17 @@ const Comment: FC<Props> = ({ comment }) => {
               </button>
             </div>
             <div styleName="comment__options">
-              <button styleName="comment__button comment__button--edit">
+              <button
+                styleName="comment__button comment__button--edit"
+                onClick={handleUpdateComment}
+              >
                 Edit
               </button>
-              <button styleName="comment__button comment__button--delete">
+              <button
+                styleName="comment__button comment__button--delete"
+                onClick={handleDeleteComment}
+                data-testid={`delete-${comment._id}`}
+              >
                 Delete
               </button>
             </div>
