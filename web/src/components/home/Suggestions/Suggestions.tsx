@@ -19,7 +19,7 @@ const Suggestions = () => {
           <Avatar
             src={"/images/optimistictrousers.jpg"}
             alt="user avatar"
-            size={"sm"}
+            size={"md"}
           />
           <p styleName="suggestions__subtitle">Sarah Tancredia</p>
         </div>

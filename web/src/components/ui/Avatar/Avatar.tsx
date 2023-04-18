@@ -17,6 +17,9 @@ const Avatar: FC<Props> = ({ src, alt, size }) => {
     case "lg":
       sizeClass = "avatar__image--large";
       break;
+    case "md":
+      sizeClass = "avatar__image--medium";
+      break;
     case "sm":
       sizeClass = "avatar__image--small";
       break;

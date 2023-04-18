@@ -99,7 +99,7 @@ const Aside = () => {
                   <Avatar
                     src={user?.photo?.imageUrl}
                     alt={"user avatar"}
-                    size={"sm"}
+                    size={"md"}
                   />
                   <div styleName="aside__details">
                     <h2 styleName="aside__name">{user?.fullName}</h2>

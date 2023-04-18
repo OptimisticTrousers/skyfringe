@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import useDeleteComment from "../../../hooks/useDeleteComment";
 import useLikeComment from "../../../hooks/useLikeComment";
 import useUpdateComment from "../../../hooks/useUpdateComment";
+import { Avatar } from "../../ui";
 import styles from "./Comment.module.css";
 
 interface Props {
@@ -46,6 +47,11 @@ const Comment: FC<Props> = ({
         <img
           src="/images/optimistictrousers.jpg"
           styleName="comment__avatar comment__avatar--comment"
+        />
+        <Avatar
+          src={"/images/optimistictrousers.jpg"}
+          alt={"user avatar"}
+          size={"sm"}
         />
         <div styleName="comment__content">
           <div styleName="comment__details">
