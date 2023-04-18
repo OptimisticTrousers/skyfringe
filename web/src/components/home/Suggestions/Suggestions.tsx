@@ -1,7 +1,7 @@
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import { SkeletonSuggestion } from "../../skeletons";
-import { Card } from "../../ui";
+import { Avatar, Card } from "../../ui";
 import styles from "./Suggestions.module.css";
 
 const Suggestions = () => {
@@ -16,9 +16,10 @@ const Suggestions = () => {
       <SkeletonSuggestion />
       <div styleName="suggestions__suggestion">
         <div styleName="suggestions__user">
-          <img
-            styleName="suggestions__avatar"
-            src="/images/optimistictrousers.jpg"
+          <Avatar
+            src={"/images/optimistictrousers.jpg"}
+            alt="user avatar"
+            size={"sm"}
           />
           <p styleName="suggestions__subtitle">Sarah Tancredia</p>
         </div>

@@ -9,7 +9,7 @@ import useCreateComment from "../../../hooks/useCreateComment";
 import useLikePost from "../../../hooks/useLikePost";
 import getTimeAgo from "../../../utils/getTimeAgo";
 import userImageFallback from "../../../utils/userImageFallback";
-import { Card } from "../../ui";
+import { Avatar, Card } from "../../ui";
 import CommentForm from "../CommentForm";
 import Comments from "../Comments";
 import MoreOptionsDropdown from "../MoreOptionsDropdown";
@@ -125,15 +125,13 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
         <article>
           <div styleName="post__top">
             <div styleName="post__container">
-              <Link to={`users/${post.author._id}`} styleName="post__link">
-                <img
+              <Link to={`users/${post.author._id}`}>
+                <Avatar
                   src={post.author.photo?.imageUrl}
-                  styleName="post__avatar"
-                  onError={userImageFallback}
                   alt={post.author.photo?.altText}
+                  size={"lg"}
                 />
               </Link>
-
               <div styleName="post__details">
                 <Link to={`users/${post.author._id}`}>
                   <h3 styleName="post__author">{post.author.fullName}</h3>

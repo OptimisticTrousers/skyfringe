@@ -6,7 +6,7 @@ import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { IoIosPeople, IoMdNotifications } from "react-icons/io";
 import { RiMoonClearFill, RiSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { Logo } from "../../components/ui";
+import { Avatar, Logo } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useLogout from "../../hooks/useLogout";
 import userImageFallback from "../../utils/userImageFallback";
@@ -93,14 +93,13 @@ const Aside = () => {
           </ul>
           <ul styleName="aside__list">
             <p styleName="aside__subtitle">Account</p>
-            <Link to="/profile">
+            <Link to={`users/${user._id}`}>
               <li styleName="aside__item">
                 <div styleName="aside__user">
-                  <img
+                  <Avatar
                     src={user?.photo?.imageUrl}
-                    styleName="aside__avatar"
-                    onError={userImageFallback}
                     alt={"user avatar"}
+                    size={"sm"}
                   />
                   <div styleName="aside__details">
                     <h2 styleName="aside__name">{user?.fullName}</h2>

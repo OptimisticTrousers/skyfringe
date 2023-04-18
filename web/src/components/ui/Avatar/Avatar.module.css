@@ -1,0 +1,20 @@
+.avatar:hover {
+  opacity: 0.6;
+}
+
+.avatar__image {
+  border-radius: 16px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  margin-right: 12px;
+}
+
+.avatar__image--large {
+  height: 80px;
+  width: 80px;
+}
+
+.avatar__image--small {
+  height: 60px;
+  width: 60px;
+}
