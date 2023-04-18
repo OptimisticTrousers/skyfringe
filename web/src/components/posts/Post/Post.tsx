@@ -16,6 +16,7 @@ import MoreOptionsDropdown from "../MoreOptionsDropdown";
 import { Post as PostInterface } from "../../../types";
 import styles from "./Post.module.css";
 import { useFetch } from "../../../hooks/useFetch";
+import { LikesModal } from "../../modals";
 
 interface Props {
   post: any;
@@ -30,6 +31,7 @@ const Post: FC<Props> = ({ post }) => {
     post.likes.find((like: any) => like._id === user._id)
   );
   const [likesCount, setLikesCount] = useState(post.likes.length);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { likePost, loading: likeLoading } = useLikePost();
   const { createComment, loading: commentLoading } = useCreateComment();
 
@@ -40,6 +42,10 @@ const Post: FC<Props> = ({ post }) => {
   }: any = useFetch(
     `${import.meta.env.VITE_API_DOMAIN}/posts/${post._id}/comments`
   );
+
+  const toggleModal = () => {
+    setIsModalOpen((prevValue) => !prevValue);
+  };
 
   const toggleForm = () => {
     setIsCommentFormOpen((prevValue) => !prevValue);
@@ -81,107 +87,115 @@ const Post: FC<Props> = ({ post }) => {
   };
 
   return (
-    <Card>
-      <article>
-        <div styleName="post__top">
-          <div styleName="post__container">
-            <Link to={`users/${post.author._id}`} styleName="post__link">
-              <img
-                src={post.author.photo?.imageUrl}
-                styleName="post__avatar"
-                onError={userImageFallback}
-                alt={post.author.photo?.altText}
-              />
-            </Link>
-
-            <div styleName="post__details">
-              <Link to={`users/${post.author._id}`}>
-                <h3 styleName="post__author">{post.author.fullName}</h3>
+    <>
+      <Card>
+        <article>
+          <div styleName="post__top">
+            <div styleName="post__container">
+              <Link to={`users/${post.author._id}`} styleName="post__link">
+                <img
+                  src={post.author.photo?.imageUrl}
+                  styleName="post__avatar"
+                  onError={userImageFallback}
+                  alt={post.author.photo?.altText}
+                />
               </Link>
-              <h4 styleName="post__username">@{post.author.userName}</h4>
-              <p styleName="post__date">
-                <BiTime />
-                <span styleName="post__time">{getTimeAgo(post.createdAt)}</span>
-              </p>
+
+              <div styleName="post__details">
+                <Link to={`users/${post.author._id}`}>
+                  <h3 styleName="post__author">{post.author.fullName}</h3>
+                </Link>
+                <h4 styleName="post__username">@{post.author.userName}</h4>
+                <p styleName="post__date">
+                  <BiTime />
+                  <span styleName="post__time">
+                    {getTimeAgo(post.createdAt)}
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div styleName="post__actions">
+              {post?.author._id === user?._id && (
+                <MoreOptionsDropdown
+                  post={post}
+                  closeDropdown={closeDropdown}
+                  toggleDropdown={toggleDropdown}
+                  isDropdownOpen={isDropdownOpen}
+                />
+              )}
+              <BsBookmark styleName="post__icon post__icon--bookmark" />
             </div>
           </div>
-          <div styleName="post__actions">
-            {post?.author._id === user?._id && (
-              <MoreOptionsDropdown
-                post={post}
-                closeDropdown={closeDropdown}
-                toggleDropdown={toggleDropdown}
-                isDropdownOpen={isDropdownOpen}
+          <div styleName="post__content">
+            <p styleName="post__description">{post.content}</p>
+            {post?.photo?.imageUrl && (
+              <img
+                src={post.photo?.imageUrl}
+                styleName="post__image"
+                alt={post.photo?.altText}
               />
             )}
-            <BsBookmark styleName="post__icon post__icon--bookmark" />
-          </div>
-        </div>
-        <div styleName="post__content">
-          <p styleName="post__description">{post.content}</p>
-          {post?.photo?.imageUrl && (
-            <img
-              src={post.photo?.imageUrl}
-              styleName="post__image"
-              alt={post.photo?.altText}
+            <div styleName="post__between">
+              <button
+                styleName="post__button post__button--likes"
+                onClick={toggleModal}
+              >
+                <img
+                  styleName="post__icon post__icon--heart"
+                  src="/images/heart.png"
+                />
+                <span styleName="post__count">
+                  {likesCount === 1 ? "1 like" : `${likesCount} likes`}
+                </span>
+              </button>
+              <button
+                styleName={`post__button post__button--comments ${
+                  !comments && "post__button--disabled"
+                }`}
+                onClick={toggleComments}
+                disabled={!comments}
+              >
+                {!comments && "0 comments"}
+                {comments?.length === 1 && "1 comment"}
+                {comments?.length > 1 && `${comments.length} comment`}
+              </button>
+            </div>
+            <Comments
+              isCommentsOpen={isCommentsOpen}
+              comments={comments}
+              loading={loading}
+              error={error}
             />
-          )}
-          <div styleName="post__between">
-            <button styleName="post__button post__button--likes">
-              <img
-                styleName="post__icon post__icon--heart"
-                src="/images/heart.png"
-              />
-              <span styleName="post__count">
-                {likesCount === 1 ? "1 like" : `${likesCount} likes`}
-              </span>
+          </div>
+          <div styleName="post__buttons">
+            <button
+              styleName="post__button post__button--like"
+              onClick={handleLike}
+              disabled={likeLoading}
+            >
+              <AiOutlineLike styleName="post__icon post__icon--control" />
+              <span styleName="post__name">{likeButtonText()}</span>
+              {/* <span styleName="post__number">1</span> */}
             </button>
             <button
-              styleName={`post__button post__button--comments ${
-                !comments && "post__button--disabled"
-              }`}
-              onClick={toggleComments}
-              disabled={!comments}
+              styleName="post__button post__button--comment"
+              onClick={toggleForm}
             >
-              {!comments && "0 comments"}
-              {comments?.length === 1 && "1 comment"}
-              {comments?.length > 1 && `${comments.length} comment`}
+              <BiCommentDetail styleName="post__icon post__icon--control" />
+              <span styleName="post__name">Comment</span>
+              {/* <span styleName="post__number">45</span> */}
             </button>
           </div>
-          <Comments
-            isCommentsOpen={isCommentsOpen}
-            comments={comments}
-            loading={loading}
-            error={error}
+          <CommentForm
+            isCommentFormOpen={isCommentFormOpen}
+            commentLoading={commentLoading}
+            createComment={createComment}
+            postId={post._id}
           />
-        </div>
-        <div styleName="post__buttons">
-          <button
-            styleName="post__button post__button--like"
-            onClick={handleLike}
-            disabled={likeLoading}
-          >
-            <AiOutlineLike styleName="post__icon post__icon--control" />
-            <span styleName="post__name">{likeButtonText()}</span>
-            {/* <span styleName="post__number">1</span> */}
-          </button>
-          <button
-            styleName="post__button post__button--comment"
-            onClick={toggleForm}
-          >
-            <BiCommentDetail styleName="post__icon post__icon--control" />
-            <span styleName="post__name">Comment</span>
-            {/* <span styleName="post__number">45</span> */}
-          </button>
-        </div>
-        <CommentForm
-          isCommentFormOpen={isCommentFormOpen}
-          commentLoading={commentLoading}
-          createComment={createComment}
-          postId={post._id}
-        />
-      </article>
-    </Card>
+        </article>
+      </Card>
+      {isModalOpen && <LikesModal toggleModal={toggleModal} post={post} />}
+    </>
   );
 };
 

@@ -38,7 +38,10 @@ const LikesModal = ({ toggleModal, post }: any) => {
                       alt={like?.photo?.altText || "Anonymous user avatar"}
                     />
                   </Link>
-                  <Link to="/bob" styleName="modal__link modal__link--user">
+                  <Link
+                    to={`/users/${like._id}`}
+                    styleName="modal__link modal__link--user"
+                  >
                     {like.fullName}
                   </Link>
                 </li>
