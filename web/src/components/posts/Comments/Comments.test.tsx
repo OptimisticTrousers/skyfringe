@@ -7,7 +7,14 @@ describe("Comments component", () => {
   it("renders closed when isCommentsOpen is false", () => {
     render(
       <BrowserRouter>
-        <Comments isCommentsOpen={false} />
+        <Comments
+          isCommentsOpen={false}
+          comments={[]}
+          loading={false}
+          error={null}
+          deleteLocalComment={vi.fn}
+          editLocalComment={vi.fn}
+        />
       </BrowserRouter>
     );
     const comments = screen.getByTestId("comments");
@@ -18,11 +25,18 @@ describe("Comments component", () => {
   it("renders open when isCommentsOpen is true", () => {
     render(
       <BrowserRouter>
-        <Comments isCommentsOpen={true} />
+        <Comments
+          isCommentsOpen={true}
+          comments={[]}
+          loading={false}
+          error={null}
+          deleteLocalComment={vi.fn}
+          editLocalComment={vi.fn}
+        />
       </BrowserRouter>
     );
     const comments = screen.getByTestId("comments");
-    expect(comments).toHaveStyle({ maxHeight: "100vh" });
+    expect(comments).toHaveStyle({ maxHeight: "50vh", overflowY: "scroll" });
     expect(comments).toBeVisible();
   });
 });
