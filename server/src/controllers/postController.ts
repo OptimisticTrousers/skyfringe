@@ -17,6 +17,7 @@ export const post_list = (req: Request, res: Response, next: NextFunction) => {
   Post.find({})
     .sort({ createdAt: 1 })
     .populate("author")
+    .populate("likes")
     .exec()
     .then((posts) => {
       res.json(posts);
