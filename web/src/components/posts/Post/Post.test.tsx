@@ -71,9 +71,11 @@ const zoroPost = {
   },
 };
 
+const luffyCommentId = "4c8a331bda76c559ef000014";
+
 // luffy's comment on zoro's post
 const luffyComment = {
-  _id: "4c8a331bda76c559ef000014",
+  _id: luffyCommentId,
   post: zoroPostId,
   author: luffyId,
   content: "Four-Sword Style",
@@ -128,6 +130,22 @@ vi.mock("../../../hooks/useCreateComment", () => {
       createComment: createCommentMock,
       loading: mockCreateCommentLoading,
       error: mockCreateCommentError,
+    })),
+  };
+});
+
+const deleteCommentMock = vi.fn().mockReturnValue({
+  luffyComment,
+});
+let deleteCommentLoading: any;
+let deleteCommentError: any;
+
+vi.mock("../../../hooks/useDeleteComment", () => {
+  return {
+    default: vi.fn(() => ({
+      deleteComment: deleteCommentMock,
+      loading: deleteCommentLoading,
+      error: deleteCommentMock,
     })),
   };
 });
@@ -354,43 +372,14 @@ describe("Post component", () => {
 
       await user.click(commentsDropdownButton);
 
-      const commentsButton = screen.getByRole("button", { name: "2 comments" });
-
-      const commentsDeleteButton = screen.getAllByRole("button", {
-        name: "Comment",
-      })[0];
-
+      const commentsDeleteButton = screen.getByTestId(
+        `delete-${luffyCommentId}`
+      );
       await user.click(commentsDeleteButton);
-      expect(commentsButton).toHaveTextContent("1 comment");
+
+      expect(deleteCommentMock).toHaveBeenCalled();
+      const commentsButton = screen.getByRole("button", { name: "1 comment" });
+      expect(commentsButton).toBeInTheDocument();
     });
-    // test("if the comment count does not change if a comment is edited", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: nami }}>
-    //         <Post post={zoroPost} />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
-
-    //   const commentsEditButton = screen.getAllByRole("button", {
-    //     name: "Edit",
-    //   })[0];
-    //   await user.click(commentsEditButton);
-
-    //   const commentsInput = screen.getByRole("textbox");
-    //   await user.type(commentsInput, "test post");
-
-    //   const commentSaveButton = screen.getByRole("button", { name: "Save" });
-    //   await user.click(commentSaveButton);
-    //   const commentsButton = screen.getByRole("button", { name: "3 comments" });
-    //   expect(commentsButton).toBeInTheDocument();
-    // });
-    // test("that deleting the post gets rid of the post in local state", () => {
-
-    // })
-    // test("that editing the post updates the post in local state", () => {
-
-    // })
   });
 });

@@ -55,6 +55,25 @@ const Post: FC<Props> = ({ post }) => {
     });
   };
 
+  const deleteLocalComment = (commentId: string) => {
+    setLocalComments((prevComments: any) => {
+      return prevComments.filter(
+        (prevComment: any) => prevComment._id !== commentId
+      );
+    });
+  };
+
+  const editLocalComment = (commentId: string, commentData: any) => {
+    setLocalComments((prevComments: any) => {
+      return prevComments.map((prevComment: any) => {
+        if (prevComment._id === commentId) {
+          return { ...prevComment, commentData };
+        }
+        return prevComment;
+      });
+    });
+  };
+
   const toggleModal = () => {
     setIsModalOpen((prevValue) => !prevValue);
   };
@@ -178,6 +197,8 @@ const Post: FC<Props> = ({ post }) => {
               comments={localComments}
               loading={loading}
               error={error}
+              deleteLocalComment={deleteLocalComment}
+              editLocalComment={editLocalComment}
             />
           </div>
           <div styleName="post__buttons">
