@@ -5,10 +5,11 @@ import styles from "./EditCommentForm.module.css";
 interface Props {
   handleUpdateComment: any;
   loading: any;
+  text: any;
 }
 
-const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading }) => {
-  const [commentText, setCommentText] = useState("");
+const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading, text }) => {
+  const [commentText, setCommentText] = useState(text);
 
   const handleCommentText = (event: any) => {
     setCommentText(event.target.value);
@@ -17,6 +18,8 @@ const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading }) => {
   const handleSubmit = () => {
     handleUpdateComment(commentText);
   };
+
+  const disabled = loading || commentText.length === 0;
 
   return (
     <form styleName="form" onSubmit={handleSubmit}>
@@ -27,7 +30,7 @@ const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading }) => {
         value={commentText}
       ></textarea>
       <div styleName="form__emoji"></div>
-      <button styleName="form__button" type="submit" disabled={loading}>
+      <button styleName="form__button" type="submit" disabled={disabled}>
         {loading ? "Saving..." : "Save"}
       </button>
     </form>
