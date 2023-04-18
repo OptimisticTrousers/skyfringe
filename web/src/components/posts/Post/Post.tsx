@@ -15,7 +15,7 @@ import Comments from "../Comments";
 import MoreOptionsDropdown from "../MoreOptionsDropdown";
 import { Post as PostInterface } from "../../../types";
 import styles from "./Post.module.css";
-import { useFetch } from "../../../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch";
 import { LikesModal } from "../../modals";
 
 interface Props {
@@ -157,7 +157,7 @@ const Post: FC<Props> = ({ post }) => {
               >
                 {!comments && "0 comments"}
                 {comments?.length === 1 && "1 comment"}
-                {comments?.length > 1 && `${comments.length} comment`}
+                {comments?.length > 1 && `${comments.length} comments`}
               </button>
             </div>
             <Comments

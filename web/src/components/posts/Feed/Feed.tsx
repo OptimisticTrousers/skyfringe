@@ -1,4 +1,4 @@
-import { useFetch } from "../../../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch";
 import { SkeletonPost } from "../../skeletons";
 import { ErrorMessage } from "../../ui";
 import Post from "../Post";
