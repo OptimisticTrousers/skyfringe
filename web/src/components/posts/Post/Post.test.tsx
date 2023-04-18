@@ -156,5 +156,95 @@ describe("Post component", () => {
 
       expect(likeButton).toHaveAccessibleName("2 likes");
     });
+    test("if it renders the correct text if loading", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: correctUser }}>
+            <Post post={mockPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+      const likeButton = screen.getByRole("button", { name: "Liking.." });
+      expect(likeButton).toBeInTheDocument();
+    });
+    test("if it renders the correct text if liked", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: correctUser }}>
+            <Post post={mockPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+      const likeButton = screen.getByRole("button", { name: "Liked" });
+      expect(likeButton).toBeInTheDocument();
+    });
+    test("if it increases the amount of comments when one is created", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: correctUser }}>
+            <Post post={mockPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+
+      const commentsDropdownButton = screen.getByRole("button", {
+        name: "Comment",
+      });
+
+      await user.click(commentsDropdownButton);
+
+      const commentsInput = screen.getByRole("textbox");
+
+      await user.type(commentsInput, "test post");
+
+      const commentSaveButton = screen.getByRole("button", { name: "Post" });
+      await user.click(commentSaveButton);
+      const commentsButton = screen.getByRole("button", { name: "4 comments" });
+      expect(commentsButton).toBeInTheDocument();
+    });
+    test("if it decreases the amount of comments when one is deleted", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: correctUser }}>
+            <Post post={mockPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+
+      const commentsDeleteButton = screen.getAllByRole("button", {
+        name: "Comment",
+      })[0];
+
+      await user.click(commentsDeleteButton);
+      const commentsButton = screen.getByRole("button", { name: "2 comments" });
+      expect(commentsButton).toBeInTheDocument();
+    });
+    test("if the comment count does not change if a comment is edited", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: correctUser }}>
+            <Post post={mockPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+
+      const commentsEditButton = screen.getAllByRole("button", {
+        name: "Edit",
+      })[0];
+      await user.click(commentsEditButton);
+
+      const commentsInput = screen.getByRole("textbox");
+      await user.type(commentsInput, "test post");
+
+      const commentSaveButton = screen.getByRole("button", { name: "Save" });
+      await user.click(commentSaveButton);
+      const commentsButton = screen.getByRole("button", { name: "3 comments" });
+      expect(commentsButton).toBeInTheDocument();
+    });
   });
 });

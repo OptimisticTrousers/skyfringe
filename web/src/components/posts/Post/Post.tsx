@@ -18,7 +18,7 @@ import styles from "./Post.module.css";
 import { useFetch } from "../../../hooks/useFetch";
 
 interface Props {
-  post: PostInterface;
+  post: any;
 }
 
 const Post: FC<Props> = ({ post }) => {
@@ -26,7 +26,11 @@ const Post: FC<Props> = ({ post }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-  const { likePost, loading: postLoading } = useLikePost();
+  const [isLiked, setIsLiked] = useState(() =>
+    post.likes.find((like: any) => like._id === user._id)
+  );
+  const [likesCount, setLikesCount] = useState(post.likes.length);
+  const { likePost, loading: likeLoading } = useLikePost();
   const { createComment, loading: commentLoading } = useCreateComment();
 
   const {
@@ -53,8 +57,27 @@ const Post: FC<Props> = ({ post }) => {
     setIsDropdownOpen(false);
   };
 
-  const handleLike = () => {
-    likePost(post._id);
+  const handleLike = async () => {
+    await likePost(post._id);
+    if (isLiked) {
+      // Unlike the post
+      setIsLiked(false);
+      setLikesCount((likeCount: number) => likeCount - 1);
+    } else {
+      setIsLiked(true);
+      setLikesCount((likeCount: number) => likeCount + 1);
+    }
+  };
+
+  const likeButtonText = () => {
+    if (likeLoading && isLiked) {
+      return "Unliking...";
+    } else if (likeLoading && !isLiked) {
+      return "Liking...";
+    } else if (isLiked) {
+      return "Liked";
+    }
+    return "Like";
   };
 
   return (
@@ -110,13 +133,13 @@ const Post: FC<Props> = ({ post }) => {
                 src="/images/heart.png"
               />
               <span styleName="post__count">
-                {post?.likes.length === 1
-                  ? "1 like"
-                  : `${post?.likes.length} likes`}
+                {likesCount === 1 ? "1 like" : `${likesCount} likes`}
               </span>
             </button>
             <button
-              styleName={`post__button post__button--comments ${!comments && "post__button--disabled"}`}
+              styleName={`post__button post__button--comments ${
+                !comments && "post__button--disabled"
+              }`}
               onClick={toggleComments}
               disabled={!comments}
             >
@@ -136,11 +159,10 @@ const Post: FC<Props> = ({ post }) => {
           <button
             styleName="post__button post__button--like"
             onClick={handleLike}
+            disabled={likeLoading}
           >
             <AiOutlineLike styleName="post__icon post__icon--control" />
-            <span styleName="post__name">
-              {postLoading ? "Liking..." : "Like"}
-            </span>
+            <span styleName="post__name">{likeButtonText()}</span>
             {/* <span styleName="post__number">1</span> */}
           </button>
           <button

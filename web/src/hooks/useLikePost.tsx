@@ -11,9 +11,9 @@ const useLikePost = () => {
       `${import.meta.env.VITE_API_DOMAIN}/posts/${postId}/likes`
     );
     if (response) {
-      showToast("success", "You have successfully liked a post!");
+      showToast("success", "You have successfully liked/unliked a post!");
     } else if (error) {
-      showToast("error", "An error occured while liking the post.");
+      showToast("error", "An error occured while liking/unliking the post.");
     }
     return response;
   };
