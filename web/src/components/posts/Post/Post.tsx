@@ -75,7 +75,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     setLocalComments((prevComments: any) => {
       return prevComments.map((prevComment: any) => {
         if (prevComment._id === commentId) {
-          return { ...prevComment, commentData };
+          return commentData;
         }
         return prevComment;
       });
@@ -236,7 +236,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
           />
         </article>
       </Card>
-      {isModalOpen && <LikesModal toggleModal={toggleModal} post={post} />}
+      {isModalOpen && <LikesModal toggleModal={toggleModal} data={post} />}
     </>
   );
 };

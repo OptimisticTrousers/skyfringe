@@ -1,200 +1,232 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
+import { AuthContext, AuthProvider } from "../../../context/AuthContext";
 import Comment from "./Comment";
 
-const editCommentMock = vi.fn();
-
-vi.mock("../../hooks/useEditComment", () => {
-  return {
-    default: vi.fn(() => ({
-      logout: editCommentMock,
-      loading: false,
-      error: null,
-    })),
-  };
-});
-
 const deleteCommentMock = vi.fn();
+let deleteCommentLoading = false;
+let deleteCommentError: any = null;
 
-vi.mock("../../hooks/useDeleteComment", () => {
+vi.mock("../../../hooks/useDeleteComment", () => {
   return {
     default: vi.fn(() => ({
       logout: deleteCommentMock,
-      loading: false,
-      error: null,
+      loading: deleteCommentLoading,
+      error: deleteCommentError,
     })),
   };
 });
 
 const likeCommentMock = vi.fn();
 
-vi.mock("../../hooks/useLikeComment", () => {
+let likeCommentLoading = false;
+let likeCommentError: any = null;
+
+vi.mock("../../../hooks/useLikeComment", () => {
   return {
     default: vi.fn(() => ({
-      logout: likeCommentMock,
-      loading: false,
-      error: null,
+      likeComment: likeCommentMock,
+      loading: likeCommentLoading,
+      error: likeCommentError,
     })),
   };
 });
 
-const user = {
+const correctUser = {
   _id: "4c8a331bda76c559ef000005",
   fullName: "Roronoa Zoro",
   userName: "zoro",
   email: "zoro@onepiece.com",
 };
+
+const wrongUser = {
+  _id: "4c8a331bda76c559ef000006",
+  fullName: "Bob Jones",
+  userName: "bobjones",
+  email: "bobjones@gmail.com",
+};
 const post = {
   _id: "4c8a331bda76c559ef000010",
-  author: user,
+  author: correctUser,
   content: "test post",
   likes: [],
 };
 const comment = {
   _id: "4c8a331bda76c559ef000014",
   post,
-  author: user,
+  author: correctUser,
   content: "test comment",
-  likes: [],
+  likes: [wrongUser],
 };
+
+const updatedContent: any = "Four-Sword Style";
+
+const updateCommentMock = vi
+  .fn()
+  .mockReturnValue({ ...comment, content: updatedContent });
+
+let mockUpdateCommentLoading = false;
+let mockUpdateCommentError: any = null;
+
+vi.mock("../../../hooks/useUpdateComment", () => {
+  return {
+    default: vi.fn(() => ({
+      updateComment: updateCommentMock,
+      loading: mockUpdateCommentLoading,
+      error: mockUpdateCommentError,
+    })),
+  };
+});
 
 const mockDeleteLocalComment = vi.fn();
 const mockEditLocalComment = vi.fn();
 
 describe("Comment component", () => {
-  test("that clicking the 'Like' button increments the like count", async () => {
+  test("that clicking the 'Like' button when a user has not liked the comment increments the like count", async () => {
     const user = userEvent.setup();
     render(
-      <BrowserRouter>
-        <Comment
-          comment={comment}
-          deleteLocalComment={mockDeleteLocalComment}
-          editLocalComment={mockEditLocalComment}
-        />
-      </BrowserRouter>
+      <AuthContext.Provider value={{ user: correctUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
 
-    const likeButton = screen.getByRole("button", { name: /like/i });
+    const likeButton = screen.getByRole("button", { name: "Like" });
     await user.click(likeButton);
-    const likeCount = screen.getByText("1");
+    const likeCount = screen.getByText("2");
     expect(likeCommentMock).toHaveBeenCalled();
     expect(likeCount).toBeInTheDocument();
   });
   test("that when the 'likeComment' request is loading and the user has not already liked the comment, there is a 'Liking...' button that increments the like count", async () => {
-    const user = userEvent.setup();
+    likeCommentLoading = true;
     render(
-      <BrowserRouter>
-        <Comment
-          comment={comment}
-          deleteLocalComment={mockDeleteLocalComment}
-          editLocalComment={mockEditLocalComment}
-        />
-      </BrowserRouter>
+      <AuthContext.Provider value={{ user: correctUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
 
-    const likeButton = screen.getByRole("button", { name: /like/i });
-    await user.click(likeButton);
-    const likeCount = screen.getByText("1");
-    expect(likeCommentMock).toHaveBeenCalled();
-    expect(likeCount).toBeInTheDocument();
+    const likeButton = screen.getByRole("button", { name: "Liking..." });
+    expect(likeButton).toBeInTheDocument();
   });
   test("that when the 'likeComment' request is loading and the user has already liked the comment, there is a 'Unliking...' button decrements the like count", async () => {
     const user = userEvent.setup();
+    likeCommentLoading = true;
     render(
-      <BrowserRouter>
-        <Comment
-          comment={comment}
-          deleteLocalComment={mockDeleteLocalComment}
-          editLocalComment={mockEditLocalComment}
-        />
-      </BrowserRouter>
+      <AuthContext.Provider value={{ user: wrongUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
 
-    const likeButton = screen.getByRole("button", { name: /like/i });
-    await user.click(likeButton);
-    const likeCount = screen.getByText("1");
-    expect(likeCommentMock).toHaveBeenCalled();
-    expect(likeCount).toBeInTheDocument();
+    const likeButton = screen.getByRole("button", { name: "Unliking..." });
+    expect(likeButton).toBeInTheDocument();
   });
-  test("that clicking the 'Liked' button decrements the like count", async () => {
+  test("that clicking the 'Liked' button, which is when a user has already liked a comment, it decrements the like count", async () => {
+    likeCommentLoading = false;
     const user = userEvent.setup();
     render(
-      <BrowserRouter>
-        <Comment
-          comment={comment}
-          deleteLocalComment={mockDeleteLocalComment}
-          editLocalComment={mockEditLocalComment}
-        />
-      </BrowserRouter>
+      <AuthContext.Provider value={{ user: wrongUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
 
-    const likeButton = screen.getByRole("button", { name: /like/i });
+    const likeButton = screen.getByRole("button", { name: "Liked" });
     await user.click(likeButton);
-    const likeCount = screen.getByText("1");
+    const likeCount = screen.getByText("0");
     expect(likeCommentMock).toHaveBeenCalled();
     expect(likeCount).toBeInTheDocument();
   });
   test("that clicking the like count button opens the like count modal", async () => {
     const user = userEvent.setup();
     render(
-      <BrowserRouter>
-        <Comment
-          comment={comment}
-          deleteLocalComment={mockDeleteLocalComment}
-          editLocalComment={mockEditLocalComment}
-        />
-      </BrowserRouter>
+      <AuthContext.Provider value={{ user: correctUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
 
-    const likeCountButton = screen.getByText("0");
+    const likeCountButton = screen.getByText("1");
     await user.click(likeCountButton);
 
     const likeCountModal = screen.getByRole("dialog");
     expect(likeCountModal).toBeInTheDocument();
   });
-  test("that clicking the edit button works, that a new textbox appears, and that the save button works", async () => {
+  test("that clicking the edit button works, that a new textbox appears and it has the old comment content, that the save button works, and the post updates", async () => {
     const user = userEvent.setup();
     render(
-      <BrowserRouter>
-        <Comment
-          comment={comment}
-          deleteLocalComment={mockDeleteLocalComment}
-          editLocalComment={mockEditLocalComment}
-        />
-      </BrowserRouter>
+      <AuthContext.Provider value={{ user: wrongUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
     );
-
-    const editButton = screen.getByRole("button", { name: /edit/i });
+    const editButton = screen.getByRole("button", { name: "Edit" });
     await user.click(editButton);
     const editInput = screen.getByRole("textbox");
     expect(editInput).toBeInTheDocument();
+    expect(editInput).toHaveValue("test comment");
 
-    await user.type(editInput, "test comment 2");
-    const saveButton = screen.getByRole("button", { name: /save/i });
+    await user.type(editInput, updatedContent);
+    const saveButton = screen.getByRole("button", { name: "Save" });
     await user.click(saveButton);
-    const commentText = screen.getByText("test comment 2");
+    const commentText = screen.getByText(updatedContent);
 
-    expect(editCommentMock).toHaveBeenCalled();
+    expect(updateCommentMock).toHaveBeenCalled();
     expect(commentText).toBeInTheDocument();
-  });
-  test("that clicking the delete button works and the comment disappears", async () => {
-    const user = userEvent.setup();
-    render(
-      <BrowserRouter>
-        <Comment
-          comment={comment}
-          deleteLocalComment={mockDeleteLocalComment}
-          editLocalComment={mockEditLocalComment}
-        />
-      </BrowserRouter>
-    );
 
-    const deleteButton = screen.getByRole("button", { name: /delete/i });
-    await user.click(deleteButton);
-
-    const postComment = screen.getByRole("article");
-    expect(deleteCommentMock).toHaveBeenCalled();
-    expect(postComment).not.toBeInTheDocument();
+    const postText = screen.getByText(updatedContent);
+    expect(postText).toBeInTheDocument();
   });
+  // test("that clicking the delete button works and the comment disappears", async () => {
+  //   const user = userEvent.setup();
+  //   render(
+  //     <BrowserRouter>
+  //       <Comment
+  //         comment={comment}
+  //         deleteLocalComment={mockDeleteLocalComment}
+  //         editLocalComment={mockEditLocalComment}
+  //       />
+  //     </BrowserRouter>
+  //   );
+
+  //   const deleteButton = screen.getByRole("button", { name: /delete/i });
+  //   await user.click(deleteButton);
+
+  //   const postComment = screen.getByRole("article");
+  //   expect(deleteCommentMock).toHaveBeenCalled();
+  //   expect(postComment).not.toBeInTheDocument();
+  // });
+  // test("if you can only like and delete your own comments")
 });

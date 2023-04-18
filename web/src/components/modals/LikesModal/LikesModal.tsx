@@ -7,11 +7,11 @@ import styles from "./LikesModal.module.css";
 
 interface Props {
   toggleModal: () => void;
-  post: any;
+  data: any;
 }
 
-const LikesModal = ({ toggleModal, post }: any) => {
-  const likeCount = post.likes.length;
+const LikesModal = ({ toggleModal, data}: any) => {
+  const likeCount = data.likes.length;
   return (
     <ModalContainer title="Likes" toggleModal={toggleModal}>
       <div styleName="modal">
@@ -25,7 +25,7 @@ const LikesModal = ({ toggleModal, post }: any) => {
         </div>
         <div styleName="modal__users">
           <ul styleName="modal__list">
-            {post.likes.map((like: any) => {
+            {data.likes.map((like: any) => {
               return (
                 <li styleName="modal__item" key={like._id} role="menuitem">
                   <Link
