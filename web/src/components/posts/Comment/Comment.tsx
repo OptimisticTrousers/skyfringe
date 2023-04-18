@@ -24,19 +24,14 @@ const Comment: FC<Props> = ({
   const { likeComment, loading: likeLoading } = useLikeComment();
 
   const [isUserEditing, setIsUserEditing] = useState(false);
-  const [commentText, setCommentText] = useState(false);
 
   const handleUserEditing = () => {
     setIsUserEditing((prevValue) => !prevValue);
   };
 
-  const handleCommentText = (event: any) => {
-    setCommentText(event.target.value);
-  };
-
-  const handleUpdateComment = () => {
+  const handleUpdateComment = (commentText: string) => {
     const updatedComment = updateComment(comment._id, comment.post, {
-      content: "bob",
+      content: commentText,
     });
     editLocalComment(comment._id, updatedComment);
   };
@@ -63,11 +58,18 @@ const Comment: FC<Props> = ({
               </Link>
               <span styleName="comment__gray">posted on January 24, 2022</span>
             </div>
-            {/* <p styleName="comment__text">
-              People getting this type of rejection for AI images, or any images
-              that contains ai generated content, but this is definitely not AI.
-            </p> */}
-            <EditCommentForm />
+            {isUserEditing ? (
+              <p styleName="comment__text">
+                People getting this type of rejection for AI images, or any
+                images that contains ai generated content, but this is
+                definitely not AI.
+              </p>
+            ) : (
+              <EditCommentForm
+                handleUpdateComment={handleUpdateComment}
+                loading={updateLoading}
+              />
+            )}
           </div>
           <div styleName="comment__actions">
             <div styleName="comment__likes">
@@ -85,7 +87,7 @@ const Comment: FC<Props> = ({
             <div styleName="comment__options">
               <button
                 styleName="comment__button comment__button--edit"
-                onClick={handleUpdateComment}
+                onClick={handleUserEditing}
               >
                 Edit
               </button>
