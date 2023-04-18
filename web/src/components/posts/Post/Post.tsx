@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineLike } from "react-icons/ai";
 import { BiTime, BiCommentDetail } from "react-icons/bi";
@@ -45,7 +45,13 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     `${import.meta.env.VITE_API_DOMAIN}/posts/${post._id}/comments`
   );
 
-  const [localComments, setLocalComments] = useState(comments);
+  console.log(comments);
+
+  const [localComments, setLocalComments] = useState(() => comments);
+
+  useEffect(() => {
+    setLocalComments(comments);
+  }, [comments]);
 
   const handleCommentCreation = async (
     postId: string,
@@ -183,12 +189,12 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
               </button>
               <button
                 styleName={`post__button post__button--comments ${
-                  !localComments && "post__button--disabled"
+                  localComments?.length === 0 && "post__button--disabled"
                 }`}
                 onClick={toggleComments}
-                disabled={!localComments}
+                disabled={localComments?.length === 0}
               >
-                {!localComments && "0 comments"}
+                {localComments?.length === 0 && "0 comments"}
                 {localComments?.length === 1 && "1 comment"}
                 {localComments?.length > 1 &&
                   `${localComments.length} comments`}

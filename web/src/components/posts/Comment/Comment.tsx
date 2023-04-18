@@ -5,6 +5,7 @@ import useDeleteComment from "../../../hooks/useDeleteComment";
 import useLikeComment from "../../../hooks/useLikeComment";
 import useUpdateComment from "../../../hooks/useUpdateComment";
 import { Avatar } from "../../ui";
+import EditCommentForm from "../EditCommentForm";
 import styles from "./Comment.module.css";
 
 interface Props {
@@ -22,7 +23,12 @@ const Comment: FC<Props> = ({
   const { deleteComment, loading: deleteLoading } = useDeleteComment();
   const { likeComment, loading: likeLoading } = useLikeComment();
 
+  const [isUserEditing, setIsUserEditing] = useState(false);
   const [commentText, setCommentText] = useState(false);
+
+  const handleUserEditing = () => {
+    setIsUserEditing((prevValue) => !prevValue);
+  };
 
   const handleCommentText = (event: any) => {
     setCommentText(event.target.value);
@@ -44,10 +50,6 @@ const Comment: FC<Props> = ({
   return (
     <article styleName="comment">
       <div styleName="comment__container">
-        <img
-          src="/images/optimistictrousers.jpg"
-          styleName="comment__avatar comment__avatar--comment"
-        />
         <Avatar
           src={"/images/optimistictrousers.jpg"}
           alt={"user avatar"}
@@ -61,10 +63,11 @@ const Comment: FC<Props> = ({
               </Link>
               <span styleName="comment__gray">posted on January 24, 2022</span>
             </div>
-            <p styleName="comment__text">
+            {/* <p styleName="comment__text">
               People getting this type of rejection for AI images, or any images
               that contains ai generated content, but this is definitely not AI.
-            </p>
+            </p> */}
+            <EditCommentForm />
           </div>
           <div styleName="comment__actions">
             <div styleName="comment__likes">

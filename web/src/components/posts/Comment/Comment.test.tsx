@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import Comment from "./Comment";
 
 const editCommentMock = vi.fn();
@@ -39,7 +40,7 @@ vi.mock("../../hooks/useLikeComment", () => {
 });
 
 const user = {
-  _id: zoroId,
+  _id: "4c8a331bda76c559ef000005",
   fullName: "Roronoa Zoro",
   userName: "zoro",
   email: "zoro@onepiece.com",
@@ -58,10 +59,21 @@ const comment = {
   likes: [],
 };
 
+const mockDeleteLocalComment = vi.fn();
+const mockEditLocalComment = vi.fn();
+
 describe("Comment component", () => {
   test("that clicking the 'Like' button increments the like count", async () => {
     const user = userEvent.setup();
-    render(<Comment comment={comment} />);
+    render(
+      <BrowserRouter>
+        <Comment
+          comment={comment}
+          deleteLocalComment={mockDeleteLocalComment}
+          editLocalComment={mockEditLocalComment}
+        />
+      </BrowserRouter>
+    );
 
     const likeButton = screen.getByRole("button", { name: /like/i });
     await user.click(likeButton);
@@ -71,7 +83,15 @@ describe("Comment component", () => {
   });
   test("that when the 'likeComment' request is loading and the user has not already liked the comment, there is a 'Liking...' button that increments the like count", async () => {
     const user = userEvent.setup();
-    render(<Comment comment={comment} />);
+    render(
+      <BrowserRouter>
+        <Comment
+          comment={comment}
+          deleteLocalComment={mockDeleteLocalComment}
+          editLocalComment={mockEditLocalComment}
+        />
+      </BrowserRouter>
+    );
 
     const likeButton = screen.getByRole("button", { name: /like/i });
     await user.click(likeButton);
@@ -81,7 +101,15 @@ describe("Comment component", () => {
   });
   test("that when the 'likeComment' request is loading and the user has already liked the comment, there is a 'Unliking...' button decrements the like count", async () => {
     const user = userEvent.setup();
-    render(<Comment comment={comment} />);
+    render(
+      <BrowserRouter>
+        <Comment
+          comment={comment}
+          deleteLocalComment={mockDeleteLocalComment}
+          editLocalComment={mockEditLocalComment}
+        />
+      </BrowserRouter>
+    );
 
     const likeButton = screen.getByRole("button", { name: /like/i });
     await user.click(likeButton);
@@ -91,7 +119,15 @@ describe("Comment component", () => {
   });
   test("that clicking the 'Liked' button decrements the like count", async () => {
     const user = userEvent.setup();
-    render(<Comment comment={comment} />);
+    render(
+      <BrowserRouter>
+        <Comment
+          comment={comment}
+          deleteLocalComment={mockDeleteLocalComment}
+          editLocalComment={mockEditLocalComment}
+        />
+      </BrowserRouter>
+    );
 
     const likeButton = screen.getByRole("button", { name: /like/i });
     await user.click(likeButton);
@@ -101,7 +137,16 @@ describe("Comment component", () => {
   });
   test("that clicking the like count button opens the like count modal", async () => {
     const user = userEvent.setup();
-    render(<Comment comment={comment} />);
+    render(
+      <BrowserRouter>
+        <Comment
+          comment={comment}
+          deleteLocalComment={mockDeleteLocalComment}
+          editLocalComment={mockEditLocalComment}
+        />
+      </BrowserRouter>
+    );
+
     const likeCountButton = screen.getByText("0");
     await user.click(likeCountButton);
 
@@ -110,7 +155,15 @@ describe("Comment component", () => {
   });
   test("that clicking the edit button works, that a new textbox appears, and that the save button works", async () => {
     const user = userEvent.setup();
-    render(<Comment comment={comment} />);
+    render(
+      <BrowserRouter>
+        <Comment
+          comment={comment}
+          deleteLocalComment={mockDeleteLocalComment}
+          editLocalComment={mockEditLocalComment}
+        />
+      </BrowserRouter>
+    );
 
     const editButton = screen.getByRole("button", { name: /edit/i });
     await user.click(editButton);
@@ -127,7 +180,15 @@ describe("Comment component", () => {
   });
   test("that clicking the delete button works and the comment disappears", async () => {
     const user = userEvent.setup();
-    render(<Comment comment={comment} />);
+    render(
+      <BrowserRouter>
+        <Comment
+          comment={comment}
+          deleteLocalComment={mockDeleteLocalComment}
+          editLocalComment={mockEditLocalComment}
+        />
+      </BrowserRouter>
+    );
 
     const deleteButton = screen.getByRole("button", { name: /delete/i });
     await user.click(deleteButton);
