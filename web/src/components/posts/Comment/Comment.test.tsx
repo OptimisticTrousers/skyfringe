@@ -11,7 +11,7 @@ let deleteCommentError: any = null;
 vi.mock("../../../hooks/useDeleteComment", () => {
   return {
     default: vi.fn(() => ({
-      logout: deleteCommentMock,
+      deleteComment: deleteCommentMock,
       loading: deleteCommentLoading,
       error: deleteCommentError,
     })),
@@ -99,7 +99,7 @@ describe("Comment component", () => {
 
     const likeButton = screen.getByRole("button", { name: "Like" });
     await user.click(likeButton);
-    const likeCount = screen.getByText("2");
+    const likeCount = screen.getByRole("button", { name: "2" });
     expect(likeCommentMock).toHaveBeenCalled();
     expect(likeCount).toBeInTheDocument();
   });
@@ -155,7 +155,7 @@ describe("Comment component", () => {
 
     const likeButton = screen.getByRole("button", { name: "Liked" });
     await user.click(likeButton);
-    const likeCount = screen.getByText("0");
+    const likeCount = screen.getByRole("button", { name: "0" });
     expect(likeCommentMock).toHaveBeenCalled();
     expect(likeCount).toBeInTheDocument();
   });
@@ -173,7 +173,7 @@ describe("Comment component", () => {
       </AuthContext.Provider>
     );
 
-    const likeCountButton = screen.getByText("1");
+    const likeCountButton = screen.getByRole("button", { name: "1" });
     await user.click(likeCountButton);
 
     const likeCountModal = screen.getByRole("dialog");
@@ -182,7 +182,7 @@ describe("Comment component", () => {
   test("that clicking the edit button works, that a new textbox appears and it has the old comment content, that the save button works, and the post updates", async () => {
     const user = userEvent.setup();
     render(
-      <AuthContext.Provider value={{ user: wrongUser}}>
+      <AuthContext.Provider value={{ user: correctUser }}>
         <BrowserRouter>
           <Comment
             comment={comment}
@@ -198,34 +198,51 @@ describe("Comment component", () => {
     expect(editInput).toBeInTheDocument();
     expect(editInput).toHaveValue("test comment");
 
-    await user.clear(editInput)
+    await user.clear(editInput);
     await user.type(editInput, updatedContent);
     const saveButton = screen.getByRole("button", { name: "Save" });
     await user.click(saveButton);
-    const commentText = screen.getByText(updatedContent);
+    // Can't test this because 'editLocalComment' is a function that changes state
+    // const commentText = screen.getByText(updatedContent);
 
-    expect(commentText).toBeInTheDocument();
+    // expect(commentText).toBeInTheDocument();
     expect(updateCommentMock).toHaveBeenCalled();
-
   });
-  // test("that clicking the delete button works and the comment disappears", async () => {
-  //   const user = userEvent.setup();
-  //   render(
-  //     <BrowserRouter>
-  //       <Comment
-  //         comment={comment}
-  //         deleteLocalComment={mockDeleteLocalComment}
-  //         editLocalComment={mockEditLocalComment}
-  //       />
-  //     </BrowserRouter>
-  //   );
+  test("that clicking the delete button works and the comment disappears", async () => {
+    const user = userEvent.setup();
+    render(
+      <AuthContext.Provider value={{ user: correctUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
+    );
 
-  //   const deleteButton = screen.getByRole("button", { name: /delete/i });
-  //   await user.click(deleteButton);
+    const deleteButton = screen.getByRole("button", { name: "Delete" });
+    await user.click(deleteButton);
+    // Can't test this because 'deleteLocalComment' is a function that changes state
 
-  //   const postComment = screen.getByRole("article");
-  //   expect(deleteCommentMock).toHaveBeenCalled();
-  //   expect(postComment).not.toBeInTheDocument();
-  // });
-  // test("if you can only like and delete your own comments")
+    // const postComment = screen.queryByRole("article");
+    // expect(postComment).not.toBeInTheDocument();
+    expect(deleteCommentMock).toHaveBeenCalled();
+  });
+  test("if you can only like and delete your own comments", () => {
+    render(
+      <AuthContext.Provider value={{ user: wrongUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
+    );
+    const deleteButton = screen.queryByRole("button", { name: "Delete" });
+    expect(deleteButton).not.toBeInTheDocument();
+  });
 });

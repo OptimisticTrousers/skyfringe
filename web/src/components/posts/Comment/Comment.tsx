@@ -26,10 +26,18 @@ const Comment: FC<Props> = ({
   const { updateComment, loading: updateLoading } = useUpdateComment();
   const { deleteComment, loading: deleteLoading } = useDeleteComment();
   const { likeComment, loading: likeLoading } = useLikeComment();
-  const [isLiked, setIsLiked] = useState(() =>
-    comment?.likes.find((like: any) => like._id === user._id)
-  );
-  const [likesCount, setLikesCount] = useState(comment?.likes.length);
+  const [isLiked, setIsLiked] = useState(() => {
+    if (comment.hasOwnProperty("likes")) {
+      return comment.likes.find((like: any) => like._id === user._id) || false;
+    }
+    return false;
+  });
+  const [likesCount, setLikesCount] = useState(() => {
+    if (comment.hasOwnProperty("likes")) {
+      return comment.likes.length;
+    }
+    return 0;
+  });
 
   const [isUserEditing, setIsUserEditing] = useState(false);
 
@@ -51,9 +59,9 @@ const Comment: FC<Props> = ({
     setIsUserEditing(false);
   };
 
-  const handleDeleteComment = () => {
+  const handleDeleteComment = async () => {
     const commentId = comment._id;
-    deleteComment(commentId, comment.post);
+    await deleteComment(commentId, comment._id);
     deleteLocalComment(commentId);
   };
 
@@ -120,31 +128,34 @@ const Comment: FC<Props> = ({
                 >
                   {likeButtonText()}
                 </button>
-                <button styleName="comment__button comment__button--icon">
+                <button
+                  styleName="comment__button comment__button--icon"
+                  onClick={toggleModal}
+                >
                   <img
                     styleName="comment__icon comment__icon--heart"
                     src="/images/heart.png"
                   />
-                  <span styleName="comment__count" onClick={toggleModal}>
-                    {likesCount}
-                  </span>
+                  <span styleName="comment__count">{likesCount}</span>
                 </button>
               </div>
-              <div styleName="comment__options">
-                <button
-                  styleName="comment__button comment__button--edit"
-                  onClick={handleUserEditing}
-                >
-                  Edit
-                </button>
-                <button
-                  styleName="comment__button comment__button--delete"
-                  onClick={handleDeleteComment}
-                  data-testid={`delete-${comment?._id}`}
-                >
-                  {deleteLoading ? "Deleting..." : "Delete"}
-                </button>
-              </div>
+              {user?._id === comment?.author?._id && (
+                <div styleName="comment__options">
+                  <button
+                    styleName="comment__button comment__button--edit"
+                    onClick={handleUserEditing}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    styleName="comment__button comment__button--delete"
+                    onClick={handleDeleteComment}
+                    data-testid={`delete-${comment?._id}`}
+                  >
+                    {deleteLoading ? "Deleting..." : "Delete"}
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

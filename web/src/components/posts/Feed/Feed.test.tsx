@@ -69,8 +69,8 @@ vi.mock("../../../hooks/useUpdatePost", () => {
   return {
     default: vi.fn(() => ({
       updatePost: mockUpdatePost,
-      loading: mockLoading,
-      error: mockError,
+      loading: updatePostLoading,
+      error: updatePostError,
     })),
   };
 });
@@ -83,9 +83,7 @@ describe("Feed component", () => {
 
     render(
       <BrowserRouter>
-        <ToastProvider>
-          <Feed />
-        </ToastProvider>
+        <Feed />
       </BrowserRouter>
     );
 
@@ -103,9 +101,7 @@ describe("Feed component", () => {
 
     render(
       <BrowserRouter>
-        <ToastProvider>
-          <Feed />
-        </ToastProvider>
+        <Feed />
       </BrowserRouter>
     );
 
@@ -122,9 +118,7 @@ describe("Feed component", () => {
 
     render(
       <BrowserRouter>
-        <ToastProvider>
-          <Feed />
-        </ToastProvider>
+        <Feed />
       </BrowserRouter>
     );
 
@@ -148,14 +142,10 @@ describe("Feed component", () => {
     const user = userEvent.setup();
     render(
       <BrowserRouter>
-        <ToastProvider>
-          <Feed />
-        </ToastProvider>
+        <Feed />
       </BrowserRouter>
     );
 
-    const post = screen.getByText("Test post 1");
-    expect(post).toBeInTheDocument();
     const openPostOptions = screen.getByRole("button", { expanded: false });
     await user.click(openPostOptions);
 
@@ -170,6 +160,8 @@ describe("Feed component", () => {
     const deletePostButton = screen.getByRole("button", { name: "Delete" });
     await user.click(deletePostButton);
 
+    const post = screen.queryByText("Test post 1");
+
     expect(post).not.toBeInTheDocument();
   });
   test("that editing the post updates the post in local state", async () => {
@@ -180,14 +172,10 @@ describe("Feed component", () => {
     const user = userEvent.setup();
     render(
       <BrowserRouter>
-        <ToastProvider>
-          <Feed />
-        </ToastProvider>
+        <Feed />
       </BrowserRouter>
     );
 
-    const post = screen.getByText("Test post 1");
-    expect(post).toBeInTheDocument();
     const openPostOptions = screen.getByRole("button", { expanded: false });
     await user.click(openPostOptions);
 
@@ -206,7 +194,10 @@ describe("Feed component", () => {
     const postButton = screen.getByRole("button", { name: "Post" });
     await user.click(postButton);
 
-    const updatedPost = screen.getByText("Updated post 1");
+    const updatedPost = screen.getByText(post1Content);
+    const post = screen.queryByRole("Test post 1");
+
     expect(updatedPost).toBeInTheDocument();
+    expect(post).not.toBeInTheDocument();
   });
 });

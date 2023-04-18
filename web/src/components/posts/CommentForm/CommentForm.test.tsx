@@ -24,7 +24,7 @@ describe("CommentForm", () => {
     const user = userEvent.setup();
     render(<CommentForm {...props} />);
     const textarea = screen.getByPlaceholderText("Leave a comment...");
-    const button = screen.getByText("Comment");
+    const button = screen.getByRole("button", { name: "Post" });
     await user.type(textarea, "test comment");
     await user.click(button);
     expect(createCommentMock).toHaveBeenCalledWith("1", {
@@ -34,13 +34,13 @@ describe("CommentForm", () => {
 
   it('should show "Commenting..." text on the button when commentLoading is true', () => {
     render(<CommentForm {...props} commentLoading={true} />);
-    const button = screen.getByText("Commenting...");
+    const button = screen.getByText("Posting...");
     expect(button).toBeInTheDocument();
   });
 
   it("should not render the form when isCommentFormOpen is false", () => {
     render(<CommentForm {...props} isCommentFormOpen={false} />);
-    const form = screen.getByRole("form", {hidden: true});
+    const form = screen.getByRole("form", { hidden: true });
     expect(form).not.toBeVisible();
   });
 });

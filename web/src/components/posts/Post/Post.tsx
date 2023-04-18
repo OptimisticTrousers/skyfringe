@@ -45,8 +45,6 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     `${import.meta.env.VITE_API_DOMAIN}/posts/${post._id}/comments`
   );
 
-  console.log(comments);
-
   const [localComments, setLocalComments] = useState(() => comments);
 
   useEffect(() => {
@@ -125,6 +123,15 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     return "Like";
   };
 
+  const likeCountText = () => {
+    if (likesCount > 1) {
+      return `${likesCount} likes`;
+    } else if (likesCount === 1) {
+      return "1 likes";
+    }
+    return "0 likes";
+  };
+
   return (
     <>
       <Card>
@@ -183,9 +190,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
                   styleName="post__icon post__icon--heart"
                   src="/images/heart.png"
                 />
-                <span styleName="post__count">
-                  {likesCount === 1 ? "1 like" : `${likesCount} likes`}
-                </span>
+                <span styleName="post__count">{likeCountText()}</span>
               </button>
               <button
                 styleName={`post__button post__button--comments ${
