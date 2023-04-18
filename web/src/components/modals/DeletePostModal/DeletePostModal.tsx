@@ -8,14 +8,20 @@ import styles from "./DeletePostModal.module.css";
 interface Props {
   toggleModal: () => void;
   postId: string;
+  handleDeletePost: any;
 }
 
-const DeletePostModal: FC<Props> = ({ toggleModal, postId }) => {
+const DeletePostModal: FC<Props> = ({
+  toggleModal,
+  postId,
+  handleDeletePost,
+}) => {
   const { deletePost, loading } = useDeletePost();
   const { user } = useContext(AuthContext);
 
   const handleDelete = () => {
     deletePost(postId);
+    handleDeletePost(postId);
     toggleModal();
   };
 

@@ -20,9 +20,11 @@ import { LikesModal } from "../../modals";
 
 interface Props {
   post: any;
+  handleDeletePost: any;
+  handleEditPost: any;
 }
 
-const Post: FC<Props> = ({ post }) => {
+const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
   const { user } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
@@ -152,6 +154,8 @@ const Post: FC<Props> = ({ post }) => {
                   closeDropdown={closeDropdown}
                   toggleDropdown={toggleDropdown}
                   isDropdownOpen={isDropdownOpen}
+                  handleEditPost={handleEditPost}
+                  handleDeletePost={handleDeletePost}
                 />
               )}
               <BsBookmark styleName="post__icon post__icon--bookmark" />

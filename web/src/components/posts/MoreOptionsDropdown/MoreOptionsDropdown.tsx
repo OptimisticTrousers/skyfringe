@@ -13,6 +13,8 @@ interface Props {
   closeDropdown: () => void;
   toggleDropdown: () => void;
   isDropdownOpen: boolean;
+  handleEditPost: any;
+  handleDeletePost: any;
 }
 
 const MoreOptionsDropdown: FC<Props> = ({
@@ -20,6 +22,8 @@ const MoreOptionsDropdown: FC<Props> = ({
   closeDropdown,
   toggleDropdown,
   isDropdownOpen,
+  handleDeletePost,
+  handleEditPost
 }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -82,10 +86,10 @@ const MoreOptionsDropdown: FC<Props> = ({
         </li>
       </ul>
       {showDeleteModal && (
-        <DeletePostModal toggleModal={toggleDeleteModal} postId={post._id} />
+        <DeletePostModal toggleModal={toggleDeleteModal} postId={post._id} handleDeletePost={handleDeletePost}/>
       )}
       {showEditModal && (
-        <EditPostModal toggleModal={toggleEditModal} post={post} />
+        <EditPostModal toggleModal={toggleEditModal} post={post} handleEditPost={handleEditPost}/>
       )}
     </div>
   );

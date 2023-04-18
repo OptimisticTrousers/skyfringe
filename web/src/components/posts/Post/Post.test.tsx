@@ -150,13 +150,20 @@ vi.mock("../../../hooks/useDeleteComment", () => {
   };
 });
 
+const mockHandleEditPost = vi.fn();
+const mockHandleDeletePost = vi.fn();
+
 describe("Post component", () => {
   describe("Text-only posts", () => {
     test("Does not attempt to display image when no image url exists for the post", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: luffy }}>
-            <Post post={{ ...luffyPost, photo: undefined }} />
+            <Post
+              post={{ ...luffyPost, photo: undefined }}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -170,7 +177,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: zoro }}>
-            <Post post={zoroPost} />
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -185,7 +196,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: luffy }}>
-            <Post post={luffyPost} />
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -200,7 +215,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: zoro }}>
-            <Post post={luffyPost} />
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -211,7 +230,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: zoro }}>
-            <Post post={zoroPost} />
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -222,7 +245,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: luffy }}>
-            <Post post={luffyPost} />
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -233,7 +260,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: luffy }}>
-            <Post post={luffyPost} />
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -246,7 +277,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: luffy }}>
-            <Post post={luffyPost} />
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -262,7 +297,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: luffy }}>
-            <Post post={zoroPost} />
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -284,7 +323,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: luffy }}>
-            <Post post={luffyPost} />
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -298,7 +341,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: zoro }}>
-            <Post post={zoroPost} />
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -310,7 +357,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: luffy }}>
-            <Post post={luffyPost} />
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -321,7 +372,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: zoro }}>
-            <Post post={zoroPost} />
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -333,7 +388,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: zoro }}>
-            <Post post={zoroPost} />
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );
@@ -361,7 +420,11 @@ describe("Post component", () => {
       render(
         <BrowserRouter>
           <AuthContext.Provider value={{ user: nami }}>
-            <Post post={zoroPost} />
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
           </AuthContext.Provider>
         </BrowserRouter>
       );

@@ -18,9 +18,10 @@ import styles from "./EditPostModal.module.css";
 interface Props {
   toggleModal: () => void;
   post: any;
+  handleEditPost: any;
 }
 
-const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
+const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
   const { user } = useContext(AuthContext);
   const { updatePost, loading } = useUpdatePost();
   const { showToast } = useContext(ToastContext);
@@ -40,10 +41,13 @@ const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
   // Set state initially o current post text
   const [postText, setPostText] = useState(post?.content);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    updatePost(post._id, { content: postText });
+    const postId = post._id;
     toggleModal();
+    const updatedPost = await updatePost(postId, { content: postText });
+    console.log(updatedPost)
+    handleEditPost(postId, updatedPost);
   };
 
   const handlePostText = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -101,7 +105,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post }) => {
               removeThumbnail={removeThumbnail}
             />
           </div>
-          <button styleName="modal__button" disabled={disabled}>
+          <button styleName="modal__button" disabled={disabled} type="submit">
             {loading ? "Posting..." : "Post"}
           </button>
         </div>
