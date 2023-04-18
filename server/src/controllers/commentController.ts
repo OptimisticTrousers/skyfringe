@@ -7,9 +7,9 @@ import mongoose from "mongoose";
 
 export const comment_list = asyncHandler(
   async (req: any, res: Response, next: NextFunction) => {
-    const comments = await Comment.find({ post: req.params.postId }).populate(
-      "author"
-    );
+    const comments = await Comment.find({ post: req.params.postId })
+      .populate("author")
+      .populate("likes");
 
     res.status(200).json(comments);
   }
@@ -23,7 +23,9 @@ export const comment_create = [];
 export const comment_like = asyncHandler(
   async (req: any, res: any, next: any) => {
     // fetch
-    const comment: any = await Comment.findById(req.params.commentId).exec();
+    const comment: any = await Comment.findById(req.params.commentId)
+      .populate("likes")
+      .exec();
 
     // Check if the user has already liked this post (i.e. their user ID already exists in likes array)
     // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
@@ -60,7 +62,7 @@ export const comment_update = [
 
     const commentId = req.params.commentId;
 
-    const comment = await Comment.findById(commentId).exec();
+    const comment = await Comment.findById(commentId).populate("likes").exec();
 
     if (comment && comment.author !== req.user._id) {
       // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
