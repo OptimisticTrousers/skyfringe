@@ -9,10 +9,13 @@ const CommentSchema = new Schema(
     content: { type: String, required: true },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   },
-  { timestamps: true, toObject: { virtuals: true } }
+  { timestamps: true, toObject: { virtuals: true }, toJSON: { virtuals: true } }
 );
 
 CommentSchema.virtual("likeCount").get(function () {
+  if (!this.likes) {
+    return 0;
+  }
   return this.likes.length;
 });
 

@@ -32,6 +32,8 @@ describe("MoreOptionsDropdown component", () => {
   };
   const closeDropdownMock = vi.fn();
   const toggleDropdownMock = vi.fn();
+  const handleEditPostMock = vi.fn();
+  const handleDeletePostMock = vi.fn();
   test("if dropdown is not hidden by default", () => {
     render(
       <MoreOptionsDropdown
@@ -39,6 +41,8 @@ describe("MoreOptionsDropdown component", () => {
         closeDropdown={closeDropdownMock}
         toggleDropdown={toggleDropdownMock}
         isDropdownOpen={true}
+        handleEditPost={handleEditPostMock}
+        handleDeletePost={handleDeletePostMock}
       />
     );
     const dropdownMenu = screen.getByRole("menu");
@@ -51,6 +55,8 @@ describe("MoreOptionsDropdown component", () => {
         closeDropdown={closeDropdownMock}
         toggleDropdown={toggleDropdownMock}
         isDropdownOpen={false}
+        handleEditPost={handleEditPostMock}
+        handleDeletePost={handleDeletePostMock}
       />
     );
     const dropdownMenu = screen.queryByRole("menu");
@@ -63,6 +69,8 @@ describe("MoreOptionsDropdown component", () => {
         closeDropdown={closeDropdownMock}
         toggleDropdown={toggleDropdownMock}
         isDropdownOpen={true}
+        handleEditPost={handleEditPostMock}
+        handleDeletePost={handleDeletePostMock}
       />
     );
 
@@ -77,6 +85,8 @@ describe("MoreOptionsDropdown component", () => {
         closeDropdown={closeDropdownMock}
         toggleDropdown={toggleDropdownMock}
         isDropdownOpen={true}
+        handleEditPost={handleEditPostMock}
+        handleDeletePost={handleDeletePostMock}
       />
     );
 
@@ -95,6 +105,8 @@ describe("MoreOptionsDropdown component", () => {
         closeDropdown={closeDropdownMock}
         toggleDropdown={toggleDropdownMock}
         isDropdownOpen={true}
+        handleEditPost={handleEditPostMock}
+        handleDeletePost={handleDeletePostMock}
       />
     );
 
@@ -114,6 +126,8 @@ describe("MoreOptionsDropdown component", () => {
         closeDropdown={closeDropdownMock}
         toggleDropdown={toggleDropdownMock}
         isDropdownOpen={true}
+        handleEditPost={handleEditPostMock}
+        handleDeletePost={handleDeletePostMock}
       />
     );
 
@@ -131,6 +145,8 @@ describe("MoreOptionsDropdown component", () => {
           closeDropdown={closeDropdownMock}
           toggleDropdown={toggleDropdownMock}
           isDropdownOpen={true}
+          handleEditPost={handleEditPostMock}
+          handleDeletePost={handleDeletePostMock}
         />
         <div data-testid="test"></div>
       </>
@@ -150,6 +166,8 @@ describe("MoreOptionsDropdown component", () => {
           closeDropdown={closeDropdownMock}
           toggleDropdown={toggleDropdownMock}
           isDropdownOpen={true}
+          handleEditPost={handleEditPostMock}
+          handleDeletePost={handleDeletePostMock}
         />
       );
 
@@ -166,6 +184,8 @@ describe("MoreOptionsDropdown component", () => {
           closeDropdown={closeDropdownMock}
           toggleDropdown={toggleDropdownMock}
           isDropdownOpen={true}
+          handleEditPost={handleEditPostMock}
+          handleDeletePost={handleDeletePostMock}
         />
       );
 
@@ -185,6 +205,8 @@ describe("MoreOptionsDropdown component", () => {
           closeDropdown={closeDropdownMock}
           toggleDropdown={toggleDropdownMock}
           isDropdownOpen={true}
+          handleEditPost={handleEditPostMock}
+          handleDeletePost={handleDeletePostMock}
         />
       );
 
@@ -208,6 +230,8 @@ describe("MoreOptionsDropdown component", () => {
           closeDropdown={closeDropdownMock}
           toggleDropdown={toggleDropdownMock}
           isDropdownOpen={true}
+          handleEditPost={handleEditPostMock}
+          handleDeletePost={handleDeletePostMock}
         />
       );
 
@@ -231,6 +255,8 @@ describe("MoreOptionsDropdown component", () => {
           closeDropdown={closeDropdownMock}
           toggleDropdown={toggleDropdownMock}
           isDropdownOpen={true}
+          handleEditPost={handleEditPostMock}
+          handleDeletePost={handleDeletePostMock}
         />
       );
 

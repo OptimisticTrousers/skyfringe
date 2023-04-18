@@ -73,7 +73,7 @@ const luffyCommentId = "4c8a331bda76c559ef000014";
 const luffyComment = {
   _id: luffyCommentId,
   post: zoroPostId,
-  author: luffyId,
+  author: luffy,
   content: "Four-Sword Style",
 };
 
@@ -81,7 +81,7 @@ const luffyComment = {
 const namiComment = {
   _id: "4c8a331bda76c559ef000017",
   post: zoroPostId,
-  author: luffyId,
+  author: nami,
   content: "Moss head",
 };
 
@@ -268,51 +268,51 @@ describe("Post component", () => {
       expect(comments).toHaveStyle({ maxHeight: "0px" });
       expect(comments).not.toBeVisible();
     });
-    // test("Shows comments section upon clicking comments button", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: luffy }}>
-    //         <Post
-    //           post={luffyPost}
-    //           handleEditPost={mockHandleEditPost}
-    //           handleDeletePost={mockHandleDeletePost}
-    //         />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
+    test("Shows comments section upon clicking comments button", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: luffy }}>
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
 
-    //   const commentsButton = screen.getByRole("button", { name: "2 comments" });
-    //   await user.click(commentsButton);
+      const commentsButton = screen.getByRole("button", { name: "2 comments" });
+      await user.click(commentsButton);
 
-    //   const comments = screen.getByTestId("comments");
-    //   expect(comments).toBeVisible();
-    // });
-    // test("Increases local like count when clicking like button", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: luffy }}>
-    //         <Post
-    //           post={zoroPost}
-    //           handleEditPost={mockHandleEditPost}
-    //           handleDeletePost={mockHandleDeletePost}
-    //         />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
+      const comments = screen.getByTestId("comments");
+      expect(comments).toBeVisible();
+    });
+    test("Increases local like count when clicking like button", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: luffy }}>
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
 
-    //   const likeCount = screen.getByText("0 likes");
-    //   expect(likeCount).toBeInTheDocument();
-    //   const likeButton = screen.getByRole("button", { name: "Like" });
-    //   await user.click(likeButton);
+      const likeCount = screen.getByText("0 likes");
+      expect(likeCount).toBeInTheDocument();
+      const likeButton = screen.getByRole("button", { name: "Like" });
+      await user.click(likeButton);
 
-    //   const updatedLikeCount = screen.getByText("1 like");
+      const updatedLikeCount = screen.getByText("1 like");
 
-    //   expect(likePostMock).toHaveBeenCalled();
-    //   expect(updatedLikeCount).toBeInTheDocument();
-    //   expect(likeButton).toHaveAccessibleName("Liked");
-    // });
+      expect(likePostMock).toHaveBeenCalled();
+      expect(updatedLikeCount).toBeInTheDocument();
+      expect(likeButton).toHaveAccessibleName("Liked");
+    });
     test("if it renders the correct text if loading and the user is unliking", async () => {
       // Post should be current liked now
       mockLikeLoading = true;
@@ -379,66 +379,65 @@ describe("Post component", () => {
       const likeButton = screen.getByRole("button", { name: "Like" });
       expect(likeButton).toBeInTheDocument();
     });
-    // test("if it increases the amount of comments when one is created", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: zoro }}>
-    //         <Post
-    //           post={zoroPost}
-    //           handleEditPost={mockHandleEditPost}
-    //           handleDeletePost={mockHandleDeletePost}
-    //         />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
+    test("if it increases the amount of comments when one is created", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: zoro }}>
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
 
-    //   const commentsDropdownButton = screen.getByRole("button", {
-    //     name: "Comment",
-    //   });
+      const commentsDropdownButton = screen.getByRole("button", {
+        name: "Comment",
+      });
 
-    //   await user.click(commentsDropdownButton);
+      await user.click(commentsDropdownButton);
 
-    //   const commentsInput = screen.getByRole("textbox");
+      const commentsInput = screen.getByRole("textbox");
 
-    //   await user.type(commentsInput, mockContent);
+      await user.type(commentsInput, mockContent);
 
-    //   const commentSaveButton = screen.getByRole("button", { name: "Post" });
-    //   await user.click(commentSaveButton);
-    //   expect(createCommentMock).toHaveBeenCalled();
-    //   const commentsButton = screen.getByRole("button", {
-    //     name: "3 comments",
-    //   });
-    //   expect(commentsButton).toBeInTheDocument();
-    // });
-    // test("if it decreases the amount of comments when one is deleted", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: nami }}>
-    //         <Post
-    //           post={zoroPost}
-    //           handleEditPost={mockHandleEditPost}
-    //           handleDeletePost={mockHandleDeletePost}
-    //         />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
+      const commentSaveButton = screen.getByRole("button", { name: "Post" });
+      await user.click(commentSaveButton);
+      expect(createCommentMock).toHaveBeenCalled();
+      const commentsButton = screen.getByRole("button", {
+        name: "3 comments",
+      });
+      expect(commentsButton).toBeInTheDocument();
+    });
+    test("if it decreases the amount of comments when one is deleted", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: nami }}>
+            <Post
+              post={zoroPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
 
-    //   const commentsDropdownButton = screen.getByRole("button", {
-    //     name: "Comment",
-    //   });
+      const commentsDropdownButton = screen.getByRole("button", {
+        name: "2 comments",
+      });
 
-    //   await user.click(commentsDropdownButton);
+      await user.click(commentsDropdownButton);
 
-    //   const commentsDeleteButton = screen.getByTestId(
-    //     `delete-${luffyCommentId}`
-    //   );
-    //   await user.click(commentsDeleteButton);
+      const commentsDeleteButton = screen.getAllByRole("button", {
+        name: "Delete",
+      })[0];
+      await user.click(commentsDeleteButton);
 
-    //   expect(deleteCommentMock).toHaveBeenCalled();
-    //   const commentsButton = screen.getByRole("button", { name: "1 comment" });
-    //   expect(commentsButton).toBeInTheDocument();
-    // });
+      expect(deleteCommentMock).toHaveBeenCalled();
+      expect(commentsDropdownButton).toHaveAccessibleName("1 comment");
+    });
   });
 });

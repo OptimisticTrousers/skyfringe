@@ -13,7 +13,6 @@ import { Avatar, Card } from "../../ui";
 import CommentForm from "../CommentForm";
 import Comments from "../Comments";
 import MoreOptionsDropdown from "../MoreOptionsDropdown";
-import { Post as PostInterface } from "../../../types";
 import styles from "./Post.module.css";
 import useFetch from "../../../hooks/useFetch";
 import { LikesModal } from "../../modals";
@@ -29,10 +28,10 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-  const [isLiked, setIsLiked] = useState(() =>
-    post.likes.find((like: any) => like._id === user._id)
-  );
-  const [likesCount, setLikesCount] = useState(post.likes.length);
+  const [isLiked, setIsLiked] = useState(() => {
+    return post?.likes?.find((like: any) => like._id === user._id);
+  });
+  const [likesCount, setLikesCount] = useState(() => post?.likes?.length);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { likePost, loading: likeLoading } = useLikePost();
   const { createComment, loading: commentLoading } = useCreateComment();
@@ -49,7 +48,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
 
   useEffect(() => {
     setLocalComments(comments);
-  }, [comments]);
+  }, []);
 
   const handleCommentCreation = async (
     postId: string,
@@ -127,7 +126,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     if (likesCount > 1) {
       return `${likesCount} likes`;
     } else if (likesCount === 1) {
-      return "1 likes";
+      return "1 like";
     }
     return "0 likes";
   };
