@@ -1,42 +1,49 @@
 import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import Comment from "../models/comment";
+import Post from "../models/post";
 import { body, validationResult } from "express-validator";
 import mongoose from "mongoose";
 
-export const comment_list = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {};
+export const comment_list = asyncHandler(
+  async (req: any, res: Response, next: NextFunction) => {
+    const comments = await Comment.find({ post: req.params.postId }).populate(
+      "author"
+    );
+
+    res.status(200).json(comments);
+  }
+);
 
 export const comment_create = [];
 
 // @desc    Like a single post (i.e. add new user to likes array)
 // @route   PUT /api/posts/:postId/comments/:commentId/likes
 // @access  Private
-export const comment_like = asyncHandler(async (req: any, res: any, next: any) => {
-  // fetch
-  const comment : any = await Comment.findById(req.params.commentId).exec();
+export const comment_like = asyncHandler(
+  async (req: any, res: any, next: any) => {
+    // fetch
+    const comment: any = await Comment.findById(req.params.commentId).exec();
 
-  // Check if the user has already liked this post (i.e. their user ID already exists in likes array)
-  // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
+    // Check if the user has already liked this post (i.e. their user ID already exists in likes array)
+    // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
 
-  const alreadyLikedIndex = comment.likes.findIndex((like: any) =>
-    like.equals(new mongoose.Types.ObjectId(req.user._id))
-  );
+    const alreadyLikedIndex = comment.likes.findIndex((like: any) =>
+      like.equals(new mongoose.Types.ObjectId(req.user._id))
+    );
 
-  if (alreadyLikedIndex === -1) {
-    // post is not liked
-    comment.likes.push(req.user._id);
-  } else {
-    // remove like on the post
-    comment.likes.splice(alreadyLikedIndex, 1);
+    if (alreadyLikedIndex === -1) {
+      // post is not liked
+      comment.likes.push(req.user._id);
+    } else {
+      // remove like on the post
+      comment.likes.splice(alreadyLikedIndex, 1);
+    }
+
+    await comment.save();
+    res.status(200).json(comment); // Return status OK and updated comment to client
   }
-
-  await comment.save();
-  res.status(200).json(comment); // Return status OK and updated comment to client
-});
+);
 
 // @desc    Update single post
 // @route   PUT /api/posts/:postId/comments/:commentId

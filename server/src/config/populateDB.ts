@@ -241,7 +241,7 @@ const comments = [
     likes: [luffyId, usoppId],
   },
   {
-    // Nami's comments on Zoro's post, liked by Luffy, and Usopp
+    // Usopp's comments on Zoro's post, liked by Luffy, and Usopp
     _id: usoppCommentId,
     post: zoroPostId,
     author: usoppId,
