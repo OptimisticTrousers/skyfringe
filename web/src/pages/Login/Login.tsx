@@ -137,6 +137,7 @@ const Login = () => {
           styleName="auth__button auth__button--guest"
           onClick={testLogin}
           disabled={testLoading}
+          type="button"
         >
           <RxPerson styleName="auth__icon auth__icon--guest" />
           {testLoading ? "Logging in..." : "Continue as guest"}
