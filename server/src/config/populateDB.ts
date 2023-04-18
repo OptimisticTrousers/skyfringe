@@ -176,7 +176,7 @@ export const bob = {
 };
 
 // Set up array of user/post/comment docs to be later saved to db
-const users = [luffy, zoro, nami, usopp, crocodileId];
+const users = [luffy, zoro, nami, usopp, crocodile, bob];
 
 const posts = [
   {
