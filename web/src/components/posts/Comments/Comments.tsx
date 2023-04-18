@@ -10,9 +10,11 @@ interface Props {
   comments: any;
   loading: any;
   error: any;
+  deleteLocalComment: any;
+  editLocalComment: any;
 }
 
-const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error }) => {
+const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error, deleteLocalComment, editLocalComment}) => {
   const commentsRef = useRef<any>(null);
   return (
     <section
@@ -46,7 +48,7 @@ const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error }) => {
       {comments && (
         <div>
           {comments.map((comment: any) => {
-            return <Comment key={comment._id} comment={comment} />;
+            return <Comment key={comment._id} comment={comment} deleteLocalComment={deleteLocalComment} editLocalComment={editLocalComment}/>;
           })}
         </div>
       )}
