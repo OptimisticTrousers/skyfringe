@@ -1,0 +1,78 @@
+.modal {
+  padding: 1.25rem;
+}
+
+.modal__container {
+  color: rgb(75, 85, 99);
+  line-height: 1.25rem;
+  padding-bottom: 1.25rem;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1.5px solid #e5e7eb;
+}
+
+.modal__icon {
+  width: 1rem;
+  height: auto;
+  max-width: 100%;
+  margin-right: 0.4rem;
+  margin-bottom: 1px;
+}
+
+.modal__count {
+  margin-top: 1px;
+}
+
+.modal__users {
+  width: 100%;
+}
+
+.modal__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.modal__item {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  border-bottom: 1.5px solid #e5e7eb;
+}
+
+.modal__link {
+  outline-color: #404164;
+  margin-right: 1rem;
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.modal__link:hover {
+  text-decoration: underline;
+}
+
+.modal__link--user {
+  outline-offset: 2px;
+  font-weight: 900;
+}
+
+.modal__link--avatar {
+  transition: opacity 0.2s ease-in;
+}
+
+.modal__link--avatar:hover {
+  opacity: 0.75;
+}
+
+.modal__avatar {
+  object-fit: cover;
+  border-radius: 9999px;
+  width: 2.5rem;
+  height: 2.5rem;
+  max-width: 100%;
+}
