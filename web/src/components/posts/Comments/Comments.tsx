@@ -48,7 +48,7 @@ const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error, deleteL
       {comments && (
         <div>
           {comments.map((comment: any) => {
-            return <Comment key={comment._id} comment={comment} deleteLocalComment={deleteLocalComment} editLocalComment={editLocalComment}/>;
+            return <Comment key={comment?._id} comment={comment} deleteLocalComment={deleteLocalComment} editLocalComment={editLocalComment}/>;
           })}
         </div>
       )}

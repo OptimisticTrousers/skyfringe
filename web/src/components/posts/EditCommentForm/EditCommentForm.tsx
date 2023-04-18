@@ -15,7 +15,8 @@ const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading, text }) => {
     setCommentText(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
     handleUpdateComment(commentText);
   };
 

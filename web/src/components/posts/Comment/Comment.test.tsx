@@ -182,7 +182,7 @@ describe("Comment component", () => {
   test("that clicking the edit button works, that a new textbox appears and it has the old comment content, that the save button works, and the post updates", async () => {
     const user = userEvent.setup();
     render(
-      <AuthContext.Provider value={{ user: wrongUser }}>
+      <AuthContext.Provider value={{ user: wrongUser}}>
         <BrowserRouter>
           <Comment
             comment={comment}
@@ -198,16 +198,15 @@ describe("Comment component", () => {
     expect(editInput).toBeInTheDocument();
     expect(editInput).toHaveValue("test comment");
 
+    await user.clear(editInput)
     await user.type(editInput, updatedContent);
     const saveButton = screen.getByRole("button", { name: "Save" });
     await user.click(saveButton);
     const commentText = screen.getByText(updatedContent);
 
-    expect(updateCommentMock).toHaveBeenCalled();
     expect(commentText).toBeInTheDocument();
+    expect(updateCommentMock).toHaveBeenCalled();
 
-    const postText = screen.getByText(updatedContent);
-    expect(postText).toBeInTheDocument();
   });
   // test("that clicking the delete button works and the comment disappears", async () => {
   //   const user = userEvent.setup();

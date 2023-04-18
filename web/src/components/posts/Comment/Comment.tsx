@@ -27,9 +27,9 @@ const Comment: FC<Props> = ({
   const { deleteComment, loading: deleteLoading } = useDeleteComment();
   const { likeComment, loading: likeLoading } = useLikeComment();
   const [isLiked, setIsLiked] = useState(() =>
-    comment.likes.find((like: any) => like._id === user._id)
+    comment?.likes.find((like: any) => like._id === user._id)
   );
-  const [likesCount, setLikesCount] = useState(comment.likes.length);
+  const [likesCount, setLikesCount] = useState(comment?.likes.length);
 
   const [isUserEditing, setIsUserEditing] = useState(false);
 
@@ -94,22 +94,22 @@ const Comment: FC<Props> = ({
               <div styleName="comment__top">
                 <Link
                   styleName="comment__link"
-                  to={`/users/${comment.author._id}`}
+                  to={`/users/${comment?.author._id}`}
                 >
-                  {comment.author.fullName}{" "}
+                  {comment?.author.fullName}{" "}
                 </Link>
                 <span styleName="comment__gray">
-                  {getTimeAgo(comment.createdAt)}
+                  {getTimeAgo(comment?.createdAt)}
                 </span>
               </div>
               {isUserEditing ? (
                 <EditCommentForm
                   handleUpdateComment={handleUpdateComment}
                   loading={updateLoading}
-                  text={comment.content}
+                  text={comment?.content}
                 />
               ) : (
-                <p styleName="comment__text">{comment.content}</p>
+                <p styleName="comment__text">{comment?.content}</p>
               )}
             </div>
             <div styleName="comment__actions">
@@ -140,7 +140,7 @@ const Comment: FC<Props> = ({
                 <button
                   styleName="comment__button comment__button--delete"
                   onClick={handleDeleteComment}
-                  data-testid={`delete-${comment._id}`}
+                  data-testid={`delete-${comment?._id}`}
                 >
                   {deleteLoading ? "Deleting..." : "Delete"}
                 </button>
