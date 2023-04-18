@@ -38,9 +38,19 @@ export const zoroCommentId = new mongoose.Types.ObjectId(
   "4c8a331bda76c559ef000016"
 );
 
+export const namiCommentId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000017"
+);
+
+export const usoppCommentId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000018"
+);
+
+export const bobId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000019");
+
 const S3_BUCKET = process.env.S3_BUCKET;
 
-const coverUrl = "https://optimisticbucket.s3.amazonaws.com/uploads/cover.webp";
+const coverUrl = `${S3_BUCKET}/covers/cover.webp`;
 
 const altText =
   "One Piece Manga Chapter 726 Cover - Characters in childhood and current versions standing side by side, with the caption 'We can live how we want'";
@@ -52,18 +62,18 @@ export const luffy = {
   email: "luffy@onepiece.com",
   password: "$2a$10$kny8gRPTSs215f9gc6SJ4.QjiBHa0/E6H6p6y0dvWUrXMzgprQxqy",
   bio: "I'm going to be the King of the Pirates!",
-  friends: ["4c8a331bda76c559ef000005"],
+  friends: [zoroId],
   friendRequests: [
     {
-      user: "4c8a331bda76c559ef000006",
+      user: namiId,
       status: "outgoing",
     },
     {
-      user: "4c8a331bda76c559ef000007",
+      user: usoppId,
       status: "incoming",
     },
     {
-      user: "4c8a331bda76c559ef000008",
+      user: crocodileId,
       status: "rejectedIncoming",
     },
   ],
@@ -72,7 +82,7 @@ export const luffy = {
     altText: "Fictional character Monkey D. Luffy from the One Piece manga",
   },
   cover: {
-    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
+    imageUrl: coverUrl,
     altText: altText,
   },
 };
@@ -84,17 +94,13 @@ export const zoro = {
   email: "zoro@onepiece.com",
   password: "$2a$10$qCPh8/C30SpOOrjkaavXquYiqvv5SmQXQNdPgvtasqB9eaJxGDDY.",
   bio: "Scars On The Back Are A Swordsman Shame",
-  friends: [
-    "4c8a331bda76c559ef000004",
-    "4c8a331bda76c559ef000006",
-    "4c8a331bda76c559ef000007",
-  ],
+  friends: [luffyId, namiId, usoppId],
   photo: {
     imageUrl: `${S3_BUCKET}/users/zoro.webp`,
     altText: "Fictional character Roronoa Zoro from the One Piece manga",
   },
   cover: {
-    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
+    imageUrl: coverUrl,
     altText: altText,
   },
 };
@@ -106,17 +112,13 @@ export const nami = {
   email: "nami@onepiece.com",
   password: "$2a$10$LireFRYIV1YJgzWeHoFG3.iVM.PMWKILHITKmgApmMEfl4fAjDgvu",
   bio: "The forecast is thunder and lightning!",
-  friends: [
-    "4c8a331bda76c559ef000004",
-    "4c8a331bda76c559ef000005",
-    "4c8a331bda76c559ef000007",
-  ],
+  friends: [luffyId, zoroId, usoppId],
   photo: {
     imageUrl: `${S3_BUCKET}/users/nami.webp`,
     altText: "Fictional character Nami from the One Piece manga",
   },
   cover: {
-    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
+    imageUrl: coverUrl,
     altText: altText,
   },
 };
@@ -128,17 +130,13 @@ export const usopp = {
   email: "usopp@onepiece.com",
   password: "$2a$10$p27n84..B5CTA.of5JUS3e7jNvpSns82qrv6oR4WAwtImCaw7Zuui",
   bio: "I'm Captain Usopp!",
-  friends: [
-    "4c8a331bda76c559ef000004",
-    "4c8a331bda76c559ef000005",
-    "4c8a331bda76c559ef000006",
-  ],
+  friends: [luffyId, zoroId, namiId],
   photo: {
     imageUrl: `${S3_BUCKET}/users/usopp.webp`,
     altText: "Fictional character Usopp from the One Piece manga",
   },
   cover: {
-    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
+    imageUrl: coverUrl,
     altText: altText,
   },
 };
@@ -154,7 +152,7 @@ export const crocodile = {
   friends: [],
   friendRequests: [
     {
-      user: "4c8a331bda76c559ef000004",
+      user: luffyId,
       status: "rejectedOutgoing",
     },
   ],
@@ -163,24 +161,29 @@ export const crocodile = {
     altText: "Fictional character Crocodile from the One Piece manga",
   },
   cover: {
-    imageUrl: `${S3_BUCKET}/covers/cover.webp`,
+    imageUrl: coverUrl,
     altText: altText,
   },
 };
 
+export const bob = {
+  _id: bobId,
+  fullName: "Bob Jones",
+  userName: "bobjones",
+  email: "bobjones@gmail.com",
+  password:
+    "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
+};
+
 // Set up array of user/post/comment docs to be later saved to db
-const users = [luffy, zoro, nami, usopp, crocodile];
+const users = [luffy, zoro, nami, usopp, crocodileId];
 
 const posts = [
   {
     _id: luffyPostId,
     author: luffyId,
     content: "MEAT!",
-    likes: [
-      "4c8a331bda76c559ef000005",
-      "4c8a331bda76c559ef000006",
-      "4c8a331bda76c559ef000007",
-    ],
+    likes: [zoroId, namiId, usoppId],
     photo: {
       imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000009_luffy.webp`,
       altText: "Monkey D. Luffy eating meat",
@@ -205,7 +208,7 @@ const posts = [
   },
   {
     _id: namiPostId,
-    author: "4c8a331bda76c559ef000006",
+    author: namiId,
     likes: [],
     photo: {
       imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000011_nami.jpg`,
@@ -214,7 +217,7 @@ const posts = [
   },
   {
     _id: crocodilePostId,
-    author: "4c8a331bda76c559ef000008",
+    author: crocodileId,
     content: "Ahahahahahah",
     likes: [],
   },
@@ -227,7 +230,23 @@ const comments = [
     post: zoroPostId,
     author: luffyId,
     content: "Four-Sword Style",
-    likes: ["4c8a331bda76c559ef000006", "4c8a331bda76c559ef000007"],
+    likes: [namiId, usoppId],
+  },
+  {
+    // Nami's comments on Zoro's post, liked by Luffy, and Usopp
+    _id: namiCommentId,
+    post: zoroPostId,
+    author: namiId,
+    content: "Moss head",
+    likes: [luffyId, usoppId],
+  },
+  {
+    // Nami's comments on Zoro's post, liked by Luffy, and Usopp
+    _id: usoppCommentId,
+    post: zoroPostId,
+    author: usoppId,
+    content: "So cool!",
+    likes: [luffyId, usoppId],
   },
   {
     // Zoro comments on Luffy's post, liked by Luffy, Nami, and Usopp
@@ -235,11 +254,7 @@ const comments = [
     post: luffyPostId,
     author: zoroId,
     content: "How did I end up following a captain like this?",
-    likes: [
-      "4c8a331bda76c559ef000004",
-      "4c8a331bda76c559ef000006",
-      "4c8a331bda76c559ef000007",
-    ],
+    likes: [luffyId, namiId, usoppId],
   },
   {
     // Luffy comments on Crocodile's post, liked by Zoro, Nami and Usopp
@@ -247,11 +262,7 @@ const comments = [
     post: crocodilePostId,
     author: luffyId,
     content: "I'll kick your ass!",
-    likes: [
-      "4c8a331bda76c559ef000005",
-      "4c8a331bda76c559ef000006",
-      "4c8a331bda76c559ef000007",
-    ],
+    likes: [zoroId, namiId, usoppId],
   },
 ];
 

@@ -39,7 +39,7 @@ vi.mock("../../hooks/useLikeComment", () => {
 });
 
 const user = {
-  _id: "4c8a331bda76c559ef000005",
+  _id: zoroId,
   fullName: "Roronoa Zoro",
   userName: "zoro",
   email: "zoro@onepiece.com",
