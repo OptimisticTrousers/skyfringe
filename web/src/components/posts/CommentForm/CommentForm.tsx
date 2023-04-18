@@ -6,7 +6,7 @@ import styles from "./CommentForm.module.css";
 interface Props {
   isCommentFormOpen: boolean;
   commentLoading: boolean;
-  createComment: (postId: string, formData: CommentData) => Promise<Comment>;
+  createComment: any;
   postId: string;
 }
 
@@ -56,8 +56,8 @@ const CommentForm: FC<Props> = ({
         styleName="form__input"
         placeholder="Leave a comment..."
       ></textarea>
-      <button styleName="form__button">
-        {commentLoading ? "Commenting..." : "Comment"}
+      <button styleName="form__button" disabled={commentLoading} type="submit">
+        {commentLoading ? "Posting..." : "Post"}
       </button>
     </form>
   );

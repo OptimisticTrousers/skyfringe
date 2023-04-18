@@ -4,9 +4,9 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthContext, AuthProvider } from "../../../context/AuthContext";
 import Post from "./Post";
 
-let mockLoading: any = false;
+let mockCommentsLoading: any = false;
 let mockComments: any = [];
-let mockError: any = null;
+let mockCommentsError: any = null;
 
 const luffyId = "4c8a331bda76c559ef000004";
 const namiId = "4c8a331bda76c559ef000007";
@@ -91,8 +91,43 @@ vi.mock("../../../hooks/useFetch", () => {
   return {
     default: vi.fn(() => ({
       data: [luffyComment, namiComment],
-      loading: mockLoading,
-      error: mockError,
+      loading: mockCommentsLoading,
+      error: mockCommentsError,
+    })),
+  };
+});
+
+const likePostMock = vi.fn();
+let mockLikeLoading = false;
+let mockLikeError: any = null;
+
+vi.mock("../../../hooks/useLikePost", () => {
+  return {
+    default: vi.fn(() => ({
+      likePost: likePostMock,
+      loading: mockLikeLoading,
+      error: mockLikeError,
+    })),
+  };
+});
+
+const mockContent = "test comment";
+
+const createCommentMock = vi.fn().mockReturnValue({
+  _id: "4c8a331bda76c559ef000019",
+  author: zoro,
+  content: mockContent,
+  likes: [],
+});
+let mockCreateCommentLoading = false;
+let mockCreateCommentError: any = null;
+
+vi.mock("../../../hooks/useCreateComment", () => {
+  return {
+    default: vi.fn(() => ({
+      createComment: createCommentMock,
+      loading: mockCreateCommentLoading,
+      error: mockCreateCommentError,
     })),
   };
 });
@@ -221,100 +256,113 @@ describe("Post component", () => {
 
       const updatedLikeCount = screen.getByText("1 like");
 
+      expect(likePostMock).toHaveBeenCalled();
       expect(updatedLikeCount).toBeInTheDocument();
       expect(likeButton).toHaveAccessibleName("Liked");
     });
-    // test("if it renders the correct text if loading and the user is unliking", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: luffy }}>
-    //         <Post post={luffyPost} />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
-    //   const likeButton = screen.getByRole("button", { name: "Unliking.." });
-    //   expect(likeButton).toBeInTheDocument();
-    // });
-    // test("if it renders the correct text if loading and the user is liking", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: zoro }}>
-    //         <Post post={zoroPost} />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
-    //   const likeButton = screen.getByRole("button", { name: "Liking.." });
-    //   expect(likeButton).toBeInTheDocument();
-    // });
-    // test("if it renders the correct text if liked", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: luffy }}>
-    //         <Post post={luffyPost} />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
-    //   const likeButton = screen.getByRole("button", { name: "Liked" });
-    //   expect(likeButton).toBeInTheDocument();
-    // });
-    // test("if it renders the correct text if not liked", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: zoro }}>
-    //         <Post post={zoroPost} />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
-    //   const likeButton = screen.getByRole("button", { name: "Like" });
-    //   expect(likeButton).toBeInTheDocument();
-    // });
-    // test("if it increases the amount of comments when one is created", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: zoro }}>
-    //         <Post post={luffyPost} />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
+    test("if it renders the correct text if loading and the user is unliking", async () => {
+      // Post should be current liked now
+      mockLikeLoading = true;
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: luffy }}>
+            <Post post={luffyPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
 
-    //   const commentsDropdownButton = screen.getByRole("button", {
-    //     name: "Comment",
-    //   });
+      const likeButton = screen.getByRole("button", { name: "Unliking..." });
+      expect(likeButton).toBeInTheDocument();
+    });
+    test("if it renders the correct text if loading and the user is liking", async () => {
+      // Post should not be liked now
+      mockLikeLoading = true;
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: zoro }}>
+            <Post post={zoroPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+      const likeButton = screen.getByRole("button", { name: "Liking..." });
+      expect(likeButton).toBeInTheDocument();
+    });
+    test("if it renders the correct text if liked", async () => {
+      mockLikeLoading = false;
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: luffy }}>
+            <Post post={luffyPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+      const likeButton = screen.getByRole("button", { name: "Liked" });
+      expect(likeButton).toBeInTheDocument();
+    });
+    test("if it renders the correct text if not liked", async () => {
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: zoro }}>
+            <Post post={zoroPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+      const likeButton = screen.getByRole("button", { name: "Like" });
+      expect(likeButton).toBeInTheDocument();
+    });
+    test("if it increases the amount of comments when one is created", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: zoro }}>
+            <Post post={zoroPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
 
-    //   await user.click(commentsDropdownButton);
+      const commentsDropdownButton = screen.getByRole("button", {
+        name: "Comment",
+      });
 
-    //   const commentsInput = screen.getByRole("textbox");
+      await user.click(commentsDropdownButton);
 
-    //   await user.type(commentsInput, "test post");
+      const commentsInput = screen.getByRole("textbox");
 
-    //   const commentSaveButton = screen.getByRole("button", { name: "Post" });
-    //   await user.click(commentSaveButton);
-    //   const commentsButton = screen.getByRole("button", { name: "4 comments" });
-    //   expect(commentsButton).toBeInTheDocument();
-    // });
-    // test("if it decreases the amount of comments when one is deleted", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <BrowserRouter>
-    //       <AuthContext.Provider value={{ user: nami }}>
-    //         <Post post={zoroPost} />
-    //       </AuthContext.Provider>
-    //     </BrowserRouter>
-    //   );
+      await user.type(commentsInput, mockContent);
 
-    //   const commentsDeleteButton = screen.getAllByRole("button", {
-    //     name: "Comment",
-    //   })[0];
+      const commentSaveButton = screen.getByRole("button", { name: "Post" });
+      await user.click(commentSaveButton);
+      expect(createCommentMock).toHaveBeenCalled();
+      const commentsButton = screen.getByRole("button", {
+        name: "3 comments",
+      });
+      expect(commentsButton).toBeInTheDocument();
+    });
+    test("if it decreases the amount of comments when one is deleted", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: nami }}>
+            <Post post={zoroPost} />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
 
-    //   await user.click(commentsDeleteButton);
-    //   const commentsButton = screen.getByRole("button", { name: "2 comments" });
-    //   expect(commentsButton).toBeInTheDocument();
-    // });
+      const commentsDropdownButton = screen.getByRole("button", {
+        name: "Comment",
+      });
+
+      await user.click(commentsDropdownButton);
+
+      const commentsButton = screen.getByRole("button", { name: "2 comments" });
+
+      const commentsDeleteButton = screen.getAllByRole("button", {
+        name: "Comment",
+      })[0];
+
+      await user.click(commentsDeleteButton);
+      expect(commentsButton).toHaveTextContent("1 comment");
+    });
     // test("if the comment count does not change if a comment is edited", async () => {
     //   const user = userEvent.setup();
     //   render(

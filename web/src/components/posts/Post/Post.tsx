@@ -43,6 +43,18 @@ const Post: FC<Props> = ({ post }) => {
     `${import.meta.env.VITE_API_DOMAIN}/posts/${post._id}/comments`
   );
 
+  const [localComments, setLocalComments] = useState(comments);
+
+  const handleCommentCreation = async (
+    postId: string,
+    formData: { content: string }
+  ) => {
+    const updatedComment = await createComment(postId, formData);
+    setLocalComments((prevComments: any) => {
+      return [...prevComments, updatedComment];
+    });
+  };
+
   const toggleModal = () => {
     setIsModalOpen((prevValue) => !prevValue);
   };
@@ -150,19 +162,20 @@ const Post: FC<Props> = ({ post }) => {
               </button>
               <button
                 styleName={`post__button post__button--comments ${
-                  !comments && "post__button--disabled"
+                  !localComments && "post__button--disabled"
                 }`}
                 onClick={toggleComments}
-                disabled={!comments}
+                disabled={!localComments}
               >
-                {!comments && "0 comments"}
-                {comments?.length === 1 && "1 comment"}
-                {comments?.length > 1 && `${comments.length} comments`}
+                {!localComments && "0 comments"}
+                {localComments?.length === 1 && "1 comment"}
+                {localComments?.length > 1 &&
+                  `${localComments.length} comments`}
               </button>
             </div>
             <Comments
               isCommentsOpen={isCommentsOpen}
-              comments={comments}
+              comments={localComments}
               loading={loading}
               error={error}
             />
@@ -189,7 +202,7 @@ const Post: FC<Props> = ({ post }) => {
           <CommentForm
             isCommentFormOpen={isCommentFormOpen}
             commentLoading={commentLoading}
-            createComment={createComment}
+            createComment={handleCommentCreation}
             postId={post._id}
           />
         </article>
