@@ -62,9 +62,12 @@ export const comment_update = [
 
     const commentId = req.params.commentId;
 
-    const comment = await Comment.findById(commentId).populate("likes").exec();
+    const comment = await Comment.findById(commentId)
+      .populate("likes")
+      .populate("author")
+      .exec();
 
-    if (comment && comment.author !== req.user._id) {
+    if (!comment?.author.equals(req.user._id)) {
       // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
       res.status(403).json({ message: "Forbidden" });
       return;
@@ -74,7 +77,11 @@ export const comment_update = [
       commentId,
       { content: req.body.content },
       { new: true }
-    );
+    )
+      .populate("likes")
+      .populate("author");
+
+    console.log(updatedComment);
 
     res.status(200).json(updatedComment);
   }),
