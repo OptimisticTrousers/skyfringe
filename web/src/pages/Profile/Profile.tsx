@@ -5,7 +5,7 @@ import { SkeletonPost } from "../../components/skeletons";
 import { Card, ErrorMessage } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useErrorToast from "../../hooks/useErrorToast";
-import { useFetch } from "../../hooks/useFetch";
+import useFetch from "../../hooks/useFetch";
 import { Post as PostInterface } from "./../../types";
 import styles from "./Profile.module.css";
 
