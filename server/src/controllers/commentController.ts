@@ -16,7 +16,28 @@ export const comment_list = asyncHandler(
   }
 );
 
-export const comment_create = [];
+export const comment_create = [
+  body("content", "Content is required").trim().isLength({ min: 1 }).escape(),
+  asyncHandler(async (req: any, res: any, next: any) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+      return;
+    }
+
+    const comment = new Comment({
+      post: req.params.postId,
+      author: req.user._id,
+      content: req.body.content,
+      likes: [],
+    });
+
+    await comment.save();
+
+    res.status(200).json(comment);
+  }),
+];
 
 // @desc    Like a single post (i.e. add new user to likes array)
 // @route   PUT /api/posts/:postId/comments/:commentId/likes
