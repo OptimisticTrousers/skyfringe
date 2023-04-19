@@ -79,14 +79,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
 
   useEffect(() => {
     setLocalComments(comments);
-  }, [
-    deleteLocalComment,
-    editLocalComment,
-    setLocalComments,
-    comments,
-    error,
-    loading,
-  ]);
+  }, [loading]);
 
   const toggleModal = () => {
     setIsModalOpen((prevValue) => !prevValue);

@@ -187,6 +187,43 @@ describe("Post component", () => {
     });
   });
   describe("All posts", () => {
+    test("that liking and unliking posts updates the modal count", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <AuthContext.Provider value={{ user: luffy }}>
+            <Post
+              post={luffyPost}
+              handleEditPost={mockHandleEditPost}
+              handleDeletePost={mockHandleDeletePost}
+            />
+          </AuthContext.Provider>
+        </BrowserRouter>
+      );
+
+      const likeButton = screen.getByRole("button", { name: "Liked" });
+      await user.click(likeButton);
+      const likeCountButton = screen.getByRole("button", { name: "2 likes" });
+      await user.click(likeCountButton);
+      const modal = screen.getByRole("dialog");
+      expect(modal).toBeInTheDocument();
+      const modalLikeCount = screen.getAllByText("2 likes");
+      expect(modalLikeCount).toHaveLength(2);
+      const likedUsers = screen.getAllByRole("menuitem");
+      expect(likedUsers).toHaveLength(2);
+      const exitModalButton = screen.getByLabelText("Close modal");
+      await user.click(exitModalButton);
+      expect(likeButton).toHaveAccessibleName("Like");
+      await user.click(likeButton);
+      expect(likeCountButton).toHaveAccessibleName("3 likes");
+      await user.click(likeCountButton);
+      const updatedModal = screen.getByRole("dialog");
+      expect(updatedModal).toBeInTheDocument();
+      const updatedModalLikeCount = screen.getAllByText("3 likes");
+      expect(updatedModalLikeCount).toHaveLength(2);
+      const updatedLikedUsers = screen.getAllByRole("menuitem");
+      expect(updatedLikedUsers).toHaveLength(3);
+    });
     test("if clicking on the like count button opens the modal for likes", async () => {
       const user = userEvent.setup();
       render(
