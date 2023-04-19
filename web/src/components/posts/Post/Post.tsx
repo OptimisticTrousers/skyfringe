@@ -46,10 +46,6 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
 
   const [localComments, setLocalComments] = useState(() => comments);
 
-  useEffect(() => {
-    setLocalComments(comments);
-  }, []);
-
   const handleCommentCreation = async (
     postId: string,
     formData: { content: string }
@@ -78,6 +74,10 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
       });
     });
   };
+
+  useEffect(() => {
+    setLocalComments(comments);
+  }, [deleteLocalComment, editLocalComment, setLocalComments]);
 
   const toggleModal = () => {
     setIsModalOpen((prevValue) => !prevValue);
@@ -130,6 +130,18 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     }
     return "0 likes";
   };
+
+  const commentCountText = () => {
+    const length = localComments?.length;
+    if (length > 1) {
+      return `${length} comments`;
+    } else if (length === 1) {
+      return "1 comment";
+    }
+    return "0 comments";
+  };
+
+  const isCommentsDropdownDisabled = localComments?.length === 0;
 
   return (
     <>
@@ -196,12 +208,9 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
                   localComments?.length === 0 && "post__button--disabled"
                 }`}
                 onClick={toggleComments}
-                disabled={localComments?.length === 0}
+                disabled={isCommentsDropdownDisabled}
               >
-                {localComments?.length === 0 && "0 comments"}
-                {localComments?.length === 1 && "1 comment"}
-                {localComments?.length > 1 &&
-                  `${localComments.length} comments`}
+                {commentCountText()}
               </button>
             </div>
             <Comments
