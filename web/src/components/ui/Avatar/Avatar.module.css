@@ -1,12 +1,12 @@
-.avatar:hover {
-  opacity: 0.6;
-}
-
 .avatar__image {
   border-radius: 16px;
   object-fit: cover;
   margin-bottom: 1rem;
   margin-right: 12px;
+}
+
+.avatar__image:hover {
+  opacity: 0.7;
 }
 
 .avatar__image--large {
