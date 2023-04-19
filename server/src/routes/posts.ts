@@ -31,5 +31,6 @@ router
   .put(comment_update)
   .delete(comment_delete);
 
-router.route("/:postId/comennts/:commentId/likes").put(comment_like);
+router.route("/:postId/comments/:commentId/likes").put(comment_like);
+
 export default router;
