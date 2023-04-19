@@ -36,6 +36,8 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
   const { likePost, loading: likeLoading } = useLikePost();
   const { createComment, loading: commentLoading } = useCreateComment();
 
+  const [localPost, setLocalPost] = useState(post);
+
   const {
     data: comments,
     loading,
@@ -77,7 +79,14 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
 
   useEffect(() => {
     setLocalComments(comments);
-  }, [deleteLocalComment, editLocalComment, setLocalComments]);
+  }, [
+    deleteLocalComment,
+    editLocalComment,
+    setLocalComments,
+    comments,
+    error,
+    loading,
+  ]);
 
   const toggleModal = () => {
     setIsModalOpen((prevValue) => !prevValue);
@@ -104,9 +113,18 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     if (isLiked) {
       // Unlike the post
       setIsLiked(false);
+      setLocalPost((prevPost: any) => {
+        return {
+          ...prevPost,
+          likes: prevPost.likes.filter((like: any) => like._id !== user._id),
+        };
+      });
       setLikesCount((likeCount: number) => likeCount - 1);
     } else {
       setIsLiked(true);
+      setLocalPost((prevPost: any) => {
+        return { ...prevPost, likes: [...prevPost.likes, user] };
+      });
       setLikesCount((likeCount: number) => likeCount + 1);
     }
   };
@@ -249,7 +267,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
           />
         </article>
       </Card>
-      {isModalOpen && <LikesModal toggleModal={toggleModal} data={post} />}
+      {isModalOpen && <LikesModal toggleModal={toggleModal} data={localPost} />}
     </>
   );
 };

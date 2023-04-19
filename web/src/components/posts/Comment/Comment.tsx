@@ -39,6 +39,8 @@ const Comment: FC<Props> = ({
     return 0;
   });
 
+  const [localComment, setLocalComment] = useState(comment);
+
   const [isUserEditing, setIsUserEditing] = useState(false);
 
   const [isLikesModalOpen, setIsLikesModalOpen] = useState(false);
@@ -70,9 +72,18 @@ const Comment: FC<Props> = ({
     if (isLiked) {
       // Unlike the post
       setIsLiked(false);
+      setLocalComment((prevComment: any) => {
+        return {
+          ...prevComment,
+          likes: prevComment.likes.filter((like: any) => like._id !== user._id),
+        };
+      });
       setLikesCount((likeCount: number) => likeCount - 1);
     } else {
       setIsLiked(true);
+      setLocalComment((prevComment: any) => {
+        return { ...prevComment, likes: [...prevComment.likes, user] };
+      });
       setLikesCount((likeCount: number) => likeCount + 1);
     }
   };
