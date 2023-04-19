@@ -172,7 +172,7 @@ const Comment: FC<Props> = ({
         </div>
       </article>
       {isLikesModalOpen && (
-        <LikesModal toggleModal={toggleModal} data={comment} />
+        <LikesModal toggleModal={toggleModal} data={localComment} />
       )}
     </>
   );

@@ -21,7 +21,11 @@ const ModalContainer: FC<Props> = ({ children, title, toggleModal }) => {
     >
       <div styleName="modal__container">
         <header styleName="modal__header">
-          <button styleName="modal__button" onClick={toggleModal}>
+          <button
+            styleName="modal__button"
+            onClick={toggleModal}
+            aria-label="Close modal"
+          >
             <AiFillCloseSquare styleName="modal__icon" />
           </button>
           <div styleName="modal__title-bar">

@@ -83,6 +83,43 @@ const mockDeleteLocalComment = vi.fn();
 const mockEditLocalComment = vi.fn();
 
 describe("Comment component", () => {
+  test("that liking and unliking comments updates the modal count", async () => {
+    const user = userEvent.setup();
+    render(
+      <AuthContext.Provider value={{ user: correctUser }}>
+        <BrowserRouter>
+          <Comment
+            comment={comment}
+            deleteLocalComment={mockDeleteLocalComment}
+            editLocalComment={mockEditLocalComment}
+          />
+        </BrowserRouter>
+      </AuthContext.Provider>
+    );
+
+    const likeButton = screen.getByRole("button", { name: "Like" });
+    await user.click(likeButton);
+    const likeCountButton = screen.getByRole("button", { name: "2" });
+    await user.click(likeCountButton);
+    const modal = screen.getByRole("dialog");
+    expect(modal).toBeInTheDocument();
+    const modalLikeCount = screen.getByText("2 likes");
+    expect(modalLikeCount).toBeInTheDocument();
+    const likedUsers = screen.getAllByRole("menuitem");
+    expect(likedUsers).toHaveLength(2);
+    const exitModalButton = screen.getByLabelText("Close modal");
+    await user.click(exitModalButton);
+    expect(likeButton).toHaveAccessibleName("Liked");
+    await user.click(likeButton);
+    expect(likeCountButton).toHaveAccessibleName("1");
+    await user.click(likeCountButton);
+    const updatedModal = screen.getByRole("dialog");
+    expect(updatedModal).toBeInTheDocument();
+    const updatedModalLikeCount = screen.getByText("1 like");
+    expect(updatedModalLikeCount).toBeInTheDocument();
+    const updatedLikedUsers = screen.getAllByRole("menuitem");
+    expect(updatedLikedUsers).toHaveLength(1);
+  });
   test("that clicking the 'Like' button when a user has not liked the comment increments the like count", async () => {
     const user = userEvent.setup();
     render(
