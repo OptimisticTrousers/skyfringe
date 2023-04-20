@@ -40,12 +40,12 @@ describe("POST /api/posts", () => {
 
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
-    expect(response.body.post.author).toBe(luffyId.toString());
-    expect(response.body.post.content).toEqual(
+    expect(response.body.author).toBe(luffyId);
+    expect(response.body.content).toEqual(
       "This is a test post with text content"
     );
-    expect(response.body.post.likes).toEqual([]);
-    expect(response.body.post.photo).toBeUndefined();
+    expect(response.body.likes).toEqual([]);
+    expect(response.body.photo).toBeUndefined();
   });
   it("should create a new post with an image", async () => {
     const fileName = "roblox.png";
