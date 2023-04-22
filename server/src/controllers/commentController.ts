@@ -33,6 +33,8 @@ export const comment_create = [
       likes: [],
     });
 
+    await comment.populate("author");
+
     await comment.save();
 
     res.status(200).json(comment);
