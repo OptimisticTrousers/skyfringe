@@ -12,6 +12,12 @@ describe("CreatePostModal component", () => {
     };
   };
 
+  test("if modal title is 'Create Post'", () => {
+    const toggleModal = vi.fn();
+    setup(<CreatePostModal toggleModal={toggleModal} />);
+    expect(screen.getByText("Create Post")).toBeInTheDocument();
+  });
+
   test("Disables post button by default", () => {
     const toggleModal = vi.fn();
     setup(<CreatePostModal toggleModal={toggleModal} />);
