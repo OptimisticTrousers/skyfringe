@@ -46,7 +46,6 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
     const postId = post._id;
     toggleModal();
     const updatedPost = await updatePost(postId, { content: postText });
-    console.log(updatedPost)
     handleEditPost(postId, updatedPost);
   };
 
