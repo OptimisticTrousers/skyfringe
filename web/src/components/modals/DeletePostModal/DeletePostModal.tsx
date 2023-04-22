@@ -19,7 +19,8 @@ const DeletePostModal: FC<Props> = ({
   const { deletePost, loading } = useDeletePost();
   const { user } = useContext(AuthContext);
 
-  const handleDelete = () => {
+  const handleDelete = (event: any) => {
+    event.preventDefault();
     deletePost(postId);
     handleDeletePost(postId);
     toggleModal();
@@ -27,7 +28,7 @@ const DeletePostModal: FC<Props> = ({
 
   return (
     <ModalContainer title="Delete Post" toggleModal={toggleModal}>
-      <form styleName="modal">
+      <form styleName="modal" onSubmit={handleDelete}>
         <p styleName="modal__alert">
           Are you sure you want to delete your post, {user?.fullName}?
         </p>
@@ -39,10 +40,7 @@ const DeletePostModal: FC<Props> = ({
           >
             Cancel
           </button>
-          <button
-            styleName="modal__button modal__button--delete"
-            onClick={handleDelete}
-          >
+          <button styleName="modal__button modal__button--delete" type="submit">
             {loading ? "Deleting..." : "Delete"}
           </button>
         </div>
