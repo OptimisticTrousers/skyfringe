@@ -15,9 +15,10 @@ const ImageUploadBtn = ({
   const { showToast } = useContext(ToastContext);
 
   const handlePhotoPicked = (event: any) => {
+    const fileLimit = 8 * 1024 * 1024;
     if (!event.target.files[0]) return;
-    if (event.target.files[0].size > 10485760) {
-      showToast("error", "File is too big. Max size is 10MB.");
+    if (event.target.files[0].size > fileLimit) {
+      showToast("error", "File is too big. Max size is 8MB.");
       setImageValue("");
       setImageFile(null);
       removeThumbnail();
@@ -37,7 +38,6 @@ const ImageUploadBtn = ({
           value={imageValue}
           name="image"
           id="image"
-          accept="image/jpg, image/jpeg, image/png, image/webp"
           styleName="file__input"
           onChange={handlePhotoPicked}
         />
