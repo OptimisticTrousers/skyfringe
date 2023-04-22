@@ -80,7 +80,7 @@ describe("LikesModal component", () => {
   it("returns the correct text for 1 like", () => {
     render(
       <BrowserRouter>
-        <LikesModal toggleModal={toggleModalMock} post={mockPostWithoutPhoto} />
+        <LikesModal toggleModal={toggleModalMock} data={mockPostWithoutPhoto} />
       </BrowserRouter>
     );
     const likeCount = screen.getByText("1 like");
@@ -90,7 +90,7 @@ describe("LikesModal component", () => {
   it("returns the correct text for 3 likes", () => {
     render(
       <BrowserRouter>
-        <LikesModal toggleModal={toggleModalMock} post={mockPostWithPhoto} />
+        <LikesModal toggleModal={toggleModalMock} data={mockPostWithPhoto} />
       </BrowserRouter>
     );
     const likeCount = screen.getByText("3 likes");
@@ -100,7 +100,7 @@ describe("LikesModal component", () => {
   it("returns the correct number of users", () => {
     render(
       <BrowserRouter>
-        <LikesModal toggleModal={toggleModalMock} post={mockPostWithPhoto} />
+        <LikesModal toggleModal={toggleModalMock} data={mockPostWithPhoto} />
       </BrowserRouter>
     );
     const users = screen.getAllByRole("menuitem");
@@ -110,7 +110,7 @@ describe("LikesModal component", () => {
   test("if it renders the correct name", () => {
     render(
       <BrowserRouter>
-        <LikesModal toggleModal={toggleModalMock} post={mockPostWithoutPhoto} />
+        <LikesModal toggleModal={toggleModalMock} data={mockPostWithoutPhoto} />
       </BrowserRouter>
     );
     const zoro = screen.getByText("Roronoa Zoro");
@@ -120,7 +120,7 @@ describe("LikesModal component", () => {
   test("if avatar is rendered if there is an avatar", () => {
     render(
       <BrowserRouter>
-        <LikesModal toggleModal={toggleModalMock} post={mockPostWithoutPhoto} />
+        <LikesModal toggleModal={toggleModalMock} data={mockPostWithoutPhoto} />
       </BrowserRouter>
     );
     const zoroAvatar = screen.getByAltText(
@@ -132,7 +132,7 @@ describe("LikesModal component", () => {
   test("if avatar is not rendered if there is no avatar", () => {
     render(
       <BrowserRouter>
-        <LikesModal toggleModal={toggleModalMock} post={mockPostWithPhoto} />
+        <LikesModal toggleModal={toggleModalMock} data={mockPostWithPhoto} />
       </BrowserRouter>
     );
 

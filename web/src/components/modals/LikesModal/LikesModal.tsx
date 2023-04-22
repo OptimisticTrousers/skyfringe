@@ -10,22 +10,26 @@ interface Props {
   data: any;
 }
 
-const LikesModal = ({ toggleModal, data}: any) => {
-  const likeCount = data.likes.length;
+const LikesModal = ({ toggleModal, data }: any) => {
+  const likeCount = data?.likes?.length;
+  const likeCountText = () => {
+    if (likeCount > 1) {
+      return `${likeCount} likes`;
+    } else if (likeCount === 1) {
+      return "1 like";
+    }
+    return "0 likes";
+  };
   return (
     <ModalContainer title="Likes" toggleModal={toggleModal}>
       <div styleName="modal">
         <div styleName="modal__container">
           <img styleName="modal__icon" src="/images/heart.png" />
-          <span styleName="modal__count">
-            {likeCount === 0 && "0 likes"}
-            {likeCount === 1 && "1 like"}
-            {likeCount > 1 && `${likeCount} likes`}
-          </span>
+          <span styleName="modal__count">{likeCountText()}</span>
         </div>
         <div styleName="modal__users">
           <ul styleName="modal__list">
-            {data.likes.map((like: any) => {
+            {data?.likes.map((like: any) => {
               return (
                 <li styleName="modal__item" key={like._id} role="menuitem">
                   <Link
