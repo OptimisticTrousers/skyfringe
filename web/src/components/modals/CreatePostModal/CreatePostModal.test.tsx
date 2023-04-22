@@ -4,6 +4,20 @@ import React from "react";
 import { ToastContext, ToastProvider } from "../../../context/ToastContext";
 import CreatePostModal from "./CreatePostModal";
 
+const createPostMock = vi.fn();
+let createPostLoading = false;
+let createPostError: any = null;
+
+vi.mock("../../../hooks/useCreatePost", () => {
+  return {
+    default: vi.fn(() => ({
+      createPost: createPostMock,
+      loading: createPostLoading,
+      error: createPostError,
+    })),
+  };
+});
+
 describe("CreatePostModal component", () => {
   const setup = (jsx: JSX.Element) => {
     return {
@@ -27,14 +41,29 @@ describe("CreatePostModal component", () => {
   });
 
   test("Enables post button once user enters post text", async () => {
+    createPostLoading = false;
     const toggleModal = vi.fn();
     const { user } = setup(<CreatePostModal toggleModal={toggleModal} />);
 
-    const postButton = screen.getByRole("button", { name: /post/i });
+    const postButton = screen.getByRole("button", { name: "Post" });
     const input = screen.getByRole("textbox");
     await user.type(input, "test");
 
     expect(postButton).not.toHaveAttribute("disabled");
+  });
+  test("if correct button text is rendered when loading is false", () => {
+    createPostLoading = false;
+    const toggleModal = vi.fn();
+    setup(<CreatePostModal toggleModal={toggleModal} />);
+    const postButton = screen.getByRole("button", { name: "Post" });
+    expect(postButton).toBeInTheDocument();
+  });
+  test("if correct button text is rendered when loading is true", () => {
+    createPostLoading = true;
+    const toggleModal = vi.fn();
+    setup(<CreatePostModal toggleModal={toggleModal} />);
+    const postButton = screen.getByRole("button", { name: "Posting..." });
+    expect(postButton).toBeInTheDocument();
   });
   test("if modal is closed when 'Post' button is clicked", async () => {
     const toggleModal = vi.fn();

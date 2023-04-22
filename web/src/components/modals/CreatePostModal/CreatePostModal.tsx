@@ -9,7 +9,7 @@ import ModalContainer from "../ModalContainer";
 import styles from "./CreatePostModal.module.css";
 
 interface Props {
-  toggleModal: () => void;
+  toggleModal: any;
 }
 
 const CreatePostModal: FC<Props> = ({ toggleModal }) => {
@@ -88,6 +88,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
           <button
             styleName="modal__button modal__button--submit"
             disabled={disabled}
+            type="submit"
           >
             {loading ? "Posting..." : "Post"}
           </button>
