@@ -3,7 +3,7 @@ import CSSModules from "react-css-modules";
 import { AiOutlineCamera } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { DeleteAccountModal } from "../../components/modals";
-import { Avatar, Card } from "../../components/ui";
+import { Avatar, Banner, Card } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import styles from "./Settings.module.css";
@@ -130,10 +130,7 @@ const Settings = () => {
             {/* <AiFillCamera styleName="settings__icon" /> */}
             Change Cover
           </button>
-          <img
-            src="/images/optimistictrousers.jpg"
-            styleName="settings__banner"
-          />
+          <Banner src={user?.cover?.imageUrl} altText={user?.cover?.altText} />
         </header>
         <div styleName="settings__grid">
           <aside styleName="settings__aside">

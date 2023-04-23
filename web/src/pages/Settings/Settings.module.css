@@ -3,8 +3,7 @@
 }
 
 .settings__header {
-  position: absolute;
-  height: 322px;
+  height: 412px;
   width: 100%;
 }
 
@@ -15,7 +14,7 @@
 .settings__button--banner {
   position: absolute;
   left: 54.4px;
-  top: 10%;
+  top: 3%;
   z-index: 1;
   background-color: #2f4cb8;
   border: none;
@@ -48,7 +47,6 @@
 
 .settings__grid {
   padding: 3.4rem 2rem;
-  padding-top: 226px;
   position: relative;
   display: grid;
   grid-template-columns: 1.3fr 3fr;
