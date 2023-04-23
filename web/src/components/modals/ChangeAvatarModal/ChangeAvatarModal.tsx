@@ -7,7 +7,7 @@ import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import useUpdateUser from "../../../hooks/useUpdateUser";
 import { ImagePreview, ImageUploadBtn, Loading } from "../../ui";
 import ModalContainer from "../ModalContainer";
-import styles from "./ChangePictureModal.module.css";
+import styles from "./ChangeAvatarModal.module.css";
 
 interface Props {
   toggleModal: () => void;
