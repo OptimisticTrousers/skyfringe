@@ -11,12 +11,14 @@ describe("Settings page", () => {
     userName: "bobjones",
     email: "bobjones@gmail.com",
     bio: "Hi, I'm your friendly neighborhood Bob Jones",
-    friends: ["4c8a331bda76c559ef000007"]
+    friends: ["4c8a331bda76c559ef000007"],
   };
   test("Hides modal by default", () => {
     render(
       <BrowserRouter>
-        <Settings />
+        <AuthContext.Provider value={{ user: bobJones }}>
+          <Settings />
+        </AuthContext.Provider>
       </BrowserRouter>
     );
 

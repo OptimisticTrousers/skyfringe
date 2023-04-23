@@ -1,6 +1,7 @@
 import { ChangeEvent, useContext, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineCamera } from "react-icons/ai";
+import { Link } from "react-router-dom";
 import { DeleteAccountModal } from "../../components/modals";
 import { Avatar, Card } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
@@ -159,9 +160,12 @@ const Settings = () => {
                 <p styleName="settings__number settings__number--gray">32</p>
               </div>
               <div styleName="settings__box">
-                <button styleName="settings__button settings__button--view">
+                <Link
+                  to={`/users/${user?._id}`}
+                  styleName="settings__button settings__button--view"
+                >
                   View Public Profile
-                </button>
+                </Link>
               </div>
             </Card>
             <Card>
@@ -185,7 +189,7 @@ const Settings = () => {
               <form styleName="settings__form">
                 <div styleName="settings__section">
                   <div styleName="settings__group">
-                    <label htmlFor="firstName" styleName="settings__label">
+                    <label htmlFor="fullName" styleName="settings__label">
                       Full Name
                     </label>
                     <input
@@ -199,7 +203,7 @@ const Settings = () => {
                     />
                   </div>
                   <div styleName="settings__group">
-                    <label htmlFor="lastName" styleName="settings__label">
+                    <label htmlFor="bio" styleName="settings__label">
                       Bio
                     </label>
                     <input
