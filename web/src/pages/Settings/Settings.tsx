@@ -2,10 +2,7 @@ import { ChangeEvent, useContext, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import {
-  ChangePictureModal,
-  DeleteAccountModal,
-} from "../../components/modals";
+import { ChangeAvatarModal, DeleteAccountModal } from "../../components/modals";
 import { Avatar, Banner, Card } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useUpdateUser from "../../hooks/useUpdateUser";
@@ -310,7 +307,7 @@ const Settings = () => {
         <DeleteAccountModal toggleModal={toggleDeleteModal} userId={user._id} />
       )}
       {isAvatarModalOpen && (
-        <ChangePictureModal toggleModal={toggleAvatarModal} />
+        <ChangeAvatarModal toggleModal={toggleAvatarModal} />
       )}
     </>
   );

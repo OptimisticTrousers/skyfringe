@@ -1,4 +1,4 @@
-export { default as ChangePictureModal } from "./ChangePictureModal";
+export { default as ChangeAvatarModal } from "./ChangeAvatarModal";
 export { default as CreatePostModal } from "./CreatePostModal";
 export { default as DeleteAccountModal } from "./DeleteAccountModal";
 export { default as DeletePostModal } from "./DeletePostModal";
