@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineCamera } from "react-icons/ai";
 import { DeleteAccountModal } from "../../components/modals";
-import { Card } from "../../components/ui";
+import { Avatar, Card } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
+import useUpdateUser from "../../hooks/useUpdateUser";
 import styles from "./Settings.module.css";
 
 const Settings = () => {
@@ -11,10 +12,112 @@ const Settings = () => {
   const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] =
     useState(false);
 
+  const { updateUser, loading } = useUpdateUser();
+
   const { user } = useContext(AuthContext);
+  const [fullName, setFullName] = useState(user.fullName);
+  const [bio, setBio] = useState(user.bio);
+  const [email, setEmail] = useState(user.email);
+  const [emailValid, setEmailValid] = useState(true);
+  const [emailError, setEmailError] = useState("");
+
+  const [oldPassword, setOldPassword] = useState("");
+  const [oldPasswordValid, setOldPasswordValid] = useState(true);
+  const [oldPasswordError, setOldPasswordError] = useState("");
+  const [oldPasswordVisible, setOldPasswordVisible] = useState(false);
+
+  const [password, setPassword] = useState("");
+  const [passwordValid, setPasswordValid] = useState(true);
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const [passwordConf, setPasswordConf] = useState("");
+  const [passwordConfValid, setPasswordConfValid] = useState(true);
+  const [passwordConfError, setPasswordConfError] = useState("");
+
+  const [emailValidationStyles, setEmailValidationStyles] = useState(false);
+  const [userNameValidationStyles, setuserNameValidationStyles] =
+    useState(false);
+  const [passwordValidationStyles, setPasswordValidationStyles] =
+    useState(false);
+
+  const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFullName(e.target.value);
+  };
+
+  const handleBioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setBio(e.target.value);
+  };
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checkValidity()) {
+      setEmailValid(true);
+      setEmailError("");
+    }
+    setEmail(e.target.value);
+  };
+
+  const checkEmailValidation = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.checkValidity()) {
+      setEmailValidationStyles(true);
+      setEmailValid(false);
+      setEmailError("The email field must be a valid email");
+    }
+  };
+
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checkValidity()) {
+      setPasswordValid(true);
+      setPasswordError("");
+    }
+    setPassword(e.target.value);
+  };
+
+  const checkPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.checkValidity()) {
+      setPasswordValidationStyles(true);
+      setPasswordValid(false);
+      setPasswordError("The password field must be at least 8 characters");
+    }
+  };
+
+  const handlePasswordConfChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (password === passwordConf && e.target.checkValidity()) {
+      setPasswordConfValid(true);
+      setPasswordConfError("");
+    }
+    setPasswordConf(e.target.value);
+  };
+
+  const checkPasswordConfValidation = (e: ChangeEvent<HTMLInputElement>) => {
+    if (password !== passwordConf) {
+      setPasswordConfValid(false);
+      setPasswordConfError("Passwords do not match");
+    } else {
+      setPasswordConfValid(true);
+      setPasswordConfError("");
+    }
+  };
+
+  const handlePasswordVisiblity = () => {
+    setPasswordVisible((prevVisibility) => !prevVisibility);
+  };
 
   const toggleModal = () => {
     setIsDeleteModalOpen((prevValue) => !prevValue);
+  };
+
+  const disabled =
+    loading || (!emailValid && email) || ((!passwordValid && password) as any);
+
+  const friendCountText = () => {
+    const friendCount = user?.friends.length;
+    if (friendCount > 1) {
+      return `${friendCount} friends`;
+    } else if (friendCount === 1) {
+      return "1 friend";
+    }
+    return "0 friends";
   };
 
   return (
@@ -35,12 +138,13 @@ const Settings = () => {
           <aside styleName="settings__aside">
             <Card>
               <div styleName="settings__card">
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="settings__avatar"
+                <Avatar
+                  size={"xl"}
+                  src={user?.photo?.imageUrl}
+                  alt={user?.photo?.altText}
                 />
-                <h2 styleName="settings__name">Nathaniel Poole</h2>
-                <p styleName="settings__friends">10 friends</p>
+                <h2 styleName="settings__name">{user.fullName}</h2>
+                <p styleName="settings__friends">{friendCountText()}</p>
               </div>
               <div styleName="settings__box">
                 <p styleName="settings__statistic">Posts created</p>
@@ -86,8 +190,12 @@ const Settings = () => {
                     </label>
                     <input
                       styleName="settings__input"
-                      id="firstName"
-                      name="firstName"
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      value={fullName}
+                      disabled={loading}
+                      onChange={handleFullNameChange}
                     />
                   </div>
                   <div styleName="settings__group">
@@ -96,19 +204,32 @@ const Settings = () => {
                     </label>
                     <input
                       styleName="settings__input"
-                      id="lastName"
-                      name="lastName"
+                      type="text"
+                      id="bio"
+                      name="bio"
+                      value={bio}
+                      disabled={loading}
+                      onChange={handleBioChange}
                     />
                   </div>
                   <div styleName="settings__group">
                     <label htmlFor="email" styleName="settings__label">
-                      Email
+                      Email Address
                     </label>
                     <input
-                      styleName="settings__input"
+                      styleName={`settings__input ${
+                        emailValidationStyles
+                          ? "settings__input--validation"
+                          : ""
+                      }`}
+                      type="email"
                       id="email"
                       name="email"
-                      type="email"
+                      required
+                      disabled={loading}
+                      onChange={handleEmailChange}
+                      onBlur={checkEmailValidation}
+                      value={email}
                     />
                   </div>
                 </div>
@@ -119,9 +240,15 @@ const Settings = () => {
                     </label>
                     <input
                       styleName="settings__input"
-                      id="email"
-                      name="email"
-                      type="email"
+                      id="oldPassword"
+                      name="oldPassword"
+                      type="password"
+                      required
+                      value={password}
+                      minLength={8}
+                      disabled={loading}
+                      onChange={handlePasswordChange}
+                      onBlur={checkPasswordValidation}
                     />
                   </div>
                   <div styleName="settings__group">
@@ -149,7 +276,13 @@ const Settings = () => {
                 </div>
               </form>
               <div styleName="settings__box">
-                <button styleName="settings__button--update">Update</button>
+                <button
+                  styleName="settings__button--update"
+                  disabled={disabled}
+                  type="submit"
+                >
+                  Update
+                </button>
               </div>
             </Card>
           </div>

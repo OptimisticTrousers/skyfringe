@@ -132,6 +132,7 @@
 
 .settings__description {
   font-size: 1.1rem;
+  line-height: 2rem;
 }
 
 .settings__button--delete {

@@ -10,6 +10,8 @@ describe("Settings page", () => {
     fullName: "Bob Jones",
     userName: "bobjones",
     email: "bobjones@gmail.com",
+    bio: "Hi, I'm your friendly neighborhood Bob Jones",
+    friends: ["4c8a331bda76c559ef000007"]
   };
   test("Hides modal by default", () => {
     render(
@@ -37,5 +39,21 @@ describe("Settings page", () => {
 
     const deleteAccountModal = screen.getByRole("dialog");
     expect(deleteAccountModal).toBeInTheDocument();
+  });
+  test("if it automatically populates the 'Full Name', 'Bio' and 'Email' fields", () => {
+    render(
+      <BrowserRouter>
+        <AuthContext.Provider value={{ user: bobJones }}>
+          <Settings />
+        </AuthContext.Provider>
+      </BrowserRouter>
+    );
+
+    const fullNameInput = screen.getByLabelText("Full Name");
+    const emailInput = screen.getByLabelText("Email Address");
+    const bioInput = screen.getByLabelText("Bio");
+    expect(fullNameInput).toBeInTheDocument();
+    expect(emailInput).toBeInTheDocument();
+    expect(bioInput).toBeInTheDocument();
   });
 });

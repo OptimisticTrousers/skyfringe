@@ -9,6 +9,13 @@
   opacity: 0.7;
 }
 
+.avatar__image--extra-large {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
 .avatar__image--large {
   height: 80px;
   width: 80px;
