@@ -15,6 +15,7 @@ import { ToastProvider } from "../../context/ToastContext";
 import { FormError } from "../../types";
 import Login from "./Login";
 
+// Customize loading/error/data states to properly test UI in different states
 const loginMock = vi.fn();
 let mockLoading: any = false;
 let mockError: any = null;
