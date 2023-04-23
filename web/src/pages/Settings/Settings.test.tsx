@@ -58,4 +58,20 @@ describe("Settings page", () => {
     expect(emailInput).toBeInTheDocument();
     expect(bioInput).toBeInTheDocument();
   });
+  test("if it opens the 'Avatar' modal when button is clicked", async () => {
+    const user = userEvent.setup();
+    render(
+      <BrowserRouter>
+        <AuthContext.Provider value={{ user: bobJones }}>
+          <Settings />
+        </AuthContext.Provider>
+      </BrowserRouter>
+    );
+
+    const avatarModalButton = screen.getByLabelText("Change profile picture");
+    await user.click(avatarModalButton);
+
+    const modal = screen.getByRole("dialog");
+    expect(modal).toBeInTheDocument();
+  });
 });

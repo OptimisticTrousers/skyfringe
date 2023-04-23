@@ -1,8 +1,11 @@
 import { ChangeEvent, useContext, useState } from "react";
 import CSSModules from "react-css-modules";
-import { AiOutlineCamera } from "react-icons/ai";
+import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { DeleteAccountModal } from "../../components/modals";
+import {
+  ChangePictureModal,
+  DeleteAccountModal,
+} from "../../components/modals";
 import { Avatar, Banner, Card } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useUpdateUser from "../../hooks/useUpdateUser";
@@ -10,8 +13,8 @@ import styles from "./Settings.module.css";
 
 const Settings = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] =
-    useState(false);
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
+  const [isCoverModalOpen, setIsCoverModalOpen] = useState(false);
 
   const { updateUser, loading } = useUpdateUser();
 
@@ -104,7 +107,11 @@ const Settings = () => {
     setPasswordVisible((prevVisibility) => !prevVisibility);
   };
 
-  const toggleModal = () => {
+  const toggleAvatarModal = () => {
+    setIsAvatarModalOpen((prevValue) => !prevValue);
+  };
+
+  const toggleDeleteModal = () => {
     setIsDeleteModalOpen((prevValue) => !prevValue);
   };
 
@@ -136,11 +143,21 @@ const Settings = () => {
           <aside styleName="settings__aside">
             <Card>
               <div styleName="settings__card">
-                <Avatar
-                  size={"xl"}
-                  src={user?.photo?.imageUrl}
-                  alt={user?.photo?.altText}
-                />
+                <div styleName="settings__avatar">
+                  <Avatar
+                    size={"xl"}
+                    src={user?.photo?.imageUrl}
+                    alt={user?.photo?.altText}
+                  />
+                  <button
+                    aria-label="Change profile picture"
+                    styleName="settings__button settings__button--avatar"
+                    aria-haspopup="dialog"
+                    onClick={toggleAvatarModal}
+                  >
+                    <AiFillCamera />
+                  </button>
+                </div>
                 <h2 styleName="settings__name">{user.fullName}</h2>
                 <p styleName="settings__friends">{friendCountText()}</p>
               </div>
@@ -174,7 +191,7 @@ const Settings = () => {
               </p>
               <button
                 styleName="settings__button--delete"
-                onClick={toggleModal}
+                onClick={toggleDeleteModal}
               >
                 Delete
               </button>
@@ -290,7 +307,10 @@ const Settings = () => {
         </div>
       </div>
       {isDeleteModalOpen && (
-        <DeleteAccountModal toggleModal={toggleModal} userId={user._id} />
+        <DeleteAccountModal toggleModal={toggleDeleteModal} userId={user._id} />
+      )}
+      {isAvatarModalOpen && (
+        <ChangePictureModal toggleModal={toggleAvatarModal} />
       )}
     </>
   );
