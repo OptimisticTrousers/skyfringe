@@ -87,6 +87,7 @@ const Login = () => {
             emailValidationStyles ? "auth__input--validation" : ""
           }`}
           value={email}
+          disabled={loading}
           required
           onChange={handleEmailChange}
           onBlur={checkEmailValidation}
@@ -110,6 +111,7 @@ const Login = () => {
             }`}
             required
             value={password}
+            disabled={loading}
             minLength={8}
             onChange={handlePasswordChange}
             onBlur={checkPasswordValidation}

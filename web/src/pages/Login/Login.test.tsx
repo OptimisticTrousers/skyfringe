@@ -86,7 +86,22 @@ describe("Login page", () => {
     });
   });
   describe("Form validation", () => {
+    test("disables all inputs when loading is true", () => {
+      mockLoading = true;
+      mockError = null;
+      render(
+        <BrowserRouter>
+          <Login />
+        </BrowserRouter>
+      );
+      const emailInput = screen.getByLabelText("Email Address");
+      const passwordInput = screen.getByLabelText("Password");
+      expect(emailInput).toBeDisabled();
+      expect(passwordInput).toBeDisabled();
+    });
     test("handles form submission correctly", async () => {
+      mockLoading = false;
+      mockError = null;
       const user = userEvent.setup();
       render(
         <BrowserRouter>
