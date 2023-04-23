@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiOutlineCamera } from "react-icons/ai";
+import { DeleteAccountModal } from "../../components/modals";
 import { Card } from "../../components/ui";
+import { AuthContext } from "../../context/AuthContext";
 import styles from "./Settings.module.css";
 
 const Settings = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isChangeProfileModalOpen, setIsChangeProfileModalOpen] =
+  const [isProfilePictureModalOpen, setIsProfilePictureModalOpen] =
     useState(false);
+
+  const { user } = useContext(AuthContext);
 
   const toggleModal = () => {
     setIsDeleteModalOpen((prevValue) => !prevValue);
@@ -151,6 +155,9 @@ const Settings = () => {
           </div>
         </div>
       </div>
+      {isDeleteModalOpen && (
+        <DeleteAccountModal toggleModal={toggleModal} userId={user._id} />
+      )}
     </>
   );
 };
