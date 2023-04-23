@@ -1,16 +1,22 @@
 import fs from "fs";
 import aws from "aws-sdk";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { PassThrough } from "stream";
 
 export const s3Uploadv3 = async (path: string, file: Express.Multer.File) => {
   try {
-    const s3client = new S3Client({ region: "us-east-1" });
+    const s3client = new S3Client({ region: "us-east-1", credentials: {
+      
+    } });
+
+    const fileContent = new PassThrough();
+    fileContent.end(file.buffer);
 
     const param = {
       Bucket: process.env.S3_BUCKET,
       Key: `facebook_clone/${path}/${file.originalname}${file.mimetype}`,
       ContentType: file.mimetype,
-      Body: fs.createReadStream(file.path),
+      Body: fileContent,
     };
 
     const data = await s3client.send(new PutObjectCommand(param));

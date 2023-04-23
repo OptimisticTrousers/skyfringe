@@ -32,6 +32,7 @@ export const post_create = [
   upload.single("image"),
   // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
   body("content").custom((value, { req }) => {
+    console.log(value, req.file);
     if ((!value || value.trim().length === 0) && !req.file) {
       // neither text nor image has been provided
       const error: CustomError = new Error("Post text or image is required");
@@ -42,19 +43,23 @@ export const post_create = [
     return true;
   }),
   // Process request after validation and sanitization
-  async (req: any, res: Response, next: NextFunction) => {
+  asyncHandler(async (req: any, res: Response, next: NextFunction) => {
     // Extract the validation errors from a request
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       // There are errors.
-      res.status(400).json({ errors: errors.array() });
+      res.status(400).json(errors.array());
       return;
     }
+
+    const { content } = req.body;
     // Create new post
     const post = new Post({
       author: req.user._id, // req.user is created by the auth middle when accessing any protected route
-      content: req.body.content,
+      ...(content && {
+        content: content,
+      }),
       likes: [],
       ...(req.file && {
         photo: {
@@ -73,7 +78,7 @@ export const post_create = [
     await post.save();
 
     res.status(200).json(post);
-  },
+  }),
 ];
 
 // @desc    Like a single post (i.e. add new user to likes array)

@@ -18,8 +18,6 @@ const fileFilter = (
       "File format not supported. Please upload jpg/webp/png/jpeg/gif only."
     );
     cb(error as any, false);
-  } else if (!req.file) {
-    cb(null, false);
   } else {
     cb(null, true);
   }
