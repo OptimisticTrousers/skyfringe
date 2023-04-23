@@ -1,27 +1,48 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../../context/AuthContext";
 import { ToastProvider } from "../../context/ToastContext";
 import { FormError } from "../../types";
-import Register from "../register.page";
+import Register from "./Register";
 
 // Customize loading/error/data states to properly test UI in different states
-let mockLoading: boolean;
-let mockError: boolean;
-let mockFormError: FormError[];
+const registerMock = vi.fn();
+let mockLoading: any = false;
+let mockError: any = null;
+let mockFormError: any[] = [null];
 
-jest.mock("../../hooks/useRegister", () => ({
-  __esModule: true,
-  default: () => ({
-    register: jest.fn,
-    loading: mockLoading,
-    error: mockError,
-    formError: mockFormError,
-  }),
-}));
+vi.mock("../../hooks/useRegister", () => {
+  return {
+    default: vi.fn(() => ({
+      login: registerMock,
+      loading: mockLoading,
+      error: mockError,
+      formError: mockFormError,
+    })),
+  };
+});
 
 describe("Register page", () => {
   describe("Form validation", () => {
+    test("disables all inputs when loading is true", () => {
+      mockLoading = true;
+      mockError = null;
+      mockFormError = [];
+      render(
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
+      );
+      const fullNameInput = screen.getByLabelText("Full Name");
+      const emailInput = screen.getByLabelText("Email Address");
+      const passwordInput = screen.getByLabelText("Password");
+      const passwordConfInput = screen.getByLabelText("Confirm Password");
+      expect(fullNameInput).toBeDisabled();
+      expect(emailInput).toBeDisabled();
+      expect(passwordInput).toBeDisabled();
+      expect(passwordConfInput).toBeDisabled();
+    });
     it("shows single form validation error when only one is provided", () => {
       mockLoading = false;
       mockError = true;
@@ -35,14 +56,12 @@ describe("Register page", () => {
       ];
 
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
 
-      const error = screen.getByText(/email is required/i);
+      const error = screen.getByText("Email is required");
       expect(error).toBeInTheDocument();
     });
     it("shows multiple form validation errors when multiple are set", () => {
@@ -64,15 +83,13 @@ describe("Register page", () => {
       ];
 
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
 
-      const errorOne = screen.getByText(/email is required/i);
-      const errorTwo = screen.getByText(/password is required/i);
+      const errorOne = screen.getByText("Email is required");
+      const errorTwo = screen.getByText("Password is required");
       expect(errorOne).toBeInTheDocument();
       expect(errorTwo).toBeInTheDocument();
     });
@@ -81,14 +98,14 @@ describe("Register page", () => {
     test("if the user enters an invalid input into the email field, then clicks away, an error message should appear", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const emailInput = screen.getByLabelText("Email Address");
-      await user.type(emailInput, "locospollos");
+      // Focus on email input
+      emailInput.focus();
+      expect(emailInput).toHaveFocus();
       // Remove focus from the password input
       await user.tab();
       expect(emailInput).not.toHaveFocus();
@@ -100,33 +117,31 @@ describe("Register page", () => {
     test("if the users enters an invalid input into the email field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const emailInput = screen.getByLabelText("Email Address");
-      await user.type(emailInput, "locospollos");
+      // Focus on email input
+      emailInput.focus();
       // Remove focus from the password input
+      expect(emailInput).toHaveFocus();
       await user.tab();
       expect(emailInput).not.toHaveFocus();
       const errorMessage = screen.getByText(
         "The email field must be a valid email"
       );
       expect(errorMessage).toBeInTheDocument();
-      await user.clear(emailInput);
       await user.type(emailInput, "bobjones@gmail.com");
+      await user.tab();
       expect(errorMessage).not.toBeInTheDocument();
     });
     test("if the user enters a correct email input, no error message should appear", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const emailInput = screen.getByLabelText("Email Address");
       await user.type(emailInput, "bobjones@gmail.com");
@@ -137,50 +152,53 @@ describe("Register page", () => {
     });
   });
   describe("Password validation", () => {
-    // test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <AuthProvider>
-    //       <ToastProvider>
-    //         <Register />
-    //       </ToastProvider>
-    //     </AuthProvider>
-    //   );
-    //   const passwordInput = screen.getByLabelText("Password");
-    //   await user.type(passwordInput, "bobjon");
-    //   // Remove focus from the password input
-    //   await user.tab();
-    //   expect(passwordInput).not.toHaveFocus();
-    //   const errorMessage = screen.getByText(
-    //     "The password field must be at least 8 characters"
-    //   );
-    //   expect(errorMessage).toBeInTheDocument();
-    // });
-    // test("if the users enters an invalid input into the password field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
-    //   const user = userEvent.setup();
-    //   render(<Register />);
-    //   const passwordInput = screen.getByLabelText("Password");
-    //   await user.type(passwordInput, "bobjone");
-    //   // Remove focus from the password input
-    //   // fireEvent.focusOut(passwordInput);
-    //   await user.tab();
-    //   expect(passwordInput).not.toHaveFocus();
-    //   const errorMessage = screen.getByText(
-    //     "The password field must be at least 8 characters"
-    //   );
-    //   expect(errorMessage).toBeInTheDocument();
-    //   await user.clear(passwordInput);
-    //   await user.type(passwordInput, "bobjones");
-    //   expect(errorMessage).not.toBeInTheDocument();
-    // });
+    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
+      );
+      const passwordInput = screen.getByLabelText("Password");
+      // Focus on password input
+      passwordInput.focus();
+      expect(passwordInput).toHaveFocus();
+      // Remove focus from the password input
+      await user.tab();
+      expect(passwordInput).not.toHaveFocus();
+      const errorMessage = screen.getByText(
+        "The password field must be at least 8 characters"
+      );
+      expect(errorMessage).toBeInTheDocument();
+    });
+    test("if the users enters an invalid input into the password field, then clicks away, an error message should appear. Then, when the user enters the field correctly, the message goes away", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
+      );
+      const passwordInput = screen.getByLabelText("Password");
+      // Focus on password input
+      passwordInput.focus();
+      expect(passwordInput).toHaveFocus();
+      // Remove focus from the password input
+      await user.tab();
+      expect(passwordInput).not.toHaveFocus();
+      const errorMessage = screen.getByText(
+        "The password field must be at least 8 characters"
+      );
+      expect(errorMessage).toBeInTheDocument();
+      await user.type(passwordInput, "bobjones");
+      await user.tab();
+      expect(errorMessage).not.toBeInTheDocument();
+    });
     test("if the user enters a correct password input, no error message should appear", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const passwordInput = screen.getByLabelText("Password");
       await user.type(passwordInput, "bobjones@gmail.com");
@@ -192,16 +210,16 @@ describe("Register page", () => {
     test("if the user enters a correct password and a correct confirm password, then no error should message should appear", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const passwordInput = screen.getByLabelText("Password");
       await user.type(passwordInput, "locospollos");
       const passwordConfInput = screen.getByLabelText("Confirm Password");
       await user.type(passwordConfInput, "locospollos");
+      // focus out of element
+      await user.tab();
       const passwordErrorMessage = screen.queryByText(
         "The password field must be at least 8 characters"
       );
@@ -214,11 +232,9 @@ describe("Register page", () => {
     test("if the user enters a password, but the confirm password field does not match, render an error message below the confirm password field", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const passwordInput = screen.getByLabelText("Password");
       await user.type(passwordInput, "locospollos");
@@ -231,51 +247,28 @@ describe("Register page", () => {
       );
       expect(passwordConfErrorMessage).toBeInTheDocument();
     });
-    // test("if the user enters a matching password and confirm password field, but the password input is less than 8 characters, render an error message below the password confirm field", async () => {
-    //   const user = userEvent.setup();
-    //   render(<Register />);
-    //   const passwordInput = screen.getByLabelText("Password");
-    //   await user.type(passwordInput, "pollos");
-    //   fireEvent.focusOut(passwordInput);
-    //   const passwordConfInput = screen.getByLabelText("Confirm Password");
-    //   await user.type(passwordConfInput, "pollos");
-    //   fireEvent.focusOut(passwordConfInput);
-    //   const passwordErrorMessage = screen.getByText(
-    //     "The password field must be at least 8 characters"
-    //   );
-    //   expect(passwordErrorMessage).toBeInTheDocument();
-    // });
-    // test("if the user enters text into the confirm password, but does not enter text in the password field, render an error message below the password field", async () => {
-    //   const user = userEvent.setup();
-    //   render(
-    //     <AuthProvider>
-    //       <ToastProvider>
-    //         <Register />
-    //       </ToastProvider>
-    //     </AuthProvider>
-
-    //   );
-    //   const passwordConfInput = screen.getByLabelText("Confirm Password");
-    //   await user.type(passwordConfInput, "pollos");
-    //   await user.tab();
-    //   // fireEvent.focusOut(passwordConfInput);
-    //   // passwordConfInput.blur();
-    //   expect(passwordConfInput).not.toHaveFocus();
-    //   const passwordErrorMessage = screen.getByText(
-    //     "The password field must be at least 8 characters"
-    //   );
-    //   expect(passwordErrorMessage).toBeInTheDocument();
-    // });
+    test("if the user enters text into the confirm password, but does not enter text in the password field, render an error message below the password field", async () => {
+      const user = userEvent.setup();
+      render(
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
+      );
+      const passwordConfInput = screen.getByLabelText("Confirm Password");
+      await user.type(passwordConfInput, "pollos");
+      await user.tab();
+      expect(passwordConfInput).not.toHaveFocus();
+      const passwordConfError = screen.getByText("Passwords do not match");
+      expect(passwordConfError).toBeInTheDocument();
+    });
   });
   describe("Username validation", () => {
     test("if the user enters a correct username, then no error message should appear", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const userNameInput = screen.getByLabelText("Username");
       await user.type(userNameInput, "bobjones");
@@ -289,11 +282,9 @@ describe("Register page", () => {
     test("if the user enters an incorrect username, then focuses out of the element, an error message should appear below the input", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const userNameInput = screen.getByLabelText("Username");
       await user.type(userNameInput, "AdsaA2@ad asdasd");
@@ -307,11 +298,9 @@ describe("Register page", () => {
     test("if the user enters an incorrect username, then focuses out of the element, then corrects the userName field, show no error message", async () => {
       const user = userEvent.setup();
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const userNameInput = screen.getByLabelText("Username");
       await user.type(userNameInput, "AdsaA2@ad asdasd");
@@ -331,11 +320,9 @@ describe("Register page", () => {
       mockLoading = false;
       mockError = false;
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const button = screen.getByRole("button", { name: "Create Account" });
       expect(button).toBeInTheDocument();
@@ -344,11 +331,9 @@ describe("Register page", () => {
       mockLoading = true;
       mockError = false;
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
 
       const button = screen.getByRole("button", { name: /creating/i });
@@ -358,11 +343,9 @@ describe("Register page", () => {
       mockLoading = false;
       mockError = true;
       render(
-        <AuthProvider>
-          <ToastProvider>
-            <Register />
-          </ToastProvider>
-        </AuthProvider>
+        <BrowserRouter>
+          <Register />
+        </BrowserRouter>
       );
       const button = screen.getByRole("button", { name: "Create Account" });
       expect(button).toBeInTheDocument();

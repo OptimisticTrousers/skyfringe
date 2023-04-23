@@ -74,9 +74,12 @@ const Register = () => {
   };
 
   const checkPasswordConfValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (password !== passwordConf || !e.target.checkValidity()) {
+    if (password !== passwordConf) {
       setPasswordConfValid(false);
       setPasswordConfError("Passwords do not match");
+    } else {
+      setPasswordConfValid(true);
+      setPasswordConfError("");
     }
   };
 
@@ -116,6 +119,12 @@ const Register = () => {
     setPasswordVisible((prevVisibility) => !prevVisibility);
   };
 
+  const disabled =
+    loading ||
+    (!emailValid && email) ||
+    (!passwordValid && password) ||
+    ((!userNameValid && userName) as any);
+
   return (
     <AuthLayout handleSubmit={handleSubmit} title="Register">
       <h2 styleName="auth__title">Register</h2>
@@ -128,9 +137,9 @@ const Register = () => {
           id="fullName"
           name="fullName"
           required
-          disabled={loading}
           styleName="auth__input"
           value={fullName}
+          disabled={loading}
           onChange={handleFullNameChange}
         />
         <p styleName="auth__message">
