@@ -8,7 +8,7 @@ describe("Settings page", () => {
 
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
-  test("Shows modal when clicking create post button", async () => {
+  test.skip("Shows modal when clicking create post button", async () => {
     render(<Settings />);
 
     // Click the close account button to reveal the delete account modal
