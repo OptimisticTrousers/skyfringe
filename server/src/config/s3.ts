@@ -5,9 +5,7 @@ import { PassThrough } from "stream";
 
 export const s3Uploadv3 = async (path: string, file: Express.Multer.File) => {
   try {
-    const s3client = new S3Client({ region: "us-east-1", credentials: {
-      
-    } });
+    const s3client = new S3Client({ region: "us-east-1" });
 
     const fileContent = new PassThrough();
     fileContent.end(file.buffer);
