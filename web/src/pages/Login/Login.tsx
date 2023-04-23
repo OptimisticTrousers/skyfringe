@@ -69,6 +69,9 @@ const Login = () => {
     setPasswordVisible((prevVisibility) => !prevVisibility);
   };
 
+  const disabled =
+    loading || (!emailValid && email) || (!passwordValid && password);
+
   return (
     <AuthLayout handleSubmit={handleSubmit} title="Login">
       <h2 styleName="auth__title">Log In</h2>
@@ -117,7 +120,7 @@ const Login = () => {
       <button
         type="submit"
         styleName="auth__button auth__button--submit"
-        disabled={loading}
+        disabled={disabled as any}
       >
         {loading ? "Logging in..." : "Log In"}
       </button>
@@ -152,5 +155,5 @@ const Login = () => {
 
 export default CSSModules(Login, styles, {
   allowMultiple: true,
-  handleNotFoundStyleName: "log",
+  handleNotFoundStyleName: "ignore",
 });
