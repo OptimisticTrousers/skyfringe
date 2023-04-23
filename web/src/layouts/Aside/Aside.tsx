@@ -21,6 +21,16 @@ const Aside = () => {
     setCloseSidebar((prevToggleValue) => !prevToggleValue);
   };
 
+  const friendCountText = () => {
+    const friendCount = user?.friends?.length;
+    if (friendCount > 1) {
+      return `${friendCount} friends`;
+    } else if (friendCount === 1) {
+      return "1 friend";
+    }
+    return "0 friends";
+  };
+
   return (
     <>
       <button
@@ -103,11 +113,7 @@ const Aside = () => {
                   />
                   <div styleName="aside__details">
                     <h2 styleName="aside__name">{user?.fullName}</h2>
-                    <p styleName="aside__friends">
-                      {user?.friends.length === 1
-                        ? "1 friend"
-                        : `${user?.friends.length} friends`}
-                    </p>
+                    <p styleName="aside__friends">{friendCountText()}</p>
                   </div>
                 </div>
               </li>

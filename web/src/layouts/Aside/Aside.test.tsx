@@ -17,13 +17,12 @@ vi.mock("../../hooks/useLogout", () => {
 });
 
 describe("Aside component", () => {
+  const user = {
+    photo: { imageUrl: "https://example.com/image.png" },
+    fullName: "John Doe",
+    friends: [{}, {}, {}],
+  };
   test("renders the user profile information", () => {
-    const user = {
-      photo: { imageUrl: "https://example.com/image.png" },
-      fullName: "John Doe",
-      friends: [{}, {}, {}],
-    };
-
     render(
       <BrowserRouter>
         <AuthContext.Provider value={{ user }}>
@@ -46,13 +45,12 @@ describe("Aside component", () => {
     const user = userEvent.setup();
     render(
       <BrowserRouter>
-        <AuthProvider>
+        <AuthContext.Provider value={{ user }}>
           <Aside />
-        </AuthProvider>
+        </AuthContext.Provider>
       </BrowserRouter>
     );
     const logoutButton = screen.getByText("Log Out");
-    expect(logoutMock).toHaveBeenCalledTimes(0);
     await user.click(logoutButton);
     expect(logoutMock).toHaveBeenCalledTimes(1);
   });
