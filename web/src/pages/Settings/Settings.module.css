@@ -149,7 +149,7 @@
   background-color: rgb(220, 38, 38);
 }
 
-.settings__form {
+.settings__section {
   border-top: 1px solid #e5e6ea;
   display: grid;
   grid-template-columns: repeat(2, 1fr);

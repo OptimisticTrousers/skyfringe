@@ -75,36 +75,73 @@ const Settings = () => {
             <Card>
               <h2 styleName="settings__title">Account Settings</h2>
               <form styleName="settings__form">
-                <div styleName="settings__group">
-                  <label htmlFor="firstName" styleName="settings__label">
-                    First Name
-                  </label>
-                  <input
-                    styleName="settings__input"
-                    id="firstName"
-                    name="firstName"
-                  />
+                <div styleName="settings__section">
+                  <div styleName="settings__group">
+                    <label htmlFor="firstName" styleName="settings__label">
+                      Full Name
+                    </label>
+                    <input
+                      styleName="settings__input"
+                      id="firstName"
+                      name="firstName"
+                    />
+                  </div>
+                  <div styleName="settings__group">
+                    <label htmlFor="lastName" styleName="settings__label">
+                      Bio
+                    </label>
+                    <input
+                      styleName="settings__input"
+                      id="lastName"
+                      name="lastName"
+                    />
+                  </div>
+                  <div styleName="settings__group">
+                    <label htmlFor="email" styleName="settings__label">
+                      Email
+                    </label>
+                    <input
+                      styleName="settings__input"
+                      id="email"
+                      name="email"
+                      type="email"
+                    />
+                  </div>
                 </div>
-                <div styleName="settings__group">
-                  <label htmlFor="lastName" styleName="settings__label">
-                    Last Name
-                  </label>
-                  <input
-                    styleName="settings__input"
-                    id="lastName"
-                    name="lastName"
-                  />
-                </div>
-                <div styleName="settings__group">
-                  <label htmlFor="email" styleName="settings__label">
-                    Email
-                  </label>
-                  <input
-                    styleName="settings__input"
-                    id="email"
-                    name="email"
-                    type="email"
-                  />
+                <div styleName="settings__section">
+                  <div styleName="settings__group">
+                    <label htmlFor="email" styleName="settings__label">
+                      Old Password
+                    </label>
+                    <input
+                      styleName="settings__input"
+                      id="email"
+                      name="email"
+                      type="email"
+                    />
+                  </div>
+                  <div styleName="settings__group">
+                    <label htmlFor="email" styleName="settings__label">
+                      New Password
+                    </label>
+                    <input
+                      styleName="settings__input"
+                      id="email"
+                      name="email"
+                      type="email"
+                    />
+                  </div>
+                  <div styleName="settings__group">
+                    <label htmlFor="email" styleName="settings__label">
+                      Confirm New Password
+                    </label>
+                    <input
+                      styleName="settings__input"
+                      id="email"
+                      name="email"
+                      type="email"
+                    />
+                  </div>
                 </div>
               </form>
               <div styleName="settings__box">
