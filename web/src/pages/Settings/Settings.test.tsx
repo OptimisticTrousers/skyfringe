@@ -38,7 +38,4 @@ describe("Settings page", () => {
     const deleteAccountModal = screen.getByRole("dialog");
     expect(deleteAccountModal).toBeInTheDocument();
   });
-  test.skip("if user can delete their account", async () => {
-
-  })
 });

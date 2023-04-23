@@ -1,6 +1,8 @@
-import { FC, useContext } from "react";
+import { FC, FormEvent, useContext } from "react";
 import CSSModules from "react-css-modules";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
+import useDeleteAccount from "../../../hooks/useDeleteAccount";
 import ModalContainer from "../ModalContainer";
 import styles from "./DeleteAccountModal.module.css";
 
@@ -9,11 +11,18 @@ interface Props {
   userId: string;
 }
 
-const DeleteAccountModal: FC<Props> = ({ toggleModal, userId}) => {
+const DeleteAccountModal: FC<Props> = ({ toggleModal, userId }) => {
   const { user } = useContext(AuthContext);
+  const { deleteAccount, loading } = useDeleteAccount();
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    deleteAccount(userId);
+  };
+
   return (
     <ModalContainer title="Delete Account" toggleModal={toggleModal}>
-      <form styleName="modal">
+      <form styleName="modal" onSubmit={handleSubmit}>
         <p styleName="modal__alert">
           Are you sure you want to delete your account, {user?.fullName}?
         </p>
@@ -22,7 +31,9 @@ const DeleteAccountModal: FC<Props> = ({ toggleModal, userId}) => {
           undo this action. All of your likes, posts, comments, and friend
           requests will be deleted.
         </p>
-        <button styleName="modal__button">Delete Account</button>
+        <button styleName="modal__button">
+          {loading ? "Deleting Account..." : "Delete Account"}
+        </button>
       </form>
     </ModalContainer>
   );
