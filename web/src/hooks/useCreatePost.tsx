@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ToastContext } from "../context/ToastContext";
 import { PostData } from "../types";
 import useHttp from "./useHttp";
@@ -8,12 +8,14 @@ const useCreatePost = () => {
   const { showToast } = useContext(ToastContext);
 
   // Accepts FormData object that may contain both text and images
-  const createPost = async (formData: PostData) => {
+  const createPost = async (formData: FormData) => {
     const response = await post(
       `${import.meta.env.VITE_API_DOMAIN}/posts`,
       formData
     );
-    if (response) {
+    if (Array.isArray(response)) {
+      showToast("error", response[0].msg);
+    } else if (response) {
       showToast("success", "You have successfully created a post!");
     } else if (error) {
       showToast("error", "An error occured while creating the post.");

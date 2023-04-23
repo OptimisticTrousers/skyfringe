@@ -21,7 +21,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
     useImageThumbnail();
 
   const [imageValue, setImageValue] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState<any>(null);
 
   const disabled = postText.length === 0 && !imageData;
 
@@ -31,10 +31,12 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createPost({ content: postText });
+    const newPost = new FormData();
+    newPost.append("content", postText);
+    newPost.append("image", imageFile);
+    createPost(newPost);
     toggleModal();
   };
-
 
   const handlePhoto = (event: any) => {
     handleFile(event.target.files[0]);

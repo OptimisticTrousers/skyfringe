@@ -11,32 +11,21 @@ const useHttp = () => {
     url: string,
     method: HttpMethods,
     options: RequestInit,
-    body?: unknown
+    body?: any
   ) => {
     try {
       setLoading(true);
       const response = await fetch(url, {
         method,
-        headers: {
-          "Content-Type": "application/json",
-        },
         mode: "cors",
         credentials: "include",
         ...options,
-        body: body ? JSON.stringify(body) : undefined,
+        body: body ? body : undefined,
       });
       const json = await response.json();
       setLoading(false);
 
-      if (response.status !== 200) {
-        // error with delete operation
-        setError(json);
-        // Return out of the function here to avoid setting the response below with error JSON
-        return;
-      }
-
       // No error, operation successful
-      setError(null);
       setData(json);
       return json;
     } catch (err) {
