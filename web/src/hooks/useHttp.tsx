@@ -11,7 +11,7 @@ const useHttp = () => {
     url: string,
     method: HttpMethods,
     options: RequestInit,
-    body?: any
+    body?: unknown
   ) => {
     try {
       setLoading(true);
@@ -20,7 +20,7 @@ const useHttp = () => {
         mode: "cors",
         credentials: "include",
         ...options,
-        body: body ? body : undefined,
+        body: body ? JSON.stringify(body) : undefined,
       });
       const json = await response.json();
       setLoading(false);
