@@ -17,7 +17,6 @@ export const comment_list = asyncHandler(
 );
 
 export const comment_create = [
-  body("content", "Content is required").trim().isLength({ min: 1 }).escape(),
   asyncHandler(async (req: any, res: any, next: any) => {
     const errors = validationResult(req);
 
@@ -73,7 +72,6 @@ export const comment_like = asyncHandler(
 // @route   PUT /api/posts/:postId/comments/:commentId
 // @access  Private
 export const comment_update = [
-  body("content", "Content is required").trim().isLength({ min: 1 }).escape(),
   asyncHandler(async (req: any, res: any, next: NextFunction) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
