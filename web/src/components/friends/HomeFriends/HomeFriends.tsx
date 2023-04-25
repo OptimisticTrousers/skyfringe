@@ -32,13 +32,13 @@ const HomeFriends = () => {
 
   const renderedFriends = user.friends.map((friend: any) => {
     return (
-      <Link styleName="friends__friend" to={`/users/${friend.userName}`}>
+      <Link styleName="friends__friend" to={`/users/${friend?.userName}`}>
         <img
-          src={friend.photo.imageUrl}
+          src={friend?.photo?.imageUrl}
           styleName="friends__avatar"
           onError={userImageFallback}
         />
-        <p styleName="friends__name">{friend.fullName}</p>
+        <p styleName="friends__name">{friend?.fullName}</p>
       </Link>
     );
   });
