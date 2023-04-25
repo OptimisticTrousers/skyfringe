@@ -54,9 +54,13 @@ const Comment: FC<Props> = ({
   };
 
   const handleUpdateComment = async (commentText: string) => {
-    const updatedComment = await updateComment(comment._id, comment.post, {
-      content: commentText,
-    });
+    const formData = new FormData();
+    formData.append("content", commentText);
+    const updatedComment = await updateComment(
+      comment._id,
+      comment.post._id,
+      formData
+    );
     editLocalComment(comment._id, updatedComment);
     setIsUserEditing(false);
   };
@@ -113,9 +117,9 @@ const Comment: FC<Props> = ({
               <div styleName="comment__top">
                 <Link
                   styleName="comment__link"
-                  to={`/users/${comment?.author._id}`}
+                  to={`/users/${comment?.author?._id}`}
                 >
-                  {comment?.author.fullName}{" "}
+                  {comment?.author?.fullName}{" "}
                 </Link>
                 <span styleName="comment__gray">
                   {getTimeAgo(comment?.createdAt)}

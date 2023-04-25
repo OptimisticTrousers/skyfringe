@@ -9,7 +9,7 @@ const useUpdateComment = () => {
   const updateComment = async (
     commentId: string,
     postId: string,
-    formData: any
+    formData: FormData
   ) => {
     const response = await put(
       `${
@@ -17,10 +17,12 @@ const useUpdateComment = () => {
       }/posts/${postId}/comments/${commentId}`,
       formData
     );
-    if (response) {
-      showToast("success", "You have successfully updated a comment!");
+    if (Array.isArray(response)) {
+      showToast("error", response[0].msg);
+    } else if (response) {
+      showToast("success", "You have successfully created a post!");
     } else if (error) {
-      showToast("error", "An error occured while updating the comment.");
+      showToast("error", "An error occured while creating the post.");
     }
     return response;
   };
