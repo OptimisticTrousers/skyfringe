@@ -13,13 +13,10 @@ const fileFilter = (
     "image/gif",
     "image/jpg",
   ];
-  if (!allowedTypes.includes(file.mimetype)) {
-    const error = new Error(
-      "File format not supported. Please upload jpg/webp/png/jpeg/gif only."
-    );
-    cb(error as any, false);
-  } else {
+  if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
+  } else {
+    return cb(null, false);
   }
 };
 
