@@ -1,28 +1,37 @@
-import { useContext } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import App from "./App";
-import { AuthContext } from "./context/AuthContext";
-import useCurrentUser from "./hooks/useCurrentUser";
+import useCurrentAuthUser from "./hooks/useCurrentAuthUser";
 import { AllFriends } from "./pages/AllFriends";
 import { Chat } from "./pages/Chat";
+import { Error404 } from "./pages/Error404";
+import { Error500 } from "./pages/Error500";
 import { FriendRequests } from "./pages/FriendRequests";
 import { FriendsHome } from "./pages/FriendsHome";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
-import { NotFound } from "./pages/NotFound";
 import { Notifications } from "./pages/Notifications";
 import { Profile } from "./pages/Profile";
 import { Register } from "./pages/Register";
 import { Settings } from "./pages/Settings";
 
 const RouteSwitch = () => {
-  const { user, ready } = useContext(AuthContext);
+  const { user, loading, error } = useCurrentAuthUser();
 
-  useCurrentUser();
+  if (error) {
+    <BrowserRouter>
+      <Error500 />
+    </BrowserRouter>;
+  }
 
   return (
     <BrowserRouter>
-      {ready && (
+      {!loading && (
         <Routes>
           <Route path="/" element={!user ? <Navigate to="/login" /> : <App />}>
             <Route index element={<Home />} />
@@ -46,7 +55,7 @@ const RouteSwitch = () => {
           />
           <Route
             path="*"
-            element={user ? <NotFound /> : <Navigate to="/login" />}
+            element={user ? <Error404 /> : <Navigate to="/login" />}
           />
         </Routes>
       )}
