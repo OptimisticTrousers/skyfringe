@@ -7,7 +7,6 @@ import {
   post_delete,
   post_like,
 } from "../controllers/postController";
-
 import {
   comment_list,
   comment_create,

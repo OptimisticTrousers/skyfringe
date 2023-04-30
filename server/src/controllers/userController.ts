@@ -4,6 +4,7 @@ import User from "../models/user";
 import Post from "../models/post";
 import mongoose from "mongoose";
 import { body, oneOf, validationResult } from "express-validator";
+import { User as IUser } from "../../../shared/types";
 
 export const user_list = (
   req: Request,
@@ -27,18 +28,12 @@ export const user_update = [
     ],
     "At least one of the following fields must be present: fullName, bio, photo, cover"
   ),
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req: Request, res: Response) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
-      return;
-    }
-
-    // Check if the id provided is valid
-    if (!mongoose.Types.ObjectId.isValid(req.params.userId)) {
-      res.status(400).json({ message: "Invalid userId" });
+      res.status(400).json(errors.array());
       return;
     }
 
@@ -64,7 +59,7 @@ export const user_update = [
 
     const user = updatedUser.toObject();
     delete user.password;
-    res.json({ user });
+    res.json(user);
   }),
 ];
 
@@ -94,7 +89,7 @@ export const user_feed = async (
   res: Response,
   next: NextFunction
 ) => {
-  const user = req.user as any;
+  const user = req.user as IUser;
 
   // Find all posts from user's friends
   const friendPosts = await Post.find({
@@ -138,5 +133,5 @@ export const user_feed = async (
       index === self.findIndex((p) => p._id.toString() === post._id.toString())
   );
 
-  res.status(200).json({ posts: uniquePosts });
+  res.status(200).json(uniquePosts);
 };

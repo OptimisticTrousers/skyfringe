@@ -1,33 +1,42 @@
-import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
-import Comment from "../models/comment";
-import Post from "../models/post";
 import { body, validationResult } from "express-validator";
-import mongoose from "mongoose";
+import { Request, Response, NextFunction } from "express";
+import Comment from "../models/comment";
+import { User as IUser, Comment as IComment } from "../../../shared/types";
 
+// @desc    Get post comments
+// @route   GET /api/posts/:postId/comments
+// @access  Private
 export const comment_list = asyncHandler(
-  async (req: any, res: Response, next: NextFunction) => {
+  async (req: Request, res: Response) => {
     const comments = await Comment.find({ post: req.params.postId })
       .populate("author")
       .populate("likes")
-      .populate("post");
+      .populate("post")
+      .exec();
 
     res.status(200).json(comments);
   }
 );
 
+// @desc    Add new comment
+// @route   POST /api/posts/:postId/comments/
+// @access  Private
 export const comment_create = [
-  asyncHandler(async (req: any, res: any, next: any) => {
+  body("content", "Content is required"),
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      res.status(400).json(errors.array());
       return;
     }
 
+    const user = req.user as IUser;
+
     const comment = new Comment({
       post: req.params.postId,
-      author: req.user._id,
+      author: user._id,
       content: req.body.content,
       likes: [],
     });
@@ -44,20 +53,22 @@ export const comment_create = [
 // @route   PUT /api/posts/:postId/comments/:commentId/likes
 // @access  Private
 export const comment_like = asyncHandler(
-  async (req: any, res: any, next: any) => {
+  async (req: Request, res: Response) => {
     // fetch
-    const comment: any = await Comment.findById(req.params.commentId).exec();
+    const comment = (await Comment.findById(req.params.commentId)
+      .populate("likes")
+      .exec()) as IComment;
 
-    // Check if the user has already liked this post (i.e. their user ID already exists in likes array)
-    // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
+    // Check if the user has already liked this post (i.e. their user ID already exists in likes array) // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
 
-    const alreadyLikedIndex = comment.likes.findIndex((like: any) =>
-      like.equals(new mongoose.Types.ObjectId(req.user._id))
+    const user = req.user as IUser;
+    const alreadyLikedIndex = comment.likes.findIndex(
+      (like: IUser) => like._id === user._id
     );
 
     if (alreadyLikedIndex === -1) {
       // post is not liked
-      comment.likes.push(req.user._id);
+      comment.likes.push(user);
     } else {
       // remove like on the post
       comment.likes.splice(alreadyLikedIndex, 1);
@@ -72,22 +83,25 @@ export const comment_like = asyncHandler(
 // @route   PUT /api/posts/:postId/comments/:commentId
 // @access  Private
 export const comment_update = [
-  asyncHandler(async (req: any, res: any, next: NextFunction) => {
+  asyncHandler(async (req: Request, res: Response) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      res.status(400).json(errors.array());
       return;
     }
 
     const commentId = req.params.commentId;
 
-    const comment = await Comment.findById(commentId)
+    const comment = (await Comment.findById(commentId)
       .populate("likes")
       .populate("author")
-      .exec();
+      .exec()) as IComment;
 
-    if (!comment?.author.equals(req.user._id)) {
+    const user = req.user as IUser;
+
+    if (!comment.author.equals(user)) {
       // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
       res.status(403).json({ message: "Forbidden" });
       return;
@@ -101,8 +115,6 @@ export const comment_update = [
       .populate("likes")
       .populate("author");
 
-    console.log(updatedComment);
-
     res.status(200).json(updatedComment);
   }),
 ];
@@ -110,18 +122,24 @@ export const comment_update = [
 // @desc    Delete single comment
 // @route   DELETE /api/posts/:postId/comments/:commentId
 // @access  Private
-export const comment_delete = asyncHandler(async (req: any, res: Response) => {
-  const commentId = req.params.commentId;
+export const comment_delete = asyncHandler(
+  async (req: Request, res: Response) => {
+    const commentId = req.params.commentId;
 
-  const comment = await Comment.findById(commentId).populate("author").exec();
+    const comment = (await Comment.findById(commentId)
+      .populate("author")
+      .exec()) as IComment;
 
-  if (!comment?.author.equals(req.user)) {
-    // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
-    res.status(403).json({ message: "Forbidden" });
-    return;
+    const user = req.user as IUser;
+
+    if (!comment.author.equals(user)) {
+      // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
+      res.status(403).json({ message: "Forbidden" });
+      return;
+    }
+
+    const deletedComment = await Comment.findByIdAndDelete(commentId);
+
+    res.status(200).json(deletedComment);
   }
-
-  const deletedComment = await Comment.findByIdAndDelete(commentId);
-
-  res.status(200).json(deletedComment);
-});
+);

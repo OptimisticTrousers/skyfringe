@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { body, oneOf, validationResult } from "express-validator";
+import { body, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
 import Post from "../models/post";
 import upload from "../config/multer";
 import mongoose from "mongoose";
 import { s3Deletev3, s3Uploadv3 } from "../config/s3";
+import { User as IUser, Post as IPost } from "../../../shared/types";
 
 interface CustomError extends Error {
   status?: number;
@@ -13,17 +14,15 @@ interface CustomError extends Error {
 // @desc    Get all posts
 // @route   GET /api/posts
 // @access  Private
-export const post_list = (req: Request, res: Response, next: NextFunction) => {
-  Post.find({})
+export const post_list = asyncHandler(async (req: Request, res: Response) => {
+  const posts = await Post.find({})
     .sort({ createdAt: 1 })
     .populate("author")
     .populate("likes")
-    .exec()
-    .then((posts) => {
-      res.json(posts);
-    })
-    .catch(next);
-};
+    .exec();
+
+  res.status(200).json(posts);
+});
 
 // @desc    Add new post
 // @route   POST /api/posts
@@ -32,7 +31,6 @@ export const post_create = [
   upload.single("image"),
   // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
   body("content").custom((value, { req }) => {
-    console.log(value, req.file);
     if ((!value || value.trim().length === 0) && !req.file) {
       // neither text nor image has been provided
       const error: CustomError = new Error("Post text or image is required");
@@ -43,7 +41,7 @@ export const post_create = [
     return true;
   }),
   // Process request after validation and sanitization
-  asyncHandler(async (req: any, res: Response, next: NextFunction) => {
+  asyncHandler(async (req: Request, res: Response) => {
     // Extract the validation errors from a request
     const errors = validationResult(req);
 
@@ -54,11 +52,12 @@ export const post_create = [
     }
 
     const { content } = req.body;
+    const user = req.user as IUser;
     // Create new post
     const post = new Post({
-      author: req.user._id, // req.user is created by the auth middle when accessing any protected route
+      author: user._id, // req.user is created by the auth middle when accessing any protected route
       ...(content && {
-        content: content,
+        content,
       }),
       likes: [],
       ...(req.file && {
@@ -84,20 +83,23 @@ export const post_create = [
 // @desc    Like a single post (i.e. add new user to likes array)
 // @route   PUT /api/posts/:postId/likes
 // @access  Private
-export const post_like = asyncHandler(async (req: any, res: any) => {
+export const post_like = asyncHandler(async (req: Request, res: Response) => {
   // fetch
-  const post: any = await Post.findById(req.params.postId).exec();
+  const post = (await Post.findById(req.params.postId)
+    .populate("likes")
+    .exec()) as IPost;
 
   // Check if the user has already liked this post (i.e. their user ID already exists in likes array)
   // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
 
-  const alreadyLikedIndex = post.likes.findIndex((like: any) =>
-    like.equals(new mongoose.Types.ObjectId(req.user._id))
+  const user = req.user as IUser;
+  const alreadyLikedIndex = post.likes.findIndex(
+    (like: IUser) => like._id === user._id
   );
 
   if (alreadyLikedIndex === -1) {
     // post is not liked
-    post.likes.push(req.user._id);
+    post.likes.push(user);
   } else {
     // remove like on the post
     post.likes.splice(alreadyLikedIndex, 1);
@@ -110,43 +112,38 @@ export const post_like = asyncHandler(async (req: any, res: any) => {
 // @desc    Get single post
 // @route   GET /api/posts/:postId
 // @access  Private
-export const post_detail = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  Post.findById(req.params.postId)
-    .populate("author")
-    .exec()
-    .then((post) => {
-      if (!post) {
-        // No results.
-        const err: CustomError = new Error("Post not found");
-        err.status = 404;
-        return next(err);
-      }
-      res.json({ post });
-    })
-    .catch(next);
-};
+export const post_detail = asyncHandler(async (req: Request, res: Response) => {
+  const post = await Post.findById(req.params.postId).populate("author").exec();
+
+  if (!post) {
+    // No results.
+    res.status(404).json({ message: "Post not found" });
+    return;
+  }
+  res.status(200).json(post);
+});
 
 // @desc    Update single post
 // @route   PUT /api/posts/:postId
 // @access  Private
 export const post_update = [
-  asyncHandler(async (req: any, res: Response, next: NextFunction) => {
+  asyncHandler(async (req: Request, res: Response) => {
     const postId = req.params.postId;
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      res.status(400).json(errors.array());
       return;
     }
 
-    const post: any = await Post.findById(postId).populate("author").exec();
+    const post = (await Post.findById(postId)
+      .populate("author")
+      .exec()) as IPost;
 
-    if (!post?.author.equals(req.user._id)) {
+    const user = req.user as IUser;
+
+    if (!post.author.equals(user)) {
       // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
       res.status(403).json({ message: "Forbidden" });
       return;
@@ -176,8 +173,6 @@ export const post_update = [
       { new: true }
     ).populate("author");
 
-    console.log(updatedPost);
-
     res.status(200).json(updatedPost);
   }),
 ];
@@ -185,12 +180,13 @@ export const post_update = [
 // @desc    Delete single post
 // @route   DELETE /api/posts/:postId
 // @access  Private
-export const post_delete = asyncHandler(async (req: any, res: Response) => {
+export const post_delete = asyncHandler(async (req: Request, res: Response) => {
   const postId = req.params.postId;
 
-  const post = await Post.findById(postId).exec();
+  const post = (await Post.findById(postId).populate("author").exec()) as IPost;
 
-  if (!post?.author.equals(req.user._id)) {
+  const user = req.user as IUser;
+  if (!post.author.equals(user)) {
     // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
     res.status(403).json({ message: "Forbidden" });
     return;
