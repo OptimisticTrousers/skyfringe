@@ -6,8 +6,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  // render the error page
-  console.log(err)
+  // return the error
   res.status(err.status || 500).json(err);
 };
 
