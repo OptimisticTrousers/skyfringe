@@ -14,6 +14,9 @@ const Avatar: FC<Props> = ({ src, alt, size }) => {
   let sizeClass: string;
 
   switch (size) {
+    case "friend":
+      sizeClass = "avatar__image--friend";
+      break;
     case "xl":
       sizeClass = "avatar__image--extra-large";
       break;

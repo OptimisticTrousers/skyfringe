@@ -5,8 +5,16 @@
   margin-right: 12px;
 }
 
-.avatar__image:hover {
-  opacity: 0.7;
+.avatar__image--friend {
+  height: 100%;
+  width: 100px;
+  border-radius: 30px;
+  border: 6px solid #2e2828;
+  outline: 3px solid white;
+}
+
+.avatar__image--friend:hover {
+  outline: 3px solid #fefe00;
 }
 
 .avatar__image--extra-large {
