@@ -1,6 +1,5 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { Schema, model } from "mongoose";
+import { User } from "../../../shared/types";
 
 const UserSchema = new Schema(
   {
@@ -35,7 +34,7 @@ const UserSchema = new Schema(
       altText: { type: String },
     },
   },
-  { timestamps: true, toJSON: { virtuals: true } }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
 // Virtual for user's URL
@@ -52,4 +51,4 @@ UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });
 
-export default mongoose.model("User", UserSchema);
+export default model<User>("User", UserSchema);

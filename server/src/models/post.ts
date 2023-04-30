@@ -1,12 +1,11 @@
-import mongoose from "mongoose";
-
-const Schema = mongoose.Schema;
+import { Schema, model } from "mongoose";
+import { Post } from "../../../shared/types";
 
 const PostSchema = new Schema(
   {
     author: { type: Schema.Types.ObjectId, ref: "User", required: true },
     content: { type: String, minLength: 4, maxLength: 1000 },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User", default: [] }],
+    likes: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
     photo: {
       imageUrl: { type: String },
       altText: { type: String },
@@ -22,4 +21,4 @@ PostSchema.virtual("likeCount").get(function () {
   return this.likes.length;
 });
 
-export default mongoose.model("Post", PostSchema);
+export default model<Post>("Post", PostSchema);
