@@ -50,7 +50,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
 
   return (
     <ModalContainer title="Create Post" toggleModal={toggleModal}>
-      <form styleName="modal__form" onSubmit={handleSubmit}>
+      <form styleName="modal__form" onSubmit={handleSubmit} encType="multipart/form-data">
         <div styleName="modal__author-bar">
           <img src={user?.photo?.imageUrl} styleName="modal__avatar" />
           <div styleName="modal__text">

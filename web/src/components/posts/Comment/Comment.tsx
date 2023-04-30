@@ -54,12 +54,10 @@ const Comment: FC<Props> = ({
   };
 
   const handleUpdateComment = async (commentText: string) => {
-    const formData = new FormData();
-    formData.append("content", commentText);
     const updatedComment = await updateComment(
       comment._id,
       comment.post._id,
-      formData
+      {content: commentText}
     );
     editLocalComment(comment._id, updatedComment);
     setIsUserEditing(false);

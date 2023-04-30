@@ -25,7 +25,7 @@ const CommentForm: FC<Props> = ({
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    createComment(postId, { content: commentText });
+    createComment(postId, {content: commentText});
   };
 
   return (

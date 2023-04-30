@@ -3,7 +3,7 @@ import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import userImageFallback from "../../../utils/userImageFallback";
-import { Card } from "../../ui";
+import { Avatar, Card } from "../../ui";
 import styles from "./HomeFriends.module.css";
 
 const HomeFriends = () => {
@@ -17,7 +17,6 @@ const HomeFriends = () => {
     const containerDimensions = carouselRef.current.getBoundingClientRect();
     const containerWidth = containerDimensions.width;
 
-    console.log(containerDimensions);
     carouselRef.current.scrollLeft += containerWidth / 2;
   };
 
@@ -26,18 +25,13 @@ const HomeFriends = () => {
     const containerDimensions = carouselRef.current.getBoundingClientRect();
     const containerWidth = containerDimensions.width;
 
-    console.log(containerDimensions);
     carouselRef.current.scrollLeft -= containerWidth / 2;
   };
 
-  const renderedFriends = user.friends.map((friend: any) => {
+  const renderedFriends = user?.friends?.map((friend: any) => {
     return (
       <Link styleName="friends__friend" to={`/users/${friend?.userName}`}>
-        <img
-          src={friend?.photo?.imageUrl}
-          styleName="friends__avatar"
-          onError={userImageFallback}
-        />
+        <Avatar src={friend?.photo?.imageUrl} alt={"avatar"} size={"friend"} />
         <p styleName="friends__name">{friend?.fullName}</p>
       </Link>
     );
