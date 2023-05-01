@@ -3,7 +3,7 @@ import app from "../app";
 // Import db setup and teardown functionality
 import "../config/testSeeds";
 
-describe("login_user controller", () => {
+describe("POST /api/auth/login", () => {
   it("should return a 403 status code when no user is found", async () => {
     const response = await request(app)
       .post("/api/auth/login")
