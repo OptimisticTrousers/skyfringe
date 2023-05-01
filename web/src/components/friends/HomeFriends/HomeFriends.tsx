@@ -30,7 +30,11 @@ const HomeFriends = () => {
 
   const renderedFriends = user?.friends?.map((friend: any) => {
     return (
-      <Link styleName="friends__friend" to={`/users/${friend?.userName}`}>
+      <Link
+        key={friend._id}
+        styleName="friends__friend"
+        to={`/users/${friend?.userName}`}
+      >
         <Avatar src={friend?.photo?.imageUrl} alt={"avatar"} size={"friend"} />
         <p styleName="friends__name">{friend?.fullName}</p>
       </Link>

@@ -17,7 +17,7 @@ const useHttp = () => {
 
     const json = await response.json();
 
-    return { ...response, data: json };
+    return { status: response.status, data: json };
   };
 
   const get = async (url: string, options: RequestInit = {}) => {

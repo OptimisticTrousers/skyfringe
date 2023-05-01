@@ -28,7 +28,7 @@ const useLogout = () => {
         // No error, logout successful. Payload not required, it will be set to null within the reducer function for this action type
         setError(null);
         dispatch({ type: "LOGOUT" });
-        showToast("error", "Succesfully logged out!");
+        showToast("success", "Successfully logged out!");
         return;
       }
 
