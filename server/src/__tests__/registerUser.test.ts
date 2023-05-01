@@ -23,7 +23,7 @@ describe("POST api/auth/register", () => {
   it("returns user and token objects after successful user sign up/register (with password hidden)", async () => {
     const response = await request(app).post("/api/auth/register").send(user);
     expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(200)
     expect(response.body.fullName).toBe("Bob Jones");
     expect(response.body.userName).toBe("bobjones");
     expect(response.body.email).toBe("bobjones@gmail.com");

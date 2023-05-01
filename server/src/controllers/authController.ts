@@ -18,9 +18,15 @@ config();
 // Handle register on POST
 export const register_user = [
   // Validate and sanitize fields.
-  body("fullName").trim().isLength({ min: 1 }).escape(),
-  body("userName").trim().isLength({ min: 5 }).escape(),
-  body("email")
+  body("fullName", "Full name is required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("userName", "Username must be at least 5 characters long")
+    .trim()
+    .isLength({ min: 5 })
+    .escape(),
+  body("email", "Please enter a valid email address")
     .isEmail()
     .normalizeEmail({ gmail_remove_dots: false })
     .custom(async (value) => {
@@ -33,7 +39,10 @@ export const register_user = [
         return Promise.reject("Server Error");
       }
     }),
-  body("password").trim().isLength({ min: 8 }).escape(),
+  body("password", "Password must be at least 8 characters long")
+    .trim()
+    .isLength({ min: 8 })
+    .escape(),
   // Process request after validation and sanitization.
   asyncHandler(async (req: Request, res: Response) => {
     // Extract validation errors from a request.
