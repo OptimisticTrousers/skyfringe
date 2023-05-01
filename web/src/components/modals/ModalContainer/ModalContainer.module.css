@@ -23,6 +23,8 @@
   min-width: 310px;
   position: relative;
   width: min(100%, 500px);
+  max-height: 428px;
+  overflow-y: scroll;
 }
 
 .modal__author-bar {
