@@ -7,6 +7,10 @@ import mongoose from "mongoose";
 import { s3Deletev3, s3Uploadv3 } from "../config/s3";
 import { User as IUser, Post as IPost } from "../../../shared/types";
 
+interface CustomError extends Error {
+  status?: number;
+}
+
 // @desc    Get all posts
 // @route   GET /api/posts
 // @access  Private
@@ -29,7 +33,9 @@ export const post_create = [
   body("content").custom((value, { req }) => {
     if ((!value || value.trim().length === 0) && !req.file) {
       // neither text nor image has been provided
-      throw new Error("Post text or image is required");
+      const error: CustomError = new Error("Post text or image is required");
+      error.status = 404;
+      throw error;
     }
     // User has included one of either text or image. Continue with request handling
     return true;
@@ -45,6 +51,8 @@ export const post_create = [
       return;
     }
 
+    console.log(req.file);
+
     const { content } = req.body;
     const user = req.user as IUser;
     // Create new post
@@ -56,8 +64,8 @@ export const post_create = [
       likes: [],
       ...(req.file && {
         photo: {
-          imageUrl: `${process.env.S3_BUCKET}/${req.file.path}`,
-          altText: "",
+          imageUrl: `${process.env.S3_BUCKET}/${user.userName}`,
+          altText: "post image",
         },
       }),
     });

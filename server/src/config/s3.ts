@@ -5,7 +5,20 @@ import { PassThrough } from "stream";
 
 export const s3Uploadv3 = async (path: string, file: Express.Multer.File) => {
   try {
-    const s3client = new S3Client({ region: "us-east-1" });
+    const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+    const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+    if (!(accessKeyId && secretAccessKey)) {
+      throw new Error(
+        "AWS_ACCESS_KEY_ID or AWS_SECRET_ACCESS_KEY value is not defined in .env file"
+      );
+    }
+    const s3client = new S3Client({
+      region: "us-east-1",
+      credentials: {
+        accessKeyId,
+        secretAccessKey,
+      },
+    });
 
     const fileContent = new PassThrough();
     fileContent.end(file.buffer);
