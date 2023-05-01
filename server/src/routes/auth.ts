@@ -15,7 +15,7 @@ router.route("/login").post(login_user);
 
 router
   .route("/logout")
-  .post(passport.authenticate("jwt", { session: false }), logout_user);
+  .get(passport.authenticate("jwt", { session: false }), logout_user);
 
 router.route("/current").get(check_auth_user);
 
