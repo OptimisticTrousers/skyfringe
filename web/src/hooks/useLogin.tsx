@@ -28,7 +28,6 @@ const useLogin = () => {
           },
         }
       );
-      console.log(response)
 
       if (response.status === 200) {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state

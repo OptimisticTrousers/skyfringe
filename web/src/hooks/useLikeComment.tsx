@@ -28,9 +28,9 @@ const useLikeComment = () => {
       if (response.status === 200) {
         // No error, request successful
         setError(null);
-        showToast("success", "You have successfully liked a comment!");
+        showToast("success", "You have successfully liked/unliked a comment!");
         // Return out of the function here to avoid setting the response below with error JSON
-        return;
+        return response.data;
       }
 
       // error with liking comment

@@ -27,7 +27,7 @@ const useCreateComment = () => {
         setError(null);
         showToast("success", "You have successfully created a comment!");
         // Return out of the function here to avoid setting the 'completed' response below with error JSON data
-        return response;
+        return response.data;
       }
       // error with posting comment
       const message = response.data[0].msg;

@@ -26,8 +26,9 @@ const useLikePost = () => {
       if (response.status === 200) {
         // No error, request successfull
         setError(null);
+        showToast("success", "You have successfully liked/unliked a post!");
         // Return out of the function here to avoid setting the response below with error JSON
-        return;
+        return response.data;
       }
       setError({ message });
       showToast("error", message);

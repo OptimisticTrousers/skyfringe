@@ -16,6 +16,7 @@ import MoreOptionsDropdown from "../MoreOptionsDropdown";
 import styles from "./Post.module.css";
 import useFetch from "../../../hooks/useFetch";
 import { LikesModal } from "../../modals";
+import { CommentData } from "../../../types";
 
 interface Props {
   post: any;
@@ -50,7 +51,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
 
   const handleCommentCreation = async (
     postId: string,
-    formData: { content: string }
+    formData: CommentData
   ) => {
     const updatedComment = await createComment(postId, formData);
     setLocalComments((prevComments: any) => {
