@@ -7,10 +7,6 @@ import mongoose from "mongoose";
 import { s3Deletev3, s3Uploadv3 } from "../config/s3";
 import { User as IUser, Post as IPost } from "../../../shared/types";
 
-interface CustomError extends Error {
-  status?: number;
-}
-
 // @desc    Get all posts
 // @route   GET /api/posts
 // @access  Private

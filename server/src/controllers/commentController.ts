@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import { body, validationResult } from "express-validator";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import Comment from "../models/comment";
 import { User as IUser, Comment as IComment } from "../../../shared/types";
 
@@ -23,8 +23,8 @@ export const comment_list = asyncHandler(
 // @route   POST /api/posts/:postId/comments/
 // @access  Private
 export const comment_create = [
-  body("content", "Content is required"),
-  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+  body("content", "Content is required").trim().isLength({ min: 1 }).escape(),
+  asyncHandler(async (req: Request, res: Response) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
