@@ -33,9 +33,7 @@ export const post_create = [
   body("content").custom((value, { req }) => {
     if ((!value || value.trim().length === 0) && !req.file) {
       // neither text nor image has been provided
-      const error: CustomError = new Error("Post text or image is required");
-      error.status = 400;
-      throw error;
+      throw new Error("Post text or image is required");
     }
     // User has included one of either text or image. Continue with request handling
     return true;
