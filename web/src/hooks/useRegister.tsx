@@ -1,44 +1,62 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Error, FormError, RegisterData } from "../types";
+import { ToastContext } from "../context/ToastContext";
+import { FormError, RegisterData } from "../types";
 import useHttp from "./useHttp";
 
 const useRegister = () => {
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<unknown | null>(null);
   const [formError, setFormError] = useState<FormError[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { post } = useHttp();
   const { dispatch } = useContext(AuthContext);
-  const { post, loading } = useHttp();
+  const { showToast } = useContext(ToastContext);
 
   // Call this function with the object created using relevant user sign up data
   const register = async (formData: RegisterData) => {
+    setLoading(true);
     setError(null);
     setFormError(null);
+    const message = "An unknown error occured while logging out";
     try {
-      const data = await post(
-        `${process.env.NEXT_PUBLIC_API_DOMAIN}/auth/register`,
-        formData
+      const response = await post(
+        `${import.meta.env.VITE_API_DOMAIN}/auth/register`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
-      if (data.hasOwnProperty("user")) {
+      if (response.status === 200) {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
-        dispatch({ type: "LOGIN", payload: data.user });
+        setError(null);
+        setFormError(null);
+        dispatch({ type: "LOGIN", payload: response });
+        showToast("error", "Successfully registered!");
         return;
       } else {
-        // error with login reject
-        if (data.error.message === "Email already in use") {
-          // user must select a different email. Set to error
-          setError({ message: "This email is taken. Choose another." });
-        } else if (data.hasOwnProperty("errors")) {
-          // length indicates form validation errors (i. e. JSON response is array)
-          setFormError(data.errors);
+        // error with login request
+        if (response.data[0].msg === "E-mail already in use") {
+          // user must select a different email. Set to formError
+          setFormError([{ msg: "This email is taken. Choose another." }]);
+        } else if (response.data.length) {
+          // length indicates form validation errors (i.e. JSON response is array)
+          setFormError(response.data);
         } else {
           // unspecified error, return generic error msg
-          setError({ message: "An unknown error occured while signing up." });
+          setError({ message });
+          showToast("error", message);
         }
       }
     } catch (err) {
       // internal React hook error
-      setError({ message: "An unknown error occured while signing up." });
+      setError({ message });
+      showToast("error", message);
+    } finally {
+      // Regardless of success or error, the loading state is complete
+      setLoading(false);
     }
   };
 

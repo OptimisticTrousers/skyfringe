@@ -1,24 +1,52 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { ToastContext } from "../context/ToastContext";
 import useHttp from "./useHttp";
 
 const useLikeComment = () => {
-  const { put, data, loading, error } = useHttp();
+  const [error, setError] = useState<unknown | null>(null);
+  const [loading, setLoading] = useState(false);
+  const { put } = useHttp();
   const { showToast } = useContext(ToastContext);
 
+  // Requires both the post and comment IDs simply due to the REST API arrangement
   const likeComment = async (commentId: string, postId: string) => {
-    const response = await put(
-      `${import.meta.env.VITE_API_DOMAIN}/posts/${postId}/comments/${commentId}/likes`
-    );
-    if (response) {
-      showToast("success", "You have successfully updated a post!");
-    } else if (error) {
-      showToast("error", "An error occured while updating the post.");
+    setLoading(true);
+    setError(null);
+    const message = "There was a problem liking this comment";
+    try {
+      const response = await put(
+        `${
+          import.meta.env.VITE_API_DOMAIN
+        }/posts/${postId}/comments/${commentId}/likes`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        // No error, request successful
+        setError(null);
+        showToast("success", "You have successfully liked a comment!");
+        // Return out of the function here to avoid setting the response below with error JSON
+        return;
+      }
+
+      // error with liking comment
+      setError({ message });
+      showToast("error", message);
+    } catch (error) {
+      const message = "An unknown error occured while liking a comment";
+      setError({ message });
+      showToast("error", message);
+    } finally {
+      // Regardless of success or error, the loading state is complete
+      setLoading(false);
     }
-    return response;
   };
 
-  return { likeComment, data, loading, error };
+  return { likeComment, loading, error };
 };
 
 export default useLikeComment;

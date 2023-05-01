@@ -9,9 +9,9 @@ export interface Error {
 
 export interface FormError {
   msg: string;
-  value: string;
-  param: string;
-  location: string;
+  value?: string;
+  param?: string;
+  location?: string;
 }
 
 export interface RegisterData {

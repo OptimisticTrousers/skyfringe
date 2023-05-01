@@ -1,43 +1,61 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ToastContext } from "../context/ToastContext";
-import { Error } from "../types";
 import useHttp from "./useHttp";
 
 const useTestLogin = () => {
-  const [testError, setTestError] = useState<Error | null>(null);
+  const [error, setError] = useState<unknown | null>(null);
+  const [loading, setLoading] = useState(false);
   const { dispatch } = useContext(AuthContext);
-  const { post, loading } = useHttp();
+  const { post } = useHttp();
   const { showToast } = useContext(ToastContext);
 
   // Submits request to test-specific login route. All login details are kept securely on backend so no data is POSTed
   const testLogin = async () => {
-    setTestError(null);
+    setLoading(true);
+    setError(null);
+    const message =
+      "An unknown error occured while logging into the test user.";
     try {
       const response = await post(
-        `${import.meta.env.VITE_API_DOMAIN}/auth/login`
+        `${import.meta.env.VITE_API_DOMAIN}/auth/login`,
+        {
+          email: "luffy@onepiece.com",
+          password: "password",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
-      if (response.hasOwnProperty("user")) {
+      if (response.status === 200) {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
-        setTestError(null);
-        dispatch({ type: "LOGIN", payload: response.user });
-        showToast("success", "Logged in!");
-        return;
+        setError(null);
+        dispatch({ type: "LOGIN", payload: response.data });
+        showToast("success", "Successfully logged in!");
       } else {
-        // error with login request. Can only be server error (as opposed to wrong username/password)
-        setTestError({
-          message: "An unknown error occured while logging into the test user.",
-        });
+        // error with login request
+        if (response.status === 403) {
+          // invalid credentials
+          setError({ message: "Invalid credentials. Try again." });
+        } else {
+          // unspecified error, return generic error msg
+          setError({ message });
+          showToast("error", message);
+        }
       }
     } catch (err) {
       // internal React hook error
-      setTestError({
-        message: "An unknown error occured while logging into the test user.",
-      });
+      setError({ message });
+      showToast("error", message);
+    } finally {
+      // Regardless of success or error, the loading state is complete
+      setLoading(false);
     }
   };
 
-  return { testLogin, testError, testLoading: loading };
+  return { testLogin, error, loading };
 };
 
 export default useTestLogin;

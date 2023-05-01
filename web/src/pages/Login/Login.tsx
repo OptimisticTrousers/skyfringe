@@ -12,7 +12,7 @@ import styles from "./Login.module.css";
 
 const Login = () => {
   const { login, loading, formError } = useLogin();
-  const { testLogin, testLoading } = useTestLogin();
+  const { testLogin, loading: testLoading } = useTestLogin();
 
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
