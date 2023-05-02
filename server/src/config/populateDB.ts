@@ -266,8 +266,8 @@ const comments = [
   },
 ];
 
-// IIFE to populate database with intial data. Use insertMany to reduce overall db calls
-(async () => {
+// Function used to populate database with intial data. Use insertMany to reduce overall db calls
+export const populate = async () => {
   try {
     const userDocs = await User.insertMany(users);
     console.log(`${userDocs.length} users seeded successfully.`);
@@ -289,4 +289,4 @@ const comments = [
     console.log(`Error seeding comments: ${error}`);
   }
   console.log("Done!");
-})();
+};
