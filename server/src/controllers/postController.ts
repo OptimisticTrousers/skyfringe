@@ -95,8 +95,8 @@ export const post_like = asyncHandler(async (req: Request, res: Response) => {
   // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
 
   const user = req.user as IUser;
-  const alreadyLikedIndex = post.likes.findIndex(
-    (like: IUser) => like._id === user._id
+  const alreadyLikedIndex = post.likes.findIndex((like: IUser) =>
+    like._id.equals(user._id)
   );
 
   if (alreadyLikedIndex === -1) {
@@ -109,20 +109,6 @@ export const post_like = asyncHandler(async (req: Request, res: Response) => {
 
   await post.save();
   res.status(200).json(post); // Return status OK and updated comment to client
-});
-
-// @desc    Get single post
-// @route   GET /api/posts/:postId
-// @access  Private
-export const post_detail = asyncHandler(async (req: Request, res: Response) => {
-  const post = await Post.findById(req.params.postId).populate("author").exec();
-
-  if (!post) {
-    // No results.
-    res.status(404).json({ message: "Post not found" });
-    return;
-  }
-  res.status(200).json(post);
 });
 
 // @desc    Update single post
@@ -188,7 +174,7 @@ export const post_delete = asyncHandler(async (req: Request, res: Response) => {
   const post = (await Post.findById(postId).populate("author").exec()) as IPost;
 
   const user = req.user as IUser;
-  if (!post.author.equals(user)) {
+  if (!post.author._id.equals(user._id)) {
     // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
     res.status(403).json({ message: "Forbidden" });
     return;

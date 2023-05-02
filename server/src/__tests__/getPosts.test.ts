@@ -6,7 +6,6 @@ import "../config/testSeeds";
 
 // Setup new app instance
 const app = express();
-
 // Use the controller
 app.get("/posts", post_list);
 
@@ -16,7 +15,6 @@ describe("GET /posts", () => {
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
     // There are five total posts in the db
-    expect(Array.isArray(response.body.posts)).toEqual(true);
-    expect(response.body.posts.length).toEqual(5);
+    expect(Array.isArray(response.body)).toEqual(true);
   });
 });

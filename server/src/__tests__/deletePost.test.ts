@@ -3,15 +3,13 @@ import request from "supertest";
 import mockUser from "../middleware/mockUser";
 import { luffyPostId, zoroPostId } from "../config/populateDB";
 import { post_delete } from "../controllers/postController";
+// Import db setup and teardown functionality
+import "../config/testSeeds";
 
 // Setup new app instance
 const app = express();
-
 // Use the controller
 app.delete("/posts/:postId", mockUser, post_delete);
-
-// Import db setup and teardown functionality
-import "../config/testSeeds";
 
 describe("DELETE /posts/:postId", () => {
   it("should delete post and return deleted post", async () => {

@@ -1,10 +1,10 @@
-// Import db setup and teardown functionality
-import "../config/testSeeds";
 import express from "express";
 import request from "supertest";
 import mockUser from "../middleware/mockUser";
 import { comment_delete } from "../controllers/commentController";
 import { luffyCommentId, zoroCommentId } from "../config/populateDB";
+// Import db setup and teardown functionality
+import "../config/testSeeds";
 
 // Setup new app instance
 const app = express();
