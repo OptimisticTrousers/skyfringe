@@ -127,11 +127,6 @@ export const login_user = [
 // @route   GET /api/auth/logout
 // @access  Public
 export const logout_user = asyncHandler(async (req: Request, res: Response) => {
-  if (!req.user) {
-    res.status(401).json({ message: "User not logged in" });
-    return;
-  }
-
   res
     .clearCookie("jwt")
     .status(200)
