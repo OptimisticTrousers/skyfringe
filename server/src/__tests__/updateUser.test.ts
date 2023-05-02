@@ -3,12 +3,11 @@ import { config } from "dotenv";
 import app from "../app";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
+// Import db setup and teardown functionality
+import "../config/testSeeds";
 
 // Using env files to access JWT_SECRET
 config();
-
-// Import db setup and teardown functionality
-import "../config/testSeeds";
 
 const randomIdNotAssociatedWithUser = "4c8a331bda76c559ef000032";
 

@@ -4,7 +4,6 @@ import { comment_create } from "../controllers/commentController";
 import mockUser from "../middleware/mockUser";
 import Comment from "../models/comment";
 import { luffyPostId } from "../config/populateDB";
-
 // Import db setup and teardown functionality
 import "../config/testSeeds";
 

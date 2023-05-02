@@ -5,7 +5,8 @@ import { config } from "dotenv";
 import mockUser from "../middleware/mockUser";
 import { luffyId } from "../config/populateDB";
 import { post_create } from "../controllers/postController";
-import errorHandler from "../middleware/errorHandler";
+// Import db setup and teardown functionality
+import "../config/testSeeds";
 
 // Setting up ENV variables, specifically for S3_BUCKET
 config();
@@ -13,15 +14,9 @@ config();
 // Setup new app instance
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 // Use the controller
 app.post("/posts", mockUser, post_create);
-// error handler
-app.use(errorHandler);
-
-// Import db setup and teardown functionality
-import "../config/testSeeds";
 
 describe("POST /api/posts", () => {
   it("should return an error if neither text nor image is provided", async () => {

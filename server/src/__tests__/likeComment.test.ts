@@ -1,16 +1,16 @@
-// Import db setup and teardown functionality
-import "../config/testSeeds";
 import express from "express";
 import request from "supertest";
-import errorHandler from "../middleware/errorHandler";
 import mockUser from "../middleware/mockUser";
 import { comment_like } from "../controllers/commentController";
 import { luffyCommentId, luffyId, namiCommentId } from "../config/populateDB";
 import { User as IUser } from "../../../shared/types";
+// Import db setup and teardown functionality
+import "../config/testSeeds";
 
 // Setup new app instance
 const app = express();
 app.use(express.json());
+// Use the controller
 app.put("/comments/:commentId/likes", mockUser, comment_like);
 
 describe("PUT /api/posts/:postId/comments/:commentId/likes", () => {
