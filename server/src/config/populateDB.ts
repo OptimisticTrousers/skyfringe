@@ -157,7 +157,7 @@ export const crocodile = {
   friendRequests: [
     {
       user: luffyId,
-      status: "rejectedOutgoing",
+      status: "outgoingRejected",
     },
   ],
   photo: {

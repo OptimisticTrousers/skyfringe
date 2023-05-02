@@ -18,7 +18,7 @@ const UserSchema = new Schema(
           enum: [
             "outgoing",
             "incoming",
-            "rejectedOutgoing",
+            "outgoingRejected",
             "rejectedIncoming",
           ],
         },

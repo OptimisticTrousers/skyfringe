@@ -5,6 +5,11 @@ interface Image {
   altText: string;
 }
 
+export interface FriendRequest {
+  user: User;
+  status: string;
+}
+
 export interface User extends Document {
   facebookId?: string;
   _id: Types.ObjectId;
@@ -15,8 +20,8 @@ export interface User extends Document {
   bio?: string;
   createdAt: Date;
   updatedAt: Date;
-  friends: User[] | [];
-  friendRequests: User[] | [];
+  friends: User[];
+  friendRequests: FriendRequest[];
   friendCount?: number;
   photo?: {
     imageUrl: string;
