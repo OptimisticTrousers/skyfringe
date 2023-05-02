@@ -62,8 +62,8 @@ export const comment_like = asyncHandler(
     // Check if the user has already liked this post (i.e. their user ID already exists in likes array) // const alreadyLiked = post.likes.some((user) => user.equals(req.user._id));
 
     const user = req.user as IUser;
-    const alreadyLikedIndex = comment.likes.findIndex(
-      (like: IUser) => like._id === user._id
+    const alreadyLikedIndex = comment.likes.findIndex((like: IUser) =>
+      like._id.equals(user._id)
     );
 
     if (alreadyLikedIndex === -1) {
@@ -83,6 +83,7 @@ export const comment_like = asyncHandler(
 // @route   PUT /api/posts/:postId/comments/:commentId
 // @access  Private
 export const comment_update = [
+  body("content", "Content is required").trim().isLength({ min: 1 }).escape(),
   asyncHandler(async (req: Request, res: Response) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
@@ -101,7 +102,7 @@ export const comment_update = [
 
     const user = req.user as IUser;
 
-    if (!comment.author.equals(user)) {
+    if (!comment.author._id.equals(user._id)) {
       // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
       res.status(403).json({ message: "Forbidden" });
       return;
@@ -132,7 +133,7 @@ export const comment_delete = asyncHandler(
 
     const user = req.user as IUser;
 
-    if (!comment.author.equals(user)) {
+    if (!comment.author._id.equals(user._id)) {
       // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
       res.status(403).json({ message: "Forbidden" });
       return;

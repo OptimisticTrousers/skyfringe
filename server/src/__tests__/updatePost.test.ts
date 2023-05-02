@@ -1,22 +1,20 @@
 import express from "express";
 import request from "supertest";
 import { post_update } from "../controllers/postController";
-
-// Setup new app instance
-const app = express();
-
-// Use the controller
-app.put("/posts/:postId", post_update);
-
+import { luffyPostId } from "../config/populateDB";
 // Import db setup and teardown functionality
 import "../config/testSeeds";
 
-const postId = "4c8a331bda76c559ef000009";
+// Setup new app instance
+const app = express();
+app.use(express.json());
+// Use the controller
+app.put("/posts/:postId", post_update);
 
 describe("PUT /posts/:postId", () => {
   it("returns newly updated post on successful update operation", async () => {
     const response = await request(app)
-      .put(`/posts/${postId}`)
+      .put(`/posts/${luffyPostId}`)
       .send({ text: "Updated post" });
 
     expect(response.headers["content-type"]).toMatch(/json/);
@@ -25,7 +23,7 @@ describe("PUT /posts/:postId", () => {
   });
   it("provides validation error if post text is left blank", async () => {
     const response = await request(app)
-      .put(`/posts/${postId}`)
+      .put(`/posts/${luffyPostId}`)
       .send({ text: "" });
     expect(response.status).toEqual(404);
     // Returns array of validation errors in case of missing post text
@@ -33,7 +31,7 @@ describe("PUT /posts/:postId", () => {
   });
   it("should update the post image", async () => {
     const response = await request(app)
-      .put(`/posts/${postId}`)
+      .put(`/posts/${luffyPostId}`)
       .attach("image", "test/new-image.jpg")
       .expect(200);
     expect(response.body.post.image.imageUrl).toEqual(expect.any(String));
@@ -41,7 +39,7 @@ describe("PUT /posts/:postId", () => {
   });
   it("should return 400 if invalid image file provided", async () => {
     const response = await request(app)
-      .put(`/posts/${postId}`)
+      .put(`/posts/${luffyPostId}`)
       .attach("image", "test/invalid-file.txt")
       .expect(400);
 
@@ -54,7 +52,7 @@ describe("PUT /posts/:postId", () => {
     };
 
     const response = await request(app)
-      .put(`/posts/${postId}`)
+      .put(`/posts/${luffyPostId}`)
       .send({ update });
 
     expect(response.status).toBe(400);

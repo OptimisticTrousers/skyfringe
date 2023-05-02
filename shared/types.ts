@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 
 interface Image {
   imageUrl: string;
@@ -7,7 +7,7 @@ interface Image {
 
 export interface User extends Document {
   facebookId?: string;
-  _id: string;
+  _id: Types.ObjectId;
   fullName: string;
   userName: string;
   password: string;

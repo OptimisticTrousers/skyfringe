@@ -5,8 +5,7 @@ import { logout_user } from "../controllers/authController";
 import "../config/testSeeds";
 
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Use the controller
 app.get("/logout", logout_user);
 
 describe("GET /api/auth/logout", () => {
