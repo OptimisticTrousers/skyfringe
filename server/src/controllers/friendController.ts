@@ -8,13 +8,17 @@ import {
 import { Request, Response } from "express";
 
 // Use this function to ensure that no duplicate requests are sent, and that certain request types exist before performing related actions
-export const checkExistingEntries = (userId: Types.ObjectId, sender: IUser) => {
+export const checkExistingEntries = (
+  userId: Types.ObjectId,
+  senderFriends: IUser[],
+  senderFriendRequests: IFriendRequest[]
+) => {
   // Identify existing request for the user in the friendsArray provided. There should never be more than one existing entry. NOTE: .equals() must be used to compare ObjectID types here.
-  const existingFriends = sender.friends.filter((request: IUser) =>
+  const existingFriends = senderFriends.filter((request: IUser) =>
     request._id.equals(userId)
   );
 
-  const existingRequests = sender.friendRequests.filter((request) =>
+  const existingRequests = senderFriendRequests.filter((request: IFriendRequest) =>
     request.user._id.equals(userId)
   );
 
@@ -129,6 +133,8 @@ export const handleFriendRequest = asyncHandler(
     // In all friend request functions, the requestSender describes the currently logged in user that is making a request of some kind, be it sending, accepting, cancelling, or deleting. The recepient describes the user that is the target of the sender's request, again regardless of if the sender if sending a request to that user, or accepting a request from that user
     const user = req.user as IUser;
     const sender = (await User.findById(user._id)
+      .populate("friends")
+      .populate("friendRequests")
       .exec()) as IUser;
     const recipient = await User.findById(req.params.userId);
 
@@ -139,7 +145,7 @@ export const handleFriendRequest = asyncHandler(
     }
     // Check for existing requests
     // Check for existing requests
-    const existingRequest = checkExistingEntries(recipient._id, sender);
+    const existingRequest = checkExistingEntries(recipient._id, sender.friends, sender.friendRequests);
     const errorMessage = "Reject no longer exists";
     // Incoming req.body will contain the type of operation required. Perform logic as needed
     switch (req.body.requestType) {
