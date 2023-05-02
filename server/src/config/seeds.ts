@@ -7,21 +7,20 @@ import { populate } from "./populateDB";
 
 mongoConfig();
 
-console.log("Resetting database...");
-
 // Deleting all of the documents in each collection in the database for the real Mongo database
 (async () => {
   try {
+    console.log("Resetting database...");
     await Promise.all([
       User.deleteMany({}),
       Post.deleteMany({}),
       Comment.deleteMany({}),
     ]);
+    console.log("Successfully reset database");
     await populate();
   } catch (err) {
     console.log(
       `An error occurred while deleting all of the documents in the database: ${err}`
     );
   }
-  console.log("Successfully reset database");
 })();

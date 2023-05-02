@@ -50,6 +50,10 @@ export const bobId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000019");
 
 const S3_BUCKET = process.env.S3_BUCKET;
 
+if (!S3_BUCKET) {
+  throw new Error("S3_BUCKET value is not defined in .env file");
+}
+
 const coverUrl = `${S3_BUCKET}/covers/cover.webp`;
 
 const altText =
