@@ -2,7 +2,8 @@
   cursor: pointer;
   padding: 0.5rem 0.4rem;
   color: white;
-  background-color: rgb(88, 93, 137);
+  color: rgb(80, 84, 124);
+  background-color: rgb(255, 255, 255);
   border-color: rgb(88, 93, 137);
   border-width: 1px;
   display: flex;
@@ -13,8 +14,8 @@
 }
 
 .button:hover {
-  background-color: rgb(106, 102, 160);
   border-color: rbb(106, 112, 160);
+  background-color: rgb(243, 243, 247);
 }
 
 .button:disabled {

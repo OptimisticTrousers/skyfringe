@@ -1,47 +1,47 @@
 import { FC } from "react";
 import useFriendRequests from "../../../hooks/useFriendRequests";
 import CSSModules from "react-css-modules";
-import styles from "./UnfriendRequestBtn.module.css";
+import styles from "./DeleteRequest.module.css";
 
 interface Props {
   userId: string;
 }
 
-// Used to unfriend a user
+// Used to delete a friend request sent by another user
 const UnfriendRequestBtn: FC<Props> = ({ userId }) => {
   const { request, data, loading, error }: any = useFriendRequests(userId);
 
-  // Dynamically change the button text to communicate loading taking place
+  // Dynamically set button text to indicate loading state
   const setBtnText = () => {
     // Set out the conditionals in order of which they should be evaluated
     if (loading) {
-      return "Removing...";
+      return "Deleting...";
     }
 
     if (error) {
-      return "Unfriend";
+      return "Delete";
     }
 
     if (data) {
-      return "Removed!";
+      return "Deleted!";
     }
 
     // Default state should be returned
-    return "Unfriend";
+    return "Delete";
   };
 
-  const handleUnfriend = () => {
+  const handleAccept = () => {
     request(
-      "unfriendRequest",
-      "Friend removed.",
-      "An unknown error has occured while unfriending."
+      "rejectRequest",
+      "Request rejected.",
+      "An unknown error has occured while rejecting the friend request."
     );
   };
 
   return (
     <button
       styleName="button"
-      onClick={handleUnfriend}
+      onClick={handleAccept}
       disabled={data ? true : false}
     >
       {setBtnText()}

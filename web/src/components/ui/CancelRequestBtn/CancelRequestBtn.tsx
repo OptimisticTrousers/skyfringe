@@ -1,47 +1,47 @@
 import { FC } from "react";
 import useFriendRequests from "../../../hooks/useFriendRequests";
 import CSSModules from "react-css-modules";
-import styles from "./UnfriendRequestBtn.module.css";
+import styles from "./CancelRequestBtn.module.css";
 
 interface Props {
   userId: string;
 }
 
-// Used to unfriend a user
-const UnfriendRequestBtn: FC<Props> = ({ userId }) => {
+// Used to cancel a friend request you have sent
+const CancelRequestBtn: FC<Props> = ({ userId }) => {
   const { request, data, loading, error }: any = useFriendRequests(userId);
 
-  // Dynamically change the button text to communicate loading taking place
+  // Dynamically set button text to indicate loading state
   const setBtnText = () => {
     // Set out the conditionals in order of which they should be evaluated
     if (loading) {
-      return "Removing...";
+      return "Cancelling...";
     }
 
     if (error) {
-      return "Unfriend";
+      return "Cancel";
     }
 
     if (data) {
-      return "Removed!";
+      return "Cancelled!";
     }
 
     // Default state should be returned
-    return "Unfriend";
+    return "Cancel";
   };
 
-  const handleUnfriend = () => {
+  const handleCancel = () => {
     request(
-      "unfriendRequest",
-      "Friend removed.",
-      "An unknown error has occured while unfriending."
+      "cancelRequest",
+      "Request cancelled.",
+      "An unknown error has occured while cancelling the outgoing friend request."
     );
   };
 
   return (
     <button
       styleName="button"
-      onClick={handleUnfriend}
+      onClick={handleCancel}
       disabled={data ? true : false}
     >
       {setBtnText()}
@@ -49,7 +49,7 @@ const UnfriendRequestBtn: FC<Props> = ({ userId }) => {
   );
 };
 
-export default CSSModules(UnfriendRequestBtn, styles, {
+export default CSSModules(CancelRequestBtn, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
 });
