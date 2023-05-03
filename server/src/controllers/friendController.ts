@@ -183,7 +183,7 @@ export const friend_request = asyncHandler(
                 message: "User who sent outgoing request was rejected",
               });
               break;
-            case "incomingRejected":
+            case "rejectedIncoming":
               res
                 .status(400)
                 .json({ message: "User rejected incoming request" });
@@ -233,12 +233,13 @@ export const friend_request = asyncHandler(
       default:
         // No request type or incorrect request type provided
         res.status(400).json({ message: "Request type missing or invalid" });
+        break;
     }
     // Save these changes to the db
     const updatedRecipient = await recipient.save();
     await sender.save();
 
     // Return information of recipient (to populate a 'request sent to: ' message in frontend. Check that password is not being sent here though!)
-    res.json(updatedRecipient);
+    res.status(200).json(updatedRecipient);
   }
 );

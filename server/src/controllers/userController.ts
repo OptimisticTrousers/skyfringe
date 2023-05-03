@@ -6,11 +6,18 @@ import mongoose from "mongoose";
 import { body, oneOf, validationResult } from "express-validator";
 import { User as IUser } from "../../../shared/types";
 
-export const user_list = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {};
+// @desc    Get all users (public details)
+// @route   GET /api/users
+// @access  Private
+export const user_list = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const users = (await User.find({})
+      .populate("friends")
+      .populate("friendRequests")
+      .exec()) as IUser[];
+    res.status(200).json(users);
+  }
+);
 
 export const user_detail = (
   req: Request,
@@ -141,8 +148,12 @@ export const user_feed = async (
 // @access  Private
 export const user_friends = asyncHandler(
   async (req: Request, res: Response) => {
-    const user = (await User.findById(req.params.userId)
+    const user = (await User.findById(req.params.userId, { new: true })
       .populate("friends")
+      .populate({
+        path: "friendRequests",
+        populate: { path: "user" },
+      })
       .exec()) as IUser;
 
     res
