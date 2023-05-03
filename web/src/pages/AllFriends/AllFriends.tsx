@@ -12,11 +12,7 @@ import useFetch from "../../hooks/useFetch";
 
 const FriendsAll = () => {
   const { user } = useContext(AuthContext);
-  const {
-    data: { friends },
-    loading,
-    error,
-  }: any = useFetch(
+  const { data, loading, error }: any = useFetch(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}/friends`
   );
 
@@ -24,9 +20,9 @@ const FriendsAll = () => {
     <FriendsLayout>
       <section styleName="friends">
         <h2 styleName="friends__title">Friends</h2>
-        {friends ? (
+        {data?.friends ? (
           <ul styleName="friends__cards">
-            {friends.length > 0 ? (
+            {data.friends.length > 0 ? (
               user.friends.map((friend: User) => {
                 return (
                   <li styleName="friend__card" key={friend._id}>
