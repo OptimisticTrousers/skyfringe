@@ -21,7 +21,7 @@
   color: rgb(156, 163, 175);
   background-color: rgb(243, 244, 246);
   border: none;
-  cursor: none;
+  cursor: pointer;
 }
 
 .button:disabled:hover {

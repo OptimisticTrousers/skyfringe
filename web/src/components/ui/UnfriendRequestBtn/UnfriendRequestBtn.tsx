@@ -11,7 +11,7 @@ interface Props {
 const UnfriendRequestBtn: FC<Props> = ({ userId }) => {
   const { request, data, loading, error }: any = useFriendRequests(userId);
 
-  // Dynaically change the button text to communicate loading taking place
+  // Dynamically change the button text to communicate loading taking place
   const setBtnText = () => {
     // Set out the conditionals in order of which they should be evaluated
     if (loading) {
