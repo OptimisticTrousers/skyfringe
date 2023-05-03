@@ -22,7 +22,9 @@ const FriendsErrorLoading: FC<Props> = ({ message, loading, error }) => {
         </div>
       )}
 
-      {error && <ErrorMessage message={message} />}
+      <div styleName="loading__error">
+        {error ? <ErrorMessage message={message} /> : null}
+      </div>
     </>
   );
 };

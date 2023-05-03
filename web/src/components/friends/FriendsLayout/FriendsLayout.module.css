@@ -1,5 +1,6 @@
 .friends {
   display: grid;
+  height: 100%;
 }
 
 .friends__container {
