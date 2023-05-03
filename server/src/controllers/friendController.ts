@@ -18,14 +18,14 @@ export const checkExistingEntries = (
     request._id.equals(userId)
   );
 
-  const existingRequests = senderFriendRequests.filter((request: IFriendRequest) =>
-    request.user._id.equals(userId)
+  const existingRequests = senderFriendRequests.filter(
+    (request: IFriendRequest) => request.user._id.equals(userId)
   );
 
-  if (existingFriends) {
+  if (existingFriends.length !== 0) {
     // User is already a friend. Return type of request.
     return "friend";
-  } else if (existingRequests) {
+  } else if (existingRequests.length !== 0) {
     // Existing request is present. Return type of request.
     return existingRequests[0].status;
   }
@@ -35,17 +35,23 @@ export const checkExistingEntries = (
 
 // Adjust sender and recipient friend arrays when a request is to be sent
 export const modifyForSendRequest = (sender: IUser, recipient: IUser) => {
-  sender.friendRequests.push({
-    // add outgoing request to sender doc
-    user: recipient,
-    status: "outgoing",
-  });
+  const existingRequestIndex = sender.friendRequests.findIndex(
+    (request) => request.user._id === sender._id
+  );
+
+  if (existingRequestIndex === -1) {
+    sender.friendRequests.push({
+      // add outgoing request to sender doc
+      user: recipient,
+      status: "outgoing",
+    });
+  } else {
+    sender.friendRequests[existingRequestIndex].status = "outgoing";
+  }
 
   // Check for existing delete request in recipient's array (i.e. the sender has previously deleted/denied a request from this user)
-  const deletedRequestIndex = recipient.friendRequests.findIndex(
-    (request) =>
-      request.user._id.equals(sender._id) &&
-      request.status === "rejectedIncoming"
+  const deletedRequestIndex = recipient.friendRequests.findIndex((request) =>
+    request.user._id.equals(sender._id)
   );
 
   if (deletedRequestIndex === -1) {
@@ -64,18 +70,19 @@ export const modifyForSendRequest = (sender: IUser, recipient: IUser) => {
 // Adjust sender and recipient friend arrays when a request is to be accepted
 export const modifyForAcceptRequest = (sender: IUser, recipient: IUser) => {
   // Find the friend requests amongst the array of friends
-  const incomingRequestIndex = sender.friendRequests.findIndex(
+  const outgoingRequestIndex = sender.friendRequests.findIndex(
     (request: IFriendRequest) => request.user._id.equals(recipient._id)
   );
-  const outgoingRequestIndex = recipient.friendRequests.findIndex(
+
+  const incomingRequestIndex = recipient.friendRequests.findIndex(
     (request: IFriendRequest) => request.user._id.equals(sender._id)
   );
 
   // Modify the status values
-  sender.friends[incomingRequestIndex] = recipient;
-  recipient.friends[outgoingRequestIndex] = sender;
-  sender.friendRequests.slice(incomingRequestIndex, 1);
-  recipient.friendRequests.slice(outgoingRequestIndex, 1);
+  sender.friends.push(recipient);
+  recipient.friends.push(sender);
+  sender.friendRequests.splice(outgoingRequestIndex, 1);
+  recipient.friendRequests.splice(incomingRequestIndex, 1);
 };
 
 // Adjust sender and recipient friend arrays when a request is to be cancelled
@@ -145,7 +152,11 @@ export const handleFriendRequest = asyncHandler(
     }
     // Check for existing requests
     // Check for existing requests
-    const existingRequest = checkExistingEntries(recipient._id, sender.friends, sender.friendRequests);
+    const existingRequest = checkExistingEntries(
+      recipient._id,
+      sender.friends,
+      sender.friendRequests
+    );
     const errorMessage = "Reject no longer exists";
     // Incoming req.body will contain the type of operation required. Perform logic as needed
     switch (req.body.requestType) {

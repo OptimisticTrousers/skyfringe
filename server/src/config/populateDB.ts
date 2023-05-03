@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 import Post from "../models/post";
 import User from "../models/user";
 import Comment from "../models/comment";
+import {config} from "dotenv"
+
+// Setting up ENV variables, specifically for S3_BUCKET
+config();
 
 // Explicitly define IDs here to make it easier to understand relationships in test db.
 export const luffyId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000004");
@@ -47,6 +51,8 @@ export const usoppCommentId = new mongoose.Types.ObjectId(
 );
 
 export const bobId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000019");
+
+export const locosPollosId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000020");
 
 const S3_BUCKET = process.env.S3_BUCKET;
 
@@ -177,10 +183,23 @@ export const bob = {
   email: "bobjones@gmail.com",
   password:
     "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
+  friends: [],
+  friendRequests: [],
+};
+
+export const locosPollos = {
+  _id: bobId,
+  fullName: "Locos Pollos",
+  userName: "locospollos",
+  email: "locospollos@gmail.com",
+  password:
+    "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
+  friends: [],
+  friendRequests: [],
 };
 
 // Set up array of user/post/comment docs to be later saved to db
-const users = [luffy, zoro, nami, usopp, crocodile, bob];
+const users = [luffy, zoro, nami, usopp, crocodile, bob, locosPollos];
 
 const posts = [
   {
