@@ -11,7 +11,11 @@ const useFriendRequests = (userId: string) => {
   const { showToast } = useContext(ToastContext);
 
   // Define the request type when calling this request function specifically. This will be added to the req.body to enable the correct backend action to take place
-  const request = async (requestType: string) => {
+  const request = async (
+    requestType: string,
+    successMsg: string,
+    errorMsg: string
+  ) => {
     setError(null);
     setLoading(true);
     setData(null);
@@ -31,7 +35,7 @@ const useFriendRequests = (userId: string) => {
         // No error, request successful
         setError(null);
         setData(response.data);
-        showToast("success", "You have successfully sent your request");
+        showToast("success", successMsg);
         return response.data;
       }
 
@@ -40,7 +44,7 @@ const useFriendRequests = (userId: string) => {
       setError(data);
       showToast("error", data.message);
     } catch (error) {
-      const message = "An unknown error occured while sending a request";
+      const message = errorMsg;
       setError({ message });
       showToast("error", message);
     } finally {
