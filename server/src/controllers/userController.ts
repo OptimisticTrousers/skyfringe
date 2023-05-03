@@ -135,3 +135,16 @@ export const user_feed = async (
 
   res.status(200).json(uniquePosts);
 };
+
+// @desc    Get all friends/friend requests of a user sorted by request status
+// @route   GET /api/user/:userId/friends
+// @access  Private
+export const user_friends = asyncHandler(
+  async (req: Request, res: Response) => {
+    const user = (await User.findById(req.params.userId)
+      .populate("friends")
+      .exec()) as IUser;
+
+    res.status(200).json(user.friends);
+  }
+);
