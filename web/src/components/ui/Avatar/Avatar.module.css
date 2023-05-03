@@ -24,6 +24,13 @@
   border-radius: 8px;
 }
 
+.avatar__image--extra-extra-large {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
 .avatar__image--large {
   height: 80px;
   width: 80px;

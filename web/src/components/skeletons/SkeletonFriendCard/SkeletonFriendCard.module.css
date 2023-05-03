@@ -14,7 +14,6 @@
   height: 200px;
   flex-shrink: 0;
   background-color: rgb(229, 231, 235);
-  margin-bottom: 0.5rem;
 }
 
 .skeleton__details {
@@ -27,7 +26,7 @@
 
 .skeleton__text {
   width: 100%;
-  height: 0.75rem;
+  height: 1rem;
   margin-bottom: 1rem;
   border-radius: 0.25rem;
   background-color: rgb(229, 231, 235);
@@ -40,4 +39,25 @@
   margin: 0 auto;
   border-radius: 0.25rem;
   background-color: rgb(229, 231, 235);
+}
+
+@media (max-width: 1024px) {
+  .skeleton {
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    padding: 0.75rem;
+  }
+  .skeleton__avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 9999px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .skeleton__button {
+    width: 100%;
+    height: 1rem;
+    padding: 0;
+  }
 }
