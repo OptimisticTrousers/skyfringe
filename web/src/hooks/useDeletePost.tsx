@@ -30,7 +30,9 @@ const useDeletePost = () => {
         return response.data;
       }
       // error with delete operation
-      setError(response.data);
+      const data = response.data;
+      setError(data);
+      showToast("error", data.message);
     } catch (error) {
       const message = "An unknown error occured while deleting a post";
       setError({ message });
