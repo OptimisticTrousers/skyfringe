@@ -22,8 +22,6 @@
   top: 0;
   left: 0;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   background-color: #1f1e22;
   width: var(--aside-width);
   color: #a4a6b3;
@@ -31,6 +29,7 @@
   user-select: none;
   border-right: 2px solid #2e2c35;
   transition: transform 350ms ease-in-out;
+  box-sizing: border-box;
 }
 
 .aside__logo {
@@ -101,12 +100,6 @@
 .aside__button--exit:hover {
   color: rgb(59, 130, 246);
   transform: scale(1.075);
-}
-
-.aside__nav {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 
 .aside__list {
