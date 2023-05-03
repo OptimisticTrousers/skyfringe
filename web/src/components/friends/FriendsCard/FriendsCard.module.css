@@ -14,6 +14,15 @@
   width: 100%;
 }
 
+.card__container {
+  display: flex;
+  width: 100%;
+  max-width: 20rem;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
 .card__link {
   outline-color: #404164;
   outline-offset: 2px;
@@ -88,6 +97,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .card__container {
+    flex-direction: column;
   }
   .card__link--image {
     padding: 0;

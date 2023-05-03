@@ -1,7 +1,11 @@
 .aside {
   background-color: white;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  box-shadow: 0 4px 6px -1px rgb(255 255 255 / 0.1),
+    0 2px 4px -2px rgb(255 255 255 / 0.1);
   color: black;
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .aside__title {
