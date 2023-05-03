@@ -3,18 +3,21 @@ import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import { User } from "../../../types";
 import styles from "./FriendsCard.module.css";
+import { Avatar } from "../../ui";
 
 interface Props {
-  friend: User;
+  friend: any;
+  type: any;
 }
 
-const FriendsCard: FC<Props> = ({ friend }) => {
+const FriendsCard: FC<Props> = ({ friend, type }) => {
   return (
     <div styleName="card">
       <Link styleName="card__link card__link--image" to="/bob">
-        <img
-          styleName="card__image"
-          src="https://res.cloudinary.com/dy2ycpgo4/image/upload/v1650335621/odinbook/nyjp0jkji4fbozpyrjy1.jpg"
+        <Avatar
+          src={friend?.photo?.imageUrl}
+          alt={friend?.photo?.altText}
+          size="xxl"
         />
       </Link>
       <div styleName="card__content">
