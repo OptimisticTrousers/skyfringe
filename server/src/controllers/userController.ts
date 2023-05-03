@@ -145,6 +145,8 @@ export const user_friends = asyncHandler(
       .populate("friends")
       .exec()) as IUser;
 
-    res.status(200).json(user.friends);
+    res
+      .status(200)
+      .json({ friendRequests: user.friendRequests, friends: user.friends });
   }
 );

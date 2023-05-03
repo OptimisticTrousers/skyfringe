@@ -13,7 +13,7 @@ import useFetch from "../../hooks/useFetch";
 const FriendsAll = () => {
   const { user } = useContext(AuthContext);
   const {
-    data: friends,
+    data: { friends },
     loading,
     error,
   }: any = useFetch(

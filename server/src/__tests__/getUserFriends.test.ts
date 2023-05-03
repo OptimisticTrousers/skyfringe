@@ -16,6 +16,7 @@ describe("GET /api/users/:userId/friends", () => {
     const response = await request(app).get(`/users/${luffyId}/friends`);
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toBe(200);
-    expect(Array.isArray(response.body)).toEqual(true);
+    expect(Array.isArray(response.body.friendRequests)).toEqual(true);
+    expect(Array.isArray(response.body.friends)).toEqual(true);
   });
 });
