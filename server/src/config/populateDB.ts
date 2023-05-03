@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Post from "../models/post";
 import User from "../models/user";
 import Comment from "../models/comment";
-import {config} from "dotenv"
+import { config } from "dotenv";
 
 // Setting up ENV variables, specifically for S3_BUCKET
 config();
@@ -52,7 +52,9 @@ export const usoppCommentId = new mongoose.Types.ObjectId(
 
 export const bobId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000019");
 
-export const locosPollosId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000020");
+export const locosPollosId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000020"
+);
 
 const S3_BUCKET = process.env.S3_BUCKET;
 
@@ -188,7 +190,7 @@ export const bob = {
 };
 
 export const locosPollos = {
-  _id: bobId,
+  _id: locosPollosId,
   fullName: "Locos Pollos",
   userName: "locospollos",
   email: "locospollos@gmail.com",

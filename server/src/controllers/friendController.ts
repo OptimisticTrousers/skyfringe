@@ -133,7 +133,7 @@ export const modifyForUnfriendRequest = (sender: IUser, recipient: IUser) => {
 // @desc    Handle all friend requests. API call MUST specify requestType in the request body
 // @route   PUT /api/friends/:userId
 // @access  Private
-export const handleFriendRequest = asyncHandler(
+export const friend_request = asyncHandler(
   async (req: Request, res: Response) => {
     // Req.user will contain the sender's details
     // When clicking on another user's details, their ID should be captured and passed into the req.params.userId for example
