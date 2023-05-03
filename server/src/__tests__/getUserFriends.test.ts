@@ -9,7 +9,7 @@ import "../config/testSeeds";
 // Setup new app instance
 const app = express();
 // Use the controller
-app.get("users/:userId/friends", user_friends);
+app.get("/users/:userId/friends", user_friends);
 
 describe("GET /api/users/:userId/friends", () => {
   it("should return a list of user friends/friend requests", async () => {
