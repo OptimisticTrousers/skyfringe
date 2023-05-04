@@ -216,6 +216,18 @@
     justify-content: space-between;
     align-items: center;
   }
+  .post__author {
+    font-size: 1.2rem;
+  }
+  .post__actions {
+    margin-right: 0;
+  }
+  .post__username{
+    font-size: 1.1rem;
+  }
+  .post__date{
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 430px) {

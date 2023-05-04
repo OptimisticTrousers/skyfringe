@@ -36,7 +36,9 @@ const RouteSwitch = () => {
           <Route path="/" element={!user ? <Navigate to="/login" /> : <App />}>
             <Route index element={<Home />} />
             <Route path="settings" element={<Settings />} />
-            <Route path="profile" element={<Profile />} />
+            <Route path="users">
+              <Route path=":userId" element={<Profile />} />
+            </Route>
             <Route path="notifications" element={<Notifications />} />
             <Route path="chat" element={<Chat />} />
             <Route path="friends">

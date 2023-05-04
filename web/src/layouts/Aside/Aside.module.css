@@ -154,6 +154,10 @@
   overflow: hidden;
 }
 
+.aside__details {
+  margin-left: 12px;
+}
+
 .aside__friends {
   margin: 0;
   font-size: 0.875rem;

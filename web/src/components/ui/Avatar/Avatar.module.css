@@ -1,8 +1,12 @@
 .avatar__image {
   border-radius: 16px;
   object-fit: cover;
-  margin-bottom: 1rem;
-  margin-right: 12px;
+}
+
+.avatar__image--rounded {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 
 .avatar__image--friend {

@@ -192,7 +192,6 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
                   handleDeletePost={handleDeletePost}
                 />
               )}
-              <BsBookmark styleName="post__icon post__icon--bookmark" />
             </div>
           </div>
           <div styleName="post__content">

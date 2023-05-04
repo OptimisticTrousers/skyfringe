@@ -20,10 +20,15 @@ const useFetch = (url: string) => {
         const response = await get(url, {
           headers: { "Content-Type": "application/json" },
         });
+        if (response.status === 200) {
+          // No error, request successful
+          // Data should always be in JSON format. Note that the error message 'Unexpted token < in JSON' means we are getting HTML. Use response.text() to see this
+          setData(response.data);
+          return;
+        }
+        // error with fetch request
         // Data should always be in JSON format. Note that the error message 'Unexpted token < in JSON' means we are getting HTML. Use response.text() to see this
-        setData(response.data);
-
-        // Data should always be in JSON format. Note that the error message 'Unexpted token < in JSON' means we are getting HTML. Use response.text() to see this
+        setError(response.data);
       } catch (error) {
         // Regardless of success or error, the loading state is coplete
         setError(error);
