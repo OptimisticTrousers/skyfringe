@@ -18,6 +18,12 @@ const FriendRequests = () => {
   const sentRequests = data?.friendRequests.filter(
     (friendRequest: any) => friendRequest.status === "outgoing"
   );
+  const rejectedIncoming = data?.friendRequests.filter(
+    (friendRequest: any) => friendRequest.status === "rejectedIncoming"
+  );
+  const outgoingRejected = data?.friendRequests.filter(
+    (friendRequest: any) => friendRequest.status === "outgoingRejected"
+  );
 
   return (
     <FriendsLayout>
@@ -62,6 +68,54 @@ const FriendRequests = () => {
               })
             ) : (
               <li styleName="friends__message">No requests sent...</li>
+            )}
+          </ul>
+        ) : (
+          <FriendsErrorLoading
+            message="Unable to load requests"
+            loading={loading}
+            error={error}
+          />
+        )}
+      </section>
+      <section styleName="friends">
+        <h2 styleName="friends__title">Rejected Incoming Requests</h2>
+        {rejectedIncoming ? (
+          <ul styleName="friends__cards">
+            {rejectedIncoming.length > 0 ? (
+              rejectedIncoming?.map((sentRequest: any) => {
+                return (
+                  <li styleName="friends__card">
+                    <FriendsCard friend={sentRequest.user} type="user" />
+                  </li>
+                );
+              })
+            ) : (
+              <li styleName="friends__message">No incoming requests rejected...</li>
+            )}
+          </ul>
+        ) : (
+          <FriendsErrorLoading
+            message="Unable to load requests"
+            loading={loading}
+            error={error}
+          />
+        )}
+      </section>
+      <section styleName="friends">
+        <h2 styleName="friends__title">Outgoing Requests Rejected</h2>
+        {outgoingRejected ? (
+          <ul styleName="friends__cards">
+            {outgoingRejected.length > 0 ? (
+              outgoingRejected?.map((sentRequest: any) => {
+                return (
+                  <li styleName="friends__card">
+                    <FriendsCard friend={sentRequest.user} type="user" />
+                  </li>
+                );
+              })
+            ) : (
+              <li styleName="friends__message">No outgoing requests rejected...</li>
             )}
           </ul>
         ) : (

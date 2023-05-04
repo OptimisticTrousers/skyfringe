@@ -165,7 +165,11 @@ export const friend_request = asyncHandler(
     // Incoming req.body will contain the type of operation required. Perform logic as needed
     switch (req.body.requestType) {
       case "sendRequest": // user is sending a request request to another user
-        if (!existingRequest) {
+        if (
+          !existingRequest ||
+          existingRequest === "rejectedIncoming" ||
+          existingRequest === "outgoingRejected"
+        ) {
           // Request able to be sent. Adjust recipient and sender's friends as needed
           modifyForSendRequest(sender, recipient);
           break;
@@ -199,7 +203,7 @@ export const friend_request = asyncHandler(
         } else {
           // Request cannot be accepted (none available)
           res.status(400);
-          throw new Error("Request no longer exists");
+          throw new Error(errorMessage);
         }
       case "rejectRequest": // user is rejecting a friend request from another user
         if (existingRequest === "incoming") {
@@ -209,7 +213,7 @@ export const friend_request = asyncHandler(
         } else {
           // Request cannot be accepted (none available)
           res.status(400);
-          throw new Error("Request no longer exists");
+          throw new Error(errorMessage);
         }
       case "cancelRequest": //user is cancelling a friend request to another usr
         if (existingRequest === "outgoing") {
@@ -219,7 +223,7 @@ export const friend_request = asyncHandler(
         } else {
           // Request cannot be accepted (none available)
           res.status(400);
-          throw new Error("Request no longer exists");
+          throw new Error(errorMessage);
         }
       case "unfriendRequest": // user is unfriending an existing friend
         if (existingRequest === "friend") {
