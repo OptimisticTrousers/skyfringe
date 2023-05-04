@@ -25,7 +25,8 @@ export const checkExistingEntries = (
   if (existingFriends.length !== 0) {
     // User is already a friend. Return type of request.
     return "friend";
-  } else if (existingRequests.length !== 0) {
+  }
+  if (existingRequests.length !== 0) {
     // Existing request is present. Return type of request.
     return existingRequests[0].status;
   }
@@ -35,8 +36,8 @@ export const checkExistingEntries = (
 
 // Adjust sender and recipient friend arrays when a request is to be sent
 export const modifyForSendRequest = (sender: IUser, recipient: IUser) => {
-  const existingRequestIndex = sender.friendRequests.findIndex(
-    (request) => request.user._id === sender._id
+  const existingRequestIndex = sender.friendRequests.findIndex((request) =>
+    request.user._id.equals(recipient._id)
   );
 
   if (existingRequestIndex === -1) {
@@ -143,7 +144,10 @@ export const friend_request = asyncHandler(
       .populate("friends")
       .populate("friendRequests")
       .exec()) as IUser;
-    const recipient = await User.findById(req.params.userId);
+    const recipient = (await User.findById(req.params.userId)
+      .populate("friends")
+      .populate("friendRequests")
+      .exec()) as IUser;
 
     if (!recipient) {
       // user not found in db
@@ -167,27 +171,24 @@ export const friend_request = asyncHandler(
           break;
         } else {
           // Request cannot be sent. Customize error message depending on reason
+          res.status(400);
           switch (existingRequest) {
+            case "friend":
+              throw new Error("User is already a friend");
             case "incoming":
-              res
-                .status(400)
-                .json({ message: "Incoming request exists from this user" });
-              break;
+              throw new Error("Incoming request exists from this user");
             case "outgoing":
-              res.status(400).json({
-                message: "Outgoing request to this user already exists",
-              });
-              break;
+              throw new Error("Outgoing request to this user already exists");
             case "outgoingRejected":
-              res.status(400).json({
-                message: "User who sent outgoing request was rejected",
-              });
-              break;
+              throw new Error(
+                "Outgoing request from this user was already rejected"
+              );
             case "rejectedIncoming":
-              res
-                .status(400)
-                .json({ message: "User rejected incoming request" });
-              break;
+              throw new Error(
+                "Incoming request to this user was already rejected"
+              );
+            default:
+              throw new Error("Request unable to be completed");
           }
         }
       case "acceptRequest": // user is accepting a friend request from another user
@@ -197,8 +198,8 @@ export const friend_request = asyncHandler(
           break;
         } else {
           // Request cannot be accepted (none available)
-          res.status(400).json({ message: errorMessage });
-          break;
+          res.status(400);
+          throw new Error("Request no longer exists");
         }
       case "rejectRequest": // user is rejecting a friend request from another user
         if (existingRequest === "incoming") {
@@ -207,8 +208,8 @@ export const friend_request = asyncHandler(
           break;
         } else {
           // Request cannot be accepted (none available)
-          res.status(400).json({ message: errorMessage });
-          break;
+          res.status(400);
+          throw new Error("Request no longer exists");
         }
       case "cancelRequest": //user is cancelling a friend request to another usr
         if (existingRequest === "outgoing") {
@@ -217,8 +218,8 @@ export const friend_request = asyncHandler(
           break;
         } else {
           // Request cannot be accepted (none available)
-          res.status(400).json({ message: errorMessage });
-          break;
+          res.status(400);
+          throw new Error("Request no longer exists");
         }
       case "unfriendRequest": // user is unfriending an existing friend
         if (existingRequest === "friend") {
@@ -227,19 +228,19 @@ export const friend_request = asyncHandler(
           break;
         } else {
           // Request cannot be accepted (none available)
-          res.status(400).json({ message: errorMessage });
-          break;
+          res.status(400);
+          throw new Error("Cannot unfriend a user you are not friends with");
         }
       default:
         // No request type or incorrect request type provided
-        res.status(400).json({ message: "Request type missing or invalid" });
-        break;
+        res.status(400);
+        throw new Error("Request type missing or invalid");
     }
     // Save these changes to the db
-    const updatedRecipient = await recipient.save();
+    await recipient.save();
     await sender.save();
 
     // Return information of recipient (to populate a 'request sent to: ' message in frontend. Check that password is not being sent here though!)
-    res.status(200).json(updatedRecipient);
+    res.status(200).json({});
   }
 );

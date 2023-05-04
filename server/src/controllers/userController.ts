@@ -148,11 +148,11 @@ export const user_feed = async (
 // @access  Private
 export const user_friends = asyncHandler(
   async (req: Request, res: Response) => {
-    const user = (await User.findById(req.params.userId, { new: true })
+    const user = (await User.findById(req.params.userId)
       .populate("friends")
       .populate({
         path: "friendRequests",
-        populate: { path: "user" },
+        populate: { path: "user", model: "User" },
       })
       .exec()) as IUser;
 

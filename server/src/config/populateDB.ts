@@ -107,6 +107,7 @@ export const zoro = {
   password: "$2a$10$qCPh8/C30SpOOrjkaavXquYiqvv5SmQXQNdPgvtasqB9eaJxGDDY.",
   bio: "Scars On The Back Are A Swordsman Shame",
   friends: [luffyId, namiId, usoppId],
+  friendRequests: [],
   photo: {
     imageUrl: `${S3_BUCKET}/users/zoro.webp`,
     altText: "Fictional character Roronoa Zoro from the One Piece manga",
@@ -125,6 +126,7 @@ export const nami = {
   password: "$2a$10$LireFRYIV1YJgzWeHoFG3.iVM.PMWKILHITKmgApmMEfl4fAjDgvu",
   bio: "The forecast is thunder and lightning!",
   friends: [luffyId, zoroId, usoppId],
+  friendRequests: [],
   photo: {
     imageUrl: `${S3_BUCKET}/users/nami.webp`,
     altText: "Fictional character Nami from the One Piece manga",
@@ -143,6 +145,12 @@ export const usopp = {
   password: "$2a$10$p27n84..B5CTA.of5JUS3e7jNvpSns82qrv6oR4WAwtImCaw7Zuui",
   bio: "I'm Captain Usopp!",
   friends: [luffyId, zoroId, namiId],
+  friendRequests: [
+    {
+      user: luffyId,
+      status: "outgoing",
+    },
+  ],
   photo: {
     imageUrl: `${S3_BUCKET}/users/usopp.webp`,
     altText: "Fictional character Usopp from the One Piece manga",

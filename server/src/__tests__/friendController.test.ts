@@ -28,7 +28,7 @@ describe("PUT /api/friends/:userId", () => {
   describe("checkExistingEntries function can identify existing entries of all sorts in the user's friends and friendRequests array", () => {
     // Reset arrays prior to each test
     beforeEach(() => {
-      sender.friends = [luffy] as any;
+      sender.friends = [luffy];
       sender.friendRequests = [
         {
           user: zoro,
@@ -40,9 +40,9 @@ describe("PUT /api/friends/:userId", () => {
         },
         {
           user: crocodile,
-          status: "deleted",
+          status: "rejectedIncoming",
         },
-      ] as any;
+      ];
     });
     test("Return null when no clashing entires exist", () => {
       expect(
@@ -66,7 +66,7 @@ describe("PUT /api/friends/:userId", () => {
     test("Return 'outgoing' when the sender has already sent the recipient a request", () => {
       sender.friendRequests.push({
         user: recipient._id,
-        status: "outgoingRequest",
+        status: "outgoing",
       });
       expect(
         checkExistingEntries(
@@ -74,7 +74,7 @@ describe("PUT /api/friends/:userId", () => {
           sender.friends,
           sender.friendRequests
         )
-      ).toBe("outgoingRequest");
+      ).toBe("outgoing");
     });
     test("Return 'outgoingRejected' when the sender's request was rejected", () => {
       sender.friendRequests.push({
@@ -90,15 +90,15 @@ describe("PUT /api/friends/:userId", () => {
       ).toBe("outgoingRejected");
     });
     test("Return 'rejectedIncoming' when the recipient has rejected a request from the sender", () => {
-      recipient.friendRequests.push({
+      sender.friendRequests.push({
         user: recipient._id,
         status: "rejectedIncoming",
       });
       expect(
         checkExistingEntries(
-          sender._id,
-          recipient.friends,
-          recipient.friendRequests
+          recipient._id,
+          sender.friends,
+          sender.friendRequests
         )
       ).toBe("rejectedIncoming");
     });
@@ -123,8 +123,8 @@ describe("PUT /api/friends/:userId", () => {
       recipient.friendRequests = [];
     });
     test("Accepting a request modifies sender array accordingly", () => {
-      sender.friendRequests = [{ user: recipient._id, status: "outgoing" }];
-      recipient.friendRequests = [{ user: sender._id, status: "incoming" }];
+      sender.friendRequests = [{ user: recipient, status: "outgoing" }];
+      recipient.friendRequests = [{ user: sender, status: "incoming" }];
       modifyForAcceptRequest(sender, recipient);
       expect(sender.friends[0]._id).toBe(recipient._id);
       expect(recipient.friends[0]._id).toBe(sender._id);
@@ -132,19 +132,19 @@ describe("PUT /api/friends/:userId", () => {
       expect(recipient.friendRequests.length).toBe(0);
     });
     test("Deleting a request modifies sender array accordingly", () => {
-      sender.friendRequests = [{ user: recipient._id, status: "outgoing" }];
-      recipient.friendRequests = [{ user: sender._id, status: "incoming" }];
+      sender.friendRequests = [{ user: recipient, status: "outgoing" }];
+      recipient.friendRequests = [{ user: sender, status: "incoming" }];
       modifyForDeleteRequest(sender, recipient);
-      expect(sender.friendRequests[0].user).toBe(recipient._id);
-      expect(recipient.friendRequests[0].user).toBe(sender._id);
+      expect(sender.friendRequests[0].user._id).toBe(recipient._id);
+      expect(recipient.friendRequests[0].user._id).toBe(sender._id);
       expect(sender.friendRequests[0].status).toBe("outgoingRejected");
       expect(recipient.friendRequests[0].status).toBe("rejectedIncoming");
       expect(sender.friends.length).toBe(0);
       expect(recipient.friends.length).toBe(0);
     });
     test("Cancelling a request modifies sender array accordingly", () => {
-      sender.friendRequests = [{ user: recipient._id, status: "outgoing" }];
-      recipient.friendRequests = [{ user: sender._id, status: "incoming" }];
+      sender.friendRequests = [{ user: recipient, status: "outgoing" }];
+      recipient.friendRequests = [{ user: sender, status: "incoming" }];
       modifyForCancelRequest(sender, recipient);
       expect(sender.friends.length).toBe(0);
       expect(recipient.friends.length).toBe(0);
@@ -158,22 +158,22 @@ describe("PUT /api/friends/:userId", () => {
     });
     test("Sending a request replaces a previous rejectedIncoming in recipient array with a new incoming request", () => {
       recipient.friendRequests = [
-        { user: sender._id, status: "rejectedIncoming" },
+        { user: sender, status: "rejectedIncoming" },
       ];
       // Recipient now sending request after rejected incoming request
-      modifyForSendRequest(recipient, sender);
-      expect(recipient.friendRequests[0].status).toBe("outgoing");
+      modifyForSendRequest(sender, recipient);
+      expect(recipient.friendRequests[0].status).toBe("incoming");
     });
     test("Sending a request replaces a previous outgoingRejected in recipient array with a new incoming request", () => {
       sender.friendRequests = [
-        { user: sender._id, status: "outgoingRejected" },
+        { user: recipient, status: "outgoingRejected" },
       ];
       modifyForSendRequest(sender, recipient);
       expect(sender.friendRequests[0].status).toBe("outgoing");
     });
     test("Unfriending someone removes friend entries from both sender and recipient friends array", () => {
-      recipient.friends = [sender._id];
-      sender.friends = [recipient._id];
+      recipient.friends = [sender];
+      sender.friends = [recipient];
       modifyForUnfriendRequest(sender, recipient);
       expect(recipient.friends.length).toBe(0);
       expect(sender.friends.length).toBe(0);

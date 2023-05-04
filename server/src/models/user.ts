@@ -22,7 +22,6 @@ const UserSchema = new Schema(
             "rejectedIncoming",
           ],
         },
-        default: [],
       },
     ],
     photo: {

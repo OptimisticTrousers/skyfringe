@@ -7,7 +7,16 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // return the error
-  res.status(err.status || 500).json(err);
+  // Check for existing error status codes. If none exist, set to 500.
+  // For some reason certain mongo errors reach this point but with a 200 status OK response? If the error handler is being called the status code should be an error code no matter what
+  let statusCode;
+  if (!res.statusCode || res.statusCode === 200) {
+    statusCode = 500;
+  } else {
+    statusCode = res.statusCode;
+  }
+  res.status(statusCode);
+  res.json(err);
 };
 
 export default errorHandler;
