@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import User from "../models/user";
-import Post from "../models/post";
 import mongoose from "mongoose";
 import { body, oneOf, validationResult } from "express-validator";
 import { User as IUser } from "../../../shared/types";
+import Post from "../models/post";
 
 // @desc    Get all users (public details)
 // @route   GET /api/users
@@ -19,11 +19,25 @@ export const user_list = asyncHandler(
   }
 );
 
-export const user_detail = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {};
+export const user_detail = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = (await User.findById(req.params.userId)
+      .populate("friends")
+      .populate("friendRequests")
+      .exec()) as IUser;
+    const posts = await Post.find({ author: user })
+      .populate("author")
+      .populate("likes")
+      .exec();
+    // Add the posts property to the user object
+    const userWithPosts = {
+      ...user.toObject(),
+      posts,
+    };
+
+    res.status(200).json(userWithPosts);
+  }
+);
 
 export const user_update = [
   oneOf(
