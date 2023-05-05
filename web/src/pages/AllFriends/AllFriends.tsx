@@ -3,16 +3,15 @@ import CSSModules from "react-css-modules";
 import styles from "../../assets/Friends.module.css";
 import { FriendsCard, FriendsLayout } from "../../components/friends";
 import { AuthContext } from "../../context/AuthContext";
-import { User } from "../../types";
 import {
   FriendsErrorLoading,
-  SkeletonFriendCard,
 } from "../../components/skeletons";
 import useFetch from "../../hooks/useFetch";
+import { UserWithStringId as User } from "@backend/types";
 
 const FriendsAll = () => {
   const { user } = useContext(AuthContext);
-  const { data, loading, error }: any = useFetch(
+  const { data, loading, error } = useFetch(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}/friends`
   );
 
@@ -20,7 +19,7 @@ const FriendsAll = () => {
     <FriendsLayout>
       <section styleName="friends">
         <h2 styleName="friends__title">Friends</h2>
-        {data?.friends ? (
+        {data ? (
           <ul styleName="friends__cards">
             {data.friends.length > 0 ? (
               user.friends.map((friend: User) => {

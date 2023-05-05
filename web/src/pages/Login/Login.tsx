@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from "react";
+import { FormEvent } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import { SiFacebook } from "react-icons/si";
@@ -7,25 +7,30 @@ import { ErrorMessage, PasswordContainer } from "../../components/ui";
 import useLogin from "../../hooks/useLogin";
 import useTestLogin from "../../hooks/useTestLogin";
 import { AuthLayout } from "../../layouts";
-import { FormError } from "../../types";
 import styles from "./Login.module.css";
+import useForm from "../../hooks/useForm";
+import { FormError } from "@backend/types";
 
 const Login = () => {
   const { login, loading, formError } = useLogin();
   const { testLogin, loading: testLoading } = useTestLogin();
 
-  const [email, setEmail] = useState("");
-  const [emailValid, setEmailValid] = useState(true);
-  const [emailError, setEmailError] = useState("");
-
-  const [password, setPassword] = useState("");
-  const [passwordValid, setPasswordValid] = useState(true);
-  const [passwordError, setPasswordError] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const [emailValidationStyles, setEmailValidationStyles] = useState(false);
-  const [passwordValidationStyles, setPasswordValidationStyles] =
-    useState(false);
+  const {
+    email,
+    handleEmailChange,
+    emailValid,
+    emailError,
+    password,
+    handlePasswordChange,
+    passwordValid,
+    passwordError,
+    passwordVisible,
+    emailValidationStyles,
+    passwordValidationStyles,
+    checkPasswordValidation,
+    checkEmailValidation,
+    handlePasswordVisiblity,
+  } = useForm();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -33,44 +38,7 @@ const Login = () => {
     login({ email, password });
   };
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checkValidity()) {
-      setEmailValid(true);
-      setEmailError("");
-    }
-    setEmail(e.target.value);
-  };
-
-  const checkEmailValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
-      setEmailValidationStyles(true);
-      setEmailValid(false);
-      setEmailError("The email field must be a valid email");
-    }
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checkValidity()) {
-      setPasswordValid(true);
-      setPasswordError("");
-    }
-    setPassword(e.target.value);
-  };
-
-  const checkPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
-      setPasswordValidationStyles(true);
-      setPasswordValid(false);
-      setPasswordError("The password field must be at least 8 characters");
-    }
-  };
-
-  const handlePasswordVisiblity = () => {
-    setPasswordVisible((prevVisibility) => !prevVisibility);
-  };
-
-  const disabled =
-    loading || (!emailValid && email) || (!passwordValid && password);
+  const disabled = loading || testLoading;
 
   return (
     <AuthLayout handleSubmit={handleSubmit} title="Login">
@@ -87,7 +55,7 @@ const Login = () => {
             emailValidationStyles ? "auth__input--validation" : ""
           }`}
           value={email}
-          disabled={loading}
+          disabled={disabled}
           required
           onChange={handleEmailChange}
           onBlur={checkEmailValidation}
@@ -111,7 +79,7 @@ const Login = () => {
             }`}
             required
             value={password}
-            disabled={loading}
+            disabled={disabled}
             minLength={8}
             onChange={handlePasswordChange}
             onBlur={checkPasswordValidation}
@@ -122,11 +90,11 @@ const Login = () => {
       <button
         type="submit"
         styleName="auth__button auth__button--submit"
-        disabled={disabled as any}
+        disabled={disabled}
       >
         {loading ? "Logging in..." : "Log In"}
       </button>
-      <button styleName="auth__button auth__button--oauth">
+      <button styleName="auth__button auth__button--oauth" disabled={disabled}>
         <SiFacebook styleName="auth__icon auth__icon--facebook" />
         Continue with Facebook
       </button>
@@ -141,13 +109,13 @@ const Login = () => {
         <button
           styleName="auth__button auth__button--guest"
           onClick={testLogin}
-          disabled={testLoading}
+          disabled={disabled}
           type="button"
         >
           <RxPerson styleName="auth__icon auth__icon--guest" />
           {testLoading ? "Logging in..." : "Continue as guest"}
         </button>
-        <Link to="/register" styleName="auth__button auth__button--create">
+        <Link to="/register" styleName="auth__button auth__button--create" aria-disabled={disabled}>
           Create new account
         </Link>
       </div>

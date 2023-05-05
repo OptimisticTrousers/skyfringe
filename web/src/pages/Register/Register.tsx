@@ -1,4 +1,5 @@
-import { useState, FormEvent, ChangeEvent } from "react";
+import { FormError } from "@backend/types";
+import { FormEvent } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import {
@@ -6,124 +7,49 @@ import {
   PasswordContainer,
   PasswordStrengthMeter,
 } from "../../components/ui";
+import useForm from "../../hooks/useForm";
 import useRegister from "../../hooks/useRegister";
 import { AuthLayout } from "../../layouts";
-import { FormError } from "../../types";
 import styles from "./Register.module.css";
 
 const Register = () => {
   const { register, loading, formError } = useRegister();
 
-  const [fullName, setFullName] = useState("");
-
-  const [userName, setuserName] = useState("");
-  const [userNameValid, setuserNameValid] = useState(true);
-  const [userNameError, setuserNameError] = useState("");
-
-  const [email, setEmail] = useState("");
-  const [emailValid, setEmailValid] = useState(true);
-  const [emailError, setEmailError] = useState("");
-
-  const [password, setPassword] = useState("");
-  const [passwordValid, setPasswordValid] = useState(true);
-  const [passwordError, setPasswordError] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const [passwordConf, setPasswordConf] = useState("");
-  const [passwordConfValid, setPasswordConfValid] = useState(true);
-  const [passwordConfError, setPasswordConfError] = useState("");
-
-  const [emailValidationStyles, setEmailValidationStyles] = useState(false);
-  const [userNameValidationStyles, setuserNameValidationStyles] =
-    useState(false);
-  const [passwordValidationStyles, setPasswordValidationStyles] =
-    useState(false);
+  const {
+    fullName,
+    handleFullNameChange,
+    userName,
+    handleUserNameChange,
+    userNameValid,
+    userNameError,
+    email,
+    handleEmailChange,
+    emailValid,
+    emailError,
+    password,
+    handlePasswordChange,
+    passwordValid,
+    passwordError,
+    passwordVisible,
+    passwordConf,
+    handlePasswordConfChange,
+    passwordConfValid,
+    passwordConfError,
+    emailValidationStyles,
+    userNameValidationStyles,
+    passwordValidationStyles,
+    checkPasswordConfValidation,
+    checkPasswordValidation,
+    checkUserNameValidation,
+    checkEmailValidation,
+    handlePasswordVisiblity,
+  } = useForm();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!(emailValid && passwordValid && passwordConf && userNameValid)) return;
     register({ email, password, fullName, userName, passwordConf });
   };
-
-  const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFullName(e.target.value);
-  };
-
-  const handleuserNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checkValidity()) {
-      setuserNameValid(true);
-      setuserNameError("");
-    }
-    setuserName(e.target.value);
-  };
-
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checkValidity()) {
-      setEmailValid(true);
-      setEmailError("");
-    }
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordConfChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (password === passwordConf && e.target.checkValidity()) {
-      setPasswordConfValid(true);
-      setPasswordConfError("");
-    }
-    setPasswordConf(e.target.value);
-  };
-
-  const checkPasswordConfValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (password !== passwordConf) {
-      setPasswordConfValid(false);
-      setPasswordConfError("Passwords do not match");
-    } else {
-      setPasswordConfValid(true);
-      setPasswordConfError("");
-    }
-  };
-
-  const checkEmailValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
-      setEmailValidationStyles(true);
-      setEmailValid(false);
-      setEmailError("The email field must be a valid email");
-    }
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checkValidity()) {
-      setPasswordValid(true);
-      setPasswordError("");
-    }
-    setPassword(e.target.value);
-  };
-
-  const checkPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
-      setPasswordValidationStyles(true);
-      setPasswordValid(false);
-      setPasswordError("The password field must be at least 8 characters");
-    }
-  };
-
-  const checkuserNameValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
-      setuserNameValidationStyles(true);
-      setuserNameValid(false);
-      setuserNameError("No spaces, uppercase letters, or special characters");
-    }
-  };
-
-  const handlePasswordVisiblity = () => {
-    setPasswordVisible((prevVisibility) => !prevVisibility);
-  };
-
-  const disabled =
-    loading ||
-    (!emailValid && email) ||
-    (!passwordValid && password) ||
-    ((!userNameValid && userName) as any);
 
   return (
     <AuthLayout handleSubmit={handleSubmit} title="Register">
@@ -160,9 +86,9 @@ const Register = () => {
             userNameValidationStyles ? "auth__input--validation" : ""
           }`}
           value={userName}
-          onChange={handleuserNameChange}
+          onChange={handleUserNameChange}
           pattern="^[a-z\d\.]{5,}$"
-          onBlur={checkuserNameValidation}
+          onBlur={checkUserNameValidation}
         />
         {userNameValid === false && <ErrorMessage message={userNameError} />}
       </div>
