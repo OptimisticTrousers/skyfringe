@@ -2,7 +2,7 @@ import express from "express";
 import request from "supertest";
 import mockUser from "../middleware/mockUser";
 import { post_like } from "../controllers/postController";
-import { User as IUser } from "../../../shared/types";
+import { User as IUser } from "../../types";
 import { luffyId, luffyPostId } from "../config/populateDB";
 // Import db setup and teardown functionality
 import "../config/testSeeds";

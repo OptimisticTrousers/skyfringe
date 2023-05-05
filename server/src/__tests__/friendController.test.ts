@@ -1,7 +1,4 @@
-import {
-  User as IUser,
-  FriendRequest as IFriendRequest,
-} from "../../../shared/types";
+import { User as IUser, FriendRequest as IFriendRequest } from "../../types";
 import {
   bob,
   crocodile,
@@ -157,17 +154,13 @@ describe("PUT /api/friends/:userId", () => {
       expect(recipient.friendRequests[0].status).toBe("incoming");
     });
     test("Sending a request replaces a previous rejectedIncoming in recipient array with a new incoming request", () => {
-      recipient.friendRequests = [
-        { user: sender, status: "rejectedIncoming" },
-      ];
+      recipient.friendRequests = [{ user: sender, status: "rejectedIncoming" }];
       // Recipient now sending request after rejected incoming request
       modifyForSendRequest(sender, recipient);
       expect(recipient.friendRequests[0].status).toBe("incoming");
     });
     test("Sending a request replaces a previous outgoingRejected in recipient array with a new incoming request", () => {
-      sender.friendRequests = [
-        { user: recipient, status: "outgoingRejected" },
-      ];
+      sender.friendRequests = [{ user: recipient, status: "outgoingRejected" }];
       modifyForSendRequest(sender, recipient);
       expect(sender.friendRequests[0].status).toBe("outgoing");
     });

@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 import User from "../models/user";
 import mongoose from "mongoose";
 import { body, oneOf, validationResult } from "express-validator";
-import { User as IUser } from "../../../shared/types";
+import { User as IUser } from "../../types";
 import Post from "../models/post";
 
 // @desc    Get all users (public details)

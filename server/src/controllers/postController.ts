@@ -5,7 +5,7 @@ import Post from "../models/post";
 import upload from "../config/multer";
 import mongoose from "mongoose";
 import { s3Deletev3, s3Uploadv3 } from "../config/s3";
-import { User as IUser, Post as IPost } from "../../../shared/types";
+import { User as IUser, Post as IPost } from "../../types";
 
 interface CustomError extends Error {
   status?: number;

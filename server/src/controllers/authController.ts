@@ -7,7 +7,7 @@ import { body, validationResult } from "express-validator";
 import { NextFunction, Response, Request } from "express";
 import User from "../models/user";
 import cookieExtractor from "../middleware/cookieExtractor";
-import { User as IUser } from "../../../shared/types";
+import { User as IUser } from "../../types";
 import { luffyId } from "../config/populateDB";
 
 config();

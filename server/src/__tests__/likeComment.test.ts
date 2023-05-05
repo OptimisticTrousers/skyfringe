@@ -3,7 +3,7 @@ import request from "supertest";
 import mockUser from "../middleware/mockUser";
 import { comment_like } from "../controllers/commentController";
 import { luffyCommentId, luffyId, namiCommentId } from "../config/populateDB";
-import { User as IUser } from "../../../shared/types";
+import { User as IUser } from "../../types";
 // Import db setup and teardown functionality
 import "../config/testSeeds";
 

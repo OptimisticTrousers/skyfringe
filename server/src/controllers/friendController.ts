@@ -1,10 +1,7 @@
 import { Types } from "mongoose";
 import asyncHandler from "express-async-handler";
 import User from "../models/user";
-import {
-  User as IUser,
-  FriendRequest as IFriendRequest,
-} from "../../../shared/types";
+import { User as IUser, FriendRequest as IFriendRequest } from "../../types";
 import { Request, Response } from "express";
 
 // Use this function to ensure that no duplicate requests are sent, and that certain request types exist before performing related actions
@@ -245,6 +242,6 @@ export const friend_request = asyncHandler(
     await sender.save();
 
     // Return information of recipient (to populate a 'request sent to: ' message in frontend. Check that password is not being sent here though!)
-    res.status(200).json({});
+    res.status(200);
   }
 );

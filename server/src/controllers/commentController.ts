@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import { body, validationResult } from "express-validator";
 import { Request, Response } from "express";
 import Comment from "../models/comment";
-import { User as IUser, Comment as IComment } from "../../../shared/types";
+import { User as IUser, Comment as IComment } from "../../types";
 
 // @desc    Get post comments
 // @route   GET /api/posts/:postId/comments
