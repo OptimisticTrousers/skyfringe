@@ -1,7 +1,6 @@
 import { FC } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
-import { User } from "../../../types";
 import styles from "./FriendsCard.module.css";
 import {
   AcceptRequestBtn,
@@ -11,22 +10,21 @@ import {
   UnfriendRequestBtn,
 } from "../../ui";
 import CancelRequestBtn from "../../ui/CancelRequestBtn/CancelRequestBtn";
+import { UserWithStringId } from "@backend/types";
 
 interface Props {
-  friend: any;
-  type: any;
+  friend: UserWithStringId;
+  type: string;
 }
 
 const FriendsCard: FC<Props> = ({ friend, type }) => {
+  const friendId = friend._id;
   return (
     <div styleName="card">
-      <Link
-        styleName="card__link card__link--image"
-        to={`/users/${friend._id}`}
-      >
+      <Link styleName="card__link card__link--image" to={`/users/${friendId}`}>
         <Avatar
-          src={friend?.photo?.imageUrl}
-          alt={friend?.photo?.altText}
+          src={friend.photo && friend.photo.imageUrl}
+          alt={friend.photo && friend.photo.altText}
           size="xxl"
         />
       </Link>
@@ -35,15 +33,15 @@ const FriendsCard: FC<Props> = ({ friend, type }) => {
           styleName="card__link card__link--name"
           to={`/users/${friend._id}`}
         >
-          {friend?.fullName}
+          {friend.fullName}
         </Link>
-        {type === "user" && <SendRequestBtn userId={friend?._id} />}
-        {type === "friend" && <UnfriendRequestBtn userId={friend?._id} />}
-        {type === "outgoing" && <CancelRequestBtn userId={friend?._id} />}
+        {type === "user" && <SendRequestBtn userId={friendId} />}
+        {type === "friend" && <UnfriendRequestBtn userId={friendId} />}
+        {type === "outgoing" && <CancelRequestBtn userId={friendId} />}
         {type === "incoming" && (
           <div styleName="card__container">
-            <AcceptRequestBtn userId={friend?._id} />
-            <DeleteRequestBtn userId={friend?._id} />
+            <AcceptRequestBtn userId={friendId} />
+            <DeleteRequestBtn userId={friendId} />
           </div>
         )}
       </div>

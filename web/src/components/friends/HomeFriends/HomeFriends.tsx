@@ -1,18 +1,21 @@
-import { useContext, useRef, MouseEvent } from "react";
+import { FetchFriendsResponse, UserWithStringId as User } from "@backend/types";
+import { useContext, useRef } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
-import userImageFallback from "../../../utils/userImageFallback";
-import { Avatar, Card } from "../../ui";
+import useFetch from "../../../hooks/useFetch";
+import { Avatar, Card, ErrorMessage, Loading } from "../../ui";
 import styles from "./HomeFriends.module.css";
 
 const HomeFriends = () => {
-  const { user }: any = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+  const { data, loading, error }: FetchFriendsResponse = useFetch(
+    `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}/friends`
+  );
 
-  const carouselRef = useRef<any>(null);
-  const friendCount = user.friendCount;
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  const next = (event: MouseEvent<HTMLButtonElement>) => {
+  const next = () => {
     if (!carouselRef.current) return;
     const containerDimensions = carouselRef.current.getBoundingClientRect();
     const containerWidth = containerDimensions.width;
@@ -20,26 +23,13 @@ const HomeFriends = () => {
     carouselRef.current.scrollLeft += containerWidth / 2;
   };
 
-  const previous = (event: MouseEvent<HTMLButtonElement>) => {
+  const previous = () => {
     if (!carouselRef.current) return;
     const containerDimensions = carouselRef.current.getBoundingClientRect();
     const containerWidth = containerDimensions.width;
 
     carouselRef.current.scrollLeft -= containerWidth / 2;
   };
-
-  const renderedFriends = user?.friends?.map((friend: any) => {
-    return (
-      <Link
-        key={friend._id}
-        styleName="friends__friend"
-        to={`/users/${friend?.userName}`}
-      >
-        <Avatar src={friend?.photo?.imageUrl} alt={"avatar"} size={"friend"} />
-        <p styleName="friends__name">{friend?.fullName}</p>
-      </Link>
-    );
-  });
 
   return (
     <Card>
@@ -53,7 +43,24 @@ const HomeFriends = () => {
           &#60;
         </button>
         <div role="list" styleName="friends__container" ref={carouselRef}>
-          {renderedFriends}
+          {loading && <Loading />}
+          {data &&
+            data.friends.map((friend: User) => {
+              return (
+                <Link
+                  key={friend._id}
+                  styleName="friends__friend"
+                  to={`/users/${friend.userName}`}
+                >
+                  <Avatar
+                    src={friend.photo && friend.photo.imageUrl}
+                    alt={"avatar"}
+                    size={"friend"}
+                  />
+                  <p styleName="friends__name">{friend.fullName}</p>
+                </Link>
+              );
+            })}
         </div>
         <button
           styleName="friends__button friends__button--next"
