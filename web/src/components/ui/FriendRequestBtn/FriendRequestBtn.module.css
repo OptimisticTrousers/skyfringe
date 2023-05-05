@@ -1,8 +1,6 @@
 .button {
   cursor: pointer;
   padding: 0.5rem 0.4rem;
-  color: white;
-  background-color: rgb(88, 93, 137);
   border-color: rgb(88, 93, 137);
   border-width: 1px;
   display: flex;
@@ -12,9 +10,24 @@
   width: 80%;
 }
 
-.button:hover {
+.button--blue {
+  color: white;
+  background-color: rgb(88, 93, 137);
+}
+
+.button--white {
+  color: rgb(80, 84, 124);
+  background-color: rgb(255, 255, 255);
+}
+
+.button--blue:hover {
   background-color: rgb(106, 102, 160);
-  border-color: rbb(106, 112, 160);
+  border-color: rgb(106, 112, 160);
+}
+
+.button--white:hover {
+  border-color: rgb(106, 112, 160);
+  background-color: rgb(243, 243, 247);
 }
 
 .button:disabled {

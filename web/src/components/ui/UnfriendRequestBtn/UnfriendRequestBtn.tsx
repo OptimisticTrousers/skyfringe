@@ -1,7 +1,6 @@
 import { FC } from "react";
 import useFriendRequests from "../../../hooks/useFriendRequests";
-import CSSModules from "react-css-modules";
-import styles from "./UnfriendRequestBtn.module.css";
+import FriendRequestBtn from "../FriendRequestBtn";
 
 interface Props {
   userId: string;
@@ -39,17 +38,13 @@ const UnfriendRequestBtn: FC<Props> = ({ userId }) => {
   };
 
   return (
-    <button
-      styleName="button"
-      onClick={handleUnfriend}
+    <FriendRequestBtn
+      type="blue"
+      handleClick={handleUnfriend}
       disabled={data ? true : false}
-    >
-      {setBtnText()}
-    </button>
+      text={setBtnText()}
+    />
   );
 };
 
-export default CSSModules(UnfriendRequestBtn, styles, {
-  allowMultiple: true,
-  handleNotFoundStyleName: "ignore",
-});
+export default UnfriendRequestBtn;

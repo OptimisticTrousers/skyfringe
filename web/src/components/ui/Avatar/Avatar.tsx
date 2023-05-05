@@ -5,8 +5,8 @@ import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./Avatar.module.css";
 
 interface Props {
-  src: string;
-  alt: string;
+  src: string | undefined;
+  alt: string | undefined;
   size: string;
 }
 

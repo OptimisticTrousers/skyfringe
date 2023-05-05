@@ -1,7 +1,6 @@
 import { FC } from "react";
 import useFriendRequests from "../../../hooks/useFriendRequests";
-import CSSModules from "react-css-modules";
-import styles from "./SendRequest.module.css";
+import FriendRequestBtn from "../FriendRequestBtn";
 
 interface Props {
   userId: string;
@@ -39,17 +38,13 @@ const SendRequestBtn: FC<Props> = ({ userId }) => {
   };
 
   return (
-    <button
-      styleName="button"
-      onClick={handleAccept}
+    <FriendRequestBtn
+      type="blue"
+      handleClick={handleAccept}
       disabled={data ? true : false}
-    >
-      {setBtnText()}
-    </button>
+      text={setBtnText()}
+    />
   );
 };
 
-export default CSSModules(SendRequestBtn, styles, {
-  allowMultiple: true,
-  handleNotFoundStyleName: "ignore",
-});
+export default SendRequestBtn;

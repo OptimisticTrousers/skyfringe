@@ -1,5 +1,5 @@
 export { default as AcceptRequestBtn } from "./AcceptRequestBtn";
-export { default as DeleteRequestBtn } from "./DeleteRequestBtn";
+export { default as DeleteRequestBtn } from "./DeclineRequestBtn";
 export { default as Avatar } from "./Avatar";
 export { default as Banner } from "./Banner";
 export { default as Card } from "./Card";

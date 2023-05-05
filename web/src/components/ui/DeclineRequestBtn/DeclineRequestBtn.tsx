@@ -1,36 +1,35 @@
 import { FC } from "react";
 import useFriendRequests from "../../../hooks/useFriendRequests";
-import CSSModules from "react-css-modules";
-import styles from "./DeleteRequest.module.css";
+import FriendRequestBtn from "../FriendRequestBtn";
 
 interface Props {
   userId: string;
 }
 
 // Used to delete a friend request sent by another user
-const UnfriendRequestBtn: FC<Props> = ({ userId }) => {
+const DeclineRequestBtn: FC<Props> = ({ userId }) => {
   const { request, data, loading, error }: any = useFriendRequests(userId);
 
   // Dynamically set button text to indicate loading state
   const setBtnText = () => {
     // Set out the conditionals in order of which they should be evaluated
     if (loading) {
-      return "Deleting...";
+      return "Declining...";
     }
 
     if (error) {
-      return "Delete";
+      return "Decline";
     }
 
     if (data) {
-      return "Deleted!";
+      return "Declined!";
     }
 
     // Default state should be returned
-    return "Delete";
+    return "Decline";
   };
 
-  const handleAccept = () => {
+  const handleDecline = () => {
     request(
       "rejectRequest",
       "Request rejected.",
@@ -39,17 +38,13 @@ const UnfriendRequestBtn: FC<Props> = ({ userId }) => {
   };
 
   return (
-    <button
-      styleName="button"
-      onClick={handleAccept}
+    <FriendRequestBtn
+      type="white"
+      handleClick={handleDecline}
       disabled={data ? true : false}
-    >
-      {setBtnText()}
-    </button>
+      text={setBtnText()}
+    />
   );
 };
 
-export default CSSModules(UnfriendRequestBtn, styles, {
-  allowMultiple: true,
-  handleNotFoundStyleName: "ignore",
-});
+export default DeclineRequestBtn;
