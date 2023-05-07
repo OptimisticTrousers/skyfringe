@@ -10,20 +10,23 @@ const UserSchema = new Schema(
     password: { type: String, minLength: 8 },
     bio: { type: String },
     friends: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
-    friendRequests: [
-      {
-        user: { type: Schema.Types.ObjectId, ref: "User" },
-        status: {
-          type: String,
-          enum: [
-            "outgoing",
-            "incoming",
-            "outgoingRejected",
-            "rejectedIncoming",
-          ],
+    friendRequests: {
+      type: [
+        {
+          user: { type: Schema.Types.ObjectId, ref: "User" },
+          status: {
+            type: String,
+            enum: [
+              "outgoing",
+              "incoming",
+              "outgoingRejected",
+              "rejectedIncoming",
+            ],
+          },
         },
-      },
-    ],
+      ],
+      default: [],
+    },
     photo: {
       imageUrl: { type: String },
       altText: { type: String },
@@ -33,7 +36,16 @@ const UserSchema = new Schema(
       altText: { type: String },
     },
   },
-  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  {
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform(doc, ret: any) {
+        delete ret.password;
+      },
+    },
+    toObject: { virtuals: true },
+  }
 );
 
 // Virtual for user's URL

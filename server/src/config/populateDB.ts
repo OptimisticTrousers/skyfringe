@@ -107,7 +107,8 @@ export const zoro = {
   password: "$2a$10$qCPh8/C30SpOOrjkaavXquYiqvv5SmQXQNdPgvtasqB9eaJxGDDY.",
   bio: "Scars On The Back Are A Swordsman Shame",
   friends: [luffyId, namiId, usoppId],
-  friendRequests: [],
+  // automatically sets default to []
+  // friendRequests: [],
   photo: {
     imageUrl: `${S3_BUCKET}/users/zoro.webp`,
     altText: "Fictional character Roronoa Zoro from the One Piece manga",
@@ -126,7 +127,8 @@ export const nami = {
   password: "$2a$10$LireFRYIV1YJgzWeHoFG3.iVM.PMWKILHITKmgApmMEfl4fAjDgvu",
   bio: "The forecast is thunder and lightning!",
   friends: [luffyId, zoroId, usoppId],
-  friendRequests: [],
+  // automatically sets default to []
+  // friendRequests: [],
   photo: {
     imageUrl: `${S3_BUCKET}/users/nami.webp`,
     altText: "Fictional character Nami from the One Piece manga",
@@ -169,6 +171,7 @@ export const crocodile = {
   password:
     "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
   bio: "Ahahahahahaha!",
+  // automatically sets default to []
   friends: [],
   friendRequests: [
     {
@@ -186,6 +189,7 @@ export const crocodile = {
   },
 };
 
+// Two users used for testing purposes only
 export const bob = {
   _id: bobId,
   fullName: "Bob Jones",
@@ -209,7 +213,7 @@ export const locosPollos = {
 };
 
 // Set up array of user/post/comment docs to be later saved to db
-const users = [luffy, zoro, nami, usopp, crocodile, bob, locosPollos];
+const users = [luffy, zoro, nami, usopp, crocodile];
 
 const posts = [
   {

@@ -1,6 +1,7 @@
 import request from "supertest";
 import app from "../app";
 import { config } from "dotenv";
+import { bob } from "../config/populateDB";
 // Import db setup and teardown functionality
 import "../config/testSeeds";
 
@@ -14,19 +15,14 @@ if (!secret) {
 }
 
 describe("POST api/auth/register", () => {
-  const user = {
-    fullName: "Bob Jones",
-    userName: "bobjones",
-    email: "bobjones@gmail.com",
-    password: "bobjones",
-  };
   it("returns user and token objects after successful user sign up/register (with password hidden)", async () => {
-    const response = await request(app).post("/api/auth/register").send(user);
+    const response = await request(app).post("/api/auth/register").send(bob);
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toBe(200)
     expect(response.body.fullName).toBe("Bob Jones");
     expect(response.body.userName).toBe("bobjones");
     expect(response.body.email).toBe("bobjones@gmail.com");
+    expect(response.body.password).toBeUndefined();
     expect(response.headers["set-cookie"]).toBeTruthy();
   });
   it("should return 400 if validation fails", async () => {

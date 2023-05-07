@@ -69,8 +69,6 @@ export const register_user = [
       throw new Error("JWT_SECRET value is not defined in .env file");
     }
 
-    await user.populate("friends");
-
     await user.save();
     // If the JWT secret is available, sign a token and send it as a cookie to the browser
     const token = jwt.sign({ id: user._id }, secret);
