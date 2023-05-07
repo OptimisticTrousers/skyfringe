@@ -195,8 +195,7 @@ export const bob = {
   fullName: "Bob Jones",
   userName: "bobjones",
   email: "bobjones@gmail.com",
-  password:
-    "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
+  password: "password",
   friends: [],
   friendRequests: [],
 };
@@ -206,8 +205,7 @@ export const locosPollos = {
   fullName: "Locos Pollos",
   userName: "locospollos",
   email: "locospollos@gmail.com",
-  password:
-    "$2a$14c8a331bda76c559ef0000040$f5I6hnSWaZZgKGfbVijlGuZQshNINCrynXNTHl4O5RgO08HK6tILS",
+  password: "password",
   friends: [],
   friendRequests: [],
 };

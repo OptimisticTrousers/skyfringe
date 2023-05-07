@@ -84,21 +84,6 @@ export const user_update = [
   }),
 ];
 
-// @desc    Get all posts by a single user
-// @route   GET /api/user/:userId/posts
-// @access  Private
-export const user_posts = asyncHandler(async (req: Request, res: Response) => {
-  const userId = req.params.userId;
-  const user = await User.findById(userId).exec();
-  if (!user) {
-    res.status(404).json({ message: "User not found" });
-    return;
-  }
-  const posts = await Post.find({ author: userId }).exec();
-
-  res.status(200).json(posts);
-});
-
 export const user_delete = (
   req: Request,
   res: Response,

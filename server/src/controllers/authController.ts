@@ -86,13 +86,8 @@ export const register_user = [
 // @route   POST /api/auth/login
 // @access  Public
 export const login_user = [
-  body("email", "Please enter a valid email address")
-    .isEmail()
-    .normalizeEmail({ gmail_remove_dots: false }),
-  body("password", "Password must be at least 8 characters long")
-    .trim()
-    .isLength({ min: 8 })
-    .escape(),
+  body("email").normalizeEmail({ gmail_remove_dots: false }),
+  body("password").trim().escape(),
   passport.authenticate("local", { session: false }),
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     // Cast the standard Request object to my custom AuthenticatedRequest object

@@ -7,7 +7,7 @@ describe("GET /api/auth/current", () => {
   it("should return 401 if no token provided", async () => {
     const res = await request(app).get("/api/auth/current").expect(401);
 
-    expect(res.body).toHaveProperty("message", "No token provided");
+    expect(res.body.message).toBe("No token provided");
   });
   it("should return 500 if token is invalid", async () => {
     const res = await request(app)
@@ -15,7 +15,7 @@ describe("GET /api/auth/current", () => {
       .set("Cookie", "jwt=invalid-token")
       .expect(500);
 
-    expect(res.body).toHaveProperty("message", "jwt malformed");
+    expect(res.body.message).toBe("jwt malformed");
   });
   it("should return 401 if token has wrong user", async () => {
     const res = await request(app)
@@ -27,7 +27,7 @@ describe("GET /api/auth/current", () => {
       )
       .expect(401);
 
-    expect(res.body).toHaveProperty("message", "No user found");
+    expect(res.body.message).toBe("No user found");
   });
 
   it("should return the logged in user", async () => {
@@ -48,8 +48,9 @@ describe("GET /api/auth/current", () => {
       .set("Cookie", `jwt=${token}`)
       .expect(200);
 
-    expect(res.body).toHaveProperty("fullName", "Monkey D. Luffy");
-    expect(res.body).toHaveProperty("userName", "luffy");
-    expect(res.body).toHaveProperty("email", "luffy@onepiece.com");
+    expect(res.body.fullName).toBe("Monkey D. Luffy");
+    expect(res.body.userName).toBe("luffy");
+    expect(res.body.email).toBe("luffy@onepiece.com");
+    expect(res.body.password).toBeUndefined();
   });
 });

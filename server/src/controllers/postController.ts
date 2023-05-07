@@ -51,8 +51,6 @@ export const post_create = [
       return;
     }
 
-    console.log(req.file);
-
     const { content } = req.body;
     const user = req.user as IUser;
     // Create new post

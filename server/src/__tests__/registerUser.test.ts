@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../app";
 import { config } from "dotenv";
-import { bob } from "../config/populateDB";
+import { bob, luffy } from "../config/populateDB";
 // Import db setup and teardown functionality
 import "../config/testSeeds";
 
@@ -18,10 +18,10 @@ describe("POST api/auth/register", () => {
   it("returns user and token objects after successful user sign up/register (with password hidden)", async () => {
     const response = await request(app).post("/api/auth/register").send(bob);
     expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.status).toBe(200)
-    expect(response.body.fullName).toBe("Bob Jones");
-    expect(response.body.userName).toBe("bobjones");
-    expect(response.body.email).toBe("bobjones@gmail.com");
+    expect(response.status).toBe(200);
+    expect(response.body.fullName).toBe(bob.fullName);
+    expect(response.body.userName).toBe(bob.userName);
+    expect(response.body.email).toBe(bob.email);
     expect(response.body.password).toBeUndefined();
     expect(response.headers["set-cookie"]).toBeTruthy();
   });
@@ -62,13 +62,7 @@ describe("POST api/auth/register", () => {
   });
   test("if when a user makes an account with an email that already exists", async () => {
     // Luffy user already present in the database
-    const user = {
-      fullName: "Monkey D. Luffy",
-      userName: "luffy",
-      email: "luffy@onepiece.com",
-      password: "password",
-    };
-    const response = await request(app).post("/api/auth/register").send(user);
+    const response = await request(app).post("/api/auth/register").send(luffy);
     expect(response.status).toBe(400);
     expect(response.body[0].msg).toBe("E-mail already in use");
   });
