@@ -30,7 +30,8 @@ export const post_list = asyncHandler(async (req: Request, res: Response) => {
 export const post_create = [
   upload.single("image"),
   // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
-  body("content").custom((value, { req }) => {
+  body("content").optional().custom((value, { req }) => {
+    console.log(value)
     if ((!value || value.trim().length === 0) && !req.file) {
       // neither text nor image has been provided
       const error: CustomError = new Error("Post text or image is required");

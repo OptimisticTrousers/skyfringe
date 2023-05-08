@@ -1,4 +1,4 @@
-import { Request } from "express-serve-static-core";
+import { Request } from "express";
 import multer, { FileFilterCallback } from "multer";
 import multerS3 from "multer-s3";
 import {
@@ -7,7 +7,7 @@ import {
   DeleteObjectCommand,
 } from "@aws-sdk/client-s3";
 import { s3client } from "./s3";
-import {config} from "dotenv";
+import { config } from "dotenv";
 
 config();
 
@@ -39,10 +39,9 @@ if (!bucketName) {
 const upload = multer({
   storage: multerS3({
     s3: s3client,
-    bucket: 'optimisticbucket',
-    acl: "public-read",
-    key: function (req, file, cb) {
-      cb(null, `uploads/${Date.now().toString()}`);
+    bucket: "optimisticbucket",
+    key: function (req: Request, file, cb) {
+      cb(null, `facebook_clone/${req.body.path}/${Date.now().toString()}`);
     },
   }),
   fileFilter,

@@ -4,7 +4,7 @@ import { Post } from "../../types";
 const PostSchema = new Schema(
   {
     author: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    content: { type: String, minLength: 4, maxLength: 1000 },
+    content: { type: String },
     likes: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
     photo: {
       imageUrl: { type: String },
