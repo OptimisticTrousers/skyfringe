@@ -14,12 +14,7 @@ const useCreatePost = () => {
     try {
       const response = await post(
         `${import.meta.env.VITE_API_DOMAIN}/posts`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        formData
       );
       if (response.status === 200) {
         // No error, request successful

@@ -34,7 +34,7 @@ export const post_create = [
     if ((!value || value.trim().length === 0) && !req.file) {
       // neither text nor image has been provided
       const error: CustomError = new Error("Post text or image is required");
-      error.status = 404;
+      error.status = 400;
       throw error;
     }
     // User has included one of either text or image. Continue with request handling
@@ -53,26 +53,23 @@ export const post_create = [
 
     const { content } = req.body;
     const user = req.user as IUser;
+
+    let path: string = "";
+
+    if (req.file) {
+      console.log(req.file);
+      path = `posts/${req.file.path}`;
+      await s3Uploadv3(path, req.file);
+    }
     // Create new post
     const post = new Post({
       author: user._id, // req.user is created by the auth middle when accessing any protected route
-      ...(content && {
-        content,
-      }),
-      likes: [],
-      ...(req.file && {
-        photo: {
-          imageUrl: `${process.env.S3_BUCKET}/${user.userName}`,
-          altText: "post image",
-        },
-      }),
+      content: content && content,
+      photo: req.file && {
+        imageUrl: `${process.env.S3_BUCKET}/${path}`,
+        altText: "post image",
+      },
     });
-
-    const path = "posts";
-
-    if (req.file) {
-      await s3Uploadv3(path, req.file);
-    }
 
     await post.save();
 

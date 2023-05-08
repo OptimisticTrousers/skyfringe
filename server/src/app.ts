@@ -11,11 +11,11 @@ import errorHandler from "./middleware/errorHandler";
 const app = express();
 
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-app.use(cookieParser())
+app.use(cookieParser());
 passportConfig();
 
 // routes
