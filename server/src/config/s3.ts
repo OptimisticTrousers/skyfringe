@@ -11,7 +11,7 @@ import { config } from "dotenv";
 // Setting up ENV variables, specifically for S3_BUCKET
 config();
 
-const bucketName = process.env.AWS_BUCKET_NAME;
+export const bucketName = process.env.AWS_BUCKET_NAME;
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
@@ -27,7 +27,7 @@ if (!secretAccessKey) {
   throw new Error("AWS_SECRET_ACCESS_KEY value is not defined in .env file");
 }
 
-const s3client = new S3Client({
+export const s3client = new S3Client({
   region: "us-east-1",
   credentials: {
     accessKeyId,

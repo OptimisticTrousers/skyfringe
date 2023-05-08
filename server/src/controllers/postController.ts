@@ -54,13 +54,13 @@ export const post_create = [
     const { content } = req.body;
     const user = req.user as IUser;
 
-    let path: string = "";
+    const path = `posts/${req?.file?.path}`;
 
-    if (req.file) {
-      console.log(req.file);
-      path = `posts/${req.file.path}`;
-      await s3Uploadv3(path, req.file);
-    }
+    // if (req.file) {
+    //   console.log(req.file);
+    //   path = `posts/${req.file.path}`;
+    //   await s3Uploadv3(path, req.file);
+    // }
     // Create new post
     const post = new Post({
       author: user._id, // req.user is created by the auth middle when accessing any protected route

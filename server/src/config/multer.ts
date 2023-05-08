@@ -1,5 +1,15 @@
 import { Request } from "express-serve-static-core";
 import multer, { FileFilterCallback } from "multer";
+import multerS3 from "multer-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
+import { s3client } from "./s3";
+import {config} from "dotenv";
+
+config();
 
 const fileFilter = (
   req: Request,
@@ -20,8 +30,21 @@ const fileFilter = (
   }
 };
 
+const bucketName = process.env.AWS_BUCKET_NAME;
+
+if (!bucketName) {
+  throw new Error("AWS_BUCKET_NAME value is not defined in .env file");
+}
+
 const upload = multer({
-  storage: multer.memoryStorage(),
+  storage: multerS3({
+    s3: s3client,
+    bucket: 'optimisticbucket',
+    acl: "public-read",
+    key: function (req, file, cb) {
+      cb(null, `uploads/${Date.now().toString()}`);
+    },
+  }),
   fileFilter,
 });
 
