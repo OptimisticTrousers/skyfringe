@@ -30,8 +30,7 @@ export const post_list = asyncHandler(async (req: Request, res: Response) => {
 export const post_create = [
   upload.single("image"),
   // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
-  body("content").optional().custom((value, { req }) => {
-    console.log(value)
+  body("content").custom((value, { req }) => {
     if ((!value || value.trim().length === 0) && !req.file) {
       // neither text nor image has been provided
       const error: CustomError = new Error("Post text or image is required");
@@ -42,7 +41,7 @@ export const post_create = [
     return true;
   }),
   // Process request after validation and sanitization
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req: any, res: Response) => {
     // Extract the validation errors from a request
     const errors = validationResult(req);
 
@@ -55,19 +54,20 @@ export const post_create = [
     const { content } = req.body;
     const user = req.user as IUser;
 
-    const path = `posts/${req?.file?.path}`;
+    const bucketName = process.env.AWS_BUCKET_NAME;
 
-    // if (req.file) {
-    //   console.log(req.file);
-    //   path = `posts/${req.file.path}`;
-    //   await s3Uploadv3(path, req.file);
-    // }
+    if (!bucketName) {
+      throw new Error("AWS_BUCKET_NAME value is not defined in .env file");
+    }
+
     // Create new post
     const post = new Post({
       author: user._id, // req.user is created by the auth middle when accessing any protected route
       content: content && content,
       photo: req.file && {
-        imageUrl: `${process.env.S3_BUCKET}/${path}`,
+        imageUrl: `${bucketName}/facebook_clone/${req.key.path}/${
+          req.key.date
+        }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
         altText: "post image",
       },
     });

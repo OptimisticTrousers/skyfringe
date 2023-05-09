@@ -11,7 +11,6 @@ const useCreatePost = () => {
   // Accepts FormData object that may contain both text and images
   const createPost = async (formData: FormData) => {
     setLoading(true);
-    formData.append("path", "posts");
     try {
       const response = await post(
         `${import.meta.env.VITE_API_DOMAIN}/posts`,

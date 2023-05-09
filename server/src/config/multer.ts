@@ -8,6 +8,7 @@ import {
 } from "@aws-sdk/client-s3";
 import { s3client } from "./s3";
 import { config } from "dotenv";
+import { User as IUser, Post as IPost } from "../../types";
 
 config();
 
@@ -40,8 +41,14 @@ const upload = multer({
   storage: multerS3({
     s3: s3client,
     bucket: "optimisticbucket",
-    key: function (req: Request, file, cb) {
-      cb(null, `facebook_clone/${req.body.path}/${Date.now().toString()}`);
+    key: function (req: any, file, cb) {
+      const user = req.user as IUser;
+      cb(
+        null,
+        `/facebook_clone/${req.key.path}/${req.key.date}_${user.userName}.${
+          file.mimetype.split("/")[1]
+        }`
+      );
     },
   }),
   fileFilter,

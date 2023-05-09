@@ -13,10 +13,11 @@ import {
   comment_delete,
   comment_like,
 } from "../controllers/commentController";
+import multerPostKey from "../middleware/multerPostKey";
 
 const router = Router();
 
-router.route("/").get(post_list).post(post_create);
+router.route("/").get(post_list).post(multerPostKey, post_create);
 
 router.route("/:postId").put(post_update).delete(post_delete);
 
