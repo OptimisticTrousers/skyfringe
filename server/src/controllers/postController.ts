@@ -41,7 +41,7 @@ export const post_create = [
     return true;
   }),
   // Process request after validation and sanitization
-  asyncHandler(async (req: any, res: Response) => {
+  asyncHandler(async (req: Request, res: Response) => {
     // Extract the validation errors from a request
     const errors = validationResult(req);
 
@@ -65,8 +65,8 @@ export const post_create = [
       author: user._id, // req.user is created by the auth middle when accessing any protected route
       content: content && content,
       photo: req.file && {
-        imageUrl: `${bucketName}/facebook_clone/${req.key.path}/${
-          req.key.date
+        imageUrl: `${bucketName}/facebook_clone/${req.body.path}/${
+          req.body.date
         }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
         altText: "post image",
       },
