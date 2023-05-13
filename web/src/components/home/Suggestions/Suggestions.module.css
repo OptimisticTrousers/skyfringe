@@ -10,9 +10,18 @@
 }
 
 .suggestions__link {
-  color: rgb(59, 130, 246);
   font-size: 1.2rem;
-  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.suggestions__link:hover {
+  text-decoration: underline;
+}
+
+.suggestions__link--avatar {
+  margin-right: 16px;
 }
 
 .suggestions__suggestion {
@@ -30,15 +39,15 @@
   margin-bottom: 2rem;
 }
 
-.suggestions__link:hover {
-  filter: brightness(0.8);
+.suggestions__list {
+  padding: 0;
+  margin: 0;
 }
 
 .suggestions__avatar {
   height: 100%;
   width: 60px;
   border-radius: 50%;
-  margin-right: 16px;
 }
 
 .suggestions__subtitle {
@@ -48,13 +57,10 @@
 }
 
 .suggestions__button {
-  border: none;
-  padding: 0.7rem 2rem;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  width: 140px;
-  cursor: pointer;
-  transition: all 0.15s ease-in-out;
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .suggestions__button--follow {
