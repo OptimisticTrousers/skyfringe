@@ -36,7 +36,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
   } = useImageThumbnail();
 
   const [imageValue, setImageValue] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState<any>(null);
 
   // Set state initially o current post text
   const [postText, setPostText] = useState(post?.content);
@@ -45,7 +45,10 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
     event.preventDefault();
     const postId = post._id;
     toggleModal();
-    const updatedPost = await updatePost(postId, { content: postText });
+    const newPost = new FormData();
+    newPost.append("content", postText);
+    newPost.append("image", imageFile);
+    const updatedPost = await updatePost(postId, newPost);
     handleEditPost(postId, updatedPost);
   };
 

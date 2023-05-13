@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { ToastContext } from "../context/ToastContext";
-import { PostData } from "../types";
 import useHttp from "./useHttp";
 
 // Used to update both text and images in posts.
@@ -11,7 +10,7 @@ const useUpdatePost = () => {
   const { showToast } = useContext(ToastContext);
 
   // Accepts FormData object that can include image data
-  const updatePost = async (postId: string, formData: PostData) => {
+  const updatePost = async (postId: string, formData: FormData) => {
     setLoading(true);
     setError(null);
     try {
