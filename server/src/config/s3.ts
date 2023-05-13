@@ -55,7 +55,7 @@ export const s3Uploadv3 = async (path: string, file: Express.Multer.File) => {
   }
 };
 
-export const s3Deletev3 = async (path: string, fileName: string) => {
+export const s3Deletev3 = async (path: string) => {
   try {
     const deleteParams = {
       Bucket: bucketName,

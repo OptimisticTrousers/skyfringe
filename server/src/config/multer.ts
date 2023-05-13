@@ -41,7 +41,7 @@ const upload = multer({
   storage: multerS3({
     s3: s3client,
     bucket: "optimisticbucket",
-    key: function (req: any, file, cb) {
+    key: function (req: Request, file, cb) {
       const user = req.user as IUser;
       cb(
         null,

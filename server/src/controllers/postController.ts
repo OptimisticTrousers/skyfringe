@@ -111,6 +111,19 @@ export const post_like = asyncHandler(async (req: Request, res: Response) => {
 // @route   PUT /api/posts/:postId
 // @access  Private
 export const post_update = [
+  upload.single("image"),
+  // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
+  body("content").custom((value, { req }) => {
+    if ((!value || value.trim().length === 0) && !req.file) {
+      // neither text nor image has been provided
+      const error: CustomError = new Error("Post text or image is required");
+      error.status = 400;
+      throw error;
+    }
+    // User has included one of either text or image. Continue with request handling
+    return true;
+  }),
+  // Process request after validation and sanitization
   asyncHandler(async (req: Request, res: Response) => {
     const postId = req.params.postId;
     // Extract the validation errors from a request.
@@ -133,26 +146,23 @@ export const post_update = [
       return;
     }
 
-    const path = "posts";
-
-    if (post?.photo?.imageUrl) {
-      await s3Deletev3(path, `${post._id}${post.author.userName}`);
-    }
-
-    if (req.file) {
-      await s3Uploadv3(path, req.file);
+    if (post.photo && !req.file) {
+      const path = `${req.body.path}/${req.body.date}_${user.userName}.${
+        post.photo.imageUrl.split(".")[1]
+      }`;
+      await s3Deletev3(path);
     }
 
     const updatedPost = await Post.findByIdAndUpdate(
       postId,
       {
         content: req.body.content,
-        ...(req.file && {
-          photo: {
-            imageUrl: `${post._id}${post.author.userName}`,
-            altText: "test",
-          },
-        }),
+        photo: req.file && {
+          imageUrl: `${req.body.path}/${req.body.date}_${user.userName}.${
+            req.file.mimetype.split("/")[1]
+          }`,
+          altText: "test",
+        },
       },
       { new: true }
     ).populate("author");
