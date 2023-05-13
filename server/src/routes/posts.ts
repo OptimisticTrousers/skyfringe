@@ -19,7 +19,10 @@ const router = Router();
 
 router.route("/").get(post_list).post(multerPostKey, post_create);
 
-router.route("/:postId").put(multerPostKey, post_update).delete(post_delete);
+router
+  .route("/:postId")
+  .put(multerPostKey, post_update)
+  .delete(multerPostKey, post_delete);
 
 router.route("/:postId/likes").put(post_like);
 
