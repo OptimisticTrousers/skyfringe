@@ -41,7 +41,7 @@ export const post_create = [
     return true;
   }),
   // Process request after validation and sanitization
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req: any, res: Response) => {
     // Extract the validation errors from a request
     const errors = validationResult(req);
 
@@ -65,8 +65,8 @@ export const post_create = [
       author: user._id, // req.user is created by the auth middle when accessing any protected route
       content: content && content,
       photo: req.file && {
-        imageUrl: `${bucketName}/facebook_clone/${req.body.path}/${
-          req.body.date
+        imageUrl: `${bucketName}/facebook_clone/${req.key.path}/${
+          req.key.date
         }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
         altText: "post image",
       },
@@ -124,7 +124,7 @@ export const post_update = [
     return true;
   }),
   // Process request after validation and sanitization
-  asyncHandler(async (req: Request, res: Response) => {
+  asyncHandler(async (req: any, res: Response) => {
     const postId = req.params.postId;
     // Extract the validation errors from a request.
     const errors = validationResult(req);
@@ -146,35 +146,39 @@ export const post_update = [
       return;
     }
 
-    if (post.photo && !req.file) {
-      const path = `${req.body.path}/${req.body.date}_${user.userName}.${
+    const bucketName = process.env.AWS_BUCKET_NAME;
+
+    if (!bucketName) {
+      throw new Error("AWS_BUCKET_NAME value is not defined in .env file");
+    }
+
+    if (req.file) {
+      post.photo = {
+        imageUrl: `${bucketName}/facebook_clone/${req.key.path}/${req.key.date}_${user.userName}.${
+          req.file.mimetype.split("/")[1]
+        }`,
+        altText: "test",
+      };
+    }
+
+    if (post.photo && post.photo.imageUrl && !req.file) {
+      const path = `${req.key.path}/${req.key.date}_${user.userName}.${
         post.photo.imageUrl.split(".")[1]
       }`;
+      post.photo = undefined;
       await s3Deletev3(path);
     }
 
-    const updatedPost = await Post.findByIdAndUpdate(
-      postId,
-      {
-        content: req.body.content,
-        photo: req.file && {
-          imageUrl: `${req.body.path}/${req.body.date}_${user.userName}.${
-            req.file.mimetype.split("/")[1]
-          }`,
-          altText: "test",
-        },
-      },
-      { new: true }
-    ).populate("author");
+    await post.save();
 
-    res.status(200).json(updatedPost);
+    res.status(200).json(post);
   }),
 ];
 
 // @desc    Delete single post
 // @route   DELETE /api/posts/:postId
 // @access  Private
-export const post_delete = asyncHandler(async (req: Request, res: Response) => {
+export const post_delete = asyncHandler(async (req: any, res: Response) => {
   const postId = req.params.postId;
 
   const post = (await Post.findById(postId).populate("author").exec()) as IPost;
@@ -184,6 +188,13 @@ export const post_delete = asyncHandler(async (req: Request, res: Response) => {
     // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
     res.status(403).json({ message: "Forbidden" });
     return;
+  }
+
+  if (post && post.photo) {
+    const path = `${req.key.path}/${req.key.date}_${user.userName}.${
+      post.photo.imageUrl.split(".")[1]
+    }`;
+    await s3Deletev3(path);
   }
 
   const deletedPost = await Post.findByIdAndDelete(postId);
