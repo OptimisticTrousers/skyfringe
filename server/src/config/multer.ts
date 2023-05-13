@@ -45,7 +45,7 @@ const upload = multer({
       const user = req.user as IUser;
       cb(
         null,
-        `/facebook_clone/${req.key.path}/${req.key.date}_${user.userName}.${
+        `facebook_clone/${req.body.path}/${req.body.date}_${user.userName}.${
           file.mimetype.split("/")[1]
         }`
       );

@@ -56,13 +56,13 @@ export const locosPollosId = new mongoose.Types.ObjectId(
   "4c8a331bda76c559ef000020"
 );
 
-const S3_BUCKET = process.env.S3_BUCKET;
+const S3_BUCKET = process.env.AWS_BUCKET_NAME;
 
 if (!S3_BUCKET) {
   throw new Error("S3_BUCKET value is not defined in .env file");
 }
 
-const coverUrl = `${S3_BUCKET}/covers/cover.webp`;
+const coverUrl = `${S3_BUCKET}/facebook_clone/covers/cover.webp`;
 
 const altText =
   "One Piece Manga Chapter 726 Cover - Characters in childhood and current versions standing side by side, with the caption 'We can live how we want'";
@@ -90,7 +90,7 @@ export const luffy = {
     },
   ],
   photo: {
-    imageUrl: `${S3_BUCKET}/users/luffy.webp`,
+    imageUrl: `${S3_BUCKET}/facebook_clone/users/luffy.webp`,
     altText: "Fictional character Monkey D. Luffy from the One Piece manga",
   },
   cover: {
@@ -110,7 +110,7 @@ export const zoro = {
   // automatically sets default to []
   // friendRequests: [],
   photo: {
-    imageUrl: `${S3_BUCKET}/users/zoro.webp`,
+    imageUrl: `${S3_BUCKET}/facebook_clone/users/zoro.webp`,
     altText: "Fictional character Roronoa Zoro from the One Piece manga",
   },
   cover: {
@@ -130,7 +130,7 @@ export const nami = {
   // automatically sets default to []
   // friendRequests: [],
   photo: {
-    imageUrl: `${S3_BUCKET}/users/nami.webp`,
+    imageUrl: `${S3_BUCKET}/facebook_clone/users/nami.webp`,
     altText: "Fictional character Nami from the One Piece manga",
   },
   cover: {
@@ -154,7 +154,7 @@ export const usopp = {
     },
   ],
   photo: {
-    imageUrl: `${S3_BUCKET}/users/usopp.webp`,
+    imageUrl: `${S3_BUCKET}/facebook_clone/users/usopp.webp`,
     altText: "Fictional character Usopp from the One Piece manga",
   },
   cover: {
@@ -180,7 +180,7 @@ export const crocodile = {
     },
   ],
   photo: {
-    imageUrl: `${S3_BUCKET}/users/crocodile.webp`,
+    imageUrl: `${S3_BUCKET}/facebook_clone/users/crocodile.webp`,
     altText: "Fictional character Crocodile from the One Piece manga",
   },
   cover: {
@@ -220,7 +220,7 @@ const posts = [
     content: "MEAT!",
     likes: [zoroId, namiId, usoppId],
     photo: {
-      imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000009_luffy.webp`,
+      imageUrl: `${S3_BUCKET}/facebook_clone/posts/4c8a331bda76c559ef000009_luffy.webp`,
       altText: "Monkey D. Luffy eating meat",
     },
   },
@@ -230,7 +230,7 @@ const posts = [
     content: "Three-Sword Style",
     likes: [],
     photo: {
-      imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000010_zoro.webp`,
+      imageUrl: `${S3_BUCKET}/facebook_clone/posts/4c8a331bda76c559ef000010_zoro.webp`,
       altText: "Roronoa Zoro using three swords",
     },
   },
@@ -246,7 +246,7 @@ const posts = [
     author: namiId,
     likes: [],
     photo: {
-      imageUrl: `${S3_BUCKET}/posts/4c8a331bda76c559ef000011_nami.jpg`,
+      imageUrl: `${S3_BUCKET}/facebook_clone/posts/4c8a331bda76c559ef000011_nami.jpg`,
       altText: "Nami creating a map",
     },
   },
