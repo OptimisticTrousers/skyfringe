@@ -58,7 +58,7 @@ export const s3Uploadv3 = async (path: string, file: Express.Multer.File) => {
 export const s3Deletev3 = async (path: string) => {
   try {
     const deleteParams = {
-      Bucket: bucketName,
+      Bucket: "optimisticbucket",
       Key: `facebook_clone/${path}`,
     };
 

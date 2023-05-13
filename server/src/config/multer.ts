@@ -41,11 +41,11 @@ const upload = multer({
   storage: multerS3({
     s3: s3client,
     bucket: "optimisticbucket",
-    key: function (req: Request, file, cb) {
+    key: function (req: any, file, cb) {
       const user = req.user as IUser;
       cb(
         null,
-        `facebook_clone/${req.body.path}/${req.body.date}_${user.userName}.${
+        `facebook_clone/${req.key.path}/${req.key.date}_${user.userName}.${
           file.mimetype.split("/")[1]
         }`
       );
