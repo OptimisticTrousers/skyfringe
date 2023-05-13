@@ -18,12 +18,7 @@ const useUpdateUser = () => {
     try {
       const response = await put(
         `${import.meta.env.VITE_API_DOMAIN}/users/${userId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        formData
       );
       if (response.status === 200) {
         // No error, request successful

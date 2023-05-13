@@ -38,47 +38,50 @@ const Suggestions = () => {
           Find new friends
         </Link>
       </div>
-      <ul styleName="suggestions__list">
-        {users?.length > 0 ? (
-          users.map((condensedUser: any) => {
-            if (!isRelatedUser(condensedUser?._id)) {
-              return (
-                <div styleName="suggestions__suggestion">
-                  <div styleName="suggestions__user">
-                    <Link
-                      styleName="suggestions__link suggestions__link--avatar"
-                      to={`/users/${condensedUser._id}`}
-                    >
-                      <Avatar
-                        src={condensedUser.photo.imageUrl}
-                        alt={condensedUser.photo.altText}
-                        size={"lg"}
-                      />
-                    </Link>
-                    <Link
-                      styleName="suggestions__link"
-                      to={`/users/${condensedUser._id}`}
-                    >
-                      {condensedUser.fullName}
-                    </Link>
+      {users ? (
+        <ul styleName="suggestions__list">
+          {users?.length > 0 ? (
+            users.map((condensedUser: any) => {
+              if (!isRelatedUser(condensedUser?._id)) {
+                return (
+                  <div styleName="suggestions__suggestion">
+                    <div styleName="suggestions__user">
+                      <Link
+                        styleName="suggestions__link suggestions__link--avatar"
+                        to={`/users/${condensedUser._id}`}
+                      >
+                        <Avatar
+                          src={condensedUser.photo.imageUrl}
+                          alt={condensedUser.photo.altText}
+                          size={"lg"}
+                        />
+                      </Link>
+                      <Link
+                        styleName="suggestions__link"
+                        to={`/users/${condensedUser._id}`}
+                      >
+                        {condensedUser.fullName}
+                      </Link>
+                    </div>
+                    <div styleName="suggestions__button">
+                      <SendRequestBtn userId={condensedUser?._id} />
+                    </div>
                   </div>
-                  <div styleName="suggestions__button">
-                    <SendRequestBtn userId={condensedUser?._id} />
-                  </div>
-                </div>
-              );
-            }
-            return null;
-          })
-        ) : (
-          <li styleName="suggestions__message">No users yet...</li>
-        )}
-      </ul>
-      <SuggestionsErrorLoading
-        message="Unable to load requests"
-        loading={loading}
-        error={error}
-      />
+                );
+              }
+              return null;
+            })
+          ) : (
+            <li styleName="suggestions__message">No users yet...</li>
+          )}
+        </ul>
+      ) : (
+        <SuggestionsErrorLoading
+          message="Unable to load requests"
+          loading={loading}
+          error={error}
+        />
+      )}
     </Card>
   );
 };
