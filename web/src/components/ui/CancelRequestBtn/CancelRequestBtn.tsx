@@ -9,7 +9,7 @@ interface Props {
 
 // Used to cancel a friend request you have sent
 const CancelRequestBtn: FC<Props> = ({ userId }) => {
-  const { request, data, loading, error }: any = useFriendRequests(userId);
+  const { request, data, loading, error } = useFriendRequests(userId);
 
   // Dynamically set button text to indicate loading state
   const setBtnText = () => {

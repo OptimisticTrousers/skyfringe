@@ -4,7 +4,7 @@ import Suggestions from "../Suggestions";
 import styles from "./TopMenu.module.css";
 
 const TopMenu = () => {
-  const suggestionsParentRef = useRef<any>(null);
+  const suggestionsParentRef = useRef<HTMLDivElement>(null);
   const [toggleSuggestions, setToggleSuggestions] = useState(false);
 
   const handleSuggestions = () => {
@@ -24,7 +24,7 @@ const TopMenu = () => {
         style={
           toggleSuggestions
             ? {
-                height: suggestionsParentRef.current.scrollHeight + "px",
+                height: suggestionsParentRef.current?.scrollHeight + "px",
                 visibility: "visible",
               }
             : {

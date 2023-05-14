@@ -8,7 +8,7 @@ interface Props {
 
 // Used to unfriend a user
 const UnfriendRequestBtn: FC<Props> = ({ userId }) => {
-  const { request, data, loading, error }: any = useFriendRequests(userId);
+  const { request, data, loading, error } = useFriendRequests(userId);
 
   // Dynamically set button text to indicate loading state
   const setBtnText = () => {

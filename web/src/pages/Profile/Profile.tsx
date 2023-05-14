@@ -5,7 +5,6 @@ import { SkeletonPost } from "../../components/skeletons";
 import { Avatar, Banner, Card, ErrorMessage } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useFetch from "../../hooks/useFetch";
-import { Post as PostInterface } from "./../../types";
 import styles from "./Profile.module.css";
 import { Link, useParams } from "react-router-dom";
 import { SideFooter } from "../../components/home";

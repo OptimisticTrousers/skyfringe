@@ -7,6 +7,7 @@ import { Avatar, Card, SendRequestBtn } from "../../ui";
 import useFetch from "../../../hooks/useFetch";
 import styles from "./Suggestions.module.css";
 import SuggestionsErrorLoading from "../../skeletons/SuggestionsErrorLoading";
+import { UserWithStringId as User } from "@backend/types";
 
 const Suggestions = () => {
   const { user } = useContext(AuthContext);
@@ -18,16 +19,16 @@ const Suggestions = () => {
   // Returns false if a user is either involved in the current user's friends array (request or friend), or is the current user themselves. Should only be called once users data is available
   const isRelatedUser = (userId: string) => {
     // Perform array operations to manipulate the userFriends object into a single depth array of user IDs
-    const flatFriends = [user?.friendRequests, user?.friends].flat();
+    const flatFriends = [user.friendRequests, user.friends].flat();
     const userFriendIds = flatFriends?.map((friend) => {
-      if (friend?.user) {
-        return friend?.user?._id;
+      if (friend.user) {
+        return friend.user._id;
       }
-      return friend?._id;
+      return friend._id;
     });
-    userFriendIds?.push(user?._id);
+    userFriendIds.push(user._id);
 
-    return userFriendIds?.some((id) => id === userId);
+    return userFriendIds.some((id) => id === userId);
   };
 
   return (
@@ -40,19 +41,26 @@ const Suggestions = () => {
       </div>
       {users ? (
         <ul styleName="suggestions__list">
-          {users?.length > 0 ? (
-            users.map((condensedUser: any) => {
-              if (!isRelatedUser(condensedUser?._id)) {
+          {users.length > 0 ? (
+            users.map((condensedUser: User) => {
+              if (!isRelatedUser(condensedUser._id)) {
                 return (
-                  <div styleName="suggestions__suggestion" key={condensedUser._id}>
+                  <div
+                    styleName="suggestions__suggestion"
+                    key={condensedUser._id}
+                  >
                     <div styleName="suggestions__user">
                       <Link
                         styleName="suggestions__link suggestions__link--avatar"
                         to={`/users/${condensedUser._id}`}
                       >
                         <Avatar
-                          src={condensedUser.photo.imageUrl}
-                          alt={condensedUser.photo.altText}
+                          src={
+                            condensedUser.photo && condensedUser.photo.imageUrl
+                          }
+                          alt={
+                            condensedUser.photo && condensedUser.photo.altText
+                          }
                           size={"lg"}
                         />
                       </Link>
@@ -64,7 +72,7 @@ const Suggestions = () => {
                       </Link>
                     </div>
                     <div styleName="suggestions__button">
-                      <SendRequestBtn userId={condensedUser?._id} />
+                      <SendRequestBtn userId={condensedUser._id} />
                     </div>
                   </div>
                 );

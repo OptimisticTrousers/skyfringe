@@ -8,7 +8,7 @@ interface Props {
 
 // Used to delete a friend request sent by another user
 const DeclineRequestBtn: FC<Props> = ({ userId }) => {
-  const { request, data, loading, error }: any = useFriendRequests(userId);
+  const { request, data, loading, error } = useFriendRequests(userId);
 
   // Dynamically set button text to indicate loading state
   const setBtnText = () => {
