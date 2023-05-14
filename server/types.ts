@@ -140,3 +140,7 @@ export interface FetchFriendsResponse extends FetchResponse {
     friendRequests: FriendRequestWithStringId[];
   } | null;
 }
+
+export interface FetchUsersResponse extends FetchResponse {
+  data: null | UserWithStringId[];
+}

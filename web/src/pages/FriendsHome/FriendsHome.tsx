@@ -1,6 +1,11 @@
 import CSSModules from "react-css-modules";
 import styles from "../../assets/Friends.module.css";
-import { FriendsCard, FriendsLayout, UserList } from "../../components/friends";
+import {
+  FriendsCard,
+  FriendsLayout,
+  FriendsSectionRequests,
+  UserList,
+} from "../../components/friends";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import useFetch from "../../hooks/useFetch";
@@ -15,26 +20,12 @@ const FriendsHome = () => {
 
   return (
     <FriendsLayout>
-      <section styleName="friends">
-        <h2 styleName="friends__title">Friend Requests</h2>
-        <ul styleName="friends__cards">
-          {incomingRequests.length > 0 ? (
-            incomingRequests?.map((incomingRequest: any) => {
-              return (
-                <li styleName="friends__card" key={incomingRequest.user._id}>
-                  <FriendsCard friend={incomingRequest.user} type="incoming" />
-                </li>
-              );
-            })
-          ) : (
-            <li styleName="friends__message">No requests yet...</li>
-          )}
-        </ul>
-      </section>
-      <section styleName="friends">
-        <h2 styleName="friends__title">Find new friends</h2>
-        <UserList userFriends={user} />
-      </section>
+      <FriendsSectionRequests
+        title={"Friend Requests"}
+        users={incomingRequests}
+        emptyMessage={"No requests yet..."}
+      />
+      <UserList />
     </FriendsLayout>
   );
 };
