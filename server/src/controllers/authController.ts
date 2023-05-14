@@ -69,6 +69,8 @@ export const register_user = [
       throw new Error("JWT_SECRET value is not defined in .env file");
     }
 
+    await user.populate("friends");
+    await user.populate("friendRequests.user");
     await user.save();
     // If the JWT secret is available, sign a token and send it as a cookie to the browser
     const token = jwt.sign({ id: user._id }, secret);
@@ -92,7 +94,7 @@ export const login_user = [
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     // Cast the standard Request object to my custom AuthenticatedRequest object
     const user = req.user as IUser;
-    req.login(user, { session: false }, (err: Error) => {
+    req.login(user, { session: false }, async (err: Error) => {
       if (err) {
         return next(err);
       }
@@ -103,6 +105,8 @@ export const login_user = [
       if (!secret) {
         throw new Error("JWT_SECRET value is not defined in .env file");
       }
+      await user.populate("friends");
+      await user.populate("friendRequests.user");
 
       const token = jwt.sign({ id: user._id }, secret);
       res

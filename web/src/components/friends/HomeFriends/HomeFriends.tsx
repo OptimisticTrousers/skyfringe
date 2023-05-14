@@ -9,9 +9,6 @@ import styles from "./HomeFriends.module.css";
 
 const HomeFriends = () => {
   const { user } = useContext(AuthContext);
-  const { data, loading, error }: FetchFriendsResponse = useFetch(
-    `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}/friends`
-  );
 
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -43,9 +40,8 @@ const HomeFriends = () => {
           &#60;
         </button>
         <div role="list" styleName="friends__container" ref={carouselRef}>
-          {loading && <Loading />}
-          {data &&
-            data.friends.map((friend: User) => {
+          {user? 
+            user.friends.map((friend: User) => {
               return (
                 <Link
                   key={friend._id}
@@ -60,7 +56,9 @@ const HomeFriends = () => {
                   <p styleName="friends__name">{friend.fullName}</p>
                 </Link>
               );
-            })}
+            }) : (
+              <div>ok</div>
+            )}
         </div>
         <button
           styleName="friends__button friends__button--next"

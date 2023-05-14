@@ -12,6 +12,7 @@
 .avatar__image--friend {
   height: 100%;
   width: 100px;
+  min-height: 100px;
   border-radius: 30px;
   border: 6px solid #2e2828;
   outline: 3px solid white;
