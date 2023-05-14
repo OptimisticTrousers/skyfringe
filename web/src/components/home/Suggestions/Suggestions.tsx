@@ -44,7 +44,7 @@ const Suggestions = () => {
             users.map((condensedUser: any) => {
               if (!isRelatedUser(condensedUser?._id)) {
                 return (
-                  <div styleName="suggestions__suggestion">
+                  <div styleName="suggestions__suggestion" key={condensedUser._id}>
                     <div styleName="suggestions__user">
                       <Link
                         styleName="suggestions__link suggestions__link--avatar"

@@ -144,7 +144,11 @@ export const check_auth_user = asyncHandler(
     const decodedToken = jwt.verify(token, secret) as { id: string };
     const user = await User.findById(decodedToken.id)
       .populate("friends")
-      .populate("friendRequests");
+      .populate({
+        path: "friendRequests",
+        populate: { path: "user", model: "User" },
+      })
+      .exec();
 
     if (!user) {
       // user not found in db, above query returns null and clear the client's cookie

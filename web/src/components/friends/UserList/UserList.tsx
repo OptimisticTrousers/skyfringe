@@ -43,7 +43,7 @@ const UserList: FC<Props> = ({ userFriends }) => {
             if (!isRelatedUser(user?._id)) {
               // only render those unrelated users
               return (
-                <li styleName="friends__card">
+                <li styleName="friends__card" key={user._id}>
                   <FriendsCard friend={user} type="user" />
                 </li>
               );
