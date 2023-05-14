@@ -2,31 +2,26 @@ import useFetch from "../../../hooks/useFetch";
 import { SkeletonPost } from "../../skeletons";
 import { ErrorMessage } from "../../ui";
 import Post from "../Post";
-import { Post as PostInterface } from "../../../types";
-import { useEffect, useState } from "react";
+import { PostWithStringId as IPost } from "@backend/types";
+import { FC } from "react";
 
-const Feed = () => {
-  const {
-    data: posts,
-    loading,
-    error,
-  }: any = useFetch(`${import.meta.env.VITE_API_DOMAIN}/posts`);
+interface Props {
+  setData: any;
+  loading: boolean;
+  error: any;
+  posts: IPost[];
+}
 
-  const [localPosts, setLocalPosts] = useState(posts);
-
-  useEffect(() => {
-    setLocalPosts(posts);
-  }, [posts]);
-
+const Feed: FC<Props> = ({ setData, loading, error, posts}) => {
   const handleDeletePost = (postId: string) => {
-    setLocalPosts((prevPosts: any) => {
-      return prevPosts.filter((prevPost: any) => prevPost._id !== postId);
+    setData((prevPosts: IPost[]) => {
+      return prevPosts.filter((prevPost: IPost) => prevPost._id !== postId);
     });
   };
 
-  const handleEditPost = (postId: string, post: any) => {
-    setLocalPosts((prevPosts: any) => {
-      return prevPosts.map((prevPost: any) => {
+  const handleEditPost = (postId: string, post: IPost) => {
+    setData((prevPosts: IPost[]) => {
+      return prevPosts.map((prevPost: IPost) => {
         if (prevPost._id === postId) {
           return post;
         }
@@ -47,9 +42,9 @@ const Feed = () => {
           <SkeletonPost />
         </>
       )}
-      {localPosts && (
+      {posts && (
         <div>
-          {localPosts.map((post: PostInterface) => {
+          {posts.map((post: IPost) => {
             return (
               <Post
                 post={post}

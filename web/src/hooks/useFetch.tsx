@@ -39,7 +39,7 @@ const useFetch = (url: string) => {
     })();
   }, [url]);
 
-  return { data, loading, error };
+  return { setData, data, loading, error };
 };
 
 export default useFetch;

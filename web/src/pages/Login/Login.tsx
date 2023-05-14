@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import { SiFacebook } from "react-icons/si";
@@ -7,13 +7,15 @@ import { ErrorMessage, PasswordContainer } from "../../components/ui";
 import useLogin from "../../hooks/useLogin";
 import useTestLogin from "../../hooks/useTestLogin";
 import { AuthLayout } from "../../layouts";
-import styles from "./Login.module.css";
+import styles from "../../assets/Auth.module.css";
 import useForm from "../../hooks/useForm";
 import { FormError } from "@backend/types";
+import { ToastContext } from "../../context/ToastContext";
 
 const Login = () => {
   const { login, loading, formError } = useLogin();
   const { testLogin, loading: testLoading } = useTestLogin();
+  const { showToast } = useContext(ToastContext);
 
   const {
     email,
@@ -34,7 +36,13 @@ const Login = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!(emailValid && passwordValid)) return;
+    if (!emailValid) {
+      showToast("error", "Invalid email");
+      return;
+    } else if (!passwordValid) {
+      showToast("error", "Invalid password");
+      return;
+    }
     login({ email, password });
   };
 
@@ -115,7 +123,11 @@ const Login = () => {
           <RxPerson styleName="auth__icon auth__icon--guest" />
           {testLoading ? "Logging in..." : "Continue as guest"}
         </button>
-        <Link to="/register" styleName="auth__button auth__button--create" aria-disabled={disabled}>
+        <Link
+          to="/register"
+          styleName="auth__button auth__button--create"
+          aria-disabled={disabled}
+        >
           Create new account
         </Link>
       </div>

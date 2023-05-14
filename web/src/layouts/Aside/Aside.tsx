@@ -22,7 +22,7 @@ const Aside = () => {
   };
 
   const friendCountText = () => {
-    const friendCount = user?.friends?.length;
+    const friendCount = user.friends.length;
     if (friendCount > 1) {
       return `${friendCount} friends`;
     } else if (friendCount === 1) {
@@ -107,12 +107,12 @@ const Aside = () => {
               <li styleName="aside__item">
                 <div styleName="aside__user">
                   <Avatar
-                    src={user?.photo?.imageUrl}
+                    src={user.photo && user.photo.imageUrl}
                     alt={"user avatar"}
                     size={"md"}
                   />
                   <div styleName="aside__details">
-                    <h2 styleName="aside__name">{user?.fullName}</h2>
+                    <h2 styleName="aside__name">{user.fullName}</h2>
                     <p styleName="aside__friends">{friendCountText()}</p>
                   </div>
                 </div>

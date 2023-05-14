@@ -1,5 +1,5 @@
 import { FormError } from "@backend/types";
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import {
@@ -10,10 +10,12 @@ import {
 import useForm from "../../hooks/useForm";
 import useRegister from "../../hooks/useRegister";
 import { AuthLayout } from "../../layouts";
-import styles from "./Register.module.css";
+import styles from "../../assets/Auth.module.css";
+import { ToastContext } from "../../context/ToastContext";
 
 const Register = () => {
   const { register, loading, formError } = useRegister();
+  const { showToast } = useContext(ToastContext);
 
   const {
     fullName,
@@ -47,7 +49,19 @@ const Register = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!(emailValid && passwordValid && passwordConf && userNameValid)) return;
+    if (!emailValid) {
+      showToast("error", "Invalid email");
+      return;
+    } else if (!passwordValid) {
+      showToast("error", "Invalid password");
+      return;
+    } else if (!userNameValid) {
+      showToast("error", "Invalid username");
+      return;
+    } else if (!passwordConf) {
+      showToast("error", "Invalid password confirmation");
+      return;
+    }
     register({ email, password, fullName, userName, passwordConf });
   };
 

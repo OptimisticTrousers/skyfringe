@@ -16,7 +16,10 @@ import MoreOptionsDropdown from "../MoreOptionsDropdown";
 import styles from "./Post.module.css";
 import useFetch from "../../../hooks/useFetch";
 import { LikesModal } from "../../modals";
-import { CommentData } from "../../../types";
+import {
+  CommentWithStringId as IComment,
+  PostWithStringId as IPost,
+} from "@backend/types";
 
 interface Props {
   post: any;
@@ -40,6 +43,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
   const [localPost, setLocalPost] = useState(post);
 
   const {
+    setData,
     data: comments,
     loading,
     error,
@@ -47,29 +51,26 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     `${import.meta.env.VITE_API_DOMAIN}/posts/${post._id}/comments`
   );
 
-  const [localComments, setLocalComments] = useState(() => comments);
-
-  const handleCommentCreation = async (
-    postId: string,
-    formData: CommentData
-  ) => {
-    const updatedComment = await createComment(postId, formData);
-    setLocalComments((prevComments: any) => {
-      return [...prevComments, updatedComment];
+  const handleCommentCreation = async (postId: string, formData: any) => {
+    const createdComment = await createComment(postId, formData);
+    setData((prevComments: IComment[]) => {
+      const posts = structuredClone(prevComments);
+      posts.unshift(createdComment);
+      return posts;
     });
   };
 
   const deleteLocalComment = (commentId: string) => {
-    setLocalComments((prevComments: any) => {
+    setData((prevComments: IComment[]) => {
       return prevComments.filter(
-        (prevComment: any) => prevComment._id !== commentId
+        (prevComment: IComment) => prevComment._id !== commentId
       );
     });
   };
 
   const editLocalComment = (commentId: string, commentData: any) => {
-    setLocalComments((prevComments: any) => {
-      return prevComments.map((prevComment: any) => {
+    setData((prevComments: IComment[]) => {
+      return prevComments.map((prevComment: IComment) => {
         if (prevComment._id === commentId) {
           return commentData;
         }
@@ -77,10 +78,6 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
       });
     });
   };
-
-  useEffect(() => {
-    setLocalComments(comments);
-  }, [loading]);
 
   const toggleModal = () => {
     setIsModalOpen((prevValue) => !prevValue);
@@ -144,7 +141,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
   };
 
   const commentCountText = () => {
-    const length = localComments?.length;
+    const length = comments?.length;
     if (length > 1) {
       return `${length} comments`;
     } else if (length === 1) {
@@ -153,7 +150,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     return "0 comments";
   };
 
-  const isCommentsDropdownDisabled = localComments?.length === 0;
+  const isCommentsDropdownDisabled = comments?.length === 0;
 
   return (
     <>
@@ -216,7 +213,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
               </button>
               <button
                 styleName={`post__button post__button--comments ${
-                  localComments?.length === 0 && "post__button--disabled"
+                  comments?.length === 0 && "post__button--disabled"
                 }`}
                 onClick={toggleComments}
                 disabled={isCommentsDropdownDisabled}
@@ -226,7 +223,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
             </div>
             <Comments
               isCommentsOpen={isCommentsOpen}
-              comments={localComments}
+              comments={comments}
               loading={loading}
               error={error}
               deleteLocalComment={deleteLocalComment}

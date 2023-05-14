@@ -1,12 +1,17 @@
-import { useContext, useState } from "react";
+import { FC, useContext, useState } from "react";
 import CSSModules from "react-css-modules";
 import { FcPlus } from "react-icons/fc";
 import { AuthContext } from "../../../context/AuthContext";
 import { CreatePostModal } from "../../modals";
 import { Card } from "../../ui";
 import styles from "./CreatePost.module.css";
+import { PostWithStringId as Post } from "@backend/types";
 
-const CreatePost = () => {
+interface Props {
+  setData: any;
+}
+
+const CreatePost: FC<Props> = ({ setData }) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const { user } = useContext(AuthContext);
@@ -17,7 +22,7 @@ const CreatePost = () => {
 
   return (
     <>
-      {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} />}
+      {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} setData={setData}/>}
       <button styleName="create" onClick={toggleModal} aria-haspopup="dialog">
         <Card>
           <div styleName="create__container">

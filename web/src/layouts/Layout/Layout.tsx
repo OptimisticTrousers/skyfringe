@@ -14,7 +14,6 @@ const Layout: FC<Props> = ({ children }) => {
         <Aside />
         <main styleName="main">{children}</main>
       </div>
-      <footer></footer>
     </>
   );
 };

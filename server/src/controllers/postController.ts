@@ -16,7 +16,7 @@ interface CustomError extends Error {
 // @access  Private
 export const post_list = asyncHandler(async (req: Request, res: Response) => {
   const posts = await Post.find({})
-    .sort({ createdAt: 1 })
+    .sort({ createdAt: -1 })
     .populate("author")
     .populate("likes")
     .exec();
@@ -72,6 +72,7 @@ export const post_create = [
       },
     });
 
+    await post.populate("author");
     await post.save();
 
     res.status(200).json(post);
@@ -152,26 +153,37 @@ export const post_update = [
       throw new Error("AWS_BUCKET_NAME value is not defined in .env file");
     }
 
+    const updatedPost = (await Post.findByIdAndUpdate(
+      postId,
+      { content: req.body.content },
+      { new: true }
+    )
+      .populate("likes")
+      .populate("author")
+      .exec()) as IPost;
+
     if (req.file) {
-      post.photo = {
-        imageUrl: `${bucketName}/facebook_clone/${req.key.path}/${req.key.date}_${user.userName}.${
-          req.file.mimetype.split("/")[1]
-        }`,
+      updatedPost.photo = {
+        imageUrl: `${bucketName}/facebook_clone/${req.key.path}/${
+          req.key.date
+        }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
         altText: "test",
       };
     }
 
-    if (post.photo && post.photo.imageUrl && !req.file) {
+    if (updatedPost.photo && updatedPost.photo.imageUrl && !req.file) {
       const path = `${req.key.path}/${req.key.date}_${user.userName}.${
-        post.photo.imageUrl.split(".")[1]
+        updatedPost.photo.imageUrl.split(".")[1]
       }`;
-      post.photo = undefined;
+      updatedPost.photo = undefined;
       await s3Deletev3(path);
     }
 
-    await post.save();
+    await updatedPost.save();
 
-    res.status(200).json(post);
+    console.log(updatedPost)
+
+    res.status(200).json(updatedPost);
   }),
 ];
 
@@ -190,7 +202,7 @@ export const post_delete = asyncHandler(async (req: any, res: Response) => {
     return;
   }
 
-  if (post && post.photo) {
+  if (post.photo && post.photo.imageUrl) {
     const path = `${req.key.path}/${req.key.date}_${user.userName}.${
       post.photo.imageUrl.split(".")[1]
     }`;

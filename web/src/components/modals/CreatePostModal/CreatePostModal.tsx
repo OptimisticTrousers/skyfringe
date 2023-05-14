@@ -7,15 +7,17 @@ import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import { Loading, ImagePreview, ImageUploadBtn } from "../../ui";
 import ModalContainer from "../ModalContainer";
 import styles from "./CreatePostModal.module.css";
+import { PostWithStringId as IPost } from "@backend/types";
 
 interface Props {
-  toggleModal: any;
+  toggleModal: () => void;
+  setData: any;
 }
 
-const CreatePostModal: FC<Props> = ({ toggleModal }) => {
+const CreatePostModal: FC<Props> = ({ toggleModal, setData }) => {
   const { user } = useContext(AuthContext);
   const [postText, setPostText] = useState("");
-  const { createPost, data, loading, error } = useCreatePost();
+  const { createPost, loading, error } = useCreatePost();
   const { showToast } = useContext(ToastContext);
   const { handleFile, removeThumbnail, imageData, imageError, imageLoading } =
     useImageThumbnail();
@@ -29,12 +31,17 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
     setPostText(e.target.value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newPost = new FormData();
     newPost.append("content", postText);
     newPost.append("image", imageFile);
-    createPost(newPost);
+    const createdPost = await createPost(newPost);
+    setData((prevPosts: IPost[]) => {
+      const posts = structuredClone(prevPosts);
+      posts.unshift(createdPost);
+      return posts;
+    });
     toggleModal();
   };
 
@@ -50,7 +57,11 @@ const CreatePostModal: FC<Props> = ({ toggleModal }) => {
 
   return (
     <ModalContainer title="Create Post" toggleModal={toggleModal}>
-      <form styleName="modal__form" onSubmit={handleSubmit} encType="multipart/form-data">
+      <form
+        styleName="modal__form"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         <div styleName="modal__author-bar">
           <img src={user?.photo?.imageUrl} styleName="modal__avatar" />
           <div styleName="modal__text">

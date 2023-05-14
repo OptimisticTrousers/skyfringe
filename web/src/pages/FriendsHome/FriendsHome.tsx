@@ -1,21 +1,19 @@
 import CSSModules from "react-css-modules";
 import styles from "../../assets/Friends.module.css";
 import {
-  FriendsCard,
   FriendsLayout,
   FriendsSectionRequests,
   UserList,
 } from "../../components/friends";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import useFetch from "../../hooks/useFetch";
-import { FriendsErrorLoading } from "../../components/skeletons";
+import { FriendRequestWithStringId as FriendRequest } from "@backend/types";
 
 const FriendsHome = () => {
   const { user } = useContext(AuthContext);
 
-  const incomingRequests = user?.friendRequests.filter(
-    (friendRequest: any) => friendRequest.status === "incoming"
+  const incomingRequests = user.friendRequests.filter(
+    (friendRequest: FriendRequest) => friendRequest.status === "incoming"
   );
 
   return (
