@@ -8,7 +8,12 @@ import {
 } from "@aws-sdk/client-s3";
 import { s3client } from "./s3";
 import { config } from "dotenv";
-import { User as IUser, Post as IPost } from "../../types";
+import {
+  User as IUser,
+  Post as IPost,
+  Locals,
+  RequestWithLocals,
+} from "../../types";
 
 config();
 
@@ -41,11 +46,12 @@ const upload = multer({
   storage: multerS3({
     s3: s3client,
     bucket: "optimisticbucket",
-    key: function (req: any, file, cb) {
+    key: function (req: RequestWithLocals, file, cb) {
       const user = req.user as IUser;
+      const locals = req.locals as Locals;
       cb(
         null,
-        `facebook_clone/${req.key.path}/${req.key.date}_${user.userName}.${
+        `facebook_clone/${locals.path}/${locals.date}_${user.userName}.${
           file.mimetype.split("/")[1]
         }`
       );

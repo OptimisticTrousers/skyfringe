@@ -1,8 +1,18 @@
+import { Request } from "express";
 import { Document, Types } from "mongoose";
 
 export interface Image {
   imageUrl: string;
   altText: string;
+}
+
+export interface Locals {
+  date: string;
+  path: string;
+}
+
+export interface RequestWithLocals extends Request {
+  locals?: Locals;
 }
 
 export interface FriendRequestWithStringId {
@@ -43,7 +53,7 @@ export interface User extends Document {
   facebookId?: string;
   fullName: string;
   userName: string;
-  password: string;
+  password?: string;
   email: string;
   bio?: string;
   createdAt: Date;

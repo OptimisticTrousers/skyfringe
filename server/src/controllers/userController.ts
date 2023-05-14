@@ -64,9 +64,11 @@ export const user_update = [
     }
 
     const oldPassword = req.body.oldPassword;
-    const updatedFields: any = {
+
+    const updatedFields = {
       fullName: req.body.fullName,
       bio: req.body.bio,
+      password: undefined,
     };
 
     if (oldPassword) {
