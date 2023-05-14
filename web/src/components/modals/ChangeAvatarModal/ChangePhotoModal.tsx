@@ -7,20 +7,26 @@ import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import useUpdateUser from "../../../hooks/useUpdateUser";
 import { ImagePreview, ImageUploadBtn, Loading } from "../../ui";
 import ModalContainer from "../ModalContainer";
-import styles from "./ChangeAvatarModal.module.css";
+import styles from "./ChangePhotoModal.module.css";
 
 interface Props {
   toggleModal: () => void;
   title: string;
 }
 
-const ChangePictureModal: FC<Props> = ({ title, toggleModal }) => {
+const ChangePhotoModal: FC<Props> = ({ title, toggleModal }) => {
   const { user } = useContext(AuthContext);
-  const { handleFile, removeThumbnail, imageData, imageError, imageLoading } =
-    useImageThumbnail();
+  const {
+    handleFile,
+    removeThumbnail,
+    imageData,
+    imageError,
+    imageUpdated,
+    imageLoading,
+  } = useImageThumbnail();
 
-  const {updateUser, loading} = useUpdateUser();
-  
+  const { updateUser, loading } = useUpdateUser();
+
   const [imageValue, setImageValue] = useState("");
   const [imageFile, setImageFile] = useState<any>(null);
 
@@ -30,7 +36,7 @@ const ChangePictureModal: FC<Props> = ({ title, toggleModal }) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", imageFile);
-    formData.append("imageUpdated", imageFile);
+    formData.append("imageUpdated", imageUpdated.toString());
     updateUser(user._id, formData);
     toggleModal();
   };
@@ -45,26 +51,30 @@ const ChangePictureModal: FC<Props> = ({ title, toggleModal }) => {
     removeThumbnail();
   };
   return (
-    <ModalContainer title="Edit avatar" toggleModal={toggleModal}>
-      <form styleName="modal">
+    <ModalContainer title={title} toggleModal={toggleModal}>
+      <form styleName="modal" onSubmit={handleSubmit}>
         <div styleName="modal__container">
-          <img src="/images/optimistictrousers.jpg" styleName="modal__avatar" />
-          <button styleName="modal__button modal__button--picture">
-            <VscClose styleName="modal__icon modal__icon--exit" />
-          </button>
+          {imageLoading && <Loading />}
+          {imageData ? (
+            <ImagePreview
+              imageData={imageData}
+              setImageValue={setImageValue}
+              setImageFile={setImageFile}
+              removeThumbnail={removeThumbnail}
+            />
+          ) : (
+            <p styleName="modal__message">No picture added...</p>
+          )}
         </div>
-        {imageLoading && <Loading />}
-        {imageData && (
-          <ImagePreview
-            imageData={imageData}
-            setImageValue={setImageValue}
-            setImageFile={setImageFile}
-            removeThumbnail={removeThumbnail}
-          />
-        )}
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <ImageUploadBtn />
+            <ImageUploadBtn
+              handleChange={handlePhoto}
+              imageValue={imageValue}
+              setImageValue={setImageValue}
+              setImageFile={setImageFile}
+              removeThumbnail={removeThumbnail}
+            />
           </div>
           <button styleName="modal__button modal__button--submit">Save</button>
         </div>
@@ -73,7 +83,7 @@ const ChangePictureModal: FC<Props> = ({ title, toggleModal }) => {
   );
 };
 
-export default CSSModules(ChangePictureModal, styles, {
+export default CSSModules(ChangePhotoModal, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
 });

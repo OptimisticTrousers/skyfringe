@@ -19,31 +19,24 @@ import { LikesModal } from "../../modals";
 import {
   CommentWithStringId as IComment,
   PostWithStringId as IPost,
+  UserWithStringId as IUser,
 } from "@backend/types";
 
 interface Props {
   post: any;
   handleDeletePost: any;
   handleEditPost: any;
+  setFeed: any;
 }
 
-const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
-  const { user } = useContext(AuthContext);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
-  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-  const [isLiked, setIsLiked] = useState(() => {
-    return post?.likes?.find((like: any) => like._id === user._id);
-  });
-  const [likesCount, setLikesCount] = useState(() => post?.likes?.length);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { likePost, loading: likeLoading } = useLikePost();
-  const { createComment, loading: commentLoading } = useCreateComment();
-
-  const [localPost, setLocalPost] = useState(post);
-
+const Post: FC<Props> = ({
+  post,
+  handleDeletePost,
+  handleEditPost,
+  setFeed,
+}) => {
   const {
-    setData,
+    setData: setComments,
     data: comments,
     loading,
     error,
@@ -51,17 +44,31 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     `${import.meta.env.VITE_API_DOMAIN}/posts/${post._id}/comments`
   );
 
+  const { user } = useContext(AuthContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
+  const [isCommentsOpen, setIsCommentsOpen] = useState(false);
+  // const [isLiked, setIsLiked] = useState(() => {
+  //   return post?.likes?.find((like: any) => like._id === user._id);
+  // });
+  // const [likesCount, setLikesCount] = useState(() => post?.likes?.length);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { likePost, loading: likeLoading } = useLikePost();
+  const { createComment, loading: commentLoading } = useCreateComment();
+
+  // const [localPost, setLocalPost] = useState(post);
+
   const handleCommentCreation = async (postId: string, formData: any) => {
     const createdComment = await createComment(postId, formData);
-    setData((prevComments: IComment[]) => {
-      const posts = structuredClone(prevComments);
-      posts.unshift(createdComment);
-      return posts;
+    setComments((prevComments: any) => {
+      const comments = structuredClone(prevComments);
+      comments.unshift(createdComment);
+      return comments;
     });
   };
 
   const deleteLocalComment = (commentId: string) => {
-    setData((prevComments: IComment[]) => {
+    setComments((prevComments: any) => {
       return prevComments.filter(
         (prevComment: IComment) => prevComment._id !== commentId
       );
@@ -69,7 +76,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
   };
 
   const editLocalComment = (commentId: string, commentData: any) => {
-    setData((prevComments: IComment[]) => {
+    setComments((prevComments: any) => {
       return prevComments.map((prevComment: IComment) => {
         if (prevComment._id === commentId) {
           return commentData;
@@ -99,25 +106,12 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
     setIsDropdownOpen(false);
   };
 
+  const isLiked = post.likes.find((like: IUser) => like._id === user._id);
+
   const handleLike = async () => {
-    await likePost(post._id);
-    if (isLiked) {
-      // Unlike the post
-      setIsLiked(false);
-      setLocalPost((prevPost: any) => {
-        return {
-          ...prevPost,
-          likes: prevPost.likes.filter((like: any) => like._id !== user._id),
-        };
-      });
-      setLikesCount((likeCount: number) => likeCount - 1);
-    } else {
-      setIsLiked(true);
-      setLocalPost((prevPost: any) => {
-        return { ...prevPost, likes: [...prevPost.likes, user] };
-      });
-      setLikesCount((likeCount: number) => likeCount + 1);
-    }
+    const likedPost = await likePost(post._id);
+    const postId = post._id;
+    handleEditPost(post._id, likedPost);
   };
 
   const likeButtonText = () => {
@@ -132,9 +126,10 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
   };
 
   const likeCountText = () => {
-    if (likesCount > 1) {
-      return `${likesCount} likes`;
-    } else if (likesCount === 1) {
+    const length = post.likes.length;
+    if (length > 1) {
+      return `${length} likes`;
+    } else if (length === 1) {
       return "1 like";
     }
     return "0 likes";
@@ -195,7 +190,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
             <p styleName="post__description">{post.content}</p>
             {post?.photo?.imageUrl && (
               <img
-                src={post.photo?.imageUrl}
+                src={`${post.photo?.imageUrl}?${Date.now()}`}
                 styleName="post__image"
                 alt={post.photo?.altText}
               />
@@ -257,7 +252,7 @@ const Post: FC<Props> = ({ post, handleDeletePost, handleEditPost }) => {
           />
         </article>
       </Card>
-      {isModalOpen && <LikesModal toggleModal={toggleModal} data={localPost} />}
+      {isModalOpen && <LikesModal toggleModal={toggleModal} data={post} />}
     </>
   );
 };

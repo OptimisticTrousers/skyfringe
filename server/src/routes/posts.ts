@@ -14,6 +14,7 @@ import {
   comment_like,
 } from "../controllers/commentController";
 import multerPostKey from "../middleware/multerPostKey";
+import { user_posts } from "../controllers/userController";
 
 const router = Router();
 
@@ -23,6 +24,8 @@ router
   .route("/:postId")
   .put(multerPostKey, post_update)
   .delete(multerPostKey, post_delete);
+
+router.route("/:postId/posts").get(user_posts);
 
 router.route("/:postId/likes").put(post_like);
 

@@ -65,6 +65,8 @@ const Register = () => {
     register({ email, password, fullName, userName, passwordConf });
   };
 
+  const disabled = loading;
+
   return (
     <AuthLayout handleSubmit={handleSubmit} title="Register">
       <h2 styleName="auth__title">Register</h2>
@@ -79,7 +81,7 @@ const Register = () => {
           required
           styleName="auth__input"
           value={fullName}
-          disabled={loading}
+          disabled={disabled}
           onChange={handleFullNameChange}
         />
         <p styleName="auth__message">
@@ -94,7 +96,7 @@ const Register = () => {
           type="text"
           id="username"
           name="username"
-          disabled={loading}
+          disabled={disabled}
           required
           styleName={`auth__input ${
             userNameValidationStyles ? "auth__input--validation" : ""
@@ -115,7 +117,7 @@ const Register = () => {
           id="email"
           name="email"
           required
-          disabled={loading}
+          disabled={disabled}
           styleName={`auth__input ${
             emailValidationStyles ? "auth__input--validation" : ""
           }`}
@@ -132,6 +134,8 @@ const Register = () => {
         <PasswordContainer
           showPassword={passwordVisible}
           handleClick={handlePasswordVisiblity}
+          right={4}
+          disabled={disabled}
         >
           <label htmlFor="password" styleName="auth__label">
             <span styleName="auth__bold">Password</span>
@@ -146,7 +150,7 @@ const Register = () => {
             }`}
             value={password}
             minLength={8}
-            disabled={loading}
+            disabled={disabled}
             onChange={handlePasswordChange}
             onBlur={checkPasswordValidation}
           />
@@ -162,6 +166,8 @@ const Register = () => {
         <PasswordContainer
           showPassword={passwordVisible}
           handleClick={handlePasswordVisiblity}
+          right={4}
+          disabled={disabled}
         >
           <label htmlFor="confirmPassword" styleName="auth__label">
             <span styleName="auth__bold">Confirm Password</span>
@@ -175,7 +181,7 @@ const Register = () => {
             minLength={8}
             value={passwordConf}
             onChange={handlePasswordConfChange}
-            disabled={loading}
+            disabled={disabled}
             onBlur={checkPasswordConfValidation}
           />
         </PasswordContainer>

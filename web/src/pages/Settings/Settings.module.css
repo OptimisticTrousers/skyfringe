@@ -106,6 +106,10 @@
   color: #8796a6;
 }
 
+.settings__number--red {
+  color: #e74c3c;
+}
+
 .settings__button--view {
   margin-top: 1.2rem;
   border: 2px solid #2d3034;
@@ -188,6 +192,53 @@
 
 .settings__button--update:hover {
   filter: brightness(0.9);
+}
+
+.settings__avatar {
+  position: relative;
+}
+
+.settings__button--avatar {
+  position: absolute;
+  right: 11px;
+  width: 40px;
+  height: 40px;
+  bottom: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e4e6eb;
+  border-radius: 50%;
+  border: 1px solid rgb(229, 231, 235);
+}
+
+.settings__button--avatar:hover {
+  background-color: rgb(209, 213, 219);
+}
+
+.settings__button--avatar:active {
+  background-color: #cbcfd3;
+  transform: scale(0.95);
+}
+
+.settings__input:disabled {
+  filter: grayscale(0.5) opacity(0.5);
+  pointer-events: none;
+  -webkit-filter: grayscale(0.5) opacity(0.5);
+}
+
+.settings__button:disabled {
+  filter: grayscale(0.5) opacity(0.5);
+  pointer-events: none;
+  -webkit-filter: grayscale(0.5) opacity(0.5);
+}
+
+.settings__input--validation:valid {
+  border: 3px solid #5eda87;
+}
+
+.settings__input--validation:invalid {
+  border: 3px solid #dc3545;
 }
 
 @media (max-width: 1300px) {

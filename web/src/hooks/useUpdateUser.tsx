@@ -1,3 +1,4 @@
+import { FormError } from "@backend/types";
 import { useContext, useState } from "react";
 import { ToastContext } from "../context/ToastContext";
 import useHttp from "./useHttp";
@@ -5,7 +6,7 @@ import useHttp from "./useHttp";
 // Used to update textual profile information only; no image updates.
 const useUpdateUser = () => {
   const [error, setError] = useState<unknown | null>(null);
-  const [formError, setFormError] = useState(null);
+  const [formError, setFormError] = useState<FormError[] | null>(null);
   const [loading, setLoading] = useState(false);
   const { put } = useHttp();
   const { showToast } = useContext(ToastContext);
@@ -24,6 +25,7 @@ const useUpdateUser = () => {
         // No error, request successful
         setError(null);
         setFormError(null);
+        showToast("success", "Successfully updated user!");
         return response.data;
       } else if (response.status === 404) {
         const data = response.data;

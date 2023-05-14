@@ -10,6 +10,7 @@
 .profile__subtitle {
   margin-top: 0;
   margin-bottom: 0;
+  font-weight: 900;
 }
 
 .profile__title {
@@ -116,7 +117,7 @@
 }
 
 .profile__description {
-  color: #5d6788;
+  color: white;
 }
 
 .profile__list {

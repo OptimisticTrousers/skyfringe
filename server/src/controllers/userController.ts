@@ -1,10 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
+import bcrypt from "bcryptjs";
 import User from "../models/user";
 import mongoose from "mongoose";
-import { body, oneOf, validationResult } from "express-validator";
-import { User as IUser } from "../../types";
+import { body, check, oneOf, validationResult } from "express-validator";
+import { CustomError, User as IUser } from "../../types";
 import Post from "../models/post";
+import Comment from "../models/comment";
+import upload from "../config/multer";
 
 // @desc    Get all users (public details)
 // @route   GET /api/users
@@ -21,34 +24,36 @@ export const user_list = asyncHandler(
 
 export const user_detail = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const user = (await User.findById(req.params.userId)
+    const user = await User.findById(req.params.userId)
       .populate("friends")
-      .populate("friendRequests")
-      .exec()) as IUser;
+      .exec();
     const posts = await Post.find({ author: user })
       .populate("author")
       .populate("likes")
       .exec();
-    // Add the posts property to the user object
-    const userWithPosts = {
-      ...user.toObject(),
-      posts,
-    };
+    const comments = await Comment.find({ author: user }).exec();
+    const likedPosts = await Post.find({ likes: user }).exec();
+    const likedComments = await Comment.find({ likes: user }).exec();
 
-    res.status(200).json(userWithPosts);
+    res.status(200).json({ user, posts, comments, likedPosts, likedComments });
+  }
+);
+
+export const user_posts = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user as IUser;
+    const posts = await Post.find({ author: user }).exec();
+    res.status(200).json(posts);
   }
 );
 
 export const user_update = [
-  oneOf(
-    [
-      body("fullName").exists(),
-      body("bio").exists(),
-      body("photo").exists(),
-      body("cover").exists(),
-    ],
-    "At least one of the following fields must be present: fullName, bio, photo, cover"
-  ),
+  upload.single("image"),
+  // Validate and sanitize fields.
+  body("fullName", "Full name is required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
   asyncHandler(async (req: Request, res: Response) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
@@ -58,29 +63,42 @@ export const user_update = [
       return;
     }
 
-    const updatedFields = {
+    const oldPassword = req.body.oldPassword;
+    const updatedFields: any = {
       fullName: req.body.fullName,
       bio: req.body.bio,
-      photo: req.body.photo,
-      cover: req.body.cover,
     };
 
+    if (oldPassword) {
+      const hashedPassword = await bcrypt.hash(req.body.oldPassword, 10);
+
+      const user = await User.find({ password: hashedPassword }).exec();
+
+      if (!user) {
+        res
+          .status(400)
+          .json({ message: "You typed your old password incorrectly" });
+        return;
+      }
+
+      if (req.body.newPassword !== req.body.newPasswordConf) {
+        res.status(400).json({
+          message: "'New Password' and 'Confirm New Password' are not equal ",
+        });
+        return;
+      }
+    }
+    updatedFields.password = req.body.newPassword;
     // Get the user to be updated
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedUser = (await User.findByIdAndUpdate(
       req.params.userId,
       updatedFields,
       { new: true }
-    ).exec();
+    ).exec()) as IUser;
 
-    // Check if the id provided is valid
-    if (!updatedUser) {
-      res.status(404).json({ message: "User not found" });
-      return;
-    }
-
-    const user = updatedUser.toObject();
-    delete user.password;
-    res.json(user);
+    const updatedUserObject = updatedUser.toObject();
+    delete updatedUserObject.password;
+    res.json(updatedUserObject);
   }),
 ];
 

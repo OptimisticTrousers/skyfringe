@@ -6,21 +6,21 @@ import { PostWithStringId as IPost } from "@backend/types";
 import { FC } from "react";
 
 interface Props {
-  setData: any;
+  setFeed: any;
   loading: boolean;
   error: any;
   posts: IPost[];
 }
 
-const Feed: FC<Props> = ({ setData, loading, error, posts}) => {
+const Feed: FC<Props> = ({ setFeed, loading, error, posts }) => {
   const handleDeletePost = (postId: string) => {
-    setData((prevPosts: IPost[]) => {
+    setFeed((prevPosts: IPost[]) => {
       return prevPosts.filter((prevPost: IPost) => prevPost._id !== postId);
     });
   };
 
   const handleEditPost = (postId: string, post: IPost) => {
-    setData((prevPosts: IPost[]) => {
+    setFeed((prevPosts: IPost[]) => {
       return prevPosts.map((prevPost: IPost) => {
         if (prevPost._id === postId) {
           return post;
@@ -51,6 +51,7 @@ const Feed: FC<Props> = ({ setData, loading, error, posts}) => {
                 key={post._id}
                 handleDeletePost={handleDeletePost}
                 handleEditPost={handleEditPost}
+                setFeed={setFeed}
               />
             );
           })}

@@ -74,6 +74,8 @@ const Login = () => {
         <PasswordContainer
           showPassword={passwordVisible}
           handleClick={handlePasswordVisiblity}
+          disabled={disabled}
+          right={4}
         >
           <label htmlFor="password" styleName="auth__label">
             <span styleName="auth__bold">Password</span>

@@ -134,6 +134,10 @@ export interface FetchResponse {
   error: unknown;
 }
 
+export interface CustomError extends Error {
+  status?: number;
+}
+
 export interface FetchFriendsResponse extends FetchResponse {
   data: {
     friends: UserWithStringId[];

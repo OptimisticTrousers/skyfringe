@@ -8,10 +8,10 @@ import styles from "./CreatePost.module.css";
 import { PostWithStringId as Post } from "@backend/types";
 
 interface Props {
-  setData: any;
+  setFeed: any;
 }
 
-const CreatePost: FC<Props> = ({ setData }) => {
+const CreatePost: FC<Props> = ({ setFeed}) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const { user } = useContext(AuthContext);
@@ -22,7 +22,7 @@ const CreatePost: FC<Props> = ({ setData }) => {
 
   return (
     <>
-      {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} setData={setData}/>}
+      {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} setFeed={setFeed}/>}
       <button styleName="create" onClick={toggleModal} aria-haspopup="dialog">
         <Card>
           <div styleName="create__container">

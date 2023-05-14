@@ -11,7 +11,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import { ToastContext } from "../../../context/ToastContext";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import useUpdatePost from "../../../hooks/useUpdatePost";
-import { Loading, ImagePreview, ImageUploadBtn } from "../../ui";
+import { Loading, ImagePreview, ImageUploadBtn, Avatar } from "../../ui";
 import ModalContainer from "../ModalContainer";
 import styles from "./EditPostModal.module.css";
 
@@ -31,6 +31,8 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
     removeThumbnail,
     imageData,
     imageError,
+    setImageUpdated,
+    imageUpdated,
     imageLoading,
     setImageData,
   } = useImageThumbnail();
@@ -48,6 +50,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
     const newPost = new FormData();
     newPost.append("content", postText);
     newPost.append("image", imageFile);
+    newPost.append("imageUpdated", imageUpdated.toString());
     const updatedPost = await updatePost(postId, newPost);
     handleEditPost(postId, updatedPost);
   };
@@ -67,13 +70,17 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
     if (post.photo) {
       setImageData(post.photo.imageUrl);
     }
-  }, [post.image, setImageData]);
+  }, [post.photo, setImageData]);
 
   return (
     <ModalContainer title="Edit Post" toggleModal={toggleModal}>
       <form styleName="modal" onSubmit={handleSubmit}>
         <div styleName="modal__author-bar">
-          <img src="/images/optimistictrousers.jpg" styleName="modal__avatar" />
+          <Avatar
+            src={user.photo && user.photo.imageUrl}
+            alt={user.photo && user.photo.altText}
+            size={"md"}
+          />
           <div styleName="modal__text">
             <p styleName="modal__surtitle">posting as</p>
             <h3 styleName="modal__name">{user?.fullName}</h3>
@@ -93,6 +100,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
               setImageValue={setImageValue}
               setImageFile={setImageFile}
               removeThumbnail={removeThumbnail}
+              setImageUpdated={setImageUpdated}
             />
           )}
         </div>

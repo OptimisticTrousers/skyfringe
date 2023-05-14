@@ -10,6 +10,7 @@ const ImagePreview = ({
   setImageValue,
   setImageFile,
   removeThumbnail,
+  setImageUpdated,
 }: any) => {
   const { showToast } = useContext(ToastContext);
 
@@ -17,6 +18,7 @@ const ImagePreview = ({
     setImageValue("");
     setImageFile(null);
     removeThumbnail();
+    setImageUpdated(true);
   };
 
   const handleClose = () => {

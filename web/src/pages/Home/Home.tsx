@@ -7,7 +7,7 @@ import styles from "./Home.module.css";
 
 const Home = () => {
   const {
-    setData,
+    setData: setFeed,
     data: posts,
     loading,
     error,
@@ -20,8 +20,8 @@ const Home = () => {
             <TopMenu />
           </div>
           <HomeFriends />
-          <CreatePost setData={setData}/>
-          <Feed setData={setData} loading={loading} error={error} posts={posts}/>
+          <CreatePost setFeed={setFeed}/>
+          <Feed setFeed={setFeed} loading={loading} error={error} posts={posts}/>
         </div>
         <aside styleName="home__right">
           <Suggestions />

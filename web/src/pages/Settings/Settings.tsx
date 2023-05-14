@@ -1,122 +1,91 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { FormError } from "@backend/types";
+import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { ChangeAvatarModal, DeleteAccountModal } from "../../components/modals";
-import { Avatar, Banner, Card } from "../../components/ui";
+import {
+  Avatar,
+  Banner,
+  Card,
+  ErrorMessage,
+  PasswordContainer,
+} from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
+import { ToastContext } from "../../context/ToastContext";
+import useFetch from "../../hooks/useFetch";
+import useForm from "../../hooks/useForm";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import styles from "./Settings.module.css";
 
 const Settings = () => {
+  const { user } = useContext(AuthContext);
+  const { showToast } = useContext(ToastContext);
+  const { data, loading, error }: any = useFetch(
+    `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}`
+  );
+
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
   const [isCoverModalOpen, setIsCoverModalOpen] = useState(false);
 
-  const { updateUser, loading } = useUpdateUser();
+  const { updateUser, loading: updateLoading, formError } = useUpdateUser();
 
-  const { user } = useContext(AuthContext);
-  const [fullName, setFullName] = useState(user.fullName);
-  const [bio, setBio] = useState(user.bio);
-  const [email, setEmail] = useState(user.email);
-  const [emailValid, setEmailValid] = useState(true);
-  const [emailError, setEmailError] = useState("");
-
-  const [oldPassword, setOldPassword] = useState("");
-  const [oldPasswordValid, setOldPasswordValid] = useState(true);
-  const [oldPasswordError, setOldPasswordError] = useState("");
-  const [oldPasswordVisible, setOldPasswordVisible] = useState(false);
-
-  const [password, setPassword] = useState("");
-  const [passwordValid, setPasswordValid] = useState(true);
-  const [passwordError, setPasswordError] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const [passwordConf, setPasswordConf] = useState("");
-  const [passwordConfValid, setPasswordConfValid] = useState(true);
-  const [passwordConfError, setPasswordConfError] = useState("");
-
-  const [emailValidationStyles, setEmailValidationStyles] = useState(false);
-  const [userNameValidationStyles, setuserNameValidationStyles] =
-    useState(false);
-  const [passwordValidationStyles, setPasswordValidationStyles] =
-    useState(false);
-
-  const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFullName(e.target.value);
-  };
-
-  const handleBioChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setBio(e.target.value);
-  };
-
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checkValidity()) {
-      setEmailValid(true);
-      setEmailError("");
-    }
-    setEmail(e.target.value);
-  };
-
-  const checkEmailValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
-      setEmailValidationStyles(true);
-      setEmailValid(false);
-      setEmailError("The email field must be a valid email");
-    }
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checkValidity()) {
-      setPasswordValid(true);
-      setPasswordError("");
-    }
-    setPassword(e.target.value);
-  };
-
-  const checkPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.checkValidity()) {
-      setPasswordValidationStyles(true);
-      setPasswordValid(false);
-      setPasswordError("The password field must be at least 8 characters");
-    }
-  };
-
-  const handlePasswordConfChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (password === passwordConf && e.target.checkValidity()) {
-      setPasswordConfValid(true);
-      setPasswordConfError("");
-    }
-    setPasswordConf(e.target.value);
-  };
-
-  const checkPasswordConfValidation = (e: ChangeEvent<HTMLInputElement>) => {
-    if (password !== passwordConf) {
-      setPasswordConfValid(false);
-      setPasswordConfError("Passwords do not match");
-    } else {
-      setPasswordConfValid(true);
-      setPasswordConfError("");
-    }
-  };
-
-  const handlePasswordVisiblity = () => {
-    setPasswordVisible((prevVisibility) => !prevVisibility);
-  };
+  const {
+    fullName,
+    bio,
+    handleBioChange,
+    handleFullNameChange,
+    userName,
+    handleUserNameChange,
+    userNameValid,
+    oldPassword,
+    userNameError,
+    email,
+    setBio,
+    setEmail,
+    setFullName,
+    handleEmailChange,
+    emailValid,
+    emailError,
+    password,
+    handlePasswordChange,
+    passwordValid,
+    oldPasswordValid,
+    passwordError,
+    passwordVisible,
+    passwordConf,
+    handlePasswordConfChange,
+    passwordConfValid,
+    passwordConfError,
+    oldPasswordValidationStyles,
+    checkOldPasswordValidation,
+    emailValidationStyles,
+    userNameValidationStyles,
+    oldPasswordError,
+    passwordValidationStyles,
+    checkPasswordConfValidation,
+    handleOldPasswordChange,
+    checkPasswordValidation,
+    checkUserNameValidation,
+    checkEmailValidation,
+    handlePasswordVisiblity,
+  } = useForm();
 
   const toggleAvatarModal = () => {
     setIsAvatarModalOpen((prevValue) => !prevValue);
+  };
+
+  const toggleCoverModal = () => {
+    setIsCoverModalOpen((prevValue) => !prevValue);
   };
 
   const toggleDeleteModal = () => {
     setIsDeleteModalOpen((prevValue) => !prevValue);
   };
 
-  const disabled =
-    loading || (!emailValid && email) || ((!passwordValid && password) as any);
-
   const friendCountText = () => {
-    const friendCount = user?.friends.length;
+    const friendCount = user.friends.length;
     if (friendCount > 1) {
       return `${friendCount} friends`;
     } else if (friendCount === 1) {
@@ -125,16 +94,50 @@ const Settings = () => {
     return "0 friends";
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!oldPasswordValid) {
+      showToast("error", "Invalid old password");
+      return;
+    } else if (!passwordValid) {
+      showToast("error", "Invalid password");
+      return;
+    } else if (!passwordConfValid) {
+      showToast("error", "Invalid password confirmation");
+      return;
+    }
+    const formData = new FormData();
+    formData.append("fullName", fullName);
+    formData.append("bio", fullName);
+    formData.append("oldPassword", oldPassword);
+    formData.append("newPassword", password);
+    formData.append("newPasswordConf", passwordConf);
+    updateUser(user._id, formData);
+  };
+
+  const disabled = updateLoading;
+
+  useEffect(() => {
+    setBio(user.bio);
+    setEmail(user.email);
+    setFullName(user.fullName);
+  }, []);
+
   return (
     <>
       <div styleName="settings">
         <header styleName="settings__header">
-          <button styleName="settings__button settings__button--banner">
+          <button
+            styleName="settings__button settings__button--banner"
+            onClick={toggleCoverModal}
+          >
             <AiOutlineCamera styleName="settings__icon" />
-            {/* <AiFillCamera styleName="settings__icon" /> */}
             Change Cover
           </button>
-          <Banner src={user?.cover?.imageUrl} altText={user?.cover?.altText} />
+          <Banner
+            src={user.cover && user.cover.imageUrl}
+            altText={user.cover && user.cover.altText}
+          />
         </header>
         <div styleName="settings__grid">
           <aside styleName="settings__aside">
@@ -143,8 +146,8 @@ const Settings = () => {
                 <div styleName="settings__avatar">
                   <Avatar
                     size={"xl"}
-                    src={user?.photo?.imageUrl}
-                    alt={user?.photo?.altText}
+                    src={user.photo && user.photo.imageUrl}
+                    alt={user.photo && user.photo.altText}
                   />
                   <button
                     aria-label="Change profile picture"
@@ -152,7 +155,7 @@ const Settings = () => {
                     aria-haspopup="dialog"
                     onClick={toggleAvatarModal}
                   >
-                    <AiFillCamera />
+                    <AiOutlineCamera styleName="settings__icon settings__icon--camera" />
                   </button>
                 </div>
                 <h2 styleName="settings__name">{user.fullName}</h2>
@@ -160,19 +163,31 @@ const Settings = () => {
               </div>
               <div styleName="settings__box">
                 <p styleName="settings__statistic">Posts created</p>
-                <p styleName="settings__number settings__number--orange">32</p>
+                <p styleName="settings__number settings__number--orange">
+                  {data && data.posts.length}
+                </p>
               </div>
               <div styleName="settings__box">
                 <p styleName="settings__statistic">Posts liked</p>
-                <p styleName="settings__number settings__number--green">32</p>
+                <p styleName="settings__number settings__number--green">
+                  {data && data.likedPosts.length}
+                </p>
               </div>
               <div styleName="settings__box">
-                <p styleName="settings__statistic">Comments</p>
-                <p styleName="settings__number settings__number--gray">32</p>
+                <p styleName="settings__statistic">Comments created</p>
+                <p styleName="settings__number settings__number--gray">
+                  {data && data.comments.length}
+                </p>
+              </div>
+              <div styleName="settings__box">
+                <p styleName="settings__statistic">Comments liked</p>
+                <p styleName="settings__number settings__number--red">
+                  {data && data.likedComments.length}
+                </p>
               </div>
               <div styleName="settings__box">
                 <Link
-                  to={`/users/${user?._id}`}
+                  to={`/users/${user._id}`}
                   styleName="settings__button settings__button--view"
                 >
                   View Public Profile
@@ -197,7 +212,7 @@ const Settings = () => {
           <div styleName="settings__content">
             <Card>
               <h2 styleName="settings__title">Account Settings</h2>
-              <form styleName="settings__form">
+              <form styleName="settings__form" onSubmit={handleSubmit}>
                 <div styleName="settings__section">
                   <div styleName="settings__group">
                     <label htmlFor="fullName" styleName="settings__label">
@@ -209,7 +224,8 @@ const Settings = () => {
                       id="fullName"
                       name="fullName"
                       value={fullName}
-                      disabled={loading}
+                      required
+                      disabled={disabled}
                       onChange={handleFullNameChange}
                     />
                   </div>
@@ -223,81 +239,118 @@ const Settings = () => {
                       id="bio"
                       name="bio"
                       value={bio}
-                      disabled={loading}
-                      onChange={handleBioChange}
-                    />
-                  </div>
-                  <div styleName="settings__group">
-                    <label htmlFor="email" styleName="settings__label">
-                      Email Address
-                    </label>
-                    <input
-                      styleName={`settings__input ${
-                        emailValidationStyles
-                          ? "settings__input--validation"
-                          : ""
-                      }`}
-                      type="email"
-                      id="email"
-                      name="email"
                       required
-                      disabled={loading}
-                      onChange={handleEmailChange}
-                      onBlur={checkEmailValidation}
-                      value={email}
+                      disabled={disabled}
+                      onChange={handleBioChange}
                     />
                   </div>
                 </div>
                 <div styleName="settings__section">
-                  <div styleName="settings__group">
-                    <label htmlFor="email" styleName="settings__label">
-                      Old Password
-                    </label>
-                    <input
-                      styleName="settings__input"
-                      id="oldPassword"
-                      name="oldPassword"
-                      type="password"
-                      required
-                      value={password}
-                      minLength={8}
-                      disabled={loading}
-                      onChange={handlePasswordChange}
-                      onBlur={checkPasswordValidation}
-                    />
-                  </div>
-                  <div styleName="settings__group">
-                    <label htmlFor="email" styleName="settings__label">
-                      New Password
-                    </label>
-                    <input
-                      styleName="settings__input"
-                      id="email"
-                      name="email"
-                      type="email"
-                    />
-                  </div>
-                  <div styleName="settings__group">
-                    <label htmlFor="email" styleName="settings__label">
-                      Confirm New Password
-                    </label>
-                    <input
-                      styleName="settings__input"
-                      id="email"
-                      name="email"
-                      type="email"
-                    />
-                  </div>
+                  <PasswordContainer
+                    showPassword={passwordVisible}
+                    handleClick={handlePasswordVisiblity}
+                    right={12}
+                    disabled={disabled}
+                  >
+                    <div styleName="settings__group">
+                      <label htmlFor="email" styleName="settings__label">
+                        Old Password
+                      </label>
+                      <input
+                        styleName={`settings__input ${
+                          oldPasswordValidationStyles
+                            ? "settings__input--validation"
+                            : ""
+                        }`}
+                        type={passwordVisible ? "text" : "password"}
+                        id="oldPassword"
+                        name="oldPassword"
+                        value={oldPassword}
+                        minLength={8}
+                        disabled={disabled}
+                        onChange={handleOldPasswordChange}
+                        onBlur={checkOldPasswordValidation}
+                      />
+                    </div>
+                  </PasswordContainer>
+                  {oldPasswordValid === false && (
+                    <ErrorMessage message={oldPasswordError} />
+                  )}
+                  <PasswordContainer
+                    showPassword={passwordVisible}
+                    handleClick={handlePasswordVisiblity}
+                    right={12}
+                    disabled={disabled}
+                  >
+                    <div styleName="settings__group">
+                      <label htmlFor="newPassword" styleName="settings__label">
+                        New Password
+                      </label>
+                      <input
+                        styleName={`settings__input ${
+                          passwordValidationStyles
+                            ? "settings__input--validation"
+                            : ""
+                        }`}
+                        type={passwordVisible ? "text" : "password"}
+                        id="newPassword"
+                        name="newPassword"
+                        value={password}
+                        minLength={8}
+                        disabled={disabled}
+                        onChange={handlePasswordChange}
+                        onBlur={checkPasswordValidation}
+                      />
+                    </div>
+                  </PasswordContainer>
+                  {passwordValid === false && (
+                    <ErrorMessage message={passwordError} />
+                  )}
+                  <PasswordContainer
+                    showPassword={passwordVisible}
+                    handleClick={handlePasswordVisiblity}
+                    right={12}
+                    disabled={disabled}
+                  >
+                    <div styleName="settings__group">
+                      <label
+                        htmlFor="newPasswordConf"
+                        styleName="settings__label"
+                      >
+                        Confirm New Password
+                      </label>
+                      <input
+                        styleName="settings__input"
+                        type={passwordVisible ? "text" : "password"}
+                        id="newPasswordConf"
+                        name="newPasswordConf"
+                        value={passwordConf}
+                        minLength={8}
+                        disabled={disabled}
+                        onChange={handlePasswordConfChange}
+                        onBlur={checkPasswordConfValidation}
+                      />
+                    </div>
+                  </PasswordContainer>
+                  {passwordConfValid === false && (
+                    <ErrorMessage message={passwordConfError} />
+                  )}
+                </div>
+                <div styleName="settings__box">
+                  <button
+                    styleName="settings__button--update"
+                    disabled={disabled}
+                    type="submit"
+                  >
+                    Update
+                  </button>
                 </div>
               </form>
-              <div styleName="settings__box">
-                <button
-                  styleName="settings__button--update"
-                  disabled={disabled}
-                  type="submit"
-                >
-                  Update
-                </button>
+              <div styleName="auth__errors">
+                {formError &&
+                  formError.map((error: FormError, index: number) => {
+                    return <ErrorMessage key={index} message={error.msg} />;
+                  })}
               </div>
             </Card>
           </div>
@@ -307,7 +360,16 @@ const Settings = () => {
         <DeleteAccountModal toggleModal={toggleDeleteModal} userId={user._id} />
       )}
       {isAvatarModalOpen && (
-        <ChangeAvatarModal toggleModal={toggleAvatarModal} />
+        <ChangeAvatarModal
+          toggleModal={toggleAvatarModal}
+          title={"Change Avatar"}
+        />
+      )}
+      {isCoverModalOpen && (
+        <ChangeAvatarModal
+          toggleModal={toggleCoverModal}
+          title={"Change Banner"}
+        />
       )}
     </>
   );

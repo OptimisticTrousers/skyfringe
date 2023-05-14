@@ -4,17 +4,17 @@ import { AuthContext } from "../../../context/AuthContext";
 import { ToastContext } from "../../../context/ToastContext";
 import useCreatePost from "../../../hooks/useCreatePost";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
-import { Loading, ImagePreview, ImageUploadBtn } from "../../ui";
+import { Loading, ImagePreview, ImageUploadBtn, Avatar } from "../../ui";
 import ModalContainer from "../ModalContainer";
 import styles from "./CreatePostModal.module.css";
 import { PostWithStringId as IPost } from "@backend/types";
 
 interface Props {
   toggleModal: () => void;
-  setData: any;
+  setFeed: any;
 }
 
-const CreatePostModal: FC<Props> = ({ toggleModal, setData }) => {
+const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
   const { user } = useContext(AuthContext);
   const [postText, setPostText] = useState("");
   const { createPost, loading, error } = useCreatePost();
@@ -37,7 +37,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setData }) => {
     newPost.append("content", postText);
     newPost.append("image", imageFile);
     const createdPost = await createPost(newPost);
-    setData((prevPosts: IPost[]) => {
+    setFeed((prevPosts: IPost[]) => {
       const posts = structuredClone(prevPosts);
       posts.unshift(createdPost);
       return posts;
@@ -63,7 +63,11 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setData }) => {
         encType="multipart/form-data"
       >
         <div styleName="modal__author-bar">
-          <img src={user?.photo?.imageUrl} styleName="modal__avatar" />
+          <Avatar
+            src={user.photo && user.photo.imageUrl}
+            alt={user.photo && user.photo.altText}
+            size={"md"}
+          />
           <div styleName="modal__text">
             <p styleName="modal__surtitle">posting as</p>
             <h3 styleName="modal__name">{user?.fullName}</h3>

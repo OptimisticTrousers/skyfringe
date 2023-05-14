@@ -5,11 +5,7 @@ import Post from "../models/post";
 import upload from "../config/multer";
 import mongoose from "mongoose";
 import { s3Deletev3, s3Uploadv3 } from "../config/s3";
-import { User as IUser, Post as IPost } from "../../types";
-
-interface CustomError extends Error {
-  status?: number;
-}
+import { User as IUser, Post as IPost, CustomError } from "../../types";
 
 // @desc    Get all posts
 // @route   GET /api/posts
@@ -85,6 +81,7 @@ export const post_create = [
 export const post_like = asyncHandler(async (req: Request, res: Response) => {
   // fetch
   const post = (await Post.findById(req.params.postId)
+    .populate("author")
     .populate("likes")
     .exec()) as IPost;
 
@@ -124,6 +121,7 @@ export const post_update = [
     // User has included one of either text or image. Continue with request handling
     return true;
   }),
+  body("imageUpdated").isBoolean(),
   // Process request after validation and sanitization
   asyncHandler(async (req: any, res: Response) => {
     const postId = req.params.postId;
@@ -137,6 +135,7 @@ export const post_update = [
 
     const post = (await Post.findById(postId)
       .populate("author")
+      .populate("likes")
       .exec()) as IPost;
 
     const user = req.user as IUser;
@@ -171,17 +170,21 @@ export const post_update = [
       };
     }
 
-    if (updatedPost.photo && updatedPost.photo.imageUrl && !req.file) {
-      const path = `${req.key.path}/${req.key.date}_${user.userName}.${
-        updatedPost.photo.imageUrl.split(".")[1]
-      }`;
+    if (
+      updatedPost.photo &&
+      updatedPost.photo.imageUrl &&
+      req.body.imageUpdated === "true" &&
+      !req.file
+    ) {
+      const imageUrl = updatedPost.photo.imageUrl;
+      const path = imageUrl.substring(
+        imageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
+      );
       updatedPost.photo = undefined;
       await s3Deletev3(path);
     }
 
     await updatedPost.save();
-
-    console.log(updatedPost)
 
     res.status(200).json(updatedPost);
   }),

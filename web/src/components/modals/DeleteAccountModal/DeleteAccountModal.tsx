@@ -18,6 +18,7 @@ const DeleteAccountModal: FC<Props> = ({ toggleModal, userId }) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     deleteAccount(userId);
+    toggleModal();
   };
 
   return (

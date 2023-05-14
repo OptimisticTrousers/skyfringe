@@ -1,6 +1,7 @@
 import { useState, ChangeEvent } from "react";
 
 const useForm = () => {
+  const [bio, setBio] = useState("");
   const [fullName, setFullName] = useState("");
 
   const [userName, setuserName] = useState("");
@@ -10,6 +11,11 @@ const useForm = () => {
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState(true);
   const [emailError, setEmailError] = useState("");
+
+  const [oldPassword, setOldPassword] = useState("");
+  const [oldPasswordValid, setOldPasswordValid] = useState(true);
+  const [oldPasswordError, setOldPasswordError] = useState("");
+  const [oldPasswordVisible, setOldPasswordVisible] = useState(false);
 
   const [password, setPassword] = useState("");
   const [passwordValid, setPasswordValid] = useState(true);
@@ -25,6 +31,20 @@ const useForm = () => {
     useState(false);
   const [passwordValidationStyles, setPasswordValidationStyles] =
     useState(false);
+  const [oldPasswordValidationStyles, setOldPasswordValidationStyles] =
+    useState(false);
+
+  const handleOldPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checkValidity()) {
+      setOldPasswordValid(true);
+      setOldPasswordError("");
+    }
+    setOldPassword(e.target.value);
+  };
+
+  const handleBioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setBio(e.target.value);
+  };
 
   const handleFullNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFullName(e.target.value);
@@ -80,6 +100,14 @@ const useForm = () => {
     setPassword(e.target.value);
   };
 
+  const checkOldPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.checkValidity()) {
+      setOldPasswordValidationStyles(true);
+      setOldPasswordValid(false);
+      setOldPasswordError("The password field must be at least 8 characters");
+    }
+  };
+
   const checkPasswordValidation = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.checkValidity()) {
       setPasswordValidationStyles(true);
@@ -106,7 +134,17 @@ const useForm = () => {
     handleUserNameChange,
     userNameValid,
     userNameError,
+    setBio,
+    setEmail,
+    setFullName,
     email,
+    oldPassword,
+    oldPasswordError,
+    oldPasswordValid,
+    oldPasswordValidationStyles,
+    oldPasswordVisible,
+    checkOldPasswordValidation,
+    handleOldPasswordChange,
     handleEmailChange,
     emailValid,
     emailError,
@@ -128,6 +166,8 @@ const useForm = () => {
     checkUserNameValidation,
     checkEmailValidation,
     handlePasswordVisiblity,
+    bio,
+    handleBioChange,
   };
 };
 

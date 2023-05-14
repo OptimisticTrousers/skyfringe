@@ -56,6 +56,7 @@ export const comment_like = asyncHandler(
   async (req: Request, res: Response) => {
     // fetch
     const comment = (await Comment.findById(req.params.commentId)
+      .populate("author")
       .populate("likes")
       .exec()) as IComment;
 

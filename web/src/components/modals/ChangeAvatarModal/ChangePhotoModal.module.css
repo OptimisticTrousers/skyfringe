@@ -1,11 +1,26 @@
+.modal {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .modal__container {
-  padding: 1rem 0.5rem;
-  margin: 1rem;
-  border: 2px solid rgb(229, 231, 235);
-  border-radius: 0.25rem;
+  flex: 1;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.5rem;
+  margin: 1rem;
+  border-radius: 0.25rem;
   position: relative;
+  border: 2px dashed rgb(229, 231, 235);
+}
+
+.modal__message {
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .modal__button--picture {
@@ -43,6 +58,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 24px 16px;
+  margin-top: auto;
 }
 
 .modal__interactives {
