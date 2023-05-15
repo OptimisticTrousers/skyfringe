@@ -163,3 +163,52 @@ export const check_auth_user = asyncHandler(
     res.status(200).json(user);
   }
 );
+
+export const login_facebook = [
+  passport.authenticate("facebook-token"),
+  { session: false },
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    // Cast the standard Request object to my custom AuthenticatedRequest object
+    const user = req.user as IUser;
+    req.login(user, { session: false }, async (err) => {
+      if (err) {
+        return next(err);
+      }
+
+      // generate a signed json web token with the contents of the user objects and return it in the response
+      const secret = process.env.JWT_SECRET;
+
+      if (!secret) {
+        throw new Error("JWT_SECRET value is not defined in .env file");
+      }
+
+      await user.populate("friends");
+      await user.populate("friendRequests.user");
+      const token = jwt.sign({ id: user._id }, secret);
+
+      res
+        .cookie("jwt", token, {
+          secure: process.env.NODE_ENV === "production",
+          httpOnly: true,
+        })
+        .status(200)
+        .json(user);
+    });
+  }),
+];
+
+const FRONTEND_URL = process.env.FRONTEND_URL;
+
+if (!FRONTEND_URL) {
+  throw new Error("FRONTEND_URl value is not defined in .env file");
+}
+
+export const login_facebook_callback = [
+  passport.authenticate("facebook", {
+    failureRedirect: FRONTEND_URL,
+    failureMessage: true,
+  }),
+  asyncHandler(async (req: Request, res: Response) => {
+    res.redirect(FRONTEND_URL);
+  }),
+];

@@ -5,9 +5,15 @@ import {
   login_user,
   logout_user,
   check_auth_user,
+  login_facebook,
+  login_facebook_callback,
 } from "../controllers/authController";
 
 const router = Router();
+
+router.get("/login/facebook", login_facebook);
+
+router.get("/oauth2/redirect/facebook", login_facebook_callback);
 
 router.route("/register").post(register_user);
 

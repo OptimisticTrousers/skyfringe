@@ -1,7 +1,7 @@
+import { FormError, LoginData } from "@backend/types";
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ToastContext } from "../context/ToastContext";
-import { FormError, LoginData } from "../types";
 import useHttp from "./useHttp";
 
 const useLogin = () => {

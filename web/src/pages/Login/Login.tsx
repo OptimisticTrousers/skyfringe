@@ -11,11 +11,13 @@ import styles from "../../assets/Auth.module.css";
 import useForm from "../../hooks/useForm";
 import { FormError } from "@backend/types";
 import { ToastContext } from "../../context/ToastContext";
+import useFacebookLogin from "../../hooks/useFacebookLogin";
 
 const Login = () => {
   const { login, loading, formError } = useLogin();
   const { testLogin, loading: testLoading } = useTestLogin();
   const { showToast } = useContext(ToastContext);
+  const { facebookLogin, loading: facebookLoading } = useFacebookLogin();
 
   const {
     email,
@@ -46,7 +48,7 @@ const Login = () => {
     login({ email, password });
   };
 
-  const disabled = loading || testLoading;
+  const disabled = loading || testLoading || facebookLoading;
 
   return (
     <AuthLayout handleSubmit={handleSubmit} title="Login">
@@ -104,7 +106,12 @@ const Login = () => {
       >
         {loading ? "Logging in..." : "Log In"}
       </button>
-      <button styleName="auth__button auth__button--oauth" disabled={disabled}>
+      <button
+        styleName="auth__button auth__button--oauth"
+        disabled={disabled}
+        onClick={facebookLogin}
+        type="button"
+      >
         <SiFacebook styleName="auth__icon auth__icon--facebook" />
         Continue with Facebook
       </button>
