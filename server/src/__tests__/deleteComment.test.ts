@@ -24,36 +24,4 @@ describe("DELETE /api/posts/:postId/comments/:commentId", () => {
     expect(response.status).toEqual(403);
     expect(response.body.message).toEqual("Forbidden");
   });
-  // it("throws an error if the post ID is not valid", async () => {
-  //   const response = await request(app).delete(
-  //     `/posts/${undefined}/comments/${luffyCommentId}`
-  //   );
-  //   expect(response.headers["content-type"]).toMatch(/json/);
-  //   expect(response.status).toEqual(400);
-  //   expect(response.body.message).toEqual("Invalid post ID");
-  // });
-  // it("throws an error if the post is not found", async () => {
-  //   const response = await request(app).delete(
-  //     `/posts/${randomId1}/comments/${luffyCommentId}`
-  //   );
-  //   expect(response.headers["content-type"]).toMatch(/json/);
-  //   expect(response.status).toEqual(400);
-  //   expect(response.body.message).toEqual("Post not found");
-  // });
-  // it("throws an error if the commentId is not valid", async () => {
-  //   const response = await request(app).delete(
-  //     `/posts/${luffyPostId}/comments/${undefined}`
-  //   );
-  //   expect(response.headers["content-type"]).toMatch(/json/);
-  //   expect(response.status).toEqual(400);
-  //   expect(response.body.message).toEqual("Invalid comment ID");
-  // });
-  // it("throws an error if the comment is not found", async () => {
-  //   const response = await request(app).delete(
-  //     `/posts/${luffyPostId}/comments/${randomId2}`
-  //   );
-  //   expect(response.headers["content-type"]).toMatch(/json/);
-  //   expect(response.status).toEqual(400);
-  //   expect(response.body.message).toEqual("Comment not found");
-  // });
 });

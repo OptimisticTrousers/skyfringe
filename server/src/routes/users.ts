@@ -7,6 +7,7 @@ import {
   user_feed,
 } from "../controllers/userController";
 import multerCoverKey from "../middleware/multerCoverKey";
+import validateUserId from "../middleware/validateUserId";
 
 const router = Router();
 
@@ -14,10 +15,10 @@ router.route("/").get(user_list);
 
 router
   .route("/:userId")
-  .get(user_detail)
-  .put(multerCoverKey, user_update)
-  .delete(user_delete);
+  .get(validateUserId, user_detail)
+  .put(validateUserId, multerCoverKey, user_update)
+  .delete(validateUserId, user_delete);
 
-router.route("/:userId/feed").get(user_feed);
+router.route("/:userId/feed").get(validateUserId, user_feed);
 
 export default router;

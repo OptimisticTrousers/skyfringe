@@ -14,6 +14,8 @@ import {
   comment_like,
 } from "../controllers/commentController";
 import multerPostKey from "../middleware/multerPostKey";
+import validatePostId from "../middleware/validatePostId";
+import validateCommentId from "../middleware/validateCommentId";
 
 const router = Router();
 
@@ -21,18 +23,23 @@ router.route("/").get(post_list).post(multerPostKey, post_create);
 
 router
   .route("/:postId")
-  .put(multerPostKey, post_update)
-  .delete(multerPostKey, post_delete);
+  .put(validatePostId, multerPostKey, post_update)
+  .delete(validatePostId, multerPostKey, post_delete);
 
-router.route("/:postId/likes").put(post_like);
+router.route("/:postId/likes").put(validatePostId, post_like);
 
-router.route("/:postId/comments").get(comment_list).post(comment_create);
+router
+  .route("/:postId/comments")
+  .get(validatePostId, comment_list)
+  .post(validatePostId, comment_create);
 
 router
   .route("/:postId/comments/:commentId")
-  .put(comment_update)
-  .delete(comment_delete);
+  .put(validatePostId, validateCommentId, comment_update)
+  .delete(validatePostId, validateCommentId, comment_delete);
 
-router.route("/:postId/comments/:commentId/likes").put(comment_like);
+router
+  .route("/:postId/comments/:commentId/likes")
+  .put(validatePostId, validateCommentId, comment_like);
 
 export default router;
