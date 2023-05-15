@@ -39,7 +39,9 @@ const useLogin = () => {
         // error with login request
         if (response.status === 403) {
           // invalid credentials
-          setError({ message: "Invalid credentials. Try again." });
+          const message = "Invalid credentials. Try again.";
+          setError({ message });
+          showToast("error", message);
         } else if (response.data.length) {
           // length indicates form validation errors (i. e. JSON response is array)
           setFormError(response.data);

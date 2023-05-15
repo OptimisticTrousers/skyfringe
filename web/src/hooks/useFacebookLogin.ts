@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { ToastContext } from "../context/ToastContext";
 import useHttp from "./useHttp";
 
 const useFacebookLogin = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | null>(null);
+  const { showToast } = useContext(ToastContext);
   const { dispatch } = useContext(AuthContext);
   const { get } = useHttp();
 
@@ -42,10 +44,14 @@ const useFacebookLogin = () => {
       if (response.status === 200) {
         dispatch({ type: "LOGIN", payload: response.data });
         setError(null);
+        return;
       }
       setError(response.data);
     } catch (error) {
+      const message =
+        "An unknown error occured while logging in using Facebook.";
       setError(error);
+      showToast("error", message);
     } finally {
       // Regardless of success or error, the loading state is complete
       setLoading(false);
