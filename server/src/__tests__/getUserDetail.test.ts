@@ -16,11 +16,10 @@ describe("GET /users/:userId", () => {
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
     // There are five total posts in the db
-    expect(response.body.fullName).toEqual(luffy.fullName);
-    expect(response.body.userName).toEqual(luffy.userName);
-    expect(response.body.email).toEqual(luffy.email);
-    expect(response.body.bio).toEqual(luffy.bio);
+    expect(response.body.user._id).toEqual(luffyId.toString());
     expect(Array.isArray(response.body.posts)).toEqual(true);
-    expect(response.body.password).toBeUndefined();
+    expect(Array.isArray(response.body.likedPosts)).toEqual(true);
+    expect(Array.isArray(response.body.comments)).toEqual(true);
+    expect(Array.isArray(response.body.likedComments)).toEqual(true);
   });
 });

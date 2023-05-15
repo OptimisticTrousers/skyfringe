@@ -5,7 +5,6 @@ import {
   user_update,
   user_delete,
   user_feed,
-  user_friends,
 } from "../controllers/userController";
 import multerCoverKey from "../middleware/multerCoverKey";
 
@@ -20,7 +19,5 @@ router
   .delete(user_delete);
 
 router.route("/:userId/feed").get(user_feed);
-
-router.route("/:userId/friends").get(user_friends);
 
 export default router;

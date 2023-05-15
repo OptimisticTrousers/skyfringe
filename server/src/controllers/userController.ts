@@ -39,14 +39,6 @@ export const user_detail = asyncHandler(
   }
 );
 
-export const user_posts = asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as IUser;
-    const posts = await Post.find({ author: user }).exec();
-    res.status(200).json(posts);
-  }
-);
-
 export const user_update = [
   upload.single("image"),
   // Validate and sanitize fields.
@@ -110,73 +102,22 @@ export const user_delete = (
   next: NextFunction
 ) => {};
 
-export const user_feed = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const user = req.user as IUser;
+export const user_feed = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = req.user as IUser; // Assuming user is authenticated and stored in req.user
 
-  // Find all posts from user's friends
-  const friendPosts = await Post.find({
-    author: { $in: user.friends },
-    is_reported: false,
-  })
-    .populate("author", "fullName userName photo")
-    .populate({
-      path: "comments",
-      populate: {
-        path: "author",
-        select: "fullName userName photo",
-      },
-    })
-    .sort("-createdAt");
+    // Find the current user and their friends' posts
+    const users = [user, ...user.friends];
+    const posts = await Post.find({ author: { $in: users } })
+      .populate("author")
+      .populate("likes")
+      .exec();
 
-  // Find all posts where the user or their friends have commented
-  const commentedPosts = await Post.find({
-    $or: [
-      { author: user._id },
-      { author: { $in: user.friends } },
-      { "comments.author": { $in: user.friends } },
-      { "comments.author": user._id },
-    ],
-    is_reported: false,
-  })
-    .populate("author", "fullName userName photo")
-    .populate({
-      path: "comments",
-      populate: {
-        path: "author",
-        select: "fullName userName photo",
-      },
-    })
-    .sort("-createdAt");
+    // Sort the feed by date posted using native JS date comparisons
+    const sortedFeed = posts.sort((a, b) => {
+      return a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0;
+    });
 
-  // Merge the two arrays of posts and remove duplicates
-  const allPosts = [...friendPosts, ...commentedPosts];
-  const uniquePosts = allPosts.filter(
-    (post, index, self) =>
-      index === self.findIndex((p) => p._id.toString() === post._id.toString())
-  );
-
-  res.status(200).json(uniquePosts);
-};
-
-// @desc    Get all friends/friend requests of a user sorted by request status
-// @route   GET /api/user/:userId/friends
-// @access  Private
-export const user_friends = asyncHandler(
-  async (req: Request, res: Response) => {
-    const user = (await User.findById(req.params.userId)
-      .populate("friends")
-      .populate({
-        path: "friendRequests",
-        populate: { path: "user", model: "User" },
-      })
-      .exec()) as IUser;
-
-    res
-      .status(200)
-      .json({ friendRequests: user.friendRequests, friends: user.friends });
+    res.status(200).json(sortedFeed);
   }
 );
