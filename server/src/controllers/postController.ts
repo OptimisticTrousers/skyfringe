@@ -68,9 +68,9 @@ export const post_create = [
       author: user._id, // req.user is created by the auth middle when accessing protected route
       content: content && content,
       photo: req.file && {
-        imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
-          locals.date
-        }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
+        imageUrl: `${bucketName}/facebook_clone/${locals.path}/${locals.date}_${
+          user.userName
+        }.${req.file.mimetype.split("/")[1]}`,
         altText: "post image",
       },
     });
@@ -148,7 +148,7 @@ export const post_update = [
     const user = req.user as IUser;
     const locals = req.locals as Locals;
 
-    if (!post.author.equals(user)) {
+    if (!post.author._id.equals(user._id)) {
       // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
       res.status(403).json({ message: "Forbidden" });
       return;
@@ -171,9 +171,9 @@ export const post_update = [
 
     if (req.file) {
       updatedPost.photo = {
-        imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
-          locals.date
-        }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
+        imageUrl: `${bucketName}/facebook_clone/${locals.path}/${locals.date}_${
+          user.userName
+        }.${req.file.mimetype.split("/")[1]}`,
         altText: "test",
       };
     }
@@ -202,7 +202,7 @@ export const post_update = [
 // @route   DELETE /api/posts/:postId
 // @access  Private
 export const post_delete = asyncHandler(
-  async (req: RequestWithLocals, res: Response) => {
+  async (req: Request, res: Response) => {
     const postId = req.params.postId;
 
     const post = (await Post.findById(postId)
@@ -210,7 +210,6 @@ export const post_delete = asyncHandler(
       .exec()) as IPost;
 
     const user = req.user as IUser;
-    const locals = req.locals as Locals;
     if (!post.author._id.equals(user._id)) {
       // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
       res.status(403).json({ message: "Forbidden" });
@@ -218,9 +217,10 @@ export const post_delete = asyncHandler(
     }
 
     if (post.photo && post.photo.imageUrl) {
-      const path = `${locals.path}/${locals.date}_${user.userName}.${
-        post.photo.imageUrl.split(".")[1]
-      }`;
+      const imageUrl = post.photo.imageUrl;
+      const path = imageUrl.substring(
+        imageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
+      );
       await s3Deletev3(path);
     }
 

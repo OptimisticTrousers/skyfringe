@@ -11,6 +11,17 @@ const app = express();
 // Use the controller
 app.delete("/posts/:postId", mockUser, post_delete);
 
+jest.mock("../config/multer", () => {
+  return {
+    single: jest.fn(),
+  };
+});
+
+jest.mock("../config/s3", () => ({
+  s3Uploadv3: jest.fn(),
+  s3Deletev3: jest.fn(),
+}));
+
 describe("DELETE /posts/:postId", () => {
   it("should delete post and return deleted post", async () => {
     const response = await request(app).delete(`/posts/${luffyPostId}`);
