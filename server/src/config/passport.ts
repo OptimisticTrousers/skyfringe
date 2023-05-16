@@ -66,7 +66,7 @@ const passportConfig = () => {
   const clientID = process.env.FACEBOOK_APP_ID;
   const clientSecret = process.env.FACEBOOK_APP_SECRET;
   if (!clientID) {
-    throw new Error("FACEBOOK_API_ID value is not defined in .env file");
+    throw new Error("FACEBOOK_APP_ID value is not defined in .env file");
   }
   if (!clientSecret) {
     throw new Error("FACEBOOK_APP_SECERT value is not defined in .env file");
@@ -88,7 +88,7 @@ const passportConfig = () => {
           // user has not logged into this app with FB before.
           // Set altText variable as FB does not provide any with profile pic
           // const altText = await generateAltText(profile.photos[0].value);
-          const altText = "test"
+          const altText = "test";
 
           // Create a new User doc with their FB details
           const newUser = new User({

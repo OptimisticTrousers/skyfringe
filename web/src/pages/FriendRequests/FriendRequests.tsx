@@ -32,21 +32,25 @@ const FriendRequests = () => {
         title={"Incoming Requests"}
         users={incomingRequests}
         emptyMessage={"No requests yet..."}
+        type="incoming"
       />
       <FriendsSectionRequests
         title={"Sent Requests"}
         users={sentRequests}
         emptyMessage={"No requests yet..."}
+        type="outgoing"
       />
       <FriendsSectionRequests
         title={"Rejected Incoming Requests"}
         users={rejectedIncoming}
         emptyMessage={"No incoming rejected requests yet..."}
+        type="user"
       />
       <FriendsSectionRequests
         title={"Outgoing Requests Rejected"}
         users={outgoingRejected}
         emptyMessage={"No outgoing requests rejected yet..."}
+        type="user"
       />
     </FriendsLayout>
   );

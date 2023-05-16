@@ -242,6 +242,6 @@ export const friend_request = asyncHandler(
     await sender.save();
 
     // Return information of recipient (to populate a 'request sent to: ' message in frontend. Check that password is not being sent here though!)
-    res.status(200);
+    res.status(200).json(recipient);
   }
 );

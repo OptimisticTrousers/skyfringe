@@ -22,6 +22,7 @@ const FriendsHome = () => {
         title={"Friend Requests"}
         users={incomingRequests}
         emptyMessage={"No requests yet..."}
+        type="incoming"
       />
       <UserList />
     </FriendsLayout>

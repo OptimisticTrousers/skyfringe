@@ -165,8 +165,7 @@ export const check_auth_user = asyncHandler(
 );
 
 export const login_facebook = [
-  passport.authenticate("facebook-token"),
-  { session: false },
+  passport.authenticate("facebook-token", { session: false }),
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     // Cast the standard Request object to my custom AuthenticatedRequest object
     const user = req.user as IUser;
@@ -200,7 +199,7 @@ export const login_facebook = [
 const FRONTEND_URL = process.env.FRONTEND_URL;
 
 if (!FRONTEND_URL) {
-  throw new Error("FRONTEND_URl value is not defined in .env file");
+  throw new Error("FRONTEND_URL value is not defined in .env file");
 }
 
 export const login_facebook_callback = [

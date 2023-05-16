@@ -8,9 +8,10 @@ interface Props {
   title: string;
   emptyMessage: string;
   users: FriendRequest[];
+  type: string;
 }
 
-const FriendsSectionRequests: FC<Props> = ({ title, users, emptyMessage }) => {
+const FriendsSectionRequests: FC<Props> = ({ title, users, emptyMessage, type }) => {
   return (
     <section styleName="friends">
       <h2 styleName="friends__title">{title}</h2>
@@ -19,7 +20,7 @@ const FriendsSectionRequests: FC<Props> = ({ title, users, emptyMessage }) => {
           users.map((friend: FriendRequest) => {
             return (
               <li styleName="friend__card" key={friend.user._id}>
-                <FriendsCard friend={friend.user} type="friend" />
+                <FriendsCard friend={friend.user} type={type} />
               </li>
             );
           })
