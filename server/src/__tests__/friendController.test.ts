@@ -1,4 +1,4 @@
-import { User as IUser, FriendRequest as IFriendRequest } from "../../types";
+import { FriendRequest as IFriendRequest } from "../../types";
 import {
   bob,
   crocodile,
