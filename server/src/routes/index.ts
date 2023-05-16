@@ -4,6 +4,7 @@ import postRouter from "./posts";
 import userRouter from "./users";
 import authRouter from "./auth";
 import friendRouter from "./friends";
+import { user_search } from "../controllers/userController";
 
 const router = Router();
 
@@ -22,6 +23,12 @@ router.use(
   passport.authenticate("jwt", { session: false }),
   friendRouter
 );
+router.get(
+  "/search-users",
+  passport.authenticate("jwt", { session: false }),
+  user_search
+);
+
 router.use("/auth", authRouter);
 
 export default router;

@@ -22,6 +22,9 @@ export const user_list = asyncHandler(
   }
 );
 
+// @desc    Get a user (public details)
+// @route   GET /api/users/:userId
+// @access  Private
 export const user_detail = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = await User.findById(req.params.userId)
@@ -39,6 +42,9 @@ export const user_detail = asyncHandler(
   }
 );
 
+// @desc    Update user details
+// @route   PUT /api/users/:userId
+// @access  Private
 export const user_update = [
   upload.single("image"),
   // Validate and sanitize fields.
@@ -96,12 +102,18 @@ export const user_update = [
   }),
 ];
 
+// @desc    Delete single user
+// @route   DELETE /api/user/:userId
+// @access  Private
 export const user_delete = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {};
 
+// @desc    Get all posts making up a user's feed, sorted by date recency (consider limiting to past X months only)
+// @route   GET /api/user/:userId/feed
+// @access  Private
 export const user_feed = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const user = req.user as IUser; // Assuming user is authenticated and stored in req.user
@@ -119,5 +131,56 @@ export const user_feed = asyncHandler(
     });
 
     res.status(200).json(sortedFeed);
+  }
+);
+
+// @desc    Search for users
+// @route   GET /api/search-users/:query
+// @access  Private
+export const user_search = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { query } = req.params; // Assuming the search query is provided in the URL params
+
+    const terms = query.trim().replace(/  +/g, " ").split(" ");
+    const expressions = [
+      { fullName: { $regex: terms[0], $options: "i" } },
+      { userName: { $regex: terms[0], $options: "i" } },
+    ];
+
+    if (terms[1]) {
+      expressions.push({ fullName: { $regex: terms[1], $options: "i" } });
+      expressions.push({ userName: { $regex: terms[1], $options: "i" } });
+    }
+
+    let expression = {};
+
+    if (!terms[1]) {
+      expression = {
+        $or: [
+          { fullName: { $regex: `^${terms[0]}`, $options: "i" } },
+          { userName: { $regex: `^${terms[0]}`, $options: "i" } },
+        ],
+      };
+    } else {
+      expression = {
+        $or: [
+          {
+            $and: [
+              { fullName: { $regex: `^${terms[0]}`, $options: "i" } },
+              { userName: { $regex: `^${terms[1]}`, $options: "i" } },
+            ],
+          },
+          {
+            $and: [
+              { fullName: { $regex: `^${terms[1]}`, $options: "i" } },
+              { userName: { $regex: `^${terms[0]}`, $options: "i" } },
+            ],
+          },
+        ],
+      };
+    }
+
+    const users = await User.find(expression).exec();
+    res.status(200).json(users);
   }
 );

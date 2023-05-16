@@ -211,7 +211,7 @@ export const locosPollos = {
 };
 
 // Set up array of user/post/comment docs to be later saved to db
-const users = [luffy, zoro, nami, usopp, crocodile];
+export const users = [luffy, zoro, nami, usopp, crocodile];
 
 const posts = [
   {
