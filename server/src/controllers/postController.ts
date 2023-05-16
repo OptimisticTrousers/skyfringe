@@ -128,7 +128,20 @@ export const post_update = [
     // User has included one of either text or image. Continue with request handling
     return true;
   }),
-  body("imageUpdated").isBoolean(),
+  body(
+    "imageUpdated",
+    "Must include whether the image has been updated"
+  ).custom((value) => {
+    if (
+      value !== "false" &&
+      value !== "true" &&
+      value !== true &&
+      value !== false
+    ) {
+      return false;
+    }
+    return true;
+  }),
   // Process request after validation and sanitization
   asyncHandler(async (req: RequestWithLocals, res: Response) => {
     const postId = req.params.postId;
@@ -181,7 +194,7 @@ export const post_update = [
     if (
       updatedPost.photo &&
       updatedPost.photo.imageUrl &&
-      req.body.imageUpdated === "true" &&
+      req.body.imageUpdated &&
       !req.file
     ) {
       const imageUrl = updatedPost.photo.imageUrl;
@@ -201,31 +214,27 @@ export const post_update = [
 // @desc    Delete single post
 // @route   DELETE /api/posts/:postId
 // @access  Private
-export const post_delete = asyncHandler(
-  async (req: Request, res: Response) => {
-    const postId = req.params.postId;
+export const post_delete = asyncHandler(async (req: Request, res: Response) => {
+  const postId = req.params.postId;
 
-    const post = (await Post.findById(postId)
-      .populate("author")
-      .exec()) as IPost;
+  const post = (await Post.findById(postId).populate("author").exec()) as IPost;
 
-    const user = req.user as IUser;
-    if (!post.author._id.equals(user._id)) {
-      // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
-      res.status(403).json({ message: "Forbidden" });
-      return;
-    }
-
-    if (post.photo && post.photo.imageUrl) {
-      const imageUrl = post.photo.imageUrl;
-      const path = imageUrl.substring(
-        imageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
-      );
-      await s3Deletev3(path);
-    }
-
-    const deletedPost = await Post.findByIdAndDelete(postId);
-
-    res.status(200).json(deletedPost);
+  const user = req.user as IUser;
+  if (!post.author._id.equals(user._id)) {
+    // it checks if the authenticated user ID matches the comment's author ID, and returns a 403 error if they don't match.
+    res.status(403).json({ message: "Forbidden" });
+    return;
   }
-);
+
+  if (post.photo && post.photo.imageUrl) {
+    const imageUrl = post.photo.imageUrl;
+    const path = imageUrl.substring(
+      imageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
+    );
+    await s3Deletev3(path);
+  }
+
+  const deletedPost = await Post.findByIdAndDelete(postId);
+
+  res.status(200).json(deletedPost);
+});

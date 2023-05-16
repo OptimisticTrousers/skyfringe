@@ -3,11 +3,20 @@ import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
 import mongoose from "mongoose";
+import { config } from "dotenv";
 import { body, check, oneOf, validationResult } from "express-validator";
-import { CustomError, User as IUser } from "../../types";
+import {
+  CustomError,
+  User as IUser,
+  Locals,
+  RequestWithLocals,
+} from "../../types";
 import Post from "../models/post";
 import Comment from "../models/comment";
 import upload from "../config/multer";
+import { s3Deletev3 } from "../config/s3";
+
+config();
 
 // @desc    Get all users (public details)
 // @route   GET /api/users
@@ -100,6 +109,146 @@ export const user_update = [
     delete updatedUserObject.password;
     res.json(updatedUserObject);
   }),
+];
+
+// @desc    Update user profile pic
+// @route   PUT /api/users/:userId/avatar
+// @access  Private
+export const user_avatar_put = [
+  upload.single("image"),
+  body(
+    "imageUpdated",
+    "Must include whether the image has been updated"
+  ).custom((value) => {
+    if (
+      value !== "false" &&
+      value !== "true" &&
+      value !== true &&
+      value !== false
+    ) {
+      return false;
+    }
+    return true;
+  }),
+  // Process request after validation and sanitization
+  asyncHandler(
+    async (req: RequestWithLocals, res: Response, next: NextFunction) => {
+      // Extract the validation errors from a request
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        // There are errors.
+        res.status(400).json(errors.array());
+        return;
+      }
+
+      const userId = req.params.userId;
+      const user = (await User.findById(userId).exec()) as IUser;
+      const locals = req.locals as Locals;
+
+      const bucketName = process.env.AWS_BUCKET_NAME;
+
+      if (!bucketName) {
+        throw new Error("AWS_BUCKET_NAME value is not defined in .env file");
+      }
+
+      if (req.file) {
+        user.photo = {
+          imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
+            locals.date
+          }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
+          altText: "test",
+        };
+      }
+
+      if (
+        user.photo &&
+        user.photo.imageUrl &&
+        req.body.imageUpdated &&
+        !req.file
+      ) {
+        const imageUrl = user.photo.imageUrl;
+        const path = imageUrl.substring(
+          imageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
+        );
+        user.photo = undefined;
+        await s3Deletev3(path);
+      }
+
+      await user.save();
+      res.status(200).json(user);
+    }
+  ),
+];
+
+// @desc    Update user cover pic
+// @route   PUT /api/users/:userId/cover
+// @access  Private
+export const user_cover_put = [
+  upload.single("image"),
+  body(
+    "imageUpdated",
+    "Must include whether the image has been updated"
+  ).custom((value) => {
+    if (
+      value !== "false" &&
+      value !== "true" &&
+      value !== true &&
+      value !== false
+    ) {
+      return false;
+    }
+    return true;
+  }),
+  // Process request after validation and sanitization
+  asyncHandler(
+    async (req: RequestWithLocals, res: Response, next: NextFunction) => {
+      // Extract the validation errors from a request
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        // There are errors.
+        res.status(400).json(errors.array());
+        return;
+      }
+
+      const userId = req.params.userId;
+      const user = (await User.findById(userId).exec()) as IUser;
+      const locals = req.locals as Locals;
+
+      const bucketName = process.env.AWS_BUCKET_NAME;
+
+      if (!bucketName) {
+        throw new Error("AWS_BUCKET_NAME value is not defined in .env file");
+      }
+
+      if (req.file) {
+        user.cover = {
+          imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
+            locals.date
+          }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
+          altText: "test",
+        };
+      }
+
+      if (
+        user.cover &&
+        user.cover.imageUrl &&
+        req.body.imageUpdated &&
+        !req.file
+      ) {
+        const imageUrl = user.cover.imageUrl;
+        const path = imageUrl.substring(
+          imageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
+        );
+        user.cover = undefined;
+        await s3Deletev3(path);
+      }
+
+      await user.save();
+      res.status(200).json(user);
+    }
+  ),
 ];
 
 // @desc    Delete single user
