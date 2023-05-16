@@ -41,6 +41,7 @@ const UserSchema = new Schema(
     toJSON: {
       virtuals: true,
       transform(doc, ret: User) {
+        // Delete password for security reasons so that the client doesn't have access to the password field
         delete ret.password;
       },
     },
