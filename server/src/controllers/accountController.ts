@@ -73,12 +73,22 @@ export const removeUser = async (userId: string): Promise<void> => {
   // Ensure to use findOneAndDelete to return the deleted user (use information for AWS S3 destroy operation)
   const user = await User.findOneAndDelete({ _id: userId });
 
-  // Remove image from AWS S3 if image exists
-  const imageUrl = user?.photo?.imageUrl;
+  // Remove avatar from AWS S3 if image exists
+  const avatarImageUrl = user?.photo?.imageUrl;
 
-  if (imageUrl) {
-    const path = imageUrl.substring(
-      imageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
+  if (avatarImageUrl) {
+    const path = avatarImageUrl.substring(
+      avatarImageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
+    );
+    await s3Deletev3(path);
+  }
+
+  // Remove cover from AWS S3 if image exists
+  const coverImageUrl = user?.cover?.imageUrl;
+
+  if (coverImageUrl) {
+    const path = coverImageUrl.substring(
+      coverImageUrl.indexOf("facebook_clone") + "facebook_clone".length + 1
     );
     await s3Deletev3(path);
   }

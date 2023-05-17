@@ -228,7 +228,7 @@ const posts = [
     _id: zoroPostId,
     author: zoroId,
     content: "Three-Sword Style",
-    likes: [],
+    likes: [luffyId],
     photo: {
       imageUrl: `${S3_BUCKET}/facebook_clone/posts/4c8a331bda76c559ef000010_zoro.webp`,
       altText: "Roronoa Zoro using three swords",

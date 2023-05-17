@@ -23,11 +23,14 @@ describe("removeAllFriends functionality", () => {
 
   it("does not impact user's friend list", async () => {
     const user = (await User.findById(userId).exec()) as IUser;
-    expect(user.friends.).toBe(5);
+    expect(user.friends.length).toBe(1);
+    expect(user.friendRequests.length).toBe(3);
   });
 
   it("removes all references to the user in other user's friend lists", async () => {
-    const friends = await User.find({ "friends.user": userId });
+    const friends = await User.find({ friends: userId });
+    const friendRequests = await User.find({ "friendRequests.user": userId });
     expect(friends.length).toBe(0);
+    expect(friendRequests.length).toBe(0);
   });
 });
