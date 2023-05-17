@@ -15,6 +15,8 @@ import Post from "../models/post";
 import Comment from "../models/comment";
 import upload from "../config/multer";
 import { s3Deletev3 } from "../config/s3";
+import { logout_user } from "./authController";
+import { removeAllLikes, removeAllPosts, removeAllComments, removeAllFriends, removeUser } from "./accountController";
 
 config();
 
@@ -254,11 +256,22 @@ export const user_cover_put = [
 // @desc    Delete single user
 // @route   DELETE /api/user/:userId
 // @access  Private
-export const user_delete = (
+export const user_delete = asyncHandler(async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {};
+) => {
+
+  // User found, continue with deletion operations
+  await removeAllLikes(req.params.userId);
+  await removeAllPosts(req.params.userId);
+  await removeAllComments(req.params.userId);
+  await removeAllFriends(req.params.userId);
+  await removeUser(req.params.userId);
+
+  // Log the user out
+  logout_user(req, res, next)
+});
 
 // @desc    Get all posts making up a user's feed, sorted by date recency (consider limiting to past X months only)
 // @route   GET /api/user/:userId/feed
