@@ -12,6 +12,7 @@ import {
   Locals,
   RequestWithLocals,
 } from "../../types";
+import generateAltText from "../utils/generateAltText";
 
 // @desc    Get all posts
 // @route   GET /api/posts
@@ -63,6 +64,14 @@ export const post_create = [
       throw new Error("AWS_BUCKET_NAME value is not defined in .env file");
     }
 
+    // Generate alt text for an image (if an image exists)
+    let altText = "";
+
+    if (req.file) {
+      // image exists
+      altText = await generateAltText(req.file.path);
+    }
+
     // Create new post
     const post = new Post({
       author: user._id, // req.user is created by the auth middle when accessing protected route
@@ -71,7 +80,7 @@ export const post_create = [
         imageUrl: `${bucketName}/facebook_clone/${locals.path}/${locals.date}_${
           user.userName
         }.${req.file.mimetype.split("/")[1]}`,
-        altText: "post image",
+        altText,
       },
     });
 
@@ -183,11 +192,14 @@ export const post_update = [
       .exec()) as IPost;
 
     if (req.file) {
+      // Generate alt text for an image (if an image exists)
+      // image exists
+      const altText = await generateAltText(req.file.path);
       updatedPost.photo = {
         imageUrl: `${bucketName}/facebook_clone/${locals.path}/${locals.date}_${
           user.userName
         }.${req.file.mimetype.split("/")[1]}`,
-        altText: "test",
+        altText,
       };
     }
 

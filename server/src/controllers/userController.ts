@@ -17,6 +17,7 @@ import upload from "../config/multer";
 import { s3Deletev3 } from "../config/s3";
 import { logout_user } from "./authController";
 import { removeAllLikes, removeAllPosts, removeAllComments, removeAllFriends, removeUser } from "./accountController";
+import generateAltText from "../utils/generateAltText";
 
 config();
 
@@ -155,11 +156,14 @@ export const user_avatar_put = [
       }
 
       if (req.file) {
+      // Generate alt text for an image (if an image exists)
+      // image exists
+      const altText = await generateAltText(req.file.path);
         user.photo = {
           imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
             locals.date
           }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
-          altText: "test",
+          altText,
         };
       }
 
@@ -225,11 +229,14 @@ export const user_cover_put = [
       }
 
       if (req.file) {
+      // Generate alt text for an image (if an image exists)
+      // image exists
+      const altText = await generateAltText(req.file.path);
         user.cover = {
           imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
             locals.date
           }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
-          altText: "test",
+          altText,
         };
       }
 

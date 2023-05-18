@@ -5,7 +5,7 @@ import FacebookTokenStrategy from "passport-facebook-token";
 import { Strategy as LocalStrategy } from "passport-local";
 import { config } from "dotenv";
 import User from "../models/user";
-import cookieExtractor from "../middleware/cookieExtractor";
+import cookieExtractor from "../utils/cookieExtractor";
 
 config();
 

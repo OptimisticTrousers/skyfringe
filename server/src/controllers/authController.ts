@@ -6,7 +6,7 @@ import { config } from "dotenv";
 import { body, validationResult } from "express-validator";
 import { NextFunction, Response, Request } from "express";
 import User from "../models/user";
-import cookieExtractor from "../middleware/cookieExtractor";
+import cookieExtractor from "../utils/cookieExtractor";
 import { User as IUser } from "../../types";
 import { luffyId } from "../config/populateDB";
 
