@@ -3,8 +3,8 @@ import passport from "passport";
 import postRouter from "./posts";
 import userRouter from "./users";
 import authRouter from "./auth";
-import friendRouter from "./friends";
 import { user_search } from "../controllers/userController";
+import { friend_request } from "../controllers/friendController";
 
 const router = Router();
 
@@ -18,13 +18,13 @@ router.use(
   passport.authenticate("jwt", { session: false }),
   userRouter
 );
-router.use(
-  "/friends",
+router.put(
+  "/friends/:userId",
   passport.authenticate("jwt", { session: false }),
-  friendRouter
+  friend_request
 );
 router.get(
-  "/search-users",
+  "/search-users:query",
   passport.authenticate("jwt", { session: false }),
   user_search
 );
