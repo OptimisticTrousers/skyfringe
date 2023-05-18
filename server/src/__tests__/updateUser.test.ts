@@ -1,103 +1,216 @@
+import express from "express";
 import request from "supertest";
-import { config } from "dotenv";
-import app from "../app";
-import User from "../models/user";
-import jwt from "jsonwebtoken";
+import { user_update } from "../controllers/userController";
+import { luffy, luffyId } from "../config/populateDB";
 // Import db setup and teardown functionality
 import "../config/testSeeds";
 
-// Using env files to access JWT_SECRET
-config();
+const app = express();
+app.use(express.json());
+app.put("/users/:userId", user_update);
 
-const randomIdNotAssociatedWithUser = "4c8a331bda76c559ef000032";
+describe("User Update", () => {
+  it("should update user details successfully", async () => {
+    // Mock a valid user object with appropriate properties
+    const validUser = {
+      fullName: "John Doe",
+      bio: "Lorem ipsum dolor sit amet",
+      oldPassword: "password",
+      newPassword: "newPassword",
+      newPasswordConf: "newPassword",
+    };
 
-describe("PUT /api/users/:userId", () => {
-  const user = new User({
-    fullName: "John Doe",
-    userName: "johndoe",
-    email: "johndoe@example.com",
-    password: "password123",
-    bio: "Test bio",
-    photo: {
-      imageUrl: "https://example.com/profile.jpg",
-      altText: "Profile picture",
-    },
-    cover: {
-      imageUrl: "https://example.com/cover.jpg",
-      altText: "Cover photo",
-    },
-  });
-
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!);
-
-  const updatedUser = {
-    fullName: "Bob Jones",
-    bio: "New bio",
-    photo: {
-      imageUrl: "https://example.com/newprofile.jpg",
-      altText: "New profile picture",
-    },
-    cover: {
-      imageUrl: "https://example.com/newcover.jpg",
-      altText: "New cover photo",
-    },
-  };
-
-  beforeAll(async () => {
-    // Save the new user fields
-    await user.save();
-  });
-
-  it("correctly updates a user", async () => {
+    // Make a request to update user details
     const response = await request(app)
-      .put(`/api/users/${user._id}`)
-      .set("Cookie", `jwt=${token}; HttpOnly`)
-      .send(updatedUser);
+      .put(`/api/users/${luffyId}`)
+      .send(validUser);
+
+    // Assertions
+    expect(response.statusCode).toBe(200);
+    expect(response.body.fullName).toBe(validUser.fullName);
+    expect(response.body.bio).toBe(validUser.bio);
+    expect(response.body.oldPassword).toBe(validUser.oldPassword);
+    expect(response.body.newPassword).toBe(validUser.newPassword);
+    expect(response.body.newPasswordConf).toBe(validUser.newPasswordConf);
+    // Add more assertions as needed to validate the updated user object
+  });
+  it("should return validation errors when invalid data is provided", async () => {
+    // Mock an invalid user object with missing required fields
+    const invalidUser = {
+      fullName: "",
+      bio: "Lorem ipsum dolor sit amet",
+      oldPassword: "",
+      newPassword: "",
+      newPasswordConf: "",
+    };
+
+    // Make a request to update user details
+    const response = await request(app)
+      .put(`/api/users/${luffyId}`)
+      .send(invalidUser);
+
+    // Assertions
+    expect(response.status).toBe(400);
+    expect(response.body).toBeInstanceOf(Array);
+    expect(response.body[0].msg).toBe("Full Name must be a string");
+    expect(response.body[1].msg).toBe(
+      "At least one of oldPassword, newPassword, or newPasswordConf is required"
+    );
+    expect(response.body[2].msg).toBe(
+      "At least one of oldPassword, newPassword, or newPasswordConf is required"
+    );
+    expect(response.body[3].msg).toBe(
+      "At least one of oldPassword, newPassword, or newPasswordConf is required"
+    );
+    // Add more assertions as needed to validate the returned validation errors
+  });
+  it("should return an error when old password is incorrect", async () => {
+    // Mock a user object with an incorrect old password
+    const userWithIncorrectOldPassword = {
+      fullName: "John Doe",
+      bio: "Lorem ipsum dolor sit amet",
+      oldPassword: "incorrectPassword",
+      newPassword: "newPassword",
+      newPasswordConf: "newPassword",
+    };
+
+    // Make a request to update user details
+    const response = await request(app)
+      .put("/api/users/:userId") // Replace :userId with a valid user ID
+      .send(userWithIncorrectOldPassword);
+
+    // Assertions
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty(
+      "message",
+      "You typed your old password incorrectly"
+    );
+  });
+  // Add more test cases to cover other scenarios, such as password mismatch, etc.
+  it("successfully updates basic user info (i.e. full name)", async () => {
+    const response = await request(app).put(`/users/${luffyId}`).send({
+      fullName: "Monkey D. Looney",
+      bio: "Kaido sucks!",
+    });
     expect(response.headers["content-type"]).toMatch(/json/);
     expect(response.status).toEqual(200);
-    expect(response.body.user.fullName).toEqual("Bob Jones");
-    expect(response.body.user.userName).toEqual("johndoe");
-    expect(response.body.user.email).toEqual("johndoe@example.com");
-    expect(response.body.user.password).toBeUndefined();
-    expect(response.body.user.photo.imageUrl).toEqual(
-      "https://example.com/newprofile.jpg"
-    );
-    expect(response.body.user.photo.altText).toEqual("New profile picture");
-    expect(response.body.user.cover.imageUrl).toEqual(
-      "https://example.com/newcover.jpg"
-    );
-    expect(response.body.user.cover.altText).toEqual("New cover photo");
+    expect(response.body.fullName).toBe("Monkey D. Looney");
+    expect(response.body.bio).toBe("Kaido sucks!");
   });
-  it("should return 400 if req.params.userId is not valid", async () => {
+  it("returns validation errors if oldPassword is not empty but the other fields are", async () => {
+    // Mock a user object with an incorrect old password
+    const userWithOldPasswordOnly = {
+      oldPassword: "password",
+      newPassword: "",
+      newPasswordConf: "",
+    };
+    // Make a request to update user details
     const response = await request(app)
-      .put(`/api/users/${undefined}`)
-      .set("Cookie", `jwt=${token}; HttpOnly`)
-      .send(updatedUser);
+      .put(`/api/users/${luffyId}`)
+      .send(userWithOldPasswordOnly);
 
-    expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.status).toEqual(400);
-    expect(response.body.message).toEqual("Invalid userId");
-  });
-  it("should return 400 if required fields are missing", async () => {
-    const response = await request(app)
-      .put(`/api/users/${user._id}`)
-      .set("Cookie", `jwt=${token}; HttpOnly`)
-      .send({});
-
-    expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.status).toEqual(400);
-    expect(response.body.errors[0].msg).toEqual(
-      "At least one of the following fields must be present: fullName, bio, photo, cover"
+    // Assertions
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty(
+      "message",
+      "At least one of oldPassword, newPassword, or newPasswordConf is required"
     );
   });
-  it("should return a 404 if the user is not found", async () => {
+  it("returns validation errors if newPassword field is not empty, but the other fields are", async () => {
+    // Mock a user object with an incorrect old password
+    const userWithNewPasswordOnly = {
+      oldPassword: "",
+      newPassword: "newPassword",
+      newPasswordConf: "",
+    };
+    // Make a request to update user details
     const response = await request(app)
-      .put(`/api/users/${randomIdNotAssociatedWithUser}`)
-      .set("Cookie", `jwt=${token}; HttpOnly`)
-      .send(updatedUser);
+      .put(`/api/users/${luffyId}`)
+      .send(userWithNewPasswordOnly);
+
+    // Assertions
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty(
+      "message",
+      "At least one of oldPassword, newPassword, or newPasswordConf is required"
+    );
+  });
+  it("returns validation errors if newPasswordConf is not empty, but the other fields are", async () => {
+    // Mock a user object with an incorrect old password
+    const userWithNewPasswordOnly = {
+      oldPassword: "",
+      newPassword: "",
+      newPasswordConf: "newPassword",
+    };
+    // Make a request to update user details
+    const response = await request(app)
+      .put(`/api/users/${luffyId}`)
+      .send(userWithNewPasswordOnly);
+
+    // Assertions
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty(
+      "message",
+      "At least one of oldPassword, newPassword, or newPasswordConf is required"
+    );
+  });
+  it("returns validation errors if 'newPassword' and 'newPasswordConf' are not matching", async () => {
+    // Mock a user object with an incorrect old password
+    const userWithIncorrectNewPassword = {
+      fullName: "John Doe",
+      bio: "Lorem ipsum dolor sit amet",
+      oldPassword: "password",
+      newPassword: "newPassword",
+      newPasswordConf: "newPasswordWrong",
+    };
+    // Make a request to update user details
+    const response = await request(app)
+      .put(`/api/users/${luffyId}`)
+      .send(userWithIncorrectNewPassword);
+
+    // Assertions
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty(
+      "message",
+      "'New Password' and 'Confirm New Password' are not equal"
+    );
+  });
+  it("successfully updates bio", async () => {
+    const response = await request(app).put(`/users/${luffyId}`).send({
+      bio: "Kaido sucks!",
+    });
 
     expect(response.headers["content-type"]).toMatch(/json/);
-    expect(response.status).toEqual(404);
-    expect(response.body.message).toEqual("User not found");
+    expect(response.status).toEqual(200);
+    expect(response.body.bio).toBe("Kaido sucks!");
+  });
+  it("successfully updates full name only", async () => {
+    const response = await request(app).put(`/users/${luffyId}`).send({
+      fullName: "Monkey D. Looney",
+    });
+
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.status).toEqual(200);
+    expect(response.body.fullName).toBe("Monkey D. Looney");
+  });
+  it("does not attempt to update bio information if none is provided", async () => {
+    const response = await request(app).put(`/users/${luffyId}`).send({
+      fullName: "Monkey D. Looney",
+    });
+
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.status).toEqual(200);
+    // Bio is the same as the old bio
+    expect(response.body.bio).toBe(luffy.bio);
+  });
+  it("does not attempt to update fullName information if none is provided", async () => {
+    const response = await request(app).put(`/users/${luffyId}`).send({
+      bio: "New bio",
+    });
+
+    expect(response.headers["content-type"]).toMatch(/json/);
+    expect(response.status).toEqual(200);
+    // Bio is the same as the old bio
+    expect(response.body.fullName).toBe(luffy.fullName);
   });
 });

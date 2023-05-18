@@ -16,7 +16,13 @@ import Comment from "../models/comment";
 import upload from "../config/multer";
 import { s3Deletev3 } from "../config/s3";
 import { logout_user } from "./authController";
-import { removeAllLikes, removeAllPosts, removeAllComments, removeAllFriends, removeUser } from "./accountController";
+import {
+  removeAllLikes,
+  removeAllPosts,
+  removeAllComments,
+  removeAllFriends,
+  removeUser,
+} from "./accountController";
 import generateAltText from "../utils/generateAltText";
 
 config();
@@ -58,12 +64,42 @@ export const user_detail = asyncHandler(
 // @route   PUT /api/users/:userId
 // @access  Private
 export const user_update = [
-  upload.single("image"),
   // Validate and sanitize fields.
-  body("fullName", "Full name is required")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
+  body("fullName")
+    .optional()
+    .isString()
+    .withMessage("Full Name must be a string"),
+  body("bio").optional().isString().withMessage("Bio must be a string"),
+  body("oldPassword")
+    .isLength({ min: 8 })
+    .custom((value, { req }) => {
+      if (!value && !req.body.newPassword && !req.body.newPasswordConf) {
+        throw new Error(
+          "At least one of oldPassword, newPassword, or newPasswordConf is required"
+        );
+      }
+      return true;
+    }),
+  body("newPassword")
+    .isLength({ min: 8 })
+    .custom((value, { req }) => {
+      if (value && !req.body.oldPassword && !req.body.newPasswordConf) {
+        throw new Error(
+          "At least one of oldPassword, newPassword, or newPasswordConf is required"
+        );
+      }
+      return true;
+    }),
+  body("newPasswordConf")
+    .isLength({ min: 8 })
+    .custom((value, { req }) => {
+      if (value && !req.body.oldPassword && !req.body.newPassword) {
+        throw new Error(
+          "At least one of oldPassword, newPassword, or newPasswordConf is required"
+        );
+      }
+      return true;
+    }),
   asyncHandler(async (req: Request, res: Response) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
@@ -75,11 +111,19 @@ export const user_update = [
 
     const oldPassword = req.body.oldPassword;
 
-    const updatedFields = {
-      fullName: req.body.fullName,
-      bio: req.body.bio,
-      password: undefined,
-    };
+    const updatedFields: {
+      fullName?: string;
+      bio?: string;
+      password?: string;
+    } = {};
+
+    if (req.body.fullName) {
+      updatedFields.fullName = req.body.fullName;
+    }
+
+    if (req.body.bio) {
+      updatedFields.bio = req.body.bio;
+    }
 
     if (oldPassword) {
       const hashedPassword = await bcrypt.hash(req.body.oldPassword, 10);
@@ -99,8 +143,8 @@ export const user_update = [
         });
         return;
       }
+      updatedFields.password = req.body.newPassword;
     }
-    updatedFields.password = req.body.newPassword;
     // Get the user to be updated
     const updatedUser = (await User.findByIdAndUpdate(
       req.params.userId,
@@ -108,9 +152,7 @@ export const user_update = [
       { new: true }
     ).exec()) as IUser;
 
-    const updatedUserObject = updatedUser.toObject();
-    delete updatedUserObject.password;
-    res.json(updatedUserObject);
+    res.json(updatedUser);
   }),
 ];
 
@@ -156,9 +198,9 @@ export const user_avatar_put = [
       }
 
       if (req.file) {
-      // Generate alt text for an image (if an image exists)
-      // image exists
-      const altText = await generateAltText(req.file.path);
+        // Generate alt text for an image (if an image exists)
+        // image exists
+        const altText = await generateAltText(req.file.path);
         user.photo = {
           imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
             locals.date
@@ -229,9 +271,9 @@ export const user_cover_put = [
       }
 
       if (req.file) {
-      // Generate alt text for an image (if an image exists)
-      // image exists
-      const altText = await generateAltText(req.file.path);
+        // Generate alt text for an image (if an image exists)
+        // image exists
+        const altText = await generateAltText(req.file.path);
         user.cover = {
           imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
             locals.date
@@ -263,22 +305,19 @@ export const user_cover_put = [
 // @desc    Delete single user
 // @route   DELETE /api/user/:userId
 // @access  Private
-export const user_delete = asyncHandler(async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const user_delete = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    // User found, continue with deletion operations
+    await removeAllLikes(req.params.userId);
+    await removeAllPosts(req.params.userId);
+    await removeAllComments(req.params.userId);
+    await removeAllFriends(req.params.userId);
+    await removeUser(req.params.userId);
 
-  // User found, continue with deletion operations
-  await removeAllLikes(req.params.userId);
-  await removeAllPosts(req.params.userId);
-  await removeAllComments(req.params.userId);
-  await removeAllFriends(req.params.userId);
-  await removeUser(req.params.userId);
-
-  // Log the user out
-  logout_user(req, res, next)
-});
+    // Log the user out
+    logout_user(req, res, next);
+  }
+);
 
 // @desc    Get all posts making up a user's feed, sorted by date recency (consider limiting to past X months only)
 // @route   GET /api/user/:userId/feed
