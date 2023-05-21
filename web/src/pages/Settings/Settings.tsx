@@ -2,8 +2,9 @@ import { FormError } from "@backend/types";
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChangeAvatarModal, DeleteAccountModal } from "../../components/modals";
+import ChangeBannerModal from "../../components/modals/ChangeBannerModal";
 import {
   Avatar,
   Banner,
@@ -15,15 +16,23 @@ import { AuthContext } from "../../context/AuthContext";
 import { ToastContext } from "../../context/ToastContext";
 import useFetch from "../../hooks/useFetch";
 import useForm from "../../hooks/useForm";
+import useUpdateAvatar from "../../hooks/useUpdateAvatar";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import styles from "./Settings.module.css";
 
 const Settings = () => {
   const { user } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
-  const { data, loading, error }: any = useFetch(
+  const { setData, data, loading, error }: any = useFetch(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}`
   );
+  const setUser = (user: any) => {
+    setData((data: any) => {
+      const newData = structuredClone(data);
+      newData.user = user;
+      return newData;
+    });
+  };
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false);
@@ -85,7 +94,7 @@ const Settings = () => {
   };
 
   const friendCountText = () => {
-    const friendCount = user.friends.length;
+    const friendCount = data?.user?.friends?.length;
     if (friendCount > 1) {
       return `${friendCount} friends`;
     } else if (friendCount === 1) {
@@ -94,7 +103,7 @@ const Settings = () => {
     return "0 friends";
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!oldPasswordValid) {
       showToast("error", "Invalid old password");
@@ -106,22 +115,22 @@ const Settings = () => {
       showToast("error", "Invalid password confirmation");
       return;
     }
-    const formData = new FormData();
-    formData.append("fullName", fullName);
-    formData.append("bio", fullName);
-    formData.append("oldPassword", oldPassword);
-    formData.append("newPassword", password);
-    formData.append("newPasswordConf", passwordConf);
-    updateUser(user._id, formData);
+    await updateUser(data?.user?._id, {
+      fullName,
+      bio,
+      oldPassword,
+      newPassword: password,
+      newPasswordConf: passwordConf,
+    });
   };
 
   const disabled = updateLoading;
 
   useEffect(() => {
-    setBio(user.bio);
-    setEmail(user.email);
-    setFullName(user.fullName);
-  }, []);
+    setBio(data?.user?.bio);
+    setEmail(data?.user?.email);
+    setFullName(data?.user?.fullName);
+  }, [data?.user]);
 
   return (
     <>
@@ -135,8 +144,10 @@ const Settings = () => {
             Change Cover
           </button>
           <Banner
-            src={user.cover && user.cover.imageUrl}
-            altText={user.cover && user.cover.altText}
+            src={`${
+              data?.user?.cover && data.user.cover.imageUrl
+            }?${Date.now()}`}
+            altText={data?.user?.cover && data.user.cover.altText}
           />
         </header>
         <div styleName="settings__grid">
@@ -146,8 +157,10 @@ const Settings = () => {
                 <div styleName="settings__avatar">
                   <Avatar
                     size={"xl"}
-                    src={user.photo && user.photo.imageUrl}
-                    alt={user.photo && user.photo.altText}
+                    src={`${
+                      data?.user?.photo && data.user.photo.imageUrl
+                    }?${Date.now()}`}
+                    alt={data?.user?.photo && data.user.photo.altText}
                   />
                   <button
                     aria-label="Change profile picture"
@@ -158,7 +171,7 @@ const Settings = () => {
                     <AiOutlineCamera styleName="settings__icon settings__icon--camera" />
                   </button>
                 </div>
-                <h2 styleName="settings__name">{user.fullName}</h2>
+                <h2 styleName="settings__name">{data?.user?.fullName}</h2>
                 <p styleName="settings__friends">{friendCountText()}</p>
               </div>
               <div styleName="settings__box">
@@ -187,7 +200,7 @@ const Settings = () => {
               </div>
               <div styleName="settings__box">
                 <Link
-                  to={`/users/${user._id}`}
+                  to={`/users/${data?._id}`}
                   styleName="settings__button settings__button--view"
                 >
                   View Public Profile
@@ -273,9 +286,6 @@ const Settings = () => {
                       />
                     </div>
                   </PasswordContainer>
-                  {oldPasswordValid === false && (
-                    <ErrorMessage message={oldPasswordError} />
-                  )}
                   <PasswordContainer
                     showPassword={passwordVisible}
                     handleClick={handlePasswordVisiblity}
@@ -303,9 +313,6 @@ const Settings = () => {
                       />
                     </div>
                   </PasswordContainer>
-                  {passwordValid === false && (
-                    <ErrorMessage message={passwordError} />
-                  )}
                   <PasswordContainer
                     showPassword={passwordVisible}
                     handleClick={handlePasswordVisiblity}
@@ -332,9 +339,6 @@ const Settings = () => {
                       />
                     </div>
                   </PasswordContainer>
-                  {passwordConfValid === false && (
-                    <ErrorMessage message={passwordConfError} />
-                  )}
                 </div>
                 <div styleName="settings__box">
                   <button
@@ -346,6 +350,17 @@ const Settings = () => {
                   </button>
                 </div>
               </form>
+              <>
+                {oldPasswordValid === false && (
+                  <ErrorMessage message={oldPasswordError} />
+                )}
+                {passwordConfValid === false && (
+                  <ErrorMessage message={passwordConfError} />
+                )}
+                {passwordValid === false && (
+                  <ErrorMessage message={passwordError} />
+                )}
+              </>
               <div styleName="auth__errors">
                 {formError &&
                   formError.map((error: FormError, index: number) => {
@@ -357,18 +372,23 @@ const Settings = () => {
         </div>
       </div>
       {isDeleteModalOpen && (
-        <DeleteAccountModal toggleModal={toggleDeleteModal} userId={user._id} />
+        <DeleteAccountModal
+          toggleModal={toggleDeleteModal}
+          userId={data?.user._id}
+        />
       )}
       {isAvatarModalOpen && (
         <ChangeAvatarModal
           toggleModal={toggleAvatarModal}
           title={"Change Avatar"}
+          setData={setUser}
         />
       )}
       {isCoverModalOpen && (
-        <ChangeAvatarModal
+        <ChangeBannerModal
           toggleModal={toggleCoverModal}
           title={"Change Banner"}
+          setData={setUser}
         />
       )}
     </>

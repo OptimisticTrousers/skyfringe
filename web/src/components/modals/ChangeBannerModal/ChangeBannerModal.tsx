@@ -1,43 +1,48 @@
-import { ChangeEvent, FC, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
 import { VscClose } from "react-icons/vsc";
 import { AuthContext } from "../../../context/AuthContext";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
+import useUpdateBanner from "../../../hooks/useUpdateBanner";
 import useUpdateUser from "../../../hooks/useUpdateUser";
 import { ImagePreview, ImageUploadBtn, Loading } from "../../ui";
 import ModalContainer from "../ModalContainer";
-import styles from "./ChangePhotoModal.module.css";
+import styles from "./ChangeBannerModal.module.css";
 
 interface Props {
   toggleModal: () => void;
   title: string;
+  setData: any;
 }
 
-const ChangePhotoModal: FC<Props> = ({ title, toggleModal }) => {
+const ChangeBannerModal: FC<Props> = ({ title, toggleModal, setData }) => {
   const { user } = useContext(AuthContext);
   const {
     handleFile,
     removeThumbnail,
     imageData,
+    setImageData,
+    setImageUpdated,
     imageError,
     imageUpdated,
     imageLoading,
   } = useImageThumbnail();
 
-  const { updateUser, loading } = useUpdateUser();
+  const { updateBanner, loading, error } = useUpdateBanner();
 
   const [imageValue, setImageValue] = useState("");
   const [imageFile, setImageFile] = useState<any>(null);
 
-  // const disabled = loading || !imageData;
+  const disabled = !imageData;
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("image", imageFile);
     formData.append("imageUpdated", imageUpdated.toString());
-    updateUser(user._id, formData);
+    const updatedUser = await updateBanner(user._id, formData);
+    setData(updatedUser)
     toggleModal();
   };
 
@@ -50,6 +55,11 @@ const ChangePhotoModal: FC<Props> = ({ title, toggleModal }) => {
     setImageFile(null);
     removeThumbnail();
   };
+  useEffect(() => {
+    if (user?.cover) {
+      setImageData(user?.cover.imageUrl);
+    }
+  }, [user.cover, setImageData]);
   return (
     <ModalContainer title={title} toggleModal={toggleModal}>
       <form styleName="modal" onSubmit={handleSubmit}>
@@ -76,14 +86,14 @@ const ChangePhotoModal: FC<Props> = ({ title, toggleModal }) => {
               removeThumbnail={removeThumbnail}
             />
           </div>
-          <button styleName="modal__button modal__button--submit">Save</button>
+          <button styleName="modal__button modal__button--submit" disabled={disabled}>Save</button>
         </div>
       </form>
     </ModalContainer>
   );
 };
 
-export default CSSModules(ChangePhotoModal, styles, {
+export default CSSModules(ChangeBannerModal, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
 });

@@ -73,7 +73,7 @@ export const user_update = [
   body("oldPassword")
     .isLength({ min: 8 })
     .custom((value, { req }) => {
-      if (!value && !req.body.newPassword && !req.body.newPasswordConf) {
+      if (value && !req.body.newPassword && !req.body.newPasswordConf) {
         throw new Error(
           "At least one of oldPassword, newPassword, or newPasswordConf is required"
         );
@@ -109,7 +109,10 @@ export const user_update = [
       return;
     }
 
-    const oldPassword = req.body.oldPassword;
+    const { fullName, bio, oldPassword, newPassword, newPasswordConf }: any =
+      req.body;
+
+    const user = req.user as IUser;
 
     const updatedFields: {
       fullName?: string;
@@ -117,16 +120,20 @@ export const user_update = [
       password?: string;
     } = {};
 
-    if (req.body.fullName) {
-      updatedFields.fullName = req.body.fullName;
+    if (fullName) {
+      updatedFields.fullName = fullName;
+    } else {
+      updatedFields.fullName = user.fullName;
     }
 
-    if (req.body.bio) {
-      updatedFields.bio = req.body.bio;
+    if (bio) {
+      updatedFields.bio = bio;
+    } else {
+      updatedFields.bio = user.bio;
     }
 
     if (oldPassword) {
-      const hashedPassword = await bcrypt.hash(req.body.oldPassword, 10);
+      const hashedPassword = await bcrypt.hash(oldPassword, 10);
 
       const user = await User.find({ password: hashedPassword }).exec();
 
@@ -137,13 +144,14 @@ export const user_update = [
         return;
       }
 
-      if (req.body.newPassword !== req.body.newPasswordConf) {
+      if (newPassword !== newPasswordConf) {
         res.status(400).json({
           message: "'New Password' and 'Confirm New Password' are not equal ",
         });
         return;
       }
-      updatedFields.password = req.body.newPassword;
+      const newHashedPassword = await bcrypt.hash(newPassword, 10);
+      updatedFields.password = newHashedPassword;
     }
     // Get the user to be updated
     const updatedUser = (await User.findByIdAndUpdate(
@@ -188,7 +196,10 @@ export const user_avatar_put = [
       }
 
       const userId = req.params.userId;
-      const user = (await User.findById(userId).exec()) as IUser;
+      const user = (await User.findById(userId)
+        .populate("friends")
+        .populate("friendRequests.user")
+        .exec()) as IUser;
       const locals = req.locals as Locals;
 
       const bucketName = process.env.AWS_BUCKET_NAME;
@@ -200,11 +211,12 @@ export const user_avatar_put = [
       if (req.file) {
         // Generate alt text for an image (if an image exists)
         // image exists
-        const altText = await generateAltText(req.file.path);
+        const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
+          locals.date
+        }_${user.userName}.${req.file.mimetype.split("/")[1]}`;
+        const altText = await generateAltText(imageUrl);
         user.photo = {
-          imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
-            locals.date
-          }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
+          imageUrl,
           altText,
         };
       }
@@ -261,7 +273,10 @@ export const user_cover_put = [
       }
 
       const userId = req.params.userId;
-      const user = (await User.findById(userId).exec()) as IUser;
+      const user = (await User.findById(userId)
+        .populate("friends")
+        .populate("friendRequests.user")
+        .exec()) as IUser;
       const locals = req.locals as Locals;
 
       const bucketName = process.env.AWS_BUCKET_NAME;
@@ -273,11 +288,12 @@ export const user_cover_put = [
       if (req.file) {
         // Generate alt text for an image (if an image exists)
         // image exists
-        const altText = await generateAltText(req.file.path);
+        const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
+          locals.date
+        }_${user.userName}.${req.file.mimetype.split("/")[1]}`;
+        const altText = await generateAltText(imageUrl);
         user.cover = {
-          imageUrl: `${bucketName}/facebook_clone/${locals.path}/${
-            locals.date
-          }_${user.userName}.${req.file.mimetype.split("/")[1]}`,
+          imageUrl,
           altText,
         };
       }

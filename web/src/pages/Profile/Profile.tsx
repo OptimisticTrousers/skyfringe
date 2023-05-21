@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
 import { CreatePost, Feed, Post } from "../../components/posts";
 import { SkeletonPost } from "../../components/skeletons";
-import { Avatar, Banner, Card, ErrorMessage } from "../../components/ui";
+import { Avatar, Banner, Card, ErrorMessage, FinishedPosts } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useFetch from "../../hooks/useFetch";
 import { PostWithStringId as IPost } from "@backend/types";
@@ -161,6 +161,7 @@ const Profile = () => {
             error={error}
             setFeed={setFeed}
           />
+          <FinishedPosts />
         </div>
       </div>
     </div>

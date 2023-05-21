@@ -14,3 +14,4 @@ export { default as PasswordStrengthMeter } from "./PasswordStrengthMeter";
 export { default as Toast } from "./Toast";
 export { default as UnfriendRequestBtn } from "./UnfriendRequestBtn";
 export { default as SendRequestBtn } from "./SendRequestBtn";
+export { default as FinishedPosts } from "./FinishedPosts";

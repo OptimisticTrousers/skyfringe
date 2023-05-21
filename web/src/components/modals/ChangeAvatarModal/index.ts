@@ -1,1 +1,1 @@
-export { default } from "./ChangePhotoModal";
+export { default } from "./ChangeAvatarModal";

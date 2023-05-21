@@ -11,16 +11,17 @@ import {
 const multerUserKey = asyncHandler(
   async (req: RequestWithLocals, res: Response, next: NextFunction) => {
     const user = req.user as IUser;
-    const locals = req.locals as Locals;
-    locals.path = "users";
+    req.locals = {
+      path: "users",
+    } as Locals;
     if (user && user.photo && user.photo.imageUrl) {
       const imageUrl = user.photo.imageUrl;
-      locals.date = imageUrl.substring(
+      req.locals.date = imageUrl.substring(
         imageUrl.lastIndexOf("/") + 1,
         imageUrl.lastIndexOf("_")
       );
     } else {
-      locals.date = Date.now().toString();
+      req.locals.date = Date.now().toString();
     }
     next();
   }

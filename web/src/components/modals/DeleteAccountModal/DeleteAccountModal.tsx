@@ -14,11 +14,13 @@ interface Props {
 const DeleteAccountModal: FC<Props> = ({ toggleModal, userId }) => {
   const { user } = useContext(AuthContext);
   const { deleteAccount, loading } = useDeleteAccount();
+  const navigate = useNavigate();
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     deleteAccount(userId);
     toggleModal();
+    navigate("/");
   };
 
   return (

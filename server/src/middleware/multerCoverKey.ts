@@ -6,16 +6,17 @@ import { Locals, RequestWithLocals, User as IUser } from "../../types";
 const multerCoverKey = asyncHandler(
   async (req: RequestWithLocals, res: Response, next: NextFunction) => {
     const user = req.user as IUser;
-    const locals = req.locals as Locals;
-    locals.path = "covers";
+    req.locals = {
+      path: "covers",
+    } as Locals;
     if (user && user.cover && user.cover.imageUrl) {
       const imageUrl = user.cover.imageUrl;
-      locals.date = imageUrl.substring(
+      req.locals.date = imageUrl.substring(
         imageUrl.lastIndexOf("/") + 1,
         imageUrl.lastIndexOf("_")
       );
     } else {
-      locals.date = Date.now().toString();
+      req.locals.date = Date.now().toString();
     }
     next();
   }

@@ -12,14 +12,19 @@ const useUpdateUser = () => {
   const { showToast } = useContext(ToastContext);
 
   // Pass in a basic object constructed using any relevant profile information to be updated
-  const updateUser = async (userId: string, formData: FormData) => {
+  const updateUser = async (userId: string, formData: any) => {
     setLoading(true);
     setError(null);
     setFormError(null);
     try {
       const response = await put(
         `${import.meta.env.VITE_API_DOMAIN}/users/${userId}`,
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
       if (response.status === 200) {
         // No error, request successful

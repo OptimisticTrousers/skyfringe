@@ -24,6 +24,7 @@ const useDeleteAccount = () => {
       if (response.status === 200) {
         // No error, request successful
         setError(null);
+        showToast("success", "Successfully deleted user");
         return response.data;
       }
       // error with delete operation

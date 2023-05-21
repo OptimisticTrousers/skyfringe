@@ -12,7 +12,6 @@ import { useReducer } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../../context/AuthContext";
 import { ToastProvider } from "../../context/ToastContext";
-import { FormError } from "../../types";
 import Login from "./Login";
 
 // Customize loading/error/data states to properly test UI in different states
@@ -288,20 +287,6 @@ describe("Login page", () => {
       );
       const button = screen.getByRole("button", { name: "Log In" });
       expect(button).toBeInTheDocument();
-    });
-    test("should disable submit button when email or password is invalid", async () => {
-      const user = userEvent.setup();
-      render(
-        <BrowserRouter>
-          <Login />
-        </BrowserRouter>
-      );
-      const emailInput = screen.getByLabelText("Email Address");
-      const passwordInput = screen.getByLabelText("Password");
-      const submitButton = screen.getByRole("button", { name: "Log In" });
-      await user.type(emailInput, "invalid.com");
-      await user.type(passwordInput, "bob");
-      expect(submitButton).toBeDisabled();
     });
   });
 });

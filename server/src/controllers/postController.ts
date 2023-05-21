@@ -67,22 +67,23 @@ export const post_create = [
     // Generate alt text for an image (if an image exists)
     let altText = "";
 
-    if (req.file) {
-      // image exists
-      altText = await generateAltText(req.file.path);
-    }
-
     // Create new post
     const post = new Post({
       author: user._id, // req.user is created by the auth middle when accessing protected route
       content: content && content,
-      photo: req.file && {
-        imageUrl: `${bucketName}/facebook_clone/${locals.path}/${locals.date}_${
-          user.userName
-        }.${req.file.mimetype.split("/")[1]}`,
-        altText,
-      },
     });
+
+    if (req.file) {
+      // image exists
+      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
+        locals.date
+      }_${user.userName}.${req.file.mimetype.split("/")[1]}`;
+      altText = await generateAltText(imageUrl);
+      post.photo = {
+        imageUrl,
+        altText,
+      };
+    }
 
     await post.populate("author");
     await post.save();

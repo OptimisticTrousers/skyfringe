@@ -1,0 +1,16 @@
+.container {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 2rem 1rem;
+}
+
+.container__title {
+  color: rgb(175, 170, 156);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  margin: 0;
+}

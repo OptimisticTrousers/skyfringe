@@ -31,7 +31,7 @@ const HomeFriends = () => {
     <Card>
       <h2 styleName="friends__title">Friends</h2>
       <div styleName="friends">
-        {user.friends.length > 0 ? (
+        {user.friends?.length > 0 ? (
           <>
             <button
               styleName="friends__button friends__button--previous"
@@ -41,7 +41,7 @@ const HomeFriends = () => {
               &#60;
             </button>
             <div role="list" styleName="friends__container" ref={carouselRef}>
-              {user.friends.map((friend: User) => {
+              {user.friends?.map((friend: User) => {
                 return (
                   <Link
                     key={friend._id}

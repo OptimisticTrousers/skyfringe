@@ -104,7 +104,7 @@ const useForm = () => {
     if (!e.target.checkValidity()) {
       setOldPasswordValidationStyles(true);
       setOldPasswordValid(false);
-      setOldPasswordError("The password field must be at least 8 characters");
+      setOldPasswordError("The old password field must be at least 8 characters");
     }
   };
 

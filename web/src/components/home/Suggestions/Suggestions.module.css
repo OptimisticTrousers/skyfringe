@@ -81,3 +81,8 @@
   background-color: rgb(200, 202, 204);
   border-color: transparent;
 }
+
+.suggestions__message {
+  padding: 1rem;
+  list-style: none;
+}

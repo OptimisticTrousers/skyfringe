@@ -31,6 +31,36 @@ const Suggestions = () => {
     return userFriendIds.some((id) => id === userId);
   };
 
+  const nonRelatedUsers = users
+    ? users
+        .filter((condensedUser: User) => !isRelatedUser(condensedUser._id))
+        .map((condensedUser: User) => (
+          <div styleName="suggestions__suggestion" key={condensedUser._id}>
+            <div styleName="suggestions__user">
+              <Link
+                styleName="suggestions__link suggestions__link--avatar"
+                to={`/users/${condensedUser._id}`}
+              >
+                <Avatar
+                  src={condensedUser.photo && condensedUser.photo.imageUrl}
+                  alt={condensedUser.photo && condensedUser.photo.altText}
+                  size={"lg"}
+                />
+              </Link>
+              <Link
+                styleName="suggestions__link"
+                to={`/users/${condensedUser._id}`}
+              >
+                {condensedUser.fullName}
+              </Link>
+            </div>
+            <div styleName="suggestions__button">
+              <SendRequestBtn userId={condensedUser._id} />
+            </div>
+          </div>
+        ))
+    : null;
+
   return (
     <Card>
       <div styleName="suggestions__text">
@@ -41,44 +71,8 @@ const Suggestions = () => {
       </div>
       {users ? (
         <ul styleName="suggestions__list">
-          {users.length > 0 ? (
-            users.map((condensedUser: User) => {
-              if (!isRelatedUser(condensedUser._id)) {
-                return (
-                  <div
-                    styleName="suggestions__suggestion"
-                    key={condensedUser._id}
-                  >
-                    <div styleName="suggestions__user">
-                      <Link
-                        styleName="suggestions__link suggestions__link--avatar"
-                        to={`/users/${condensedUser._id}`}
-                      >
-                        <Avatar
-                          src={
-                            condensedUser.photo && condensedUser.photo.imageUrl
-                          }
-                          alt={
-                            condensedUser.photo && condensedUser.photo.altText
-                          }
-                          size={"lg"}
-                        />
-                      </Link>
-                      <Link
-                        styleName="suggestions__link"
-                        to={`/users/${condensedUser._id}`}
-                      >
-                        {condensedUser.fullName}
-                      </Link>
-                    </div>
-                    <div styleName="suggestions__button">
-                      <SendRequestBtn userId={condensedUser._id} />
-                    </div>
-                  </div>
-                );
-              }
-              return null;
-            })
+          {nonRelatedUsers ? (
+            nonRelatedUsers
           ) : (
             <li styleName="suggestions__message">No users yet...</li>
           )}
