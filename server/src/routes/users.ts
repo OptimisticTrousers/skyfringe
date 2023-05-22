@@ -11,6 +11,7 @@ import {
 import multerCoverKey from "../middleware/multerCoverKey";
 import validateUserId from "../middleware/validateUserId";
 import multerUserKey from "../middleware/multerUserKey";
+import restrictTestUserActions from "../middleware/restrictTestUserActions";
 
 const router = Router();
 
@@ -19,11 +20,15 @@ router.route("/").get(user_list);
 router
   .route("/:userId")
   .get(validateUserId, user_detail)
-  .put(validateUserId, user_update)
-  .delete(validateUserId, user_delete);
+  .put(validateUserId, restrictTestUserActions, user_update)
+  .delete(validateUserId, restrictTestUserActions, user_delete);
 
-router.route("/:userId/avatar").put(multerUserKey, user_avatar_put);
-router.route("/:userId/cover").put(multerCoverKey, user_cover_put);
+router
+  .route("/:userId/avatar")
+  .put(restrictTestUserActions, multerUserKey, user_avatar_put);
+router
+  .route("/:userId/cover")
+  .put(restrictTestUserActions, multerCoverKey, user_cover_put);
 router.route("/:userId/feed").get(validateUserId, user_feed);
 
 export default router;

@@ -13,6 +13,7 @@ export { default as PasswordContainer } from "./PasswordContainer";
 export { default as PasswordStrengthMeter } from "./PasswordStrengthMeter";
 export { default as Toast } from "./Toast";
 export { default as UnfriendRequestBtn } from "./UnfriendRequestBtn";
+export { default as CancelRequestBtn } from "./CancelRequestBtn";
 export { default as SendRequestBtn } from "./SendRequestBtn";
 export { default as FinishedPosts } from "./FinishedPosts";
 export { default as ProgressBar } from "./ProgressBar";

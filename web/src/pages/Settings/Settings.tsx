@@ -124,7 +124,8 @@ const Settings = () => {
     });
   };
 
-  const disabled = updateLoading;
+  const disabled =
+    updateLoading || data?.user?._id === "4c8a331bda76c559ef000004";
 
   useEffect(() => {
     setBio(data?.user?.bio);
@@ -139,6 +140,7 @@ const Settings = () => {
           <button
             styleName="settings__button settings__button--banner"
             onClick={toggleCoverModal}
+            disabled={disabled}
           >
             <AiOutlineCamera styleName="settings__icon" />
             Change Cover
@@ -167,6 +169,7 @@ const Settings = () => {
                     styleName="settings__button settings__button--avatar"
                     aria-haspopup="dialog"
                     onClick={toggleAvatarModal}
+                    disabled={disabled}
                   >
                     <AiOutlineCamera styleName="settings__icon settings__icon--camera" />
                   </button>
@@ -217,6 +220,7 @@ const Settings = () => {
               <button
                 styleName="settings__button--delete"
                 onClick={toggleDeleteModal}
+                disabled={disabled}
               >
                 Delete
               </button>

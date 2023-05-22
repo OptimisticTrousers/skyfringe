@@ -241,6 +241,15 @@
   border: 3px solid #dc3545;
 }
 
+.settings__button--delete:disabled,
+.settings__button--update:disabled,
+.settings__button--avatar:disabled,
+.settings__button--banner:disabled {
+  filter: grayscale(0.5) opacity(0.5);
+  pointer-events: none;
+  -webkit-filter: grayscale(0.5) opacity(0.5);
+}
+
 @media (max-width: 1300px) {
   .settings__grid {
     grid-template-columns: 1fr;

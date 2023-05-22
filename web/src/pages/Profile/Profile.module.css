@@ -97,6 +97,18 @@
   display: flex;
 }
 
+.profile__request {
+  position: absolute;
+  right: 10%;
+  bottom: -130px;
+  width: 200px;
+}
+
+.profile__message {
+  width: 100%;
+  padding-left: 1rem;
+}
+
 .profile__caption {
   color: rgb(101, 103, 107);
 }

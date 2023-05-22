@@ -15,6 +15,7 @@ const Banner: FC<Props> = ({ src, altText }) => {
       src={src}
       alt={altText}
       onError={bannerImageFallback}
+      onLoad={bannerImageFallback}
     />
   );
 };

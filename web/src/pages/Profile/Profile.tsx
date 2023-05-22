@@ -1,11 +1,30 @@
 import { useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
 import { CreatePost, Feed, Post } from "../../components/posts";
-import { SkeletonPost } from "../../components/skeletons";
-import { Avatar, Banner, Card, ErrorMessage, FinishedPosts } from "../../components/ui";
+import {
+  SkeletonBio,
+  SkeletonPost,
+  SkeletonProfileFriendCard,
+} from "../../components/skeletons";
+import {
+  AcceptRequestBtn,
+  Avatar,
+  Banner,
+  Card,
+  CancelRequestBtn,
+  DeleteRequestBtn,
+  ErrorMessage,
+  FinishedPosts,
+  SendRequestBtn,
+  UnfriendRequestBtn,
+} from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useFetch from "../../hooks/useFetch";
-import { PostWithStringId as IPost } from "@backend/types";
+import {
+  FriendRequestWithStringId as FriendRequest,
+  PostWithStringId as IPost,
+  UserWithStringId as User,
+} from "@backend/types";
 import styles from "./Profile.module.css";
 import { Link, useParams } from "react-router-dom";
 import { SideFooter } from "../../components/home";
@@ -27,6 +46,33 @@ const Profile = () => {
 
   const user = data?.user;
 
+  const incomingRequests = user?.friendRequests.filter(
+    (friendRequest: FriendRequest) =>
+      friendRequest.status === "incoming" &&
+      data?.user._id === friendRequest.user._id
+  );
+  const sentRequests = user?.friendRequests.filter(
+    (friendRequest: FriendRequest) =>
+      friendRequest.status === "outgoing" &&
+      data?.user._id === friendRequest.user._id
+  );
+  const rejectedIncoming = user?.friendRequests.filter(
+    (friendRequest: FriendRequest) =>
+      friendRequest.status === "rejectedIncoming" &&
+      data?.user._id === friendRequest.user._id
+  );
+  const outgoingRejected = user?.friendRequests.filter(
+    (friendRequest: FriendRequest) =>
+      friendRequest.status === "outgoingRejected" &&
+      data?.user._id === friendRequest.user._id
+  );
+
+  const friends = currentUser.friends.filter((user: User) => {
+    if (data?.user._id === user._id) {
+      return user;
+    }
+  });
+
   return (
     <div styleName="profile">
       <header styleName="profile__header">
@@ -42,22 +88,51 @@ const Profile = () => {
           />
           <div styleName="profile__text">
             <h2 styleName="profile__name">{user?.fullName}</h2>
-            <h3 styleName="profile__username">@{user?.userName}</h3>
+            {user?.userName ? (
+              <h3 styleName="profile__username">@{user?.userName}</h3>
+            ) : null}
           </div>
         </div>
+        {currentUser._id !== data?.user?._id ? (
+          <div styleName="profile__request">
+            {outgoingRejected?.length !== 0 && (
+              <SendRequestBtn userId={data?.user?._id} />
+            )}
+            {rejectedIncoming?.length !== 0 && (
+              <SendRequestBtn userId={data?.user?._id} />
+            )}
+            {sentRequests?.length !== 0 && (
+              <CancelRequestBtn userId={data?.user?._id} />
+            )}
+            {friends?.length !== 0 && (
+              <UnfriendRequestBtn userId={data?.user?._id} />
+            )}
+            {incomingRequests?.length !== 0 && (
+              <div>
+                <AcceptRequestBtn userId={data?.user?._id} />
+                <DeleteRequestBtn userId={data?.user?._id} />
+              </div>
+            )}
+          </div>
+        ) : null}
       </header>
       <div styleName="profile__content">
         <aside styleName="profile__aside">
           <Card>
             <div styleName="profile__card">
               <h3 styleName="profile__subtitle">About</h3>
-              <p styleName="profile__description">
-                {user?.bio ? user?.bio : "Add a bio..."}
-              </p>
+              {user?.bio ? (
+                <p styleName="profile__description">
+                  {user?.bio ? user?.bio : "Add a bio..."}
+                </p>
+              ) : (
+                <SkeletonBio />
+              )}
             </div>
           </Card>
           <Card>
-            <div styleName="profile__card">
+            <SkeletonProfileFriendCard />
+            {/* <div styleName="profile__card">
               <div styleName="profile__container">
                 <h3 styleName="profile__subtitle">Media</h3>
                 <button styleName="profile__button profile__button--friends">
@@ -102,49 +177,55 @@ const Profile = () => {
                   styleName="profile__friend"
                 />
               </div>
-            </div>
+            </div> */}
           </Card>
           <Card>
-            <div styleName="profile__card">
-              <div styleName="profile__container">
-                <div styleName="profile__text">
-                  <h3 styleName="profile__subtitle">Friends</h3>
-                  <p styleName="profile__caption">
-                    {user?.friendCount} friends
-                  </p>
+            {user ? (
+              <div styleName="profile__card">
+                <div styleName="profile__container">
+                  <div styleName="profile__text">
+                    <h3 styleName="profile__subtitle">Friends</h3>
+                    <p styleName="profile__caption">
+                      {user?.friendCount} friends
+                    </p>
+                  </div>
+                  <Link
+                    styleName="profile__link profile__link--friends"
+                    to="/friends/all"
+                  >
+                    See all friends
+                  </Link>
                 </div>
-                <Link
-                  styleName="profile__link profile__link--friends"
-                  to="/friends/all"
-                >
-                  See all friends
-                </Link>
+                  {user?.friends.length !== 0 ? user?.friends?.map((friend: any) => {
+                    return (
+                <ul styleName="profile__friends">
+                      <li styleName="profile__friend" key={friend._id}>
+                        <Link
+                          styleName="profile__link profile__link--avatar"
+                          to={`/users/${friend?._id}`}
+                        >
+                          <Avatar
+                            src={friend?.photo && friend?.photo?.imageUrl}
+                            alt={friend?.photo && friend?.photo?.altText}
+                            size={"lg"}
+                          />
+                        </Link>
+                        <Link
+                          styleName="profile__link profile__link--name"
+                          to={`/users/${friend?._id}`}
+                        >
+                          {friend?.fullName}
+                        </Link>
+                      </li>
+                </ul>
+                    );
+                  }) : (
+                    <p styleName="profile__message">No friends yet...</p>
+                  )}
               </div>
-              <ul styleName="profile__friends">
-                {user?.friends?.map((friend: any) => {
-                  return (
-                    <li styleName="profile__friend" key={friend._id}>
-                      <Link
-                        styleName="profile__link profile__link--avatar"
-                        to={`/users/${friend?._id}`}
-                      >
-                        <Avatar
-                          src={friend?.photo && friend?.photo?.imageUrl}
-                          alt={friend?.photo && friend?.photo?.altText}
-                          size={"lg"}
-                        />
-                      </Link>
-                      <Link
-                        styleName="profile__link profile__link--name"
-                        to={`/users/${friend?._id}`}
-                      >
-                        {friend?.fullName}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+            ) : (
+              <SkeletonProfileFriendCard />
+            )}
           </Card>
           <SideFooter />
         </aside>
