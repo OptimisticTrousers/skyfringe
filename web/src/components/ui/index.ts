@@ -17,3 +17,4 @@ export { default as SendRequestBtn } from "./SendRequestBtn";
 export { default as FinishedPosts } from "./FinishedPosts";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as SearchBar } from "./SearchBar";
+export { default as SearchItemResult } from "./SearchItemResult";

@@ -18,17 +18,18 @@ router.use(
   passport.authenticate("jwt", { session: false }),
   userRouter
 );
+
+router.use("/auth", authRouter);
+
 router.put(
   "/friends/:userId",
   passport.authenticate("jwt", { session: false }),
   friend_request
 );
 router.get(
-  "/search-users:query",
+  "/search-users/:query",
   passport.authenticate("jwt", { session: false }),
   user_search
 );
-
-router.use("/auth", authRouter);
 
 export default router;

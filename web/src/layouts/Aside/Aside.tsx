@@ -6,7 +6,7 @@ import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { IoIosPeople, IoMdNotifications } from "react-icons/io";
 import { RiMoonClearFill, RiSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { Avatar, Logo } from "../../components/ui";
+import { Avatar, Logo, SearchBar } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useLogout from "../../hooks/useLogout";
 import userImageFallback from "../../utils/userImageFallback";
@@ -43,6 +43,7 @@ const Aside = () => {
         <div styleName="hamburger__line"></div>
       </button>
       <aside styleName={`aside ${closeSidebar && "aside--closed"}`}>
+        <SearchBar />
         <div styleName="aside__container">
           <Logo type="sm" />
           <button

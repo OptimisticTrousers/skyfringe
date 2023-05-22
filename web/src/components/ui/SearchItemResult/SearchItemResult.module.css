@@ -1,0 +1,25 @@
+.item {
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 6px 6px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+  color: black;
+  overflow: hidden;
+}
+
+@media (hover: hover) {
+  .item:hover {
+    background-color: rgb(227, 228, 229);
+  }
+}

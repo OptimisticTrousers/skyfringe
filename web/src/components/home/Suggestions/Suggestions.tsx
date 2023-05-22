@@ -71,7 +71,7 @@ const Suggestions = () => {
       </div>
       {users ? (
         <ul styleName="suggestions__list">
-          {nonRelatedUsers ? (
+          {nonRelatedUsers.length > 0 ? (
             nonRelatedUsers
           ) : (
             <li styleName="suggestions__message">No users yet...</li>

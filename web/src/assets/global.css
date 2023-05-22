@@ -4,6 +4,11 @@
   src: url("/fonts/FontsFree-Net-Filmotype-Alice.woff2");
 }
 
+@font-face {
+  font-family: "SFUIText-Light";
+  src: url("/fonts/SFUIText-Light.ttf");
+}
+
 html,
 body {
   padding: 0;

@@ -366,43 +366,14 @@ export const user_search = asyncHandler(
     const { query } = req.params; // Assuming the search query is provided in the URL params
 
     const terms = query.trim().replace(/  +/g, " ").split(" ");
-    const expressions = [
-      { fullName: { $regex: terms[0], $options: "i" } },
-      { userName: { $regex: terms[0], $options: "i" } },
-    ];
+    const expressions = terms.map((term) => ({
+      $or: [
+        { fullName: { $regex: `^${term}`, $options: "i" } },
+        { userName: { $regex: `^${term}`, $options: "i" } },
+      ],
+    }));
 
-    if (terms[1]) {
-      expressions.push({ fullName: { $regex: terms[1], $options: "i" } });
-      expressions.push({ userName: { $regex: terms[1], $options: "i" } });
-    }
-
-    let expression = {};
-
-    if (!terms[1]) {
-      expression = {
-        $or: [
-          { fullName: { $regex: `^${terms[0]}`, $options: "i" } },
-          { userName: { $regex: `^${terms[0]}`, $options: "i" } },
-        ],
-      };
-    } else {
-      expression = {
-        $or: [
-          {
-            $and: [
-              { fullName: { $regex: `^${terms[0]}`, $options: "i" } },
-              { userName: { $regex: `^${terms[1]}`, $options: "i" } },
-            ],
-          },
-          {
-            $and: [
-              { fullName: { $regex: `^${terms[1]}`, $options: "i" } },
-              { userName: { $regex: `^${terms[0]}`, $options: "i" } },
-            ],
-          },
-        ],
-      };
-    }
+    const expression = terms.length === 1 ? expressions[0] : { $or: expressions };
 
     const users = await User.find(expression).exec();
     res.status(200).json(users);

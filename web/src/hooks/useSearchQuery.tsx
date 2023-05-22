@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
+import { ToastContext } from "../context/ToastContext";
 import useHttp from "./useHttp";
 
 const useSearchQuery = () => {
@@ -7,36 +8,71 @@ const useSearchQuery = () => {
   const [error, setError] = useState<unknown | null>(null);
   const { get } = useHttp();
   const [query, setQuery] = useState("");
+  const { showToast } = useContext(ToastContext);
+  const previousQuery = useRef<string>("");
 
   const handleQuery = (event: any) => {
     setQuery(event.target.value);
   };
 
+  const handleInputFocused = (event: any) => {
+    event.preventDefault();
+  };
+
   const searchQuery = async (query: string) => {
     setError(null);
     setLoading(true);
-    setResults(null);
 
-    const response = await get(
-      `${import.meta.env.VITE_API_DOMAIN}/search-users/${query}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const message = "There was a problem searching for users";
+
+    try {
+      const response = await get(
+        `${import.meta.env.VITE_API_DOMAIN}/search-users/${query}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        // No errors occurred.
+        if (JSON.stringify(response.data) !== JSON.stringify(results)) {
+          setResults(response.data);
+        }
+        setError(null);
+      } else {
+        setError({ message });
       }
-    );
-    setResults(response.data);
+    } catch (error) {
+      const message = "An unknown error occurred while liking a post";
+      setError({ message });
+      showToast("error", message);
+    } finally {
+      // Regardless of success or error, the loading state is complete
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     if (query.length === 0) {
       setResults([]);
-    } else {
+    } else if (query !== previousQuery.current) {
+      previousQuery.current = query;
       searchQuery(query);
     }
   }, [query]);
 
-  return { query, handleQuery, setQuery, setResults, results, loading, error };
+  return {
+    query,
+    handleInputFocused,
+    handleQuery,
+    setQuery,
+    setResults,
+    results,
+    loading,
+    error,
+  };
 };
 
 export default useSearchQuery;
