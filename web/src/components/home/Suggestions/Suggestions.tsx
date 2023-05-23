@@ -21,8 +21,8 @@ const Suggestions = () => {
     // Perform array operations to manipulate the userFriends object into a single depth array of user IDs
     const flatFriends = [user.friendRequests, user.friends].flat();
     const userFriendIds = flatFriends?.map((friend) => {
-      if (friend.user) {
-        return friend.user._id;
+      if (friend?.user && friend?.status === "outgoing" || friend?.status === "incoming") {
+        return friend.user?._id;
       }
       return friend._id;
     });

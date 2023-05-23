@@ -18,7 +18,7 @@ interface Props {
 }
 
 const FriendsCard: FC<Props> = ({ friend, type }) => {
-  const friendId = friend._id;
+  const friendId = friend?._id;
   return (
     <div styleName="card">
       <Link styleName="card__link card__link--image" to={`/users/${friendId}`}>

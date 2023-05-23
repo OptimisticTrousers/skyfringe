@@ -46,7 +46,7 @@ const HomeFriends = () => {
                   <Link
                     key={friend._id}
                     styleName="friends__friend"
-                    to={`/users/${friend.userName}`}
+                    to={`/users/${friend._id}`}
                   >
                     <Avatar
                       src={friend.photo && friend.photo.imageUrl}

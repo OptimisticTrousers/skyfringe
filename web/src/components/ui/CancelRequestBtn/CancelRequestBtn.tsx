@@ -38,9 +38,10 @@ const CancelRequestBtn: FC<Props> = ({ userId }) => {
       "Request cancelled.",
       "An unknown error has occured while cancelling the outgoing friend request."
     );
+    console.log(otherUser)
     const newUser = structuredClone(user);
     newUser.friendRequests = newUser.friendRequests.filter(
-      (friendRequest: any) => friendRequest.user._id !== otherUser._id
+      (friendRequest: any) => friendRequest?.user?._id !== otherUser?._id
     );
     dispatch({ type: "LOGIN", payload: newUser });
   };

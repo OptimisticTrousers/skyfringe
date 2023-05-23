@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import User from "../models/user";
 import { User as IUser, FriendRequest as IFriendRequest } from "../../types";
 import { Request, Response } from "express";
+import cleanStringify from "../utils/cleanStringify";
 
 // Use this function to ensure that no duplicate requests are sent, and that certain request types exist before performing related actions
 export const checkExistingEntries = (
@@ -240,8 +241,14 @@ export const friend_request = asyncHandler(
     // Save these changes to the db
     await recipient.save();
     await sender.save();
+    // Create a new object without circular references
+    const recipientData = recipient.toJSON();
+    recipientData.friends = JSON.parse(cleanStringify(recipientData.friends));
+    recipientData.friendRequests = JSON.parse(
+      cleanStringify(recipientData.friendRequests)
+    );
 
-    // Return information of recipient (to populate a 'request sent to: ' message in frontend. Check that password is not being sent here though!)
-    res.status(200).json(recipient);
+    // Return information of recipient (to populate a 'request sent to: ' message in frontend)
+    res.status(200).json(recipientData);
   }
 );
