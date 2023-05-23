@@ -26,7 +26,6 @@ const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error, deleteL
           ? {
               maxHeight: "50vh",
               visibility: "visible",
-              overflowY: "scroll",
             }
           : {
               maxHeight: "0px",

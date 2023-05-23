@@ -1,0 +1,49 @@
+.button {
+  height: 100%;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+.button:hover {
+  background-color: rgb(243, 244, 246);
+}
+
+.menu {
+  position: relative;
+}
+
+.container--modal {
+  bottom: 25px;
+  left: 10px;
+}
+
+.container {
+  position: absolute;
+  bottom: 25px;
+  right: 110%;
+}
+
+.container > aside {
+  height: 300px !important;
+}
+
+.container--modal > aside {
+  height: 450px !important;
+}
+
+@media (max-width: 500px) {
+  .container {
+    right: -100%;
+  }
+  .container > aside {
+    width: 300px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    right: -50px;
+  }
+}

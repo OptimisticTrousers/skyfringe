@@ -12,6 +12,7 @@ import { ToastContext } from "../../../context/ToastContext";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import useUpdatePost from "../../../hooks/useUpdatePost";
 import { Loading, ImagePreview, ImageUploadBtn, Avatar } from "../../ui";
+import EmojiPickerBtn from "../../ui/EmojiPickerBtn";
 import ModalContainer from "../ModalContainer";
 import styles from "./EditPostModal.module.css";
 
@@ -57,6 +58,10 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
 
   const handlePostText = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setPostText(event.target.value);
+  };
+
+  const onEmojiClick = (emojiObject: any) => {
+    setPostText((prevState: string) => prevState + emojiObject.emoji);
   };
 
   const handlePhoto = (event: any) => {
@@ -106,7 +111,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
         </div>
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <div styleName="modal__emoji">🙂</div>
+            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true}/>
             <ImageUploadBtn
               handleChange={handlePhoto}
               imageValue={imageValue}

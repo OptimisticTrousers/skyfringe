@@ -24,7 +24,6 @@
   position: relative;
   width: min(100%, 500px);
   max-height: 428px;
-  overflow-y: auto;
 }
 
 .modal__author-bar {

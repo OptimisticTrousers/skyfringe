@@ -5,7 +5,6 @@
   transition-duration: 300ms;
   transition-delay: 0ms;
   animation-timing-function: ease;
-  overflow: hidden;
   box-sizing: border-box;
   max-height: 0;
   margin-top: 1rem;

@@ -1,6 +1,6 @@
 import { FC, useRef, useState } from "react";
 import CSSModules from "react-css-modules";
-import { CommentData } from "../../../types";
+import EmojiPickerBtn from "../../ui/EmojiPickerBtn";
 import styles from "./CommentForm.module.css";
 
 interface Props {
@@ -18,6 +18,9 @@ const CommentForm: FC<Props> = ({
 }) => {
   const formRef = useRef<any>(null);
   const [commentText, setCommentText] = useState("");
+  const onEmojiClick = (emojiObject: any) => {
+    setCommentText((prevState) => prevState + emojiObject.emoji);
+  };
 
   const handleCommentText = (event: any) => {
     setCommentText(event.target.value);
@@ -25,7 +28,7 @@ const CommentForm: FC<Props> = ({
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    createComment(postId, {content: commentText});
+    createComment(postId, { content: commentText });
   };
 
   return (
@@ -50,6 +53,9 @@ const CommentForm: FC<Props> = ({
             }
       }
     >
+      <div styleName="form__emoji">
+        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={false}/>
+      </div>
       <textarea
         value={commentText}
         onChange={handleCommentText}

@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import CSSModules from "react-css-modules";
+import EmojiPickerBtn from "../../ui/EmojiPickerBtn";
 import styles from "./EditCommentForm.module.css";
 
 interface Props {
@@ -11,6 +12,9 @@ interface Props {
 const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading, text }) => {
   const [commentText, setCommentText] = useState(text);
 
+  const onEmojiClick = (emojiObject: any) => {
+    setCommentText((prevState: string) => prevState + emojiObject.emoji);
+  };
   const handleCommentText = (event: any) => {
     setCommentText(event.target.value);
   };
@@ -24,13 +28,15 @@ const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading, text }) => {
 
   return (
     <form styleName="form" onSubmit={handleSubmit}>
+      <div styleName="form__emoji">
+        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={false}/>
+      </div>
       <textarea
         styleName="form__input"
         placeholder="Edit your comment..."
         onChange={handleCommentText}
         value={commentText}
       ></textarea>
-      <div styleName="form__emoji"></div>
       <button styleName="form__button" type="submit" disabled={disabled}>
         {loading ? "Saving..." : "Save"}
       </button>

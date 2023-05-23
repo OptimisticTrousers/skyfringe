@@ -8,6 +8,8 @@ import { Loading, ImagePreview, ImageUploadBtn, Avatar } from "../../ui";
 import ModalContainer from "../ModalContainer";
 import styles from "./CreatePostModal.module.css";
 import { PostWithStringId as IPost } from "@backend/types";
+import EmojiPicker from "emoji-picker-react";
+import EmojiPickerBtn from "../../ui/EmojiPickerBtn/EmojiPickerBtn";
 
 interface Props {
   toggleModal: () => void;
@@ -26,6 +28,10 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
   const [imageFile, setImageFile] = useState<any>(null);
 
   const disabled = postText.length === 0 && !imageData;
+
+  const onEmojiClick = (emojiObject: any) => {
+    setPostText((prevState) => prevState + emojiObject.emoji);
+  };
 
   const handleChangePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setPostText(e.target.value);
@@ -93,7 +99,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
 
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <div styleName="modal__emoji">🙂</div>
+            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true}/>
             <ImageUploadBtn
               handleChange={handlePhoto}
               imageValue={imageValue}
