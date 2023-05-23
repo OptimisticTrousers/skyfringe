@@ -148,6 +148,10 @@
   margin-right: 8px;
 }
 
+.comment__button--active {
+  color: #2a86fe;
+}
+
 @media (max-width: 550px) {
   .comment__top {
     display: block;

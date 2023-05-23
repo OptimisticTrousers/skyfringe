@@ -136,7 +136,7 @@ const Comment: FC<Props> = ({
             <div styleName="comment__actions">
               <div styleName="comment__likes">
                 <button
-                  styleName="comment__button comment__button--like"
+                  styleName={`comment__button comment__button--like ${isLiked ? "comment__button--active" : ""}`}
                   onClick={handleLike}
                 >
                   {likeButtonText()}

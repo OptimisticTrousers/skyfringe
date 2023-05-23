@@ -227,7 +227,7 @@ const Post: FC<Props> = ({
           </div>
           <div styleName="post__buttons">
             <button
-              styleName="post__button post__button--like"
+              styleName={`post__button post__button--like ${isLiked ? "post__button--active" : ""}`}
               onClick={handleLike}
               disabled={likeLoading}
             >
