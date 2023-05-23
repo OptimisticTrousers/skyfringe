@@ -18,7 +18,14 @@ interface Props {
   title: any;
 }
 
-const Main: FC<Props> = ({ posts, setFeed, loading, error, user, title }) => {
+const ProfileMain: FC<Props> = ({
+  posts,
+  setFeed,
+  loading,
+  error,
+  user,
+  title,
+}) => {
   const {
     setData: setImages,
     data: images,
@@ -51,14 +58,18 @@ const Main: FC<Props> = ({ posts, setFeed, loading, error, user, title }) => {
               <div styleName="profile__card">
                 <div styleName="profile__container">
                   <h3 styleName="profile__subtitle">Media</h3>
-                  <button styleName="profile__button profile__button--friends">
+                  <Link
+                    to={`media`}
+                    styleName="profile__button profile__button--friends"
+                  >
                     See all media
-                  </button>
+                  </Link>
                 </div>
                 <div styleName="profile__friends">
                   {images?.map((image: any) => {
                     return (
                       <Avatar
+                        key={image.imageUrl}
                         src={image.imageUrl}
                         alt={image.altText}
                         size={"xl"}
@@ -82,7 +93,7 @@ const Main: FC<Props> = ({ posts, setFeed, loading, error, user, title }) => {
                 </div>
                 <Link
                   styleName="profile__link profile__link--friends"
-                  to="/friends/all"
+                  to={`friends`}
                 >
                   See all friends
                 </Link>
@@ -134,7 +145,7 @@ const Main: FC<Props> = ({ posts, setFeed, loading, error, user, title }) => {
   );
 };
 
-export default CSSModules(Main, styles, {
+export default CSSModules(ProfileMain, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
 });

@@ -124,7 +124,7 @@ const Profile: FC<Props> = ({ profileView }) => {
 
   const type = getRelation();
 
-  console.log(data?.user?.friends);
+  console.log(data?.likedPosts);
 
   return (
     <div styleName="profile">

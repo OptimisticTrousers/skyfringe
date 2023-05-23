@@ -55,6 +55,7 @@ export const user_detail = asyncHandler(
     const comments = await Comment.find({ author: user }).exec();
     const likedPosts = await Post.find({ likes: user })
       .populate("likes")
+      .populate("author")
       .exec();
     const likedComments = await Comment.find({ likes: user }).exec();
 
@@ -324,9 +325,9 @@ export const user_cover_put = [
 // @route   GET /api/user/:userId/images
 // @access  Private
 export const user_images = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.userId)
+  const user = (await User.findById(req.params.userId)
     .populate("friends")
-    .exec() as IUser;
+    .exec()) as IUser;
   const posts = await Post.find({ author: user })
     .populate("author")
     .populate("likes")
