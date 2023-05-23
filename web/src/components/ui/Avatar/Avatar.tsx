@@ -45,7 +45,6 @@ const Avatar: FC<Props> = ({ src, alt, size }) => {
       src={src || "/images/anon-user-lg.png"}
       alt={alt || "Anonymous user avatar"}
       onError={userImageFallback}
-      onLoad={userImageFallback}
     />
   );
 };

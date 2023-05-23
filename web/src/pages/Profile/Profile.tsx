@@ -46,32 +46,62 @@ const Profile = () => {
 
   const user = data?.user;
 
-  const incomingRequests = user?.friendRequests.filter(
-    (friendRequest: FriendRequest) =>
-      friendRequest.status === "incoming" &&
-      data?.user._id === friendRequest.user._id
-  );
-  const sentRequests = user?.friendRequests.filter(
-    (friendRequest: FriendRequest) =>
-      friendRequest.status === "outgoing" &&
-      data?.user._id === friendRequest.user._id
-  );
-  const rejectedIncoming = user?.friendRequests.filter(
-    (friendRequest: FriendRequest) =>
-      friendRequest.status === "rejectedIncoming" &&
-      data?.user._id === friendRequest.user._id
-  );
-  const outgoingRejected = user?.friendRequests.filter(
-    (friendRequest: FriendRequest) =>
-      friendRequest.status === "outgoingRejected" &&
-      data?.user._id === friendRequest.user._id
-  );
+  function getRelation() {
+    // Check if the users have no relation with each other
+    if (!user) return;
 
-  const friends = currentUser.friends.filter((user: User) => {
-    if (data?.user._id === user._id) {
-      return user;
+    if (
+      !currentUser?.friendRequests.some(
+        (request: any) => request.user._id === user?._id
+      ) &&
+      !currentUser?.friends.some((friend: any) => friend._id === user?._id)
+    ) {
+      return "user";
     }
-  });
+
+    // Check if there is an "outgoing" request from 'currentUser'
+    const outgoingRequest = currentUser?.friendRequests.find(
+      (request: any) =>
+        request.user._id === user?._id && request.status === "outgoing"
+    );
+    if (outgoingRequest) {
+      return "outgoing";
+    }
+
+    // Check if there is an "incoming" request received by 'currentUser'
+    const incomingRequest = currentUser?.friendRequests.find(
+      (request: any) =>
+        request.user._id === user?._id && request.status === "incoming"
+    );
+    if (incomingRequest) {
+      return "incoming";
+    }
+
+    // Check if the 'currentUser' is friends with the "user"
+    if (currentUser?.friends.some((friend: any) => friend._id === user?._id)) {
+      return "friend";
+    }
+
+    // Check if there is a "rejectedIncoming" request from 'currentUser'
+    const rejectedIncomingRequest = currentUser?.friendRequests.find(
+      (request: any) =>
+        request.user._id === user?._id && request.status === "rejectedIncoming"
+    );
+    if (rejectedIncomingRequest) {
+      return "user";
+    }
+
+    // Check if there is an "outgoingRejected" request from 'currentUser'
+    const outgoingRejectedRequest = currentUser?.friendRequests.find(
+      (request: any) =>
+        request.user._id === user?._id && request.status === "outgoingRejected"
+    );
+    if (outgoingRejectedRequest) {
+      return "user";
+    }
+  }
+
+  const type = getRelation();
 
   return (
     <div styleName="profile">
@@ -80,41 +110,38 @@ const Profile = () => {
           src={user?.cover && user?.cover?.imageUrl}
           altText={user?.cover && user?.cover?.altText}
         />
-        <div styleName="profile__details">
-          <Avatar
-            src={user?.photo && user?.photo?.imageUrl}
-            alt={user?.photo && user?.photo?.altText}
-            size={"rounded"}
-          />
-          <div styleName="profile__text">
-            <h2 styleName="profile__name">{user?.fullName}</h2>
-            {user?.userName ? (
-              <h3 styleName="profile__username">@{user?.userName}</h3>
+          <div styleName="profile__details">
+            <div styleName="profile__left">
+              <Avatar
+                src={user?.photo && user?.photo?.imageUrl}
+                alt={user?.photo && user?.photo?.altText}
+                size={"rounded"}
+              />
+              <div styleName="profile__text">
+                <h2 styleName="profile__name">{user?.fullName}</h2>
+                {user?.userName ? (
+                  <h3 styleName="profile__username">@{user?.userName}</h3>
+                ) : null}
+              </div>
+            </div>
+            {currentUser._id !== data?.user?._id ? (
+              <div styleName="profile__request">
+                {type === "user" && <SendRequestBtn userId={data?.user?._id} />}
+                {type === "friend" && (
+                  <UnfriendRequestBtn userId={data?.user?._id} />
+                )}
+                {type === "outgoing" && (
+                  <CancelRequestBtn userId={data?.user?._id} />
+                )}
+                {type === "incoming" && (
+                  <div styleName="profile__requests">
+                    <AcceptRequestBtn userId={data?.user?._id} />
+                    <DeleteRequestBtn userId={data?.user?._id} />
+                  </div>
+                )}
+              </div>
             ) : null}
           </div>
-        </div>
-        {currentUser._id !== data?.user?._id ? (
-          <div styleName="profile__request">
-            {outgoingRejected?.length !== 0 && (
-              <SendRequestBtn userId={data?.user?._id} />
-            )}
-            {rejectedIncoming?.length !== 0 && (
-              <SendRequestBtn userId={data?.user?._id} />
-            )}
-            {sentRequests?.length !== 0 && (
-              <CancelRequestBtn userId={data?.user?._id} />
-            )}
-            {friends?.length !== 0 && (
-              <UnfriendRequestBtn userId={data?.user?._id} />
-            )}
-            {incomingRequests?.length !== 0 && (
-              <div>
-                <AcceptRequestBtn userId={data?.user?._id} />
-                <DeleteRequestBtn userId={data?.user?._id} />
-              </div>
-            )}
-          </div>
-        ) : null}
       </header>
       <div styleName="profile__content">
         <aside styleName="profile__aside">
@@ -196,32 +223,34 @@ const Profile = () => {
                     See all friends
                   </Link>
                 </div>
-                  {user?.friends.length !== 0 ? user?.friends?.map((friend: any) => {
-                    return (
-                <ul styleName="profile__friends">
-                      <li styleName="profile__friend" key={friend._id}>
-                        <Link
-                          styleName="profile__link profile__link--avatar"
-                          to={`/users/${friend?._id}`}
-                        >
-                          <Avatar
-                            src={friend?.photo && friend?.photo?.imageUrl}
-                            alt={friend?.photo && friend?.photo?.altText}
-                            size={"lg"}
-                          />
-                        </Link>
-                        <Link
-                          styleName="profile__link profile__link--name"
-                          to={`/users/${friend?._id}`}
-                        >
-                          {friend?.fullName}
-                        </Link>
-                      </li>
-                </ul>
-                    );
-                  }) : (
-                    <p styleName="profile__message">No friends yet...</p>
-                  )}
+                {user?.friends.length !== 0 ? (
+                  <ul styleName="profile__friends">
+                    {user?.friends?.map((friend: any) => {
+                      return (
+                        <li styleName="profile__friend" key={friend._id}>
+                          <Link
+                            styleName="profile__link profile__link--avatar"
+                            to={`/users/${friend?._id}`}
+                          >
+                            <Avatar
+                              src={friend?.photo && friend?.photo?.imageUrl}
+                              alt={friend?.photo && friend?.photo?.altText}
+                              size={"lg"}
+                            />
+                          </Link>
+                          <Link
+                            styleName="profile__link profile__link--name"
+                            to={`/users/${friend?._id}`}
+                          >
+                            {friend?.fullName}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p styleName="profile__message">No friends yet...</p>
+                )}
               </div>
             ) : (
               <SkeletonProfileFriendCard />

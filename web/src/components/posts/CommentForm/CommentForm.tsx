@@ -50,11 +50,12 @@ const CommentForm: FC<Props> = ({
               paddingTop: "0px",
               paddingBottom: "0px",
               visibility: "hidden",
+              overflowY: "hidden",
             }
       }
     >
       <div styleName="form__emoji">
-        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={false}/>
+        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={false} />
       </div>
       <textarea
         value={commentText}
