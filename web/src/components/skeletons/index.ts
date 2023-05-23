@@ -6,3 +6,4 @@ export { default as SkeletonSuggestion } from "./SkeletonSuggestion";
 export { default as SkeletonComment } from "./SkeletonComment";
 export { default as SkeletonBio } from "./SkeletonBio";
 export { default as SkeletonProfileFriendCard } from "./SkeletonProfileFriendCard";
+export { default as SkeletonUserMedia } from "./SkeletonUserMedia";

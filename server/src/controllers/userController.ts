@@ -53,7 +53,9 @@ export const user_detail = asyncHandler(
       .populate("likes")
       .exec();
     const comments = await Comment.find({ author: user }).exec();
-    const likedPosts = await Post.find({ likes: user }).exec();
+    const likedPosts = await Post.find({ likes: user })
+      .populate("likes")
+      .exec();
     const likedComments = await Comment.find({ likes: user }).exec();
 
     res.status(200).json({ user, posts, comments, likedPosts, likedComments });
@@ -212,8 +214,8 @@ export const user_avatar_put = [
         // Generate alt text for an image (if an image exists)
         // image exists
         const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
-          locals.date
-        }_${user.userName}.${req.file.mimetype.split("/")[1]}`;
+          user.userName
+        }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
         const altText = await generateAltText(imageUrl);
         user.photo = {
           imageUrl,
@@ -289,8 +291,8 @@ export const user_cover_put = [
         // Generate alt text for an image (if an image exists)
         // image exists
         const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
-          locals.date
-        }_${user.userName}.${req.file.mimetype.split("/")[1]}`;
+          user.userName
+        }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
         const altText = await generateAltText(imageUrl);
         user.cover = {
           imageUrl,
@@ -317,6 +319,50 @@ export const user_cover_put = [
     }
   ),
 ];
+
+// @desc    Get all images related to a user
+// @route   GET /api/user/:userId/images
+// @access  Private
+export const user_images = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.userId)
+    .populate("friends")
+    .exec() as IUser;
+  const posts = await Post.find({ author: user })
+    .populate("author")
+    .populate("likes")
+    .exec();
+
+  // Create an array to store all the photo objects
+  const allPhotos = [];
+
+  // Add user cover photo to the array
+  if (user?.cover) {
+    allPhotos.push({
+      imageUrl: user.cover.imageUrl,
+      altText: user.cover.altText,
+    });
+  }
+
+  // Add user photo to the array
+  if (user?.photo) {
+    allPhotos.push({
+      imageUrl: user.photo.imageUrl,
+      altText: user.photo.altText,
+    });
+  }
+
+  // Add post photos to the array
+  for (const post of posts) {
+    if (post.photo) {
+      allPhotos.push({
+        imageUrl: post.photo.imageUrl,
+        altText: post.photo.altText,
+      });
+    }
+  }
+
+  res.status(200).json(allPhotos);
+});
 
 // @desc    Delete single user
 // @route   DELETE /api/user/:userId
@@ -373,7 +419,8 @@ export const user_search = asyncHandler(
       ],
     }));
 
-    const expression = terms.length === 1 ? expressions[0] : { $or: expressions };
+    const expression =
+      terms.length === 1 ? expressions[0] : { $or: expressions };
 
     const users = await User.find(expression).exec();
     res.status(200).json(users);

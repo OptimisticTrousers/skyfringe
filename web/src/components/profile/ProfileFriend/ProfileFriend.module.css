@@ -1,0 +1,29 @@
+.friend {
+  display: flex;
+  padding: 0.5rem;
+  border: 1px solid gray;
+  border-radius: 5px;
+  width: 415px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.friend__link:hover {
+  text-decoration: underline;
+}
+
+.friend__link--avatar {
+  margin-right: 1rem;
+  outline-color: #404164;
+  outline-offset: 2px;
+}
+
+.friend__link--name {
+  text-align: left;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  max-width: 20rem;
+  font-weight: 600;
+  width: 100%;
+  margin-top: 0.5rem;
+}

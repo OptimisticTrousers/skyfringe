@@ -1,10 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
 import { CreatePost, Feed, Post } from "../../components/posts";
 import {
   SkeletonBio,
   SkeletonPost,
   SkeletonProfileFriendCard,
+  SkeletonUserMedia,
 } from "../../components/skeletons";
 import {
   AcceptRequestBtn,
@@ -28,18 +29,38 @@ import {
 import styles from "./Profile.module.css";
 import { Link, useParams } from "react-router-dom";
 import { SideFooter } from "../../components/home";
+import {
+  ProfileMain,
+  ProfileMedia,
+  ProfileNav,
+} from "../../components/profile";
+import useProfileTabs from "../../hooks/useProfileTabs";
+import ProfileFriends from "../../components/profile/ProfileFriends/ProfileFriends";
 
-const Profile = () => {
+interface Props {
+  profileView: any;
+}
+
+const Profile: FC<Props> = ({ profileView }) => {
   const { user: currentUser } = useContext(AuthContext);
   const { userId } = useParams();
   const { setData, data, loading, error }: any = useFetch(
     `${import.meta.env.VITE_API_DOMAIN}/users/${userId}`
   );
+  const { selected } = useProfileTabs();
 
   const setFeed = (cb: any) => {
     setData((prevData: any) => {
       const clonedData = structuredClone(prevData);
       clonedData.posts = cb(prevData.posts);
+      return clonedData;
+    });
+  };
+
+  const setLikedPosts = (cb: any) => {
+    setData((prevData: any) => {
+      const clonedData = structuredClone(prevData);
+      clonedData.likedPosts = cb(prevData.likedPosts);
       return clonedData;
     });
   };
@@ -103,6 +124,8 @@ const Profile = () => {
 
   const type = getRelation();
 
+  console.log(data?.user?.friends);
+
   return (
     <div styleName="profile">
       <header styleName="profile__header">
@@ -110,170 +133,64 @@ const Profile = () => {
           src={user?.cover && user?.cover?.imageUrl}
           altText={user?.cover && user?.cover?.altText}
         />
-          <div styleName="profile__details">
-            <div styleName="profile__left">
-              <Avatar
-                src={user?.photo && user?.photo?.imageUrl}
-                alt={user?.photo && user?.photo?.altText}
-                size={"rounded"}
-              />
-              <div styleName="profile__text">
-                <h2 styleName="profile__name">{user?.fullName}</h2>
-                {user?.userName ? (
-                  <h3 styleName="profile__username">@{user?.userName}</h3>
-                ) : null}
-              </div>
+        <div styleName="profile__details">
+          <div styleName="profile__left">
+            <Avatar
+              src={user?.photo && user?.photo?.imageUrl}
+              alt={user?.photo && user?.photo?.altText}
+              size={"rounded"}
+            />
+            <div styleName="profile__text">
+              <h2 styleName="profile__name">{user?.fullName}</h2>
+              {user?.userName ? (
+                <h3 styleName="profile__username">@{user?.userName}</h3>
+              ) : null}
             </div>
-            {currentUser._id !== data?.user?._id ? (
-              <div styleName="profile__request">
-                {type === "user" && <SendRequestBtn userId={data?.user?._id} />}
-                {type === "friend" && (
-                  <UnfriendRequestBtn userId={data?.user?._id} />
-                )}
-                {type === "outgoing" && (
-                  <CancelRequestBtn userId={data?.user?._id} />
-                )}
-                {type === "incoming" && (
-                  <div styleName="profile__requests">
-                    <AcceptRequestBtn userId={data?.user?._id} />
-                    <DeleteRequestBtn userId={data?.user?._id} />
-                  </div>
-                )}
-              </div>
-            ) : null}
           </div>
-      </header>
-      <div styleName="profile__content">
-        <aside styleName="profile__aside">
-          <Card>
-            <div styleName="profile__card">
-              <h3 styleName="profile__subtitle">About</h3>
-              {user?.bio ? (
-                <p styleName="profile__description">
-                  {user?.bio ? user?.bio : "Add a bio..."}
-                </p>
-              ) : (
-                <SkeletonBio />
+          {currentUser._id !== data?.user?._id ? (
+            <div styleName="profile__request">
+              {type === "user" && <SendRequestBtn userId={data?.user?._id} />}
+              {type === "friend" && (
+                <UnfriendRequestBtn userId={data?.user?._id} />
+              )}
+              {type === "outgoing" && (
+                <CancelRequestBtn userId={data?.user?._id} />
+              )}
+              {type === "incoming" && (
+                <div styleName="profile__requests">
+                  <AcceptRequestBtn userId={data?.user?._id} />
+                  <DeleteRequestBtn userId={data?.user?._id} />
+                </div>
               )}
             </div>
-          </Card>
-          <Card>
-            <SkeletonProfileFriendCard />
-            {/* <div styleName="profile__card">
-              <div styleName="profile__container">
-                <h3 styleName="profile__subtitle">Media</h3>
-                <button styleName="profile__button profile__button--friends">
-                  See all media
-                </button>
-              </div>
-              <div styleName="profile__friends">
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-                <img
-                  src="/images/optimistictrousers.jpg"
-                  styleName="profile__friend"
-                />
-              </div>
-            </div> */}
-          </Card>
-          <Card>
-            {user ? (
-              <div styleName="profile__card">
-                <div styleName="profile__container">
-                  <div styleName="profile__text">
-                    <h3 styleName="profile__subtitle">Friends</h3>
-                    <p styleName="profile__caption">
-                      {user?.friendCount} friends
-                    </p>
-                  </div>
-                  <Link
-                    styleName="profile__link profile__link--friends"
-                    to="/friends/all"
-                  >
-                    See all friends
-                  </Link>
-                </div>
-                {user?.friends.length !== 0 ? (
-                  <ul styleName="profile__friends">
-                    {user?.friends?.map((friend: any) => {
-                      return (
-                        <li styleName="profile__friend" key={friend._id}>
-                          <Link
-                            styleName="profile__link profile__link--avatar"
-                            to={`/users/${friend?._id}`}
-                          >
-                            <Avatar
-                              src={friend?.photo && friend?.photo?.imageUrl}
-                              alt={friend?.photo && friend?.photo?.altText}
-                              size={"lg"}
-                            />
-                          </Link>
-                          <Link
-                            styleName="profile__link profile__link--name"
-                            to={`/users/${friend?._id}`}
-                          >
-                            {friend?.fullName}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                ) : (
-                  <p styleName="profile__message">No friends yet...</p>
-                )}
-              </div>
-            ) : (
-              <SkeletonProfileFriendCard />
-            )}
-          </Card>
-          <SideFooter />
-        </aside>
-        <div styleName="profile__main">
-          <Card>
-            <h3 styleName="profile__title">Posts</h3>
-          </Card>
-          {currentUser?._id === data?.user?._id && (
-            <CreatePost setFeed={setFeed} />
-          )}
-          <Feed
-            posts={data?.posts}
-            loading={loading}
-            error={error}
-            setFeed={setFeed}
-          />
-          <FinishedPosts />
+          ) : null}
         </div>
-      </div>
+      </header>
+      <ProfileNav />
+      {selected === "posts" && (
+        <ProfileMain
+          title="Posts"
+          user={data?.user}
+          posts={data?.posts}
+          setFeed={setFeed}
+          error={error}
+          loading={loading}
+        />
+      )}
+      {selected === "likedPosts" && (
+        <ProfileMain
+          title="Liked Posts"
+          user={data?.user}
+          posts={data?.likedPosts}
+          setFeed={setLikedPosts}
+          error={error}
+          loading={loading}
+        />
+      )}
+      {selected === "friends" && (
+        <ProfileFriends friends={data?.user?.friends} />
+      )}
+      {selected === "media" && <ProfileMedia user={data?.user} />}
     </div>
   );
 };

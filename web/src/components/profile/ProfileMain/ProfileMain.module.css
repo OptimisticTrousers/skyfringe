@@ -99,6 +99,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  max-width: 98rem;
   width: 100%;
   box-sizing: border-box;
   padding: 0 2rem;
@@ -176,10 +177,11 @@
   display: grid;
   margin-top: 1rem;
   grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
+  justify-items: start;
   gap: 20px;
   list-style-type: none;
   padding: 0;
+  padding-left: 0.5rem;
 }
 
 .profile__friend {
@@ -235,14 +237,13 @@
     margin-top: 6rem;
   }
   .profile__details {
-    bottom: -120px;
   }
   .profile__request {
     margin-top: 1rem;
   }
 }
 
-@media (max-width: 540px) {
+@media(max-width: 540px) {
   .profile__details {
     flex-direction: column;
   }
@@ -257,7 +258,6 @@
     padding-top: 2rem;
   }
   .profile__details {
-    bottom: -130px;
     left: 8px;
   }
 }

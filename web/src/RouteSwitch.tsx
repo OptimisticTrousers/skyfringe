@@ -37,7 +37,21 @@ const RouteSwitch = () => {
             <Route index element={<Home />} />
             <Route path="settings" element={<Settings />} />
             <Route path="users">
-              <Route path=":userId" element={<Profile />} />
+              <Route path=":userId">
+                <Route index element={<Profile profileView={"home"} />} />
+                <Route
+                  path="friends"
+                  element={<Profile profileView={"friends"} />}
+                />
+                <Route
+                  path="likedPosts"
+                  element={<Profile profileView={"likedPosts"} />}
+                />
+                <Route
+                  path="media"
+                  element={<Profile profileView={"media"} />}
+                />
+              </Route>
             </Route>
             <Route path="notifications" element={<Notifications />} />
             <Route path="chat" element={<Chat />} />

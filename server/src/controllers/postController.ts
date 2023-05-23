@@ -76,8 +76,8 @@ export const post_create = [
     if (req.file) {
       // image exists
       const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
-        locals.date
-      }_${user.userName}.${req.file.mimetype.split("/")[1]}`;
+        user.userName
+      }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
       altText = await generateAltText(imageUrl);
       post.photo = {
         imageUrl,
@@ -196,10 +196,11 @@ export const post_update = [
       // Generate alt text for an image (if an image exists)
       // image exists
       const altText = await generateAltText(req.file.path);
+      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
+        user.userName
+      }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
       updatedPost.photo = {
-        imageUrl: `${bucketName}/facebook_clone/${locals.path}/${locals.date}_${
-          user.userName
-        }.${req.file.mimetype.split("/")[1]}`,
+        imageUrl,
         altText,
       };
     }

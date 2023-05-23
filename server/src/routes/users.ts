@@ -7,6 +7,7 @@ import {
   user_feed,
   user_avatar_put,
   user_cover_put,
+  user_images,
 } from "../controllers/userController";
 import multerCoverKey from "../middleware/multerCoverKey";
 import validateUserId from "../middleware/validateUserId";
@@ -22,6 +23,8 @@ router
   .get(validateUserId, user_detail)
   .put(validateUserId, restrictTestUserActions, user_update)
   .delete(validateUserId, restrictTestUserActions, user_delete);
+
+router.route("/:userId/images").get(user_images);
 
 router
   .route("/:userId/avatar")
