@@ -1,7 +1,8 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import useFriendRequests from "../../../hooks/useFriendRequests";
 import CSSModules from "react-css-modules";
 import styles from "./CancelRequestBtn.module.css";
+import { AuthContext } from "../../../context/AuthContext";
 
 interface Props {
   userId: string;
@@ -10,6 +11,7 @@ interface Props {
 // Used to cancel a friend request you have sent
 const CancelRequestBtn: FC<Props> = ({ userId }) => {
   const { request, data, loading, error } = useFriendRequests(userId);
+  const { user, dispatch } = useContext(AuthContext);
 
   // Dynamically set button text to indicate loading state
   const setBtnText = () => {
@@ -30,12 +32,17 @@ const CancelRequestBtn: FC<Props> = ({ userId }) => {
     return "Cancel";
   };
 
-  const handleCancel = () => {
-    request(
+  const handleCancel = async () => {
+    const otherUser = await request(
       "cancelRequest",
       "Request cancelled.",
       "An unknown error has occured while cancelling the outgoing friend request."
     );
+    const newUser = structuredClone(user);
+    newUser.friendRequests = newUser.friendRequests.filter(
+      (friendRequest: any) => friendRequest.user._id !== otherUser._id
+    );
+    dispatch({ type: "LOGIN", payload: newUser });
   };
 
   return (

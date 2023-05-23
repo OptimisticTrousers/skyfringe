@@ -19,8 +19,8 @@ const FriendsSectionRequests: FC<Props> = ({ title, users, emptyMessage, type })
         {users.length > 0 ? (
           users.map((friend: FriendRequest) => {
             return (
-              <li styleName="friend__card" key={friend.user._id}>
-                <FriendsCard friend={friend.user} type={type} />
+              <li styleName="friend__card" key={friend.user?._id}>
+                <FriendsCard friend={friend?.user} type={type} />
               </li>
             );
           })
