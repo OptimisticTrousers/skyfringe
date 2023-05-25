@@ -1,6 +1,8 @@
 import User from "../models/user";
 import Post from "../models/post";
 import Comment from "../models/comment";
+import Chat from "../models/chat";
+import Message from "../models/message";
 import mongoConfig from "./db";
 // Importing file that populates mock data for the database
 import { populate } from "./populateDB";
@@ -15,6 +17,8 @@ mongoConfig();
       User.deleteMany({}),
       Post.deleteMany({}),
       Comment.deleteMany({}),
+      Chat.deleteMany({}),
+      Message.deleteMany({}),
     ]);
     console.log("Successfully reset database");
     await populate();

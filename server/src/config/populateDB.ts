@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import Post from "../models/post";
 import User from "../models/user";
 import Comment from "../models/comment";
+import Chat from "../models/chat";
+import Message from "../models/message";
 import { config } from "dotenv";
 
 // Setting up ENV variables, specifically for S3_BUCKET
@@ -54,6 +56,20 @@ export const bobId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000019");
 
 export const locosPollosId = new mongoose.Types.ObjectId(
   "4c8a331bda76c559ef000020"
+);
+
+export const chatId = new mongoose.Types.ObjectId("4c8a331bda76c559ef000022");
+
+export const luffyMessageId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000023"
+);
+
+export const zoroMessageId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000024"
+);
+
+export const luffySecondMessageId = new mongoose.Types.ObjectId(
+  "4c8a331bda76c559ef000025"
 );
 
 const S3_BUCKET = process.env.AWS_BUCKET_NAME;
@@ -301,6 +317,39 @@ const comments = [
   },
 ];
 
+export const messages = [
+  {
+    _id: luffyMessageId,
+    content: "I'll be the King of the Pirates",
+    author: luffy,
+    chat: chatId,
+  },
+  {
+    _id: zoroMessageId,
+    content: "And I'll be the greatest swordsman in the world!",
+    author: zoro,
+    chat: chatId,
+    photo: {
+      imageUrl: `${S3_BUCKET}/facebook_clone/users/zoro.webp`,
+      altText: "Fictional character Roronoa Zoro from the One Piece manga",
+    },
+  },
+  {
+    _id: luffySecondMessageId,
+    content: "I'd need no less than the greatest!",
+    author: luffy,
+    chat: chatId,
+  },
+];
+
+export const chats = [
+  {
+    _id: chatId,
+    participants: [luffy, zoro],
+    messages,
+  },
+];
+
 // Function used to populate database with intial data. Use insertMany to reduce overall db calls
 export const populate = async () => {
   try {
@@ -323,5 +372,20 @@ export const populate = async () => {
   } catch (error) {
     console.log(`Error seeding comments: ${error}`);
   }
+
+  try {
+    const chatDocs = await Chat.insertMany(chats);
+    console.log(`${chatDocs.length} chats seeded successfully.`);
+  } catch (error) {
+    console.log(`Error seeding chats: ${error}`);
+  }
+
+  try {
+    const messageDocs = await Message.insertMany(messages);
+    console.log(`${messageDocs.length} messages seeded successfully.`);
+  } catch (error) {
+    console.log(`Error seeding chats: ${error}`);
+  }
+
   console.log("Done!");
 };

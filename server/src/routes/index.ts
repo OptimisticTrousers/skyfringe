@@ -2,6 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import postRouter from "./posts";
 import userRouter from "./users";
+import chatRouter from "./chat";
 import authRouter from "./auth";
 import { user_search } from "../controllers/userController";
 import { friend_request } from "../controllers/friendController";
@@ -20,6 +21,12 @@ router.use(
 );
 
 router.use("/auth", authRouter);
+
+router.use(
+  "/chat",
+  passport.authenticate("jwt", { session: false }),
+  chatRouter
+);
 
 router.put(
   "/friends/:userId",
