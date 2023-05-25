@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CSSModules from "react-css-modules";
 import {
   ChatAside,
@@ -14,7 +14,7 @@ import styles from "./Chat.module.css";
 
 const Chat = () => {
   const { selectedChat } = useContext(ChatContext);
-  const { fetchChat, data: chat, loading }: any = useFetchChat();
+  const { fetchChat, data: chat,setData, loading }: any = useFetchChat();
 
   return (
     <ChatProvider>
@@ -22,7 +22,7 @@ const Chat = () => {
         <ChatAside fetchChat={fetchChat} />
         {!selectedChat && !chat && !loading && <Welcome />}
         {loading && <ChatLoading />}
-        {chat && !loading && <ChatMain messages={chat?.messages} />}
+        {chat && !loading && <ChatMain messages={chat?.messages} setData={setData}/>}
       </div>
     </ChatProvider>
   );

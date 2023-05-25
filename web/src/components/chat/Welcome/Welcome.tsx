@@ -13,7 +13,7 @@ const Welcome = () => {
         alt="waving robot"
       />
       <h1 styleName="welcome__title">
-        Welcome, <span styleName="welcome__username">{user.userName}</span>
+        Welcome, <span styleName="welcome__username">{user.fullName}</span>
       </h1>
       <h3 styleName="welcome__description">
         Please select a chat to start messaging.

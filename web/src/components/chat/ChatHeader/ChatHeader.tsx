@@ -1,22 +1,28 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { ChatContext } from "../../../context/ChatContext";
+import { socket } from "../../../utils/socket";
 import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./ChatHeader.module.css";
 
 const ChatHeader = () => {
   const { user } = useContext(AuthContext);
   const { isAsideOpen, toggleAside, selectedChat } = useContext(ChatContext);
+  const [lastConnected, setLastConnected] = useState()
 
   const otherUser = selectedChat?.participants.find(
     (participant: any) => participant._id !== user._id
   );
 
-  console.log(otherUser);
+  useEffect(() => {
+    socket.on("last-connected", (date) => {
+      setLastConnected(date);
+    })
+  },[])
 
   return (
     <header styleName="header">
@@ -34,11 +40,11 @@ const ChatHeader = () => {
           onError={userImageFallback}
         />
         <div styleName="header__text">
-          <h3 styleName="header__name">{otherUser.fullName}</h3>
-          <p styleName="header__time">Last seen today at 17:38</p>
+          <h3 styleName="header__name">{otherUser?.fullName}</h3>
+          {/* <p styleName="header__time">Last seen today at 17:38</p> */}
         </div>
       </div>
-      <Link to={`/users/${otherUser._id}`}>
+      <Link to={`/users/${otherUser?._id}`}>
         <AiFillInfoCircle styleName="header__icon" />
       </Link>
     </header>

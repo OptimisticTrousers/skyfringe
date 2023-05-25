@@ -1,0 +1,75 @@
+.top-bar {
+  display: flex;
+  height: 54px;
+  border-bottom: 1px solid #d3d3d3;
+  align-items: center;
+}
+
+.to {
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 12px;
+  margin-right: 24px;
+}
+
+.input {
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 1px 2px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.contacts {
+  flex: 1 1;
+  overflow: auto;
+}
+
+.title {
+  font-weight: 600;
+  margin: 16px;
+}
+
+.contact {
+  display: flex;
+  padding: 8px 16px;
+  height: 44px;
+  cursor: pointer;
+  align-items: center;
+}
+
+.contact:hover {
+  background-color: #fafafa;
+}
+
+.contact__image {
+  height: 44px;
+  width: 44px;
+  margin-right: 12px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: cneter;
+}
+
+.contact__details {
+}
+
+.contact__username {
+  font-weight: 600;
+  line-height: 18px;
+  margin: 0;
+}
+
+.contact__fullname {
+  color: #8e8e8e;
+  margin: 0;
+}
+
+.message {
+  padding: 90px;
+  text-align: center;
+}

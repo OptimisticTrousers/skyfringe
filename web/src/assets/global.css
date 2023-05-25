@@ -15,7 +15,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  height: 100%;
+  height: 100vh;
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: rgba(255, 255, 255);
@@ -71,6 +71,10 @@ a {
   border: 3px solid #005eff;
 }
 
+.scale-down {
+  animation: scale-down .1s;
+}
+
 @keyframes skeleton-loading {
   0% {
     background: #272729;
@@ -104,5 +108,15 @@ a {
   }
   to {
     transform: translateY(0);
+  }
+}
+
+@keyframes scale-down {
+  0% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }

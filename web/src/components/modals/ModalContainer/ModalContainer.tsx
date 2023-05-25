@@ -19,7 +19,7 @@ const ModalContainer: FC<Props> = ({ children, title, toggleModal }) => {
       role="dialog"
       aria-labelledby="modal-title"
     >
-      <div styleName="modal__container">
+      <div styleName="modal__container" className="scale-down">
         <header styleName="modal__header">
           <button
             styleName="modal__button"

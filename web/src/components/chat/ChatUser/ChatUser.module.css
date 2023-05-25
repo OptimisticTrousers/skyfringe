@@ -9,6 +9,7 @@
 
 .user--selected {
   background-color: #9186f3;
+  color: black;
 }
 
 .user:hover {
@@ -30,8 +31,10 @@
 
 .user__avatar {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   margin-right: 12px;
+  object-fit: cover;
 }
 
 .user__details {
@@ -63,7 +66,7 @@
 
 .user__message {
   margin: 0;
-  color: #afafaf;
+  color: #b7b7b7;
   transition: all 0.15s ease;
 }
 

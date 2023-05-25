@@ -18,6 +18,7 @@ export const ChatContext = createContext<any>({} as ChatContext);
 export const ChatProvider: FC<Props> = ({ children }) => {
   const [isAsideOpen, setIsAsideOpen] = useState(true);
   const [selectedChat, setSelectedChat] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const toggleAside = () => {
     setIsAsideOpen((prevValue) => !prevValue);
@@ -25,7 +26,7 @@ export const ChatProvider: FC<Props> = ({ children }) => {
 
   return (
     <ChatContext.Provider
-      value={{ isAsideOpen, toggleAside, setSelectedChat, selectedChat }}
+      value={{ isAsideOpen, toggleAside, setSelectedChat, selectedChat, selectedUser, setSelectedUser}}
     >
       {children}
     </ChatContext.Provider>

@@ -2,8 +2,9 @@ import { Types } from "mongoose";
 import asyncHandler from "express-async-handler";
 import User from "../models/user";
 import { User as IUser, FriendRequest as IFriendRequest } from "../../types";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import cleanStringify from "../utils/cleanStringify";
+import { create_chat } from "./chatController";
 
 // Use this function to ensure that no duplicate requests are sent, and that certain request types exist before performing related actions
 export const checkExistingEntries = (
@@ -133,7 +134,7 @@ export const modifyForUnfriendRequest = (sender: IUser, recipient: IUser) => {
 // @route   PUT /api/friends/:userId
 // @access  Private
 export const friend_request = asyncHandler(
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     // Req.user will contain the sender's details
     // When clicking on another user's details, their ID should be captured and passed into the req.params.userId for example
     // In all friend request functions, the requestSender describes the currently logged in user that is making a request of some kind, be it sending, accepting, cancelling, or deleting. The recepient describes the user that is the target of the sender's request, again regardless of if the sender if sending a request to that user, or accepting a request from that user
@@ -197,6 +198,9 @@ export const friend_request = asyncHandler(
         if (existingRequest === "incoming") {
           // Request able to be Accepted. Adjust recipient and sender's friends as needed
           modifyForAcceptRequest(sender, recipient);
+          // Create a new chat when two users are friends
+          req.body.friend = recipient;
+          create_chat(req, res, next);
           break;
         } else {
           // Request cannot be accepted (none available)

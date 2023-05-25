@@ -42,7 +42,7 @@ const useFetchChat = () => {
     }
   };
 
-  return { fetchChat, data, loading, error };
+  return { fetchChat, data, setData, loading, error };
 };
 
 export default useFetchChat;

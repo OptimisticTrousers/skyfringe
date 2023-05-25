@@ -1,17 +1,22 @@
 .main {
   display: flex;
   flex-direction: column;
-  height: 100%;
+}
+
+.main__message {
+  margin-top: 90px;
+  text-align: center;
+  font-size: 1.25rem;
 }
 
 .main--appear {
-    display: flex !important;
+  display: flex !important;
 }
 
 .main__content {
   padding: 1.3rem 2rem;
   height: 598px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 @media (max-width: 1390px) {

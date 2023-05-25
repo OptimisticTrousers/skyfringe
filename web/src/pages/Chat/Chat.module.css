@@ -1,7 +1,6 @@
 .chat {
   display: grid;
   grid-template-columns: 1.25fr 3fr;
-  height: 100%;
 }
 
 @media (max-width: 1390px) {

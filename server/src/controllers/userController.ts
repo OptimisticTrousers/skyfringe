@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import User from "../models/user";
+import Chat from "../models/chat";
 import mongoose from "mongoose";
 import { config } from "dotenv";
 import { body, check, oneOf, validationResult } from "express-validator";
@@ -62,6 +63,22 @@ export const user_detail = asyncHandler(
     res.status(200).json({ user, posts, comments, likedPosts, likedComments });
   }
 );
+
+// @desc    Update user details
+// @route   GET /api/users/:userId/chats
+// @access  Private
+
+export const get_user_chats = asyncHandler(async (req, res, next) => {
+  const userId = req.params.userId;
+  const chats = await Chat.find({ participants: userId })
+    .populate("messages")
+    .populate("participants")
+    .populate("messages.author")
+    .populate("messages.chat")
+    .exec();
+
+  res.status(200).json(chats);
+});
 
 // @desc    Update user details
 // @route   PUT /api/users/:userId

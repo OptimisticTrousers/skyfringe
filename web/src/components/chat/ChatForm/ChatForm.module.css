@@ -1,17 +1,26 @@
 .form {
   margin-top: auto;
-  padding: 1.75rem 2rem;
+  padding: 1.75rem 1rem;
   background-color: #262837;
   display: flex;
   align-items: center;
   border-top: 2px solid #373543;
 }
 
+.form__interactives {
+  display: flex;
+  align-items: center;
+}
+
 .form__icon {
   font-size: 2rem;
-  margin-right: 20px;
+  margin-left: 10px;
   cursor: pointer;
   transition: all 0.15s ease;
+}
+
+.form__icon:last-child {
+  margin-right: 10px;
 }
 
 .form__button {
@@ -19,7 +28,14 @@
   border: none;
   display: flex;
   justify-content: center;
+  color: white;
   align-items: center;
+}
+
+.form__button:disabled {
+  filter: grayscale(0.5) opacity(0.5);
+  pointer-events: none;
+  -webkit-filter: grayscale(0.5) opacity(0.5);
 }
 
 .form__input {
@@ -42,4 +58,10 @@
 .form__icon--send:hover {
   background-color: #5762c8;
   transform: scale(1.05);
+}
+
+@media(max-width: 500px) {
+  .form {
+    padding: 1rem 0.5rem;
+  }
 }

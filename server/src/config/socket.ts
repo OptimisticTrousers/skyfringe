@@ -16,17 +16,26 @@ const socketConfig = (app: Express.Application) => {
     },
   });
 
-  io.on("connection", (socket) => {
-    socket.on("create-chat", async (users) => {
-      const chat = new Chat({
-        participants: users,
-        messages: [],
-      });
-      await chat.save()
+  (global as any).onlineUsers = new Map();
+
+  io.on("connection", (socket: any) => {
+    (global as any).chatSocket = socket;
+    socket.on("add-user", (userId: any) => {
+      (global as any).onlineUsers.set(userId, socket.id);
     });
-    socket.on("get-chat", async (chatId) => {
-      const chat = await Chat.findById(chatId).populate("messages").populate("participants").exec()
-    })
+
+    // socket.on("get-connected", (data: any) => {
+    //   const sendUserSocket = (global as any).onlineUsers.get(data.to);
+    //   if(sendUserSocket)
+    //   socket.emit()
+    // });
+
+    socket.on("send-msg", (data: any) => {
+      const sendUserSocket = (global as any).onlineUsers.get(data.to);
+      if (sendUserSocket) {
+        socket.to(sendUserSocket).emit("msg-receive", data.message);
+      }
+    });
   });
 
   httpServer.listen(port, () => console.log("Server running..."));

@@ -8,8 +8,10 @@
 
 .header__avatar {
   width: 66px;
+  height: 66px;
   margin-right: 24px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .header__flex {

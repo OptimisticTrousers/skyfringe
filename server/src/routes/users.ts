@@ -8,6 +8,7 @@ import {
   user_avatar_put,
   user_cover_put,
   user_images,
+  get_user_chats,
 } from "../controllers/userController";
 import multerCoverKey from "../middleware/multerCoverKey";
 import validateUserId from "../middleware/validateUserId";
@@ -24,14 +25,16 @@ router
   .put(validateUserId, restrictTestUserActions, user_update)
   .delete(validateUserId, restrictTestUserActions, user_delete);
 
-router.route("/:userId/images").get(user_images);
+router.route("/:userId/images").get(validateUserId, user_images);
+
+router.route("/:userId/chats").get(validateUserId, get_user_chats);
 
 router
   .route("/:userId/avatar")
-  .put(restrictTestUserActions, multerUserKey, user_avatar_put);
+  .put(validateUserId, restrictTestUserActions, multerUserKey, user_avatar_put);
 router
   .route("/:userId/cover")
-  .put(restrictTestUserActions, multerCoverKey, user_cover_put);
+  .put(validateUserId, restrictTestUserActions, multerCoverKey, user_cover_put);
 router.route("/:userId/feed").get(validateUserId, user_feed);
 
 export default router;
