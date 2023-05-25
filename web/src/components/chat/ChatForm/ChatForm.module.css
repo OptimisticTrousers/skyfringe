@@ -14,6 +14,14 @@
   transition: all 0.15s ease;
 }
 
+.form__button {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .form__input {
   padding: 1.2rem;
   border-radius: 8px;

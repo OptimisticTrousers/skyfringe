@@ -28,7 +28,6 @@ const ProfileMedia = ({ user }: any) => {
         <ul styleName="media__list">
           {images?.length > 0 ? (
             images?.map((image: any, index: number) => {
-              console.log(image);
               const isBig = (index + 1) % 18 === 2 || (index + 1) % 18 === 10;
               return (
                 <img

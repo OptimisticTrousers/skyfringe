@@ -1,19 +1,27 @@
 import { FC } from "react";
 import CSSModules from "react-css-modules";
+import getTimeAgo from "../../../utils/getTimeAgo";
+import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./ChatMessage.module.css";
 
 interface Props {
-  isBlue: boolean;
+  fromSelf: boolean;
+  message: any;
 }
 
-const ChatMessage: FC<Props> = ({ isBlue }) => {
+const ChatMessage: FC<Props> = ({ fromSelf, message }) => {
   return (
-    <div styleName={`message ${isBlue && "message--blue"}`}>
-      <img src="/images/optimistictrousers.jpg" styleName="message__avatar" />
-      <p styleName={`message__content ${isBlue && "message__content--blue"}`}>
-        I just read it, only read a few pages.
+    <div styleName={`message ${fromSelf && "message--blue"}`}>
+      <img
+        src={message.author.photo?.imageUrl}
+        alt={message.author.photo?.altText}
+        styleName="message__avatar"
+        onError={userImageFallback}
+      />
+      <p styleName={`message__content ${fromSelf && "message__content--blue"}`}>
+        {message.content}
       </p>
-      <span styleName="message__time">20:48</span>
+      <span styleName="message__time">{getTimeAgo(message.createdAt)}</span>
     </div>
   );
 };

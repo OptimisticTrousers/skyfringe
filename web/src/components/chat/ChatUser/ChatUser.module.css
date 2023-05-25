@@ -7,6 +7,10 @@
   margin-bottom: 1rem;
 }
 
+.user--selected {
+  background-color: #9186f3;
+}
+
 .user:hover {
   background-color: #406be1;
 }

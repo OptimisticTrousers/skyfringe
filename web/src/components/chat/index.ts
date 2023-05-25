@@ -4,3 +4,5 @@ export { default as ChatHeader } from "./ChatHeader";
 export { default as ChatMain } from "./ChatMain";
 export { default as ChatMessage } from "./ChatMessage";
 export { default as ChatUser } from "./ChatUser";
+export { default as Welcome } from "./Welcome";
+export { default as ChatLoading } from "./ChatLoading";

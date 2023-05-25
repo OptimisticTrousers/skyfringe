@@ -1,11 +1,17 @@
-import { useContext } from "react";
+import { FC, useContext, useState } from "react";
 import CSSModules from "react-css-modules";
+import { AuthContext } from "../../../context/AuthContext";
 import { ChatContext } from "../../../context/ChatContext";
 import ChatUser from "../ChatUser";
 import styles from "./ChatAside.module.css";
 
-const ChatAside = () => {
-  const { isAsideOpen } = useContext(ChatContext);
+interface Props {
+  fetchChat: any;
+}
+
+const ChatAside: FC<Props> = ({fetchChat}) => {
+  const { isAsideOpen} = useContext(ChatContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <aside styleName={`aside ${isAsideOpen && "aside--appear"}`}>
@@ -18,12 +24,9 @@ const ChatAside = () => {
       </div>
       <input styleName="aside__input" placeholder="Search by Keyword" />
       <div styleName="aside__users">
-        <ChatUser />
-        <ChatUser />
-        <ChatUser />
-        <ChatUser />
-        <ChatUser />
-        <ChatUser />
+        {user.friends.map((friend: any) => {
+          return <ChatUser key={friend._id} friend={friend} fetchChat={fetchChat}/>;
+        })}
       </div>
     </aside>
   );
