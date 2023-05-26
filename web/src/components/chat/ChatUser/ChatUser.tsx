@@ -35,7 +35,12 @@ const ChatUser: FC<Props> = ({
     setSelectedChat(chat);
   };
 
-  const lastMessage = chat?.messages[chat?.messages.length - 1];
+  const newMessages = structuredClone(chat?.messages);
+  const lastMessage = newMessages
+    ?.reverse()
+    .find((message: any) => message.hasOwnProperty("content"));
+
+  console.log(lastMessage);
 
   return (
     <div
