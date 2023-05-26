@@ -1,0 +1,37 @@
+.boundary {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-color: #17171c;
+  justify-content: center;
+  align-items: center;
+}
+
+.boundary__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.boundary__title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #8b5cf6;
+  margin-bottom: 2rem;
+}
+
+.boundary__button {
+  background-color: #3b82f6;
+  color: #fff;
+  font-weight: bold;
+  padding: 0.75rem 2rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  width: 9rem;
+}
+
+.boundary__button:hover {
+  background-color: #2563eb;
+}
