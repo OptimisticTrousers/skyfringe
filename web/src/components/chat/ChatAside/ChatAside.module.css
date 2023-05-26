@@ -7,7 +7,7 @@
 }
 
 .aside--full {
-  height: 100vh;
+  height: 100%;
 }
 
 .loading {
@@ -66,19 +66,13 @@
   color: white;
 }
 
-.aside__message {
-  text-align: center;
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
 @media (min-width: 1390px) {
   .aside {
     display: block;
-    height: 100vh;
+    height: calc(100vh - 32px);
   }
 
   .aside--full {
-    height: 100vh;
+    height: calc(100vh - 32px);
   }
 }
