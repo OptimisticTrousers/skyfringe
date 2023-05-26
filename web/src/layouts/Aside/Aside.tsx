@@ -87,10 +87,10 @@ const Aside = () => {
                 <p styleName="aside__name">Chat</p>
               </li>
             </Link>
-            <li styleName="aside__item">
+            {/* <li styleName="aside__item">
               <RiMoonClearFill styleName="aside__icon" />
               <p styleName="aside__name">Theme</p>
-            </li>
+            </li> */}
             <Link to="/settings">
               <li styleName="aside__item">
                 <RiSettingsFill styleName="aside__icon" />
