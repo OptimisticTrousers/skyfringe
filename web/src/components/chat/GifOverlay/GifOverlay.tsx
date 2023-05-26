@@ -24,6 +24,7 @@ const GifOverlay: FC<Props> = ({ sendChatMessage, handleFeedback }) => {
       {isModalOpen && (
         <OverlayModal
           title="Choose GIFs"
+          placeholder="Search Stickers..."
           toggleModal={toggleModal}
           sendChatMessage={sendChatMessage}
           handleFeedback={handleFeedback}

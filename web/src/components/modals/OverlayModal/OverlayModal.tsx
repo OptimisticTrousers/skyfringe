@@ -27,11 +27,13 @@ interface Props {
   sendChatMessage: any;
   title: any;
   handleFeedback: any;
+  placeholder: any;
 }
 
 const OverlayModal: FC<Props> = ({
   toggleModal,
   type,
+  placeholder,
   title,
   sendChatMessage,
   handleFeedback,
@@ -67,7 +69,7 @@ const OverlayModal: FC<Props> = ({
           <div styleName="overlay__top">
             <input
               styleName="overlay__input"
-              placeholder="Search GIFs..."
+              placeholder={placeholder}
               onChange={handleSearchChange}
             />
           </div>

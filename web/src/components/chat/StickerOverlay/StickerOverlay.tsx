@@ -25,6 +25,7 @@ const StickerOverlay: FC<Props> = ({ sendChatMessage, handleFeedback }) => {
       {isModalOpen && (
         <OverlayModal
           title="Choose Stickers"
+          placeholder="Search Stickers..."
           toggleModal={toggleModal}
           sendChatMessage={sendChatMessage}
           handleFeedback={handleFeedback}
