@@ -124,16 +124,20 @@ export const get_chat = asyncHandler(async (req, res, next) => {
 export const create_message = [
   upload.single("image"),
   // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
-  // body("content").custom((value, { req }) => {
-  //   if ((!value || value.trim().length === 0) && !req.file) {
-  //     // neither text nor image has been provided
-  //     const error: CustomError = new Error("Post text or image is required");
-  //     error.status = 400;
-  //     throw error;
-  //   }
-  //   // User has included one of either text or image. Continue with request handling
-  //   return true;
-  // }),
+  body("content").custom((value, { req }) => {
+    if (
+      (!value || value.trim().length === 0) &&
+      !req.file &&
+      (!req.body.imageUrl || !req.body.altText)
+    ) {
+      // neither text nor image has been provided
+      const error: CustomError = new Error("Post text or image is required");
+      error.status = 400;
+      throw error;
+    }
+    // User has included one of either text or image. Continue with request handling
+    return true;
+  }),
   // Process request after validation and sanitization
   asyncHandler(async (req: RequestWithLocals, res, next) => {
     const chatId = req.params.chatId;

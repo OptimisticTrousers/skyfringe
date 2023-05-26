@@ -58,15 +58,27 @@ const ChatForm = ({ setData }: any) => {
 
   const handlePhoto = async (event: any) => {
     handleFile(event.target.files[0]);
-    // showToast(
-    //   "success",
-    //   "Succesful file upload. Send image with optional additional message."
-    // );
+    console.log(event);
     const formData = new FormData();
-    formData.append("image", event.target.files[0]);
-    console.log(event.target.files)
-    const newMessage = await sendChatMessage(selectedChat._id, formData);
-    handleFeedback(newMessage);
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/gif",
+      "image/jpg",
+    ];
+    const file = event.target.files[0];
+    if (allowedTypes.includes(file.type)) {
+      formData.append("image", event.target.files[0]);
+      console.log(event.target.files);
+      const newMessage = await sendChatMessage(selectedChat._id, formData);
+      handleFeedback(newMessage);
+    } else {
+      showToast(
+        "error",
+        "Please enter a valid image type such as png, gif, jpg, jpeg, or webp"
+      );
+    }
   };
 
   const disabled = text.length === 0;
@@ -85,8 +97,14 @@ const ChatForm = ({ setData }: any) => {
           setImageFile={setImageFile}
           removeThumbnail={removeThumbnail}
         />
-        <StickerOverlay sendChatMessage={sendChatMessage} handleFeedback={handleFeedback}/>
-        <GifOverlay sendChatMessage={sendChatMessage} handleFeedback={handleFeedback}/>
+        <StickerOverlay
+          sendChatMessage={sendChatMessage}
+          handleFeedback={handleFeedback}
+        />
+        <GifOverlay
+          sendChatMessage={sendChatMessage}
+          handleFeedback={handleFeedback}
+        />
       </div>
       <input
         styleName="form__input"

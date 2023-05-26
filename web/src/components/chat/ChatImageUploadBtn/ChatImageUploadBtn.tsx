@@ -39,6 +39,7 @@ const ChatImageUploadBtn = ({
           value={imageValue}
           name="image"
           id="image"
+          accept="image/*"
           styleName="file__input"
           onChange={handlePhotoPicked}
         />
