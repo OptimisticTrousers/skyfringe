@@ -12,6 +12,7 @@ import { AuthContext } from "../../../context/AuthContext";
 import ChatImageUploadBtn from "../ChatImageUploadBtn";
 import { useImageThumbnail } from "../../../hooks/useImageThumbnail";
 import { ToastContext } from "../../../context/ToastContext";
+import { GrSend } from "react-icons/gr";
 import GifOverlay from "../GifOverlay";
 import StickerOverlay from "../StickerOverlay";
 
@@ -117,7 +118,7 @@ const ChatForm = ({ setData }: any) => {
         type="submit"
         disabled={disabled}
       >
-        <RiSendPlaneFill styleName="form__icon form__icon--send" />
+        <GrSend styleName="form__icon form__icon--send" />
       </button>
     </form>
   );

@@ -13,19 +13,23 @@
 }
 
 .form__icon {
-  font-size: 2rem;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: all 0.15s ease;
+  filter: invert(88%) sepia(0%) saturate(7500%) hue-rotate(32deg)
+    brightness(113%) contrast(109%);
 }
 
 .form__button {
-  background-color: transparent;
   border: none;
   display: flex;
   justify-content: center;
   color: white;
   align-items: center;
+  font-size: 2rem;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background-color: #416bdf;
+  border-radius: 50%;
+  padding: 1rem;
 }
 
 .form__button:disabled {
@@ -49,13 +53,7 @@
   outline: none;
 }
 
-.form__icon--send {
-  background-color: #416bdf;
-  border-radius: 50%;
-  padding: 1rem;
-}
-
-.form__icon--send:hover {
+.form__button:hover {
   background-color: #5762c8;
   transform: scale(1.05);
 }
@@ -68,10 +66,7 @@
     margin: 0;
   }
   .form__button {
-    margin-left: 4px;
-  }
-  .form__icon {
-    padding: 0.5rem;
+    padding: 0.75rem;
   }
   .form__icon:last-child {
     margin: 0;
