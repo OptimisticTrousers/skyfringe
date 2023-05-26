@@ -23,7 +23,7 @@ const Notification: FC<Props> = ({ notification, setData }) => {
     );
   };
   return (
-    <div styleName="notification__activity">
+    <div styleName={`notification__activity ${notification?.photo && "notification__activity--has-photo"}`}>
       <div styleName="notification__container">
         <div styleName="notification__flex">
           <Link

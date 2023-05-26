@@ -68,7 +68,7 @@
   transition: all 0.15s ease-in-out;
   cursor: pointer;
   align-self: flex-start;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .notification__button:hover {
@@ -88,5 +88,18 @@
   }
   .notification__avatar {
     margin: 0;
+  }
+}
+
+@media (max-width: 450px) {
+  .notification__activity--has-photo .notification__container {
+    flex-direction: column;
+  }
+
+  .notification__activity--has-photo .notification__image {
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    height: 100%;
   }
 }
