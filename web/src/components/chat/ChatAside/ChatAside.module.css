@@ -3,6 +3,10 @@
   padding: 1rem;
   border-right: 3px solid #292d4b;
   display: none;
+  height: 100%;
+}
+
+.aside--full {
   height: 100vh;
 }
 
@@ -62,8 +66,19 @@
   color: white;
 }
 
-@media(min-width: 1390px) {
-    .aside {
-        display: block;
-    }
+.aside__message {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+@media (min-width: 1390px) {
+  .aside {
+    display: block;
+    height: 100vh;
+  }
+
+  .aside--full {
+    height: 100vh;
+  }
 }

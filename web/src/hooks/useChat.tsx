@@ -38,12 +38,7 @@ const useChat = () => {
     try {
       const response = await post(
         `${import.meta.env.VITE_API_DOMAIN}/chat/${chatId}/messages`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        formData
       );
       if (response.status === 200) {
         // No error, request successfull

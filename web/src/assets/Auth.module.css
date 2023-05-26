@@ -267,6 +267,7 @@
   background-color: rgb(37, 147, 145);
   border: 1px solid rba(37, 147, 145);
   padding-right: 0;
+  box-sizing: border-box;
 }
 
 .auth__button--create:hover {

@@ -1,0 +1,86 @@
+.overlay {
+  border-width: 1px;
+  border-radius: 0.5rem;
+  overflow: auto;
+  flex-direction: column;
+  display: flex;
+  z-index: 20;
+  background-color: white;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  box-sizing: border-box;
+  max-height: 428px;
+}
+
+.overlay__search {
+  width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+.overlay__gifs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.overlay__top {
+  width: 100%;
+  top: 0;
+  box-sizing: border-box;
+  position: sticky;
+  margin: 1rem;
+}
+
+.overlay__input {
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 1rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.overlay__input:focus {
+  outline: none;
+}
+
+.overlay__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  height: 100%;
+}
+
+.overlay__item {
+  list-style: none;
+}
+
+.overlay__button {
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  margin: 0.25rem;
+  width: fit-content;
+  box-shadow: 0px 1px 10px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: white;
+  border: none;
+}
+
+.overlay__image {
+  max-width: 100%;
+  height: auto;
+  color: transparent;
+}
+
+.overlay__item:hover {
+  filter: grayscale(100%);
+}

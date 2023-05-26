@@ -4,14 +4,14 @@ import { AuthContext } from "../../../context/AuthContext";
 import { ChatContext } from "../../../context/ChatContext";
 import userImageFallback from "../../../utils/userImageFallback";
 import ModalContainer from "../ModalContainer";
-import styles from "./CreateChatModal.module.css";
+import styles from "./FindChatModal.module.css";
 
 interface Props {
   toggleModal: () => void;
   fetchChat: any;
 }
 
-const CreateChatModal: FC<Props> = ({ toggleModal, fetchChat }) => {
+const FindChatModal: FC<Props> = ({ toggleModal, fetchChat }) => {
   const { user } = useContext(AuthContext);
   const [query, setQuery] = useState("");
   const inputRef = useRef<any>(null);
@@ -41,7 +41,7 @@ const CreateChatModal: FC<Props> = ({ toggleModal, fetchChat }) => {
     setSelectedChat(chat);
   };
   return (
-    <ModalContainer title="Create Chat" toggleModal={toggleModal}>
+    <ModalContainer title="Find Chat" toggleModal={toggleModal}>
       <div styleName="top-bar">
         <span styleName="to">To:</span>
         <input
@@ -84,7 +84,7 @@ const CreateChatModal: FC<Props> = ({ toggleModal, fetchChat }) => {
   );
 };
 
-export default CSSModules(CreateChatModal, styles, {
+export default CSSModules(FindChatModal, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
 });

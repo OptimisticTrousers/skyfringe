@@ -1,6 +1,7 @@
 .message {
   display: flex;
   align-items: center;
+  flex: 1 1;
 }
 
 .message--blue {
@@ -21,6 +22,22 @@
   margin-right: 16px;
   border-radius: 14px;
   border-top-left-radius: 0;
+}
+
+.message__image {
+  max-width: 60%;
+  max-height: 60%;
+  width: auto;
+  height: auto;
+  margin-right: 1rem;
+  color: transparent;
+  flex-shrink: 0; /* Prevent image from shrinking */
+  margin-right: 16px;
+  object-fit: cover;
+}
+
+.message--blue .message__image {
+  margin-left: 14px;
 }
 
 .message__content--blue {

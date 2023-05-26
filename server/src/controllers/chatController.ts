@@ -1,9 +1,23 @@
 import asyncHandler from "express-async-handler";
 import Chat from "../models/chat";
-import { User as IUser } from "../../types";
+import {
+  CustomError,
+  Locals,
+  RequestWithLocals,
+  User as IUser,
+} from "../../types";
 import { body, validationResult } from "express-validator";
 import Message from "../models/message";
+import upload from "../config/multer";
+import generateAltText from "../utils/generateAltText";
+import { config } from "dotenv";
 
+// Running config for AWS_BUCKET_NAME value
+config();
+
+// @desc    Get chat
+// @route   PUT /users/:userId/friends
+// @access  Private
 export const create_chat = asyncHandler(async (req, res, next) => {
   const user = req.user as IUser;
 
@@ -51,6 +65,9 @@ export const create_chat = asyncHandler(async (req, res, next) => {
   // If previous chat exists, don't do anything
 });
 
+// @desc    Get chat
+// @route   POST /chat
+// @access  Private
 export const get_chat = asyncHandler(async (req, res, next) => {
   const user = req.user as IUser;
 
@@ -101,11 +118,34 @@ export const get_chat = asyncHandler(async (req, res, next) => {
   res.status(200).json(chat);
 });
 
+// @desc    Add new messages
+// @route   POST /chat/:chatId/messages
+// @access  Private
 export const create_message = [
-  body("content", "Content is required").trim().isLength({ min: 1 }).escape(),
-  asyncHandler(async (req, res, next) => {
+  upload.single("image"),
+  // Check for either post text or image upload to allow a user to post image only or text only, but not a post with neither
+  // body("content").custom((value, { req }) => {
+  //   if ((!value || value.trim().length === 0) && !req.file) {
+  //     // neither text nor image has been provided
+  //     const error: CustomError = new Error("Post text or image is required");
+  //     error.status = 400;
+  //     throw error;
+  //   }
+  //   // User has included one of either text or image. Continue with request handling
+  //   return true;
+  // }),
+  // Process request after validation and sanitization
+  asyncHandler(async (req: RequestWithLocals, res, next) => {
     const chatId = req.params.chatId;
     const user = req.user as IUser;
+    const { content } = req.body;
+    const locals = req.locals as Locals;
+
+    const bucketName = process.env.AWS_BUCKET_NAME;
+
+    if (!bucketName) {
+      throw new Error("AWS_BUCKET_NAME value is not defined in .env file");
+    }
 
     const errors = validationResult(req);
 
@@ -114,11 +154,31 @@ export const create_message = [
       return;
     }
 
+    // Generate alt text for an image (if an image exists)
+    let altText = "";
+
     const message = new Message({
-      content: req.body.content,
+      content: content && content,
       chat: chatId,
       author: user,
     });
+
+    if (req.body.imageUrl && req.body.altText) {
+      message.photo = {
+        imageUrl: req.body.imageUrl,
+        altText: req.body.altText,
+      };
+    } else if (req.file) {
+      // image exists
+      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
+        user.userName
+      }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
+      altText = await generateAltText(imageUrl);
+      message.photo = {
+        imageUrl,
+        altText,
+      };
+    }
 
     const chat = (await Chat.findById(chatId)
       .populate("messages")

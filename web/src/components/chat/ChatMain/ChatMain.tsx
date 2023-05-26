@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useRef } from "react";
+import { FC, useContext, useEffect, useLayoutEffect, useRef } from "react";
 import CSSModules from "react-css-modules";
 import { AuthContext } from "../../../context/AuthContext";
 import { ChatContext } from "../../../context/ChatContext";
@@ -19,7 +19,8 @@ const ChatMain: FC<Props> = ({ messages, setData }) => {
   const { isAsideOpen, selectedChat, setSelectedChat } =
     useContext(ChatContext);
 
-  const scrollRef = useRef<any>();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     socket.emit("add-user", user._id);
@@ -37,7 +38,9 @@ const ChatMain: FC<Props> = ({ messages, setData }) => {
   }, []);
 
   useEffect(() => {
-    scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
 
   return (
@@ -45,21 +48,18 @@ const ChatMain: FC<Props> = ({ messages, setData }) => {
       <ChatHeader />
       <div styleName="main__content">
         {messages?.map((message: any) => {
-          console.log(message);
-          if (message?.author?._id === user._id) {
-            return (
-              <div key={message._id} ref={scrollRef}>
-                <ChatMessage
-                  fromSelf={true}
-                  key={message._id}
-                  message={message}
-                />
-              </div>
-            );
-          }
-
           return (
-            <ChatMessage fromSelf={false} key={message._id} message={message} />
+            <div
+              key={message._id}
+              ref={scrollRef}
+              style={{ flex: 1, display: "flex" }}
+            >
+              <ChatMessage
+                fromSelf={message?.author?._id === user._id}
+                key={message._id}
+                message={message}
+              />
+            </div>
           );
         })}
         {messages?.length === 0 && (

@@ -19,7 +19,7 @@ import validateCommentId from "../middleware/validateCommentId";
 
 const router = Router();
 
-router.route("/").get(post_list).post(post_create);
+router.route("/").get(post_list).post(multerPostKey, post_create);
 
 router
   .route("/:postId")

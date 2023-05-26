@@ -1,0 +1,19 @@
+.gif {
+  position: relative;
+}
+
+.gif__button {
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.gif__button:hover {
+  opacity: 0.6;
+}
+
+.gif__icon {
+  height: 24px;
+  width: 24px;
+}

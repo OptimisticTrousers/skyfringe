@@ -64,6 +64,12 @@
   justify-content: space-between;
 }
 
+.user--selected .user__message {
+  margin: 0;
+  color: black;
+  transition: all 0.15s ease;
+}
+
 .user__message {
   margin: 0;
   color: #b7b7b7;
@@ -75,4 +81,5 @@
   border-radius: 100px;
   background-color: #ee6774;
   margin: 0;
+  margin-left: 4px;
 }

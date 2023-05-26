@@ -6,3 +6,6 @@ export { default as ChatMessage } from "./ChatMessage";
 export { default as ChatUser } from "./ChatUser";
 export { default as Welcome } from "./Welcome";
 export { default as ChatLoading } from "./ChatLoading";
+export { default as ChatImageUploadBtn } from "./ChatImageUploadBtn";
+export { default as GifOverlay } from "./GifOverlay";
+export { default as StickerOverlay } from "./StickerOverlay";

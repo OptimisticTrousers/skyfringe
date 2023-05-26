@@ -19,10 +19,6 @@
   transition: all 0.15s ease;
 }
 
-.form__icon:last-child {
-  margin-right: 10px;
-}
-
 .form__button {
   background-color: transparent;
   border: none;
@@ -45,8 +41,12 @@
   border: none;
   width: 100%;
   font-size: 1.5rem;
-  margin-right: 24px;
+  margin-right: 12px;
   color: inherit;
+}
+
+.form__input:focus {
+  outline: none;
 }
 
 .form__icon--send {
@@ -60,8 +60,20 @@
   transform: scale(1.05);
 }
 
-@media(max-width: 500px) {
+@media (max-width: 500px) {
   .form {
     padding: 1rem 0.5rem;
+  }
+  .form__input {
+    margin: 0;
+  }
+  .form__button {
+    margin-left: 4px;
+  }
+  .form__icon {
+    padding: 0.5rem;
+  }
+  .form__icon:last-child {
+    margin: 0;
   }
 }

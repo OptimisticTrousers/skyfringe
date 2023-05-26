@@ -51,7 +51,7 @@ const upload = multer({
       const locals = req.locals as Locals;
       cb(
         null,
-        `facebook_clone/${locals.path}/${locals.date}_${user.userName}.${
+        `facebook_clone/${locals.path}/${user.userName}_${locals.date}.${
           file.mimetype.split("/")[1]
         }`
       );

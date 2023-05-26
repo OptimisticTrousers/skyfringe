@@ -18,9 +18,20 @@ const ChatMessage: FC<Props> = ({ fromSelf, message }) => {
         styleName="message__avatar"
         onError={userImageFallback}
       />
-      <p styleName={`message__content ${fromSelf && "message__content--blue"}`}>
-        {message.content}
-      </p>
+      {message?.photo ? (
+        <img
+          src={message?.photo?.imageUrl}
+          alt={message?.photo?.altText}
+          styleName="message__image"
+          onError={userImageFallback}
+        />
+      ) : (
+        <p
+          styleName={`message__content ${fromSelf && "message__content--blue"}`}
+        >
+          {message.content}
+        </p>
+      )}
       <span styleName="message__time">{getTimeAgo(message.createdAt)}</span>
     </div>
   );

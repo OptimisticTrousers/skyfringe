@@ -1,6 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 .main__message {

@@ -48,7 +48,7 @@ const Feed: FC<Props> = ({ setFeed, loading, error, posts }) => {
             return (
               <Post
                 post={post}
-                key={post._id}
+                key={post?._id}
                 handleDeletePost={handleDeletePost}
                 handleEditPost={handleEditPost}
                 setFeed={setFeed}

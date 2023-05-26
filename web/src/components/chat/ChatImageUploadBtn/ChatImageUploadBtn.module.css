@@ -1,0 +1,44 @@
+/* The image input label is used to provide styling while the input itself is hidden. This exploits the fact that clicking the label activates the input */
+
+.file__label {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem 0.4rem 0.5rem;
+  border-radius: 4px;
+  justify-content: center;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.file__input {
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 0.1px;
+  z-index: -1;
+}
+
+.file__icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 0.5rem;
+}
+
+.file__label:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.file__label:focus-within {
+  outline: 2px solid #50547c;
+  outline-offset: 0px;
+}
