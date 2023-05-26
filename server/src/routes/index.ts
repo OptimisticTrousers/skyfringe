@@ -6,6 +6,11 @@ import chatRouter from "./chat";
 import authRouter from "./auth";
 import { user_search } from "../controllers/userController";
 import { friend_request } from "../controllers/friendController";
+import {
+  send_accepted_request_notification,
+  send_outgoing_request_notification,
+  send_rejected_outgoing_notification,
+} from "../middleware/notifications";
 
 const router = Router();
 
@@ -31,6 +36,9 @@ router.use(
 router.put(
   "/friends/:userId",
   passport.authenticate("jwt", { session: false }),
+  send_accepted_request_notification,
+  send_rejected_outgoing_notification,
+  send_outgoing_request_notification,
   friend_request
 );
 router.get(

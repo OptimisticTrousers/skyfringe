@@ -5,6 +5,11 @@ import { User as IUser, FriendRequest as IFriendRequest } from "../../types";
 import { Request, Response, NextFunction } from "express";
 import cleanStringify from "../utils/cleanStringify";
 import { create_chat } from "./chatController";
+import {
+  cancel_send_notification,
+  send_accepted_request_notification,
+  send_unfriend_notification,
+} from "../middleware/notifications";
 
 // Use this function to ensure that no duplicate requests are sent, and that certain request types exist before performing related actions
 export const checkExistingEntries = (
@@ -221,6 +226,7 @@ export const friend_request = asyncHandler(
         if (existingRequest === "outgoing") {
           // Request able to be deleted. Adjust recipient and sender's friends as needed
           modifyForCancelRequest(sender, recipient);
+          cancel_send_notification(req, res, next);
           break;
         } else {
           // Request cannot be accepted (none available)
@@ -231,6 +237,7 @@ export const friend_request = asyncHandler(
         if (existingRequest === "friend") {
           // Request able to be deleted. Adjust recipient and sender's friends as needed
           modifyForUnfriendRequest(sender, recipient);
+          send_unfriend_notification(req, res, next);
           break;
         } else {
           // Request cannot be accepted (none available)

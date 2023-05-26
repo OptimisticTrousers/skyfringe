@@ -59,7 +59,6 @@ const ChatForm = ({ setData }: any) => {
 
   const handlePhoto = async (event: any) => {
     handleFile(event.target.files[0]);
-    console.log(event);
     const formData = new FormData();
     const allowedTypes = [
       "image/jpeg",
@@ -71,7 +70,6 @@ const ChatForm = ({ setData }: any) => {
     const file = event.target.files[0];
     if (allowedTypes.includes(file.type)) {
       formData.append("image", event.target.files[0]);
-      console.log(event.target.files);
       const newMessage = await sendChatMessage(selectedChat._id, formData);
       handleFeedback(newMessage);
     } else {

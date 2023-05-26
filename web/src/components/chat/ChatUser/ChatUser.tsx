@@ -40,8 +40,6 @@ const ChatUser: FC<Props> = ({
     ?.reverse()
     .find((message: any) => message.hasOwnProperty("content"));
 
-  console.log(lastMessage);
-
   return (
     <div
       styleName={`user ${selectedUser === index ? "user--selected" : ""}`}

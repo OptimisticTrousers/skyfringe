@@ -2,6 +2,8 @@ import asyncHandler from "express-async-handler";
 import { body, validationResult } from "express-validator";
 import { Request, Response } from "express";
 import Comment from "../models/comment";
+import Notification from "../models/notification";
+import Post from "../models/post";
 import { User as IUser, Comment as IComment } from "../../types";
 
 // @desc    Get post comments
@@ -26,6 +28,9 @@ export const comment_create = [
   body("content", "Content is required").trim().isLength({ min: 1 }).escape(),
   asyncHandler(async (req: Request, res: Response) => {
     const errors = validationResult(req);
+
+    // const postId = req.params.postId;
+    // const post = await Post.findById(postId).populate("author").exec() as IPost;
 
     if (!errors.isEmpty()) {
       res.status(400).json(errors.array());
@@ -70,9 +75,25 @@ export const comment_like = asyncHandler(
     if (alreadyLikedIndex === -1) {
       // post is not liked
       comment.likes.push(user);
+      // Creating a new notification when a comment is liked
+      const notification = new Notification({
+        toUser: comment.author._id,
+        fromUser: user._id,
+        reference: comment._id,
+        content: `liked your comment where you said '${comment.content}'`,
+      });
+
+      await notification.save();
     } else {
       // remove like on the post
       comment.likes.splice(alreadyLikedIndex, 1);
+      // Deleting a notification when a post like is removed
+      await Notification.findOneAndDelete({
+        toUser: comment.author._id,
+        fromUser: user._id,
+        reference: comment._id,
+        content: `liked your comment where you said '${comment.content}'`,
+      });
     }
 
     await comment.save();
@@ -139,6 +160,9 @@ export const comment_delete = asyncHandler(
       res.status(403).json({ message: "Forbidden" });
       return;
     }
+
+    // Delete all notifications related to this comment
+    await Notification.deleteMany({ reference: comment._id });
 
     const deletedComment = await Comment.findByIdAndDelete(commentId);
 

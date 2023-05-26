@@ -24,7 +24,7 @@ const Suggestions = () => {
       if (friend?.user && friend?.status === "outgoing" || friend?.status === "incoming") {
         return friend.user?._id;
       }
-      return friend._id;
+      return friend?._id;
     });
     userFriendIds.push(user._id);
 

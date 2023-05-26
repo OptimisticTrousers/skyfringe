@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
+import Notification from "../models/notification";
 import Post from "../models/post";
 import upload from "../config/multer";
 import mongoose from "mongoose";
@@ -113,9 +114,31 @@ export const post_like = asyncHandler(async (req: Request, res: Response) => {
   if (alreadyLikedIndex === -1) {
     // post is not liked
     post.likes.push(user);
+    // Creating a new notification when a post is liked
+    const notification = new Notification({
+      toUser: post.author._id,
+      fromUser: user._id,
+      reference: post._id,
+      content: post.content
+        ? `liked your post where you said '${post.content}'`
+        : "liked your post",
+      photo: post.photo && post.photo,
+    });
+
+    await notification.save();
   } else {
     // remove like on the post
     post.likes.splice(alreadyLikedIndex, 1);
+    // Deleting a notification when a post like is removed
+    await Notification.findOneAndDelete({
+      reference: post._id,
+      toUser: post.author._id,
+      fromUser: user._id,
+      content: post.content
+        ? `liked your post where you said '${post.content}'`
+        : "liked your post",
+      photo: post.photo && post.photo,
+    });
   }
 
   await post.save();
@@ -247,6 +270,9 @@ export const post_delete = asyncHandler(async (req: Request, res: Response) => {
     );
     await s3Deletev3(path);
   }
+
+  // Delete all notifications related to this post
+  await Notification.deleteMany({ reference: post._id });
 
   const deletedPost = await Post.findByIdAndDelete(postId);
 

@@ -14,6 +14,11 @@ import multerCoverKey from "../middleware/multerCoverKey";
 import validateUserId from "../middleware/validateUserId";
 import multerUserKey from "../middleware/multerUserKey";
 import restrictTestUserActions from "../middleware/restrictTestUserActions";
+import {
+  get_notifications,
+  read_all_notifications,
+  read_notification,
+} from "../controllers/notificationController";
 
 const router = Router();
 
@@ -28,6 +33,15 @@ router
 router.route("/:userId/images").get(validateUserId, user_images);
 
 router.route("/:userId/chats").get(validateUserId, get_user_chats);
+
+router
+  .route("/:userId/notifications")
+  .get(get_notifications)
+  .delete(read_all_notifications);
+
+router
+  .route("/:userId/notifications/:notificationId")
+  .delete(read_notification);
 
 router
   .route("/:userId/avatar")

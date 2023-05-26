@@ -28,8 +28,6 @@ const ChatAside: FC<Props> = ({ fetchChat }) => {
     `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}/chats`
   );
 
-  console.log(chats);
-
   const toggleModal = () => {
     setIsModalOpen((prevValue) => !prevValue);
   };

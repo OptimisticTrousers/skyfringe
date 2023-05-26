@@ -1,9 +1,42 @@
 .notifications {
   padding: 5rem 1rem;
-  max-width: 750px;
+  max-width: 650px;
   margin: 0 auto;
+}
+
+.notifications__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .notifications__title {
   margin-top: 0;
+}
+
+.notifications__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.notifications__button {
+  background-color: #fefe00;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.notifications__button:hover {
+  background-color: #cecf74;
+}
+
+.notifications__message {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
 }

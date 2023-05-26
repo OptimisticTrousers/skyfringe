@@ -28,7 +28,6 @@ const ChatMain: FC<Props> = ({ messages, setData }) => {
 
   useEffect(() => {
     socket.on("msg-receive", (msg) => {
-      console.log(msg);
       setData((prevChat: any) => {
         const clonedChat = structuredClone(prevChat);
         clonedChat.messages.push(msg);

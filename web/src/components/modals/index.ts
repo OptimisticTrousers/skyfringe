@@ -6,3 +6,4 @@ export { default as EditPostModal } from "./EditPostModal";
 export { default as LikesModal } from "./LikesModal";
 export { default as FindChatModal } from "./FindChatModal";
 export { default as OverlayModal } from "./OverlayModal";
+export { default as NotificationsModal } from "./NotificationsModal";

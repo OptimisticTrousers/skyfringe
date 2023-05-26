@@ -6,6 +6,7 @@ import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { IoIosPeople, IoMdNotifications } from "react-icons/io";
 import { RiMoonClearFill, RiSettingsFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { NotificationsModal } from "../../components/modals";
 import { Avatar, Logo, SearchBar } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
 import useLogout from "../../hooks/useLogout";
@@ -14,6 +15,8 @@ import styles from "./Aside.module.css";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
+  const [isNotificationsModalOpen, setIsNotificationsModalOpen] =
+    useState(false);
   const { logout, loading } = useLogout();
   const { user } = useContext(AuthContext);
 
@@ -22,13 +25,17 @@ const Aside = () => {
   };
 
   const friendCountText = () => {
-    const friendCount = user.friends.length;
+    const friendCount = user.friends?.length;
     if (friendCount > 1) {
       return `${friendCount} friends`;
     } else if (friendCount === 1) {
       return "1 friend";
     }
     return "0 friends";
+  };
+
+  const toggleModal = () => {
+    setIsNotificationsModalOpen((prevValue) => !prevValue);
   };
 
   return (
@@ -122,6 +129,7 @@ const Aside = () => {
           </ul>
         </nav>
       </aside>
+      {/* <NotificationsModal toggleModal={toggleModal}/> */}
     </>
   );
 };
