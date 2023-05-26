@@ -1,0 +1,52 @@
+.screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(18px);
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: opacity 0.3s;
+}
+
+.screen .message {
+  text-align: center;
+  animation: fade-in 2s linear 0.5s 1 normal forwards;
+  opacity: 0;
+  position: absolute;
+  bottom: 20%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  max-width: 430px;
+}
+
+.screen .loading {
+  filter: blur(3px);
+  opacity: 0;
+  animation: fade-blur-darken-in 1s linear 0.5s 1 normal forwards;
+}
+
+.screen .loading .loading__dot {
+  width: 0.5em;
+  height: 0.5em;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-blur-darken-in {
+  to {
+    opacity: 1;
+    filter: blur(0) brightness(0.75);
+  }
+}

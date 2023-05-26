@@ -14,6 +14,7 @@ import { Error500 } from "./pages/Error500";
 import { FriendRequests } from "./pages/FriendRequests";
 import { FriendsHome } from "./pages/FriendsHome";
 import { Home } from "./pages/Home";
+import LoadingScreen from "./pages/LoadingScreen";
 import { Login } from "./pages/Login";
 import { Notifications } from "./pages/Notifications";
 import { Profile } from "./pages/Profile";
@@ -31,6 +32,7 @@ const RouteSwitch = () => {
 
   return (
     <BrowserRouter>
+      <LoadingScreen />
       {!loading && (
         <Routes>
           <Route path="/" element={!user ? <Navigate to="/login" /> : <App />}>
