@@ -1,5 +1,4 @@
 import { createContext, FC, useReducer } from "react";
-import { User } from "../types";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
@@ -7,16 +6,16 @@ interface Props {
 
 interface AuthContext {
   dispatch: (action: Action) => void;
-  user: User | null;
+  user: any | null;
 }
 
 interface AuthState {
-  user: User | null;
+  user: any | null;
 }
 
 interface Action {
   type: string;
-  payload: User | null;
+  payload: any | null;
 }
 
 // Reducer function to handle different auth-related actions. Typically the payload in each case will be a user object

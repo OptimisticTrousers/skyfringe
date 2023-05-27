@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { ToastContext } from "../context/ToastContext";
-import { CommentData } from "../types";
 import useHttp from "./useHttp";
 
 const useUpdateComment = () => {
@@ -14,7 +13,7 @@ const useUpdateComment = () => {
   const updateComment = async (
     commentId: string,
     postId: string,
-    formData: CommentData
+    formData: any
   ) => {
     setLoading(true);
     setError(null);

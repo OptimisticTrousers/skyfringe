@@ -3,7 +3,6 @@ import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../../context/AuthContext";
 import { ToastProvider } from "../../context/ToastContext";
-import { FormError } from "../../types";
 import Register from "./Register";
 
 // Customize loading/error/data states to properly test UI in different states

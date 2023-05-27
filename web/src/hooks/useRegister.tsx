@@ -1,19 +1,18 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ToastContext } from "../context/ToastContext";
-import { FormError, RegisterData } from "../types";
 import useHttp from "./useHttp";
 
 const useRegister = () => {
   const [error, setError] = useState<unknown | null>(null);
-  const [formError, setFormError] = useState<FormError[] | null>(null);
+  const [formError, setFormError] = useState<any[] | null>(null);
   const [loading, setLoading] = useState(false);
   const { post } = useHttp();
   const { dispatch } = useContext(AuthContext);
   const { showToast } = useContext(ToastContext);
 
   // Call this function with the object created using relevant user sign up data
-  const register = async (formData: RegisterData) => {
+  const register = async (formData: any) => {
     setLoading(true);
     setError(null);
     setFormError(null);
