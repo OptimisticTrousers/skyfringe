@@ -35,6 +35,10 @@ const useRegister = () => {
         dispatch({ type: "LOGIN", payload: response.data });
         showToast("success", "Successfully registered!");
         return;
+      } else if (response.data?.keyPattern?.userName) {
+        const message = "This username is taken. Choose another";
+        setError({ message });
+        showToast("error", message);
       } else {
         // error with login request
         if (response.data[0].msg === "E-mail already in use") {
@@ -44,8 +48,6 @@ const useRegister = () => {
           // length indicates form validation errors (i.e. JSON response is array)
           setFormError(response.data);
         } else {
-          // unspecified error, return generic error msg
-          const message = "This username is taken. Choose another.";
           setError({ message });
           showToast("error", message);
         }
