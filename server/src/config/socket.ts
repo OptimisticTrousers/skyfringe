@@ -12,7 +12,10 @@ const socketConfig = (app: Express.Application) => {
 
   const io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:5173",
+      origin:
+        process.env.NODE_ENV === "production"
+          ? process.env.FRONTEND_URL
+          : "http://localhost:5173",
     },
   });
 
