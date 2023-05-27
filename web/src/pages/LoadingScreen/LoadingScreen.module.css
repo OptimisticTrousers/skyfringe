@@ -28,6 +28,11 @@
   max-width: 430px;
 }
 
+.invisible {
+  visibility: hidden;
+  opacity: 0;
+}
+
 .screen .loading {
   filter: blur(3px);
   opacity: 0;
