@@ -7,7 +7,7 @@
     "node": "18.12.1"
   },
   "scripts": {
-    "start": "node --optimize_for_size --max_old_space_size=920 dist/src/server.js",
+    "start": "node --optimize_for_size --max_old_space_size=2560 dist/src/server.js",
     "dev": "nodemon src/server.ts",
     "build": "tsc -p .",
     "coverage": "jest --coverage",
