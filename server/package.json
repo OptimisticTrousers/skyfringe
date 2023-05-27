@@ -1,8 +1,8 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
-  "main": "example.js",
+  "description": "Server for skyfringe",
+  "main": "index.js",
   "engines": {
     "node": "18.12.1"
   },
@@ -15,7 +15,7 @@
     "seed": "ts-node src/config/seeds"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tony Isern",
   "license": "ISC",
   "config": {
     "mongodbMemoryServer": {

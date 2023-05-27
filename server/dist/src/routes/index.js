@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const passport_1 = __importDefault(require("passport"));
+const posts_1 = __importDefault(require("./posts"));
+const users_1 = __importDefault(require("./users"));
+const chat_1 = __importDefault(require("./chat"));
+const auth_1 = __importDefault(require("./auth"));
+const userController_1 = require("../controllers/userController");
+const friendController_1 = require("../controllers/friendController");
+const notifications_1 = require("../middleware/notifications");
+const router = (0, express_1.Router)();
+router.use("/posts", passport_1.default.authenticate("jwt", { session: false }), posts_1.default);
+router.use("/users", passport_1.default.authenticate("jwt", { session: false }), users_1.default);
+router.use("/auth", auth_1.default);
+router.use("/chat", passport_1.default.authenticate("jwt", { session: false }), chat_1.default);
+router.put("/friends/:userId", passport_1.default.authenticate("jwt", { session: false }), notifications_1.send_accepted_request_notification, notifications_1.send_rejected_outgoing_notification, notifications_1.send_outgoing_request_notification, friendController_1.friend_request);
+router.get("/search-users/:query", passport_1.default.authenticate("jwt", { session: false }), userController_1.user_search);
+exports.default = router;
