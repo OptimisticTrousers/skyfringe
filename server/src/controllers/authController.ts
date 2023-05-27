@@ -76,8 +76,8 @@ export const register_user = [
     const token = jwt.sign({ id: user._id }, secret);
     res
       .cookie("jwt", token, {
-        secure: process.env.NODE_ENV === "production",
-        httpOnly: false,
+        secure: false,
+        httpOnly: true,
       })
       .status(200)
       .json(user);
@@ -111,8 +111,8 @@ export const login_user = [
       const token = jwt.sign({ id: user._id }, secret);
       res
         .cookie("jwt", token, {
-          secure: process.env.NODE_ENV === "production",
-          httpOnly: false,
+          secure: false,
+          httpOnly: true,
         })
         .status(200)
         .json(user);
@@ -196,8 +196,8 @@ export const login_facebook = asyncHandler(
 
           res
             .cookie("jwt", token, {
-              secure: process.env.NODE_ENV === "production",
-              httpOnly: false,
+              secure: false,
+              httpOnly: true,
             })
             .status(200)
             .json(user);
