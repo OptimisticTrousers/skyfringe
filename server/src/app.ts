@@ -8,6 +8,7 @@ import passportConfig from "./config/passport";
 import notFoundHandler from "./middleware/notFoundHandler";
 import errorHandler from "./middleware/errorHandler";
 import { config } from "dotenv";
+import accessControlAllow from "./middleware/accessControlAllow";
 
 config();
 
@@ -29,7 +30,7 @@ app.use(cookieParser());
 passportConfig();
 
 // routes
-app.use("/api", routes);
+app.use("/api", accessControlAllow, routes);
 
 // catch 404 and forward to error handler
 app.use(notFoundHandler);
