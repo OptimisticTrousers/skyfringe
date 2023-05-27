@@ -13,7 +13,6 @@ const App = () => {
           <Outlet />
         </main>
       </div>
-      <footer></footer>
     </>
   );
 };

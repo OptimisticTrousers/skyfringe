@@ -8,11 +8,21 @@
   font-size: 2rem;
 }
 
+.footer__link {
+  text-align: center;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
+}
+
 .footer__copyright {
   margin-top: 0;
   line-height: 1.25rem;
   margin-bottom: 12px;
-  color: #E7E7E7;
+  color: #e7e7e7;
   font-size: 1.25rem;
 }
 

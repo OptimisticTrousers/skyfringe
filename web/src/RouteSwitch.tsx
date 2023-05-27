@@ -4,6 +4,7 @@ import {
   Route,
   Navigate,
   useNavigate,
+  HashRouter,
 } from "react-router-dom";
 import App from "./App";
 import useCurrentAuthUser from "./hooks/useCurrentAuthUser";
@@ -17,6 +18,7 @@ import { Home } from "./pages/Home";
 import LoadingScreen from "./pages/LoadingScreen";
 import { Login } from "./pages/Login";
 import { Notifications } from "./pages/Notifications";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import { Profile } from "./pages/Profile";
 import { Register } from "./pages/Register";
 import { Settings } from "./pages/Settings";
@@ -31,12 +33,13 @@ const RouteSwitch = () => {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <LoadingScreen />
       {!loading && (
         <Routes>
           <Route path="/" element={!user ? <Navigate to="/login" /> : <App />}>
             <Route index element={<Home />} />
+            <Route path="privacy" element={<PrivacyPolicy />} />
             <Route path="settings" element={<Settings />} />
             <Route path="users">
               <Route path=":userId">
@@ -77,7 +80,7 @@ const RouteSwitch = () => {
           />
         </Routes>
       )}
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
