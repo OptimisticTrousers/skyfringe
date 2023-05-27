@@ -11,7 +11,7 @@ function LoadingScreen() {
     <div styleName={"screen" + (loading ? "" : " invisible")}>
       <Loading />
       <div styleName="screen__message">
-        Please be patient as the Render Web Service wakes up. This may initially
+        Please be patient as the Heroku Web Service wakes up. This may initially
         take 15 to 30 seconds.
       </div>
     </div>
