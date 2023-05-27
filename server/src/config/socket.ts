@@ -40,7 +40,7 @@ const socketConfig = (app: Express.Application) => {
     });
   });
 
-  httpServer.listen(process.env.PORT, () => console.log("Server running..."));
+  httpServer.listen(process.env.PORT || 5000 , () => console.log("Server running..."));
 };
 
 export default socketConfig;
