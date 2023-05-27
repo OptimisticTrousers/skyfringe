@@ -40,6 +40,6 @@
     "@vitest/coverage-c8": "^0.31.0",
     "jsdom": "^21.1.1",
     "@types/express": "^4.17.15",
-    "@types/mongoose": "^5.11.97",
+    "@types/mongoose": "^5.11.97"
   }
 }
