@@ -7,7 +7,6 @@ import Chat from "../models/chat";
 config();
 
 const socketConfig = (app: Express.Application) => {
-  const port = process.env.PORT || 5000;
   const httpServer = createServer(app);
 
   const io = new Server(httpServer, {
@@ -41,7 +40,7 @@ const socketConfig = (app: Express.Application) => {
     });
   });
 
-  httpServer.listen(port, () => console.log("Server running..."));
+  httpServer.listen(process.env.PORT, () => console.log("Server running..."));
 };
 
 export default socketConfig;
