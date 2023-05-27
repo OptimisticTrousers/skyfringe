@@ -45,7 +45,7 @@ const useSearchQuery = () => {
         setError({ message });
       }
     } catch (error) {
-      const message = "An unknown error occurred while liking a post";
+      const message = "An unknown error occurred while searching for a user";
       setError({ message });
       showToast("error", message);
     } finally {

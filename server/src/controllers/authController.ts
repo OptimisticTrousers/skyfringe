@@ -78,6 +78,7 @@ export const register_user = [
       .cookie("jwt", token, {
         secure: process.env.NODE === "production",
         httpOnly: false,
+        sameSite: "lax",
       })
       .status(200)
       .json(user);
@@ -113,6 +114,7 @@ export const login_user = [
         .cookie("jwt", token, {
           secure: process.env.NODE === "production",
           httpOnly: false,
+          sameSite: "lax",
         })
         .status(200)
         .json(user);
@@ -198,6 +200,7 @@ export const login_facebook = asyncHandler(
             .cookie("jwt", token, {
               secure: process.env.NODE === "production",
               httpOnly: false,
+              sameSite: "lax",
             })
             .status(200)
             .json(user);
