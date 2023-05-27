@@ -45,8 +45,9 @@ const useRegister = () => {
           setFormError(response.data);
         } else {
           // unspecified error, return generic error msg
-          setError(response.data);
-          showToast("error", response.data.message);
+          const message = "This username is taken. Choose another.";
+          setError({ message });
+          showToast("error", message);
         }
       }
     } catch (err) {
