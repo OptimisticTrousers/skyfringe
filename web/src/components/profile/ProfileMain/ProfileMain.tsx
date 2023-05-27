@@ -51,7 +51,7 @@ const ProfileMain: FC<Props> = ({
           </div>
         </Card>
         <Card>
-          {!imageLoading ? (
+          {imageLoading ? (
             <SkeletonProfileFriendCard />
           ) : (
             <>
