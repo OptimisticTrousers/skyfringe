@@ -193,6 +193,12 @@
   -webkit-filter: grayscale(0.5) opacity(0.5);
 }
 
+.auth__button--disabled {
+  filter: grayscale(0.5) opacity(0.5);
+  pointer-events: none;
+  -webkit-filter: grayscale(0.5) opacity(0.5);
+}
+
 .auth__input--validation:valid {
   border: 3px solid #5eda87;
 }
@@ -216,8 +222,8 @@
   font-weight: 500;
   padding-bottom: 0.6rem;
   padding-top: 0.6rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   border-width: 1px;
   margin-top: 1.5rem;
   cursor: pointer;
@@ -239,7 +245,7 @@
   color: white;
   width: 32px;
   height: 32px;
-  flex: 1;
+  flex: 1 1;
 }
 
 .auth__button--submit {

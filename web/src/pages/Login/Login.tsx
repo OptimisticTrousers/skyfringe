@@ -134,7 +134,7 @@ const Login = () => {
         </button>
         <Link
           to="/register"
-          styleName="auth__button auth__button--create"
+          styleName={`auth__button auth__button--create ${disabled ? "auth__button--disabled" : ""}`}
           aria-disabled={disabled}
         >
           Create new account

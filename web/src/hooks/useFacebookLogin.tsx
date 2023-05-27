@@ -10,6 +10,9 @@ const useFacebookLogin = () => {
   const { dispatch } = useContext(AuthContext);
   const { get } = useHttp();
 
+  const message =
+    "An unknown error occured while logging in using Facebook. Try turning off your ad blocker.";
+
   const loadFacebookSDK = () => {
     (window as any).fbAsyncInit = function () {
       (window as any).FB.init({
@@ -47,9 +50,8 @@ const useFacebookLogin = () => {
         return;
       }
       setError(response.data);
+      showToast("error", response.data.message);
     } catch (error) {
-      const message =
-        "An unknown error occured while logging in using Facebook.";
       setError(error);
       showToast("error", message);
     } finally {
@@ -66,6 +68,7 @@ const useFacebookLogin = () => {
         logInWithFbAccessToken(accessToken);
       } else {
         setLoading(false);
+        showToast("error", message);
       }
     });
   };
