@@ -77,7 +77,7 @@ export const register_user = [
     res
       .cookie("jwt", token, {
         secure: false,
-        httpOnly: true,
+        httpOnly: false,
       })
       .status(200)
       .json(user);
@@ -112,7 +112,7 @@ export const login_user = [
       res
         .cookie("jwt", token, {
           secure: false,
-          httpOnly: true,
+          httpOnly: false,
         })
         .status(200)
         .json(user);
@@ -197,7 +197,7 @@ export const login_facebook = asyncHandler(
           res
             .cookie("jwt", token, {
               secure: false,
-              httpOnly: true,
+              httpOnly: false,
             })
             .status(200)
             .json(user);
