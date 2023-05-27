@@ -40,7 +40,7 @@ const useFacebookLogin = () => {
 
   async function logInWithFbAccessToken(token: any) {
     // get user from accessToken
-    const url = `${import.meta.env.VITE_API_DOMAIN}/auth/login/facebook`;
+    const url = `${import.meta.env.VITE_API_DOMAIN}/auth/login/facebook?access_token=${token}`;
 
     try {
       const response = await get(url);
