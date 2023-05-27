@@ -16,7 +16,7 @@
   transition: opacity 0.3s;
 }
 
-.screen .message {
+.screen__message {
   text-align: center;
   animation: fade-in 2s linear 0.5s 1 normal forwards;
   opacity: 0;
