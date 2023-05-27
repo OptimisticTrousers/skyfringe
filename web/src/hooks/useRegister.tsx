@@ -45,8 +45,8 @@ const useRegister = () => {
           setFormError(response.data);
         } else {
           // unspecified error, return generic error msg
-          setError({ message });
-          showToast("error", message);
+          setError(response.data);
+          showToast("error", response.data.message);
         }
       }
     } catch (err) {
