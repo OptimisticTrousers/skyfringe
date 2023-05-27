@@ -1,0 +1,4 @@
+# repository root netlify.toml
+[build]
+  base = "app/"
+  ignore = "src/**/*.test.tsx"
