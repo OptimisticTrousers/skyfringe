@@ -57,7 +57,11 @@ const Feed: FC<Props> = ({ setFeed, loading, error, posts }) => {
           })}
         </div>
       )}
-      {error && <ErrorMessage message={error.message} />}
+      {error && (
+        <div style={{marginBottom: "1rem", width: "100%", display: "flex", justifyContent: "center"}}>
+          <ErrorMessage message={error.message} />
+        </div>
+      )}
     </div>
   );
 };
