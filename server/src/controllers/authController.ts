@@ -127,7 +127,7 @@ export const login_user = [
 // @access  Public
 export const logout_user = asyncHandler(async (req: Request, res: Response) => {
   res
-    .clearCookie("jwt")
+    .clearCookie("jwt", { path: "/" })
     .status(200)
     .json({ message: "User successfully logged out" });
 });
