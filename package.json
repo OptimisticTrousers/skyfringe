@@ -1,0 +1,21 @@
+{
+  "name": "skyfringe",
+  "version": "1.0.0",
+  "description": "A fullstack social media application built using the MERN stack and Typescript. Front-end application is fully tested with Vitest and React Testing Library. Back-end application is tested with Supertest and mongodb-memory-server. AWS S3 is used to store images. Currently not finished and still in progress.",
+  "main": "index.js",
+  "scripts": {
+    "heroku-prebuild": "cd server && npm install",
+    "heroku-postbuild": "cd server && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OptimisticTrousers/facebook-clone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OptimisticTrousers/facebook-clone/issues"
+  },
+  "homepage": "https://github.com/OptimisticTrousers/facebook-clone#readme"
+}
