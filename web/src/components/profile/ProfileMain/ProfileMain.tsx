@@ -41,7 +41,7 @@ const ProfileMain: FC<Props> = ({
         <Card>
           <div styleName="profile__card">
             <h3 styleName="profile__subtitle">About</h3>
-            {user?.bio ? (
+            {imageLoading ? (
               <p styleName="profile__description">
                 {user?.bio ? user?.bio : "Add a bio..."}
               </p>
