@@ -9,7 +9,7 @@ const useCreateComment = () => {
   const { showToast } = useContext(ToastContext);
 
   // Requires the post ID to attach the comment to that post, as well as the comment text
-  const createComment = async (postId: string, formData: CommentData) => {
+  const createComment = async (postId: string, formData: any) => {
     setLoading(true);
     try {
       const response = await post(
