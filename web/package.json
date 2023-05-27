@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsc && vite build",
+    "build": "cd .. && cd server && npm install && cd .. && cd web &&  tsc && vite build",
     "preview": "vite preview",
     "coverage": "vitest run --coverage",
     "test": "vitest"
