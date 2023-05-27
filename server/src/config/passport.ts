@@ -90,12 +90,13 @@ const passportConfig = () => {
           // const altText = await generateAltText(profile.photos[0].value);
           const altText = "test";
 
+          console.log(profile)
           // Create a new User doc with their FB details
           const newUser = new User({
             facebookId: profile.id,
             fullName: profile.name.givenName + " " + profile.name.familyName,
             userName: profile.name.givenName.toLowerCase(),
-            email: profile.emails[0].value,
+            email: profile._json.email,
             // Image will always be available. Is set to anon img if FB profile has not changed. No alt text available for these unfortunately
             photo: {
               // only able to get imageURL, no altText available
