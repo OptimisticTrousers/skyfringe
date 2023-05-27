@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "example.js",
+  "engines": {
+    "node": "18.12.1"
+  },
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/server.ts",
