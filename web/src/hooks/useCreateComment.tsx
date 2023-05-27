@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import { ToastContext } from "../context/ToastContext";
-import { CommentData } from "../types";
 import useHttp from "./useHttp";
 
 const useCreateComment = () => {
