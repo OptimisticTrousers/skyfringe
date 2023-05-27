@@ -12,6 +12,12 @@ import { luffyId } from "../config/populateDB";
 
 config();
 
+const FRONTEND_URL = process.env.FRONTEND_URL;
+
+if (!FRONTEND_URL) {
+  throw new Error("FRONTEND_URL value is not defined in .env file");
+}
+
 // @desc    Register new user
 // @route   POST /api/auth/register
 // @access  Public
@@ -127,7 +133,7 @@ export const login_user = [
 // @access  Public
 export const logout_user = asyncHandler(async (req: Request, res: Response) => {
   res
-    .clearCookie("jwt", { path: "/" })
+    .clearCookie("jwt", { path: "/", domain: FRONTEND_URL })
     .status(200)
     .json({ message: "User successfully logged out" });
 });
@@ -209,12 +215,6 @@ export const login_facebook = asyncHandler(
     )(req, res);
   }
 );
-
-const FRONTEND_URL = process.env.FRONTEND_URL;
-
-if (!FRONTEND_URL) {
-  throw new Error("FRONTEND_URL value is not defined in .env file");
-}
 
 export const login_facebook_callback = [
   passport.authenticate("facebook", {
