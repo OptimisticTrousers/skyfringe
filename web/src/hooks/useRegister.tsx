@@ -32,7 +32,7 @@ const useRegister = () => {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
         setError(null);
         setFormError(null);
-        dispatch({ type: "LOGIN", payload: response });
+        dispatch({ type: "LOGIN", payload: response.data });
         showToast("error", "Successfully registered!");
         return;
       } else {

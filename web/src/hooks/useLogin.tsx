@@ -33,7 +33,7 @@ const useLogin = () => {
         // No errors occured. Dispatch appropriate LOGIN action after adjusting state
         setError(null);
         setFormError(null);
-        dispatch({ type: "LOGIN", payload: response });
+        dispatch({ type: "LOGIN", payload: response.data });
         showToast("success", "Successfully logged in!");
       } else {
         // error with login request
