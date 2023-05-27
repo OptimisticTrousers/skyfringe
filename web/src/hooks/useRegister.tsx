@@ -33,7 +33,7 @@ const useRegister = () => {
         setError(null);
         setFormError(null);
         dispatch({ type: "LOGIN", payload: response.data });
-        showToast("error", "Successfully registered!");
+        showToast("success", "Successfully registered!");
         return;
       } else {
         // error with login request
