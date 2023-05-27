@@ -7,8 +7,7 @@
     "node": "18.12.1"
   },
   "scripts": {
-    "heroku-prebuild": "cd server && npm install",
-    "heroku-postbuild": "cd server && npm run build"
+    "heroku-start": "cd server && npm run start"
   },
   "repository": {
     "type": "git",
