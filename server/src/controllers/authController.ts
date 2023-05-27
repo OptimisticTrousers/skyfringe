@@ -168,7 +168,7 @@ export const login_facebook = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate(
       "facebook-token",
-      { session: false },
+      { scope: ["email"], session: false },
       (err, user, info) => {
         // Cast the standard Request object to my custom AuthenticatedRequest object
         if (err || !user) {
