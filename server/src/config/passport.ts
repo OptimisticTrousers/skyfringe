@@ -76,6 +76,7 @@ const passportConfig = () => {
       {
         clientID,
         clientSecret,
+        profileFields: ["id", "displayName", "name", "gender", "emails"],
       },
       async function (accessToken, refreshToken, profile, done) {
         // Check for existing user in db

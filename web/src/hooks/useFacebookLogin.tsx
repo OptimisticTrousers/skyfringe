@@ -40,7 +40,9 @@ const useFacebookLogin = () => {
 
   async function logInWithFbAccessToken(token: any) {
     // get user from accessToken
-    const url = `${import.meta.env.VITE_API_DOMAIN}/auth/login/facebook?access_token=${token}`;
+    const url = `${
+      import.meta.env.VITE_API_DOMAIN
+    }/auth/login/facebook?access_token=${token}`;
 
     try {
       const response = await get(url);
@@ -62,15 +64,18 @@ const useFacebookLogin = () => {
 
   const facebookLogin = () => {
     setLoading(true);
-    (window as any).FB.login(function (response: any) {
-      if (response.status === "connected") {
-        const accessToken = response.authResponse.accessToken;
-        logInWithFbAccessToken(accessToken);
-      } else {
-        setLoading(false);
-        showToast("error", message);
-      }
-    });
+    (window as any).FB.login(
+      function (response: any) {
+        if (response.status === "connected") {
+          const accessToken = response.authResponse.accessToken;
+          logInWithFbAccessToken(accessToken);
+        } else {
+          setLoading(false);
+          showToast("error", message);
+        }
+      },
+      { scope: "email" }
+    );
   };
 
   useEffect(() => {
