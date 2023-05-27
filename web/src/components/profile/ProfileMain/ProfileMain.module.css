@@ -176,7 +176,7 @@
 .profile__friends {
   display: grid;
   margin-top: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(75px, 80px));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 150px));
   gap: 20px;
   list-style-type: none;
   padding: 0;
@@ -184,8 +184,7 @@
 }
 
 .profile__friends--media {
-  justify-items: center;
-  justify-content: center;
+  justify-items: start;
 }
 
 .profile__friends--friends {
@@ -226,7 +225,6 @@
     padding: 1rem;
   }
   .profile__friends {
-    grid-template-columns: repeat(auto-fit, minmax(75px, 80px));
     padding-bottom: 1rem;
   }
   .profile__card {
