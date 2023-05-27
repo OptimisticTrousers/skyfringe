@@ -16,7 +16,7 @@ const useRegister = () => {
     setLoading(true);
     setError(null);
     setFormError(null);
-    const message = "An unknown error occured while logging out";
+    const message = "An unknown error occured while registering";
     try {
       const response = await post(
         `${import.meta.env.VITE_API_DOMAIN}/auth/register`,
