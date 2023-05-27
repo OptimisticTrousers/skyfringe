@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "cd server && npm install && npm run build && npm run start",
-    "netlify-build": "cd server && npm install && cd .. && cd web && npm run build"
+    "netlify-build": "cd server && npm install && cd .. && cd web && npm install && npm run build"
   },
   "repository": {
     "type": "git",
