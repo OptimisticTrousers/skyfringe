@@ -56,3 +56,17 @@
   height: 12px;
   margin-top: 0.75rem;
 }
+
+@media (max-width: 560px) {
+  .profile__avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 390px) {
+  .profile__avatar {
+    width: 75px;
+    height: 75px;
+  }
+}

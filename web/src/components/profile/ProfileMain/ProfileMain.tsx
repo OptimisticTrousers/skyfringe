@@ -41,7 +41,7 @@ const ProfileMain: FC<Props> = ({
         <Card>
           <div styleName="profile__card">
             <h3 styleName="profile__subtitle">About</h3>
-            {imageLoading ? (
+            {!imageLoading ? (
               <p styleName="profile__description">
                 {user?.bio ? user?.bio : "Add a bio..."}
               </p>
@@ -51,7 +51,7 @@ const ProfileMain: FC<Props> = ({
           </div>
         </Card>
         <Card>
-          {imageLoading ? (
+          {!imageLoading ? (
             <SkeletonProfileFriendCard />
           ) : (
             <>
@@ -65,7 +65,7 @@ const ProfileMain: FC<Props> = ({
                     See all media
                   </Link>
                 </div>
-                <div styleName="profile__friends">
+                <div styleName="profile__friends profile__friends--media">
                   {images?.map((image: any) => {
                     return (
                       <Avatar
@@ -99,7 +99,7 @@ const ProfileMain: FC<Props> = ({
                 </Link>
               </div>
               {user?.friends.length !== 0 ? (
-                <ul styleName="profile__friends">
+                <ul styleName="profile__friends profile__friends--friends">
                   {user?.friends?.map((friend: any) => {
                     return (
                       <li styleName="profile__friend" key={friend._id}>

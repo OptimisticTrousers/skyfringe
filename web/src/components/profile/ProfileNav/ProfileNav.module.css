@@ -6,6 +6,7 @@
   box-sizing: border-box;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.16);
   display: flex;
+  margin-bottom: 1rem;
   justify-content: center;
 }
 
