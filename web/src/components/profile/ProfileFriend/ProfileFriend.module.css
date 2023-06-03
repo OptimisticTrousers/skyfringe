@@ -27,3 +27,9 @@
   width: 100%;
   margin-top: 0.5rem;
 }
+
+@media (max-width: 570px) {
+  .friend {
+    width: 100%;
+  }
+}

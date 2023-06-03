@@ -19,7 +19,6 @@
 @media (min-width: 768px) {
   .friends {
     grid-template-columns: 270px 1fr;
-    margin-top: 5rem;
   }
 }
 

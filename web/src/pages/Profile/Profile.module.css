@@ -257,7 +257,13 @@
     padding-top: 2rem;
   }
   .profile__details {
-    bottom: -130px;
+    bottom: -135px;
     left: 8px;
+  }
+  .profile__name {
+    font-size: 1.1rem;
+  }
+  .profile__username {
+    font-size: 1rem;
   }
 }

@@ -11,7 +11,7 @@ interface Props {
 const ProfileFriend: FC<Props> = ({ friend }) => {
   return (
     <li styleName="friend" key={friend._id}>
-      <Link styleName="friend__link friend__link--avatar" to={`users/${friend._id}`}>
+      <Link styleName="friend__link friend__link--avatar" to={`/users/${friend._id}`}>
         <Avatar
           src={friend?.photo?.imageUrl}
           alt={friend?.photo?.altText}

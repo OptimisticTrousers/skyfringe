@@ -39,6 +39,31 @@
   display: flex;
   gap: 0.75rem;
   width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
   flex-wrap: wrap;
   margin-top: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 1550px) {
+  .friends__container {
+    width: 100%;
+    max-width: 1186px;
+  }
+  .friends > div {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 570px) {
+  .friends__list {
+    justify-content: center;
+  }
+  .friend {
+    width: 100%;
+  }
 }
