@@ -80,7 +80,7 @@ Beyond that, other learning outcomes were:
 - [Multer-S3](https://github.com/anacronw/multer-s3) - storage engine for Amazon S3
 - [Mongoose](https://mongoosejs.com/) - ODM for MongoDB
 - [Socket.io](https://socket.io/) - WebSocket library
-- [Emoji Picker](https://mantine.dev/](https://github.com/ealush/emoji-picker-react) - UI library
+- [Emoji Picker](https://github.com/ealush/emoji-picker-react) - UI library
 - [React Router](https://reactrouter.com/en/main) - Client-side routing
 - [React CSS Modules](https://github.com/gajus/react-css-modules) - CSS with local scoping
 - [Express](https://expressjs.com/) - Web framework
