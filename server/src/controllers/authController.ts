@@ -91,7 +91,7 @@ export const register_user = [
   }),
 ];
 
-// @desc    Authenticate a test user
+// @desc    Authenticate a user and return JWT token
 // @route   POST /api/auth/login
 // @access  Public
 export const login_user = [
@@ -176,6 +176,9 @@ export const check_auth_user = asyncHandler(
   }
 );
 
+// @desc    Authenticate using Facebook and return JWT token in a cookie
+// @route   POST /api/auth/login/facebook
+// @access  Private
 export const login_facebook = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate(

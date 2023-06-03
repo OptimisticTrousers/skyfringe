@@ -266,7 +266,7 @@ const Settings = () => {
                   <PasswordContainer
                     showPassword={passwordVisible}
                     handleClick={handlePasswordVisiblity}
-                    right={12}
+                    right={8}
                     disabled={disabled}
                   >
                     <div styleName="settings__group">
@@ -293,7 +293,7 @@ const Settings = () => {
                   <PasswordContainer
                     showPassword={passwordVisible}
                     handleClick={handlePasswordVisiblity}
-                    right={12}
+                    right={8}
                     disabled={disabled}
                   >
                     <div styleName="settings__group">
@@ -320,7 +320,7 @@ const Settings = () => {
                   <PasswordContainer
                     showPassword={passwordVisible}
                     handleClick={handlePasswordVisiblity}
-                    right={12}
+                    right={8}
                     disabled={disabled}
                   >
                     <div styleName="settings__group">

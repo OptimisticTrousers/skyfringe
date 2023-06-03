@@ -271,6 +271,23 @@
   }
 }
 
+@media (max-width: 670px) {
+  .settings__grid {
+    display: block;
+    padding: 1rem;
+  }
+  .settings__form {
+    display: grid;
+  }
+  .settings__section {
+    display: block;
+  }
+  .settings__label {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+}
+
 @media (max-width: 380px) {
   .settings__form {
     padding: 0;

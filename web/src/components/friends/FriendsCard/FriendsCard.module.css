@@ -148,10 +148,6 @@
 }
 
 @media (max-width: 475px) {
-  .card__link--image {
-    height: 5rem;
-    width: 5rem;
-  }
   .card__button {
     width: 8rem;
   }
@@ -161,6 +157,9 @@
   .card__button {
     width: 9rem;
   }
+}
+
+@media (max-width: 475px) {
   .card__container {
     flex-direction: column;
     align-items: flex-start;

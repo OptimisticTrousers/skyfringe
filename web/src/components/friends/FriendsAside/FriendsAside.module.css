@@ -113,6 +113,18 @@
   }
 }
 
+@media (max-width: 520px) {
+  .aside__menu {
+    margin-bottom: 1rem;
+  }
+  .aside {
+    box-shadow: unset;
+  }
+  .card__container {
+    align-items: stretch;
+  }
+}
+
 @media (max-width: 340px) {
   .aside__menu {
     display: block;

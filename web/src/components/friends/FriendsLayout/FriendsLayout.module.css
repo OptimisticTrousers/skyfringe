@@ -9,7 +9,7 @@
 
 @media (max-width: 767px) {
   .friends {
-    margin-top: 4.3rem;
+    margin-top: 5rem;
   }
   .friends__container {
     margin: 0;
@@ -19,6 +19,7 @@
 @media (min-width: 768px) {
   .friends {
     grid-template-columns: 270px 1fr;
+    margin-top: 5rem;
   }
 }
 
@@ -28,5 +29,11 @@
   }
   .friends__cards {
     background-color: transparent;
+  }
+}
+
+@media (max-width: 520px) {
+  .friends {
+    display: block;
   }
 }

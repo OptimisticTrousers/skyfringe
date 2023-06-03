@@ -64,10 +64,9 @@ export const user_detail = asyncHandler(
   }
 );
 
-// @desc    Update user details
+// @desc    Get user chats
 // @route   GET /api/users/:userId/chats
 // @access  Private
-
 export const get_user_chats = asyncHandler(async (req, res, next) => {
   const userId = req.params.userId;
   const chats = await Chat.find({ participants: userId })

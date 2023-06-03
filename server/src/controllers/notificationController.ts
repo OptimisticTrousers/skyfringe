@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import Notification from "../models/notification";
 import { User as IUser } from "../../types";
 
-// @desc    Get all user notifications (public details)
+// @desc    Get all user notifications
 // @route   GET /api/users/:userId/notifications
 // @access  Private
 export const get_notifications = asyncHandler(async (req, res, next) => {
@@ -28,7 +28,7 @@ export const read_notification = asyncHandler(async (req, res, next) => {
   res.status(200).json(deletedNotification);
 });
 
-// @desc    Delete user notification
+// @desc    Delete all user notifications
 // @route   DELETE /api/users/:userId/notifications
 // @access  Private
 export const read_all_notifications = asyncHandler(async (req, res, next) => {

@@ -21,7 +21,7 @@
   position: sticky;
   top: 0;
   left: 0;
-  height: 100vh;
+  min-height: 100vh;
   background-color: #1f1e22;
   width: var(--aside-width);
   color: #a4a6b3;
@@ -30,8 +30,6 @@
   border-right: 2px solid #2e2c35;
   transition: transform 350ms ease-in-out;
   box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .aside__logo {
@@ -188,6 +186,13 @@
 
 @media (max-width: 370px) {
   .aside {
-    width: 300px;
+    --aside-width: 100%;
+  }
+}
+
+@media(max-height: 700px) {
+  .aside {
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 }
