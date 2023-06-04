@@ -146,8 +146,10 @@ const Settings = () => {
             Change Cover
           </button>
           <Banner
-            src={`${data?.user?.cover?.imageUrl}?${Date.now()}`}
-            altText={data?.user?.cover?.altText}
+            src={`${
+              data?.user?.cover && data?.user?.cover?.imageUrl
+            }?${Date.now()}`}
+            altText={data?.user?.cover && data?.user?.cover?.altText}
           />
         </header>
         <div styleName="settings__grid">

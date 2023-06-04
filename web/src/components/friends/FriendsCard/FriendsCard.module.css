@@ -161,4 +161,8 @@
   .card__button {
     width: 9rem;
   }
+  .card__container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
