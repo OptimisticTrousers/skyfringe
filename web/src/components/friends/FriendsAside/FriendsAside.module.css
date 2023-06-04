@@ -112,3 +112,9 @@
     height: 100vh;
   }
 }
+
+@media (max-width: 340px) {
+  .aside__menu {
+    display: block;
+  }
+}

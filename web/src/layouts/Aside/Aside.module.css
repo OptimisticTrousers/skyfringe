@@ -30,6 +30,7 @@
   border-right: 2px solid #2e2c35;
   transition: transform 350ms ease-in-out;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .aside__logo {
@@ -168,6 +169,9 @@
   .hamburger {
     display: block;
   }
+  .aside__container {
+    margin-top: 2rem;
+  }
   .aside {
     position: fixed;
     z-index: 2;
@@ -178,11 +182,5 @@
   }
   .aside__button--exit {
     display: block;
-  }
-}
-
-@media (max-width: 370px) {
-  .aside {
-    width: 100%;
   }
 }

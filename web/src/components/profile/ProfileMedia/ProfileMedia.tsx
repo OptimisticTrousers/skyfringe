@@ -35,8 +35,8 @@ const ProfileMedia = ({ user }: any) => {
                   styleName={`media__image ${
                     isBig ? "media__image--large" : ""
                   }`}
-                  src={image.imageUrl}
-                  alt={image.altText}
+                  src={image.imageUrl || "/images/anon-user-lg.png"}
+                  alt={image.altText || "Anonymous user avatar"}
                   onError={userImageFallback}
                 />
               );

@@ -133,6 +133,20 @@
   }
 }
 
+@media (max-width: 1000px) {
+  .card__container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 770px) {
+  .card__container {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
 @media (max-width: 475px) {
   .card__link--image {
     height: 5rem;
