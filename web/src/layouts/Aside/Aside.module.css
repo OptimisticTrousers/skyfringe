@@ -185,3 +185,9 @@
     display: block;
   }
 }
+
+@media (max-width: 370px) {
+  .aside {
+    width: 300px;
+  }
+}
