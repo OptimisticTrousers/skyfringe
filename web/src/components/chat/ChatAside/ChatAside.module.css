@@ -73,6 +73,6 @@
   }
 
   .aside--full {
-    height: calc(100vh - 32px);
+    height: auto;
   }
 }
