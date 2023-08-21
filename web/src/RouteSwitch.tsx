@@ -3,8 +3,6 @@ import {
   Routes,
   Route,
   Navigate,
-  useNavigate,
-  HashRouter,
 } from "react-router-dom";
 import App from "./App";
 import useCurrentAuthUser from "./hooks/useCurrentAuthUser";
@@ -33,7 +31,7 @@ const RouteSwitch = () => {
   }
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <LoadingScreen />
       {!loading && (
         <Routes>
@@ -80,7 +78,7 @@ const RouteSwitch = () => {
           />
         </Routes>
       )}
-    </HashRouter>
+    </BrowserRouter>
   );
 };
 
