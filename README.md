@@ -186,4 +186,5 @@ Beyond that, other learning outcomes were:
 
 ## Known Bugs
 
-1. None
+1. When clicking on the comments dropdown for each post to reveal comments, there's overflow that happens as the transition occurs from a collapsed dropdown to an expanded one. However, I can't use 'overflow:hidden' because I need the emoji pop-up to work, which would hide parts of the emoji pop-up.
+2. On mobile, long comment threads overflow.
