@@ -1,4 +1,11 @@
-import { ChangeEvent, FC, FormEvent, useContext, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  FC,
+  FormEvent,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import CSSModules from "react-css-modules";
 import { FcGallery } from "react-icons/fc";
 import { VscClose } from "react-icons/vsc";
@@ -17,7 +24,7 @@ interface Props {
 }
 
 const ChangePhotoModal: FC<Props> = ({ title, toggleModal, setData }) => {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
   const {
     handleFile,
     removeThumbnail,
@@ -41,6 +48,7 @@ const ChangePhotoModal: FC<Props> = ({ title, toggleModal, setData }) => {
     formData.append("image", imageFile);
     formData.append("imageUpdated", imageUpdated.toString());
     const updatedUser = await updateAvatar(user._id, formData);
+    dispatch({ type: "LOGIN", payload: updatedUser });
     setData(updatedUser);
     toggleModal();
   };
