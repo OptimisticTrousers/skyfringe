@@ -1,7 +1,7 @@
-import { FormError } from "@backend/types";
+import { FetchUserDetails, FormError, UserWithStringId } from "@backend/types";
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import CSSModules from "react-css-modules";
-import { AiFillCamera, AiOutlineCamera } from "react-icons/ai";
+import { AiOutlineCamera } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeAvatarModal, DeleteAccountModal } from "../../components/modals";
 import ChangeBannerModal from "../../components/modals/ChangeBannerModal";
@@ -22,11 +22,12 @@ import styles from "./Settings.module.css";
 
 const Settings = () => {
   const { user } = useContext(AuthContext);
+  console.log(user._id)
   const { showToast } = useContext(ToastContext);
-  const { setData, data, loading, error }: any = useFetch(
+  const { setData, data, loading, error } = useFetch<FetchUserDetails>(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}`
   );
-  const setUser = (user: any) => {
+  const setUser = (user: UserWithStringId) => {
     setData((data: any) => {
       const newData = structuredClone(data);
       newData.user = user;
@@ -39,24 +40,17 @@ const Settings = () => {
   const [isCoverModalOpen, setIsCoverModalOpen] = useState(false);
 
   const { updateUser, loading: updateLoading, formError } = useUpdateUser();
+  const { updateAvatar, loading: avatarLoading } = useUpdateAvatar();
 
   const {
     fullName,
     bio,
     handleBioChange,
     handleFullNameChange,
-    userName,
-    handleUserNameChange,
-    userNameValid,
     oldPassword,
-    userNameError,
-    email,
     setBio,
     setEmail,
     setFullName,
-    handleEmailChange,
-    emailValid,
-    emailError,
     password,
     handlePasswordChange,
     passwordValid,
@@ -69,15 +63,11 @@ const Settings = () => {
     passwordConfError,
     oldPasswordValidationStyles,
     checkOldPasswordValidation,
-    emailValidationStyles,
-    userNameValidationStyles,
     oldPasswordError,
     passwordValidationStyles,
     checkPasswordConfValidation,
     handleOldPasswordChange,
     checkPasswordValidation,
-    checkUserNameValidation,
-    checkEmailValidation,
     handlePasswordVisiblity,
   } = useForm();
 
@@ -94,13 +84,14 @@ const Settings = () => {
   };
 
   const friendCountText = () => {
-    const friendCount = data?.user?.friends?.length;
-    if (friendCount > 1) {
+    const friendCount = data?.user.friends.length;
+    if (!friendCount) {
+      return "0 friends";
+    } else if (friendCount > 1) {
       return `${friendCount} friends`;
     } else if (friendCount === 1) {
       return "1 friend";
     }
-    return "0 friends";
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -115,7 +106,7 @@ const Settings = () => {
       showToast("error", "Invalid password confirmation");
       return;
     }
-    await updateUser(data?.user?._id, {
+    await updateUser(user?._id, {
       fullName,
       bio,
       oldPassword,
@@ -125,12 +116,12 @@ const Settings = () => {
   };
 
   const disabled =
-    updateLoading || data?.user?._id === "4c8a331bda76c559ef000004";
+    updateLoading || data?.user._id === "4c8a331bda76c559ef000004";
 
   useEffect(() => {
     setBio(data?.user?.bio);
-    setEmail(data?.user?.email);
-    setFullName(data?.user?.fullName);
+    setEmail(data?.user.email);
+    setFullName(data?.user.fullName);
   }, [data?.user]);
 
   return (
@@ -146,9 +137,8 @@ const Settings = () => {
             Change Cover
           </button>
           <Banner
-            src={`${
-              data?.user?.cover && data?.user?.cover?.imageUrl
-            }?${Date.now()}`}
+            src={`${data?.user?.cover && data?.user?.cover?.imageUrl
+              }?${Date.now()}`}
             altText={data?.user?.cover && data?.user?.cover?.altText}
           />
         </header>
@@ -159,9 +149,8 @@ const Settings = () => {
                 <div styleName="settings__avatar">
                   <Avatar
                     size={"xl"}
-                    src={`${
-                      data?.user?.photo && data.user.photo.imageUrl
-                    }?${Date.now()}`}
+                    src={`${data?.user?.photo && data.user.photo.imageUrl
+                      }?${Date.now()}`}
                     alt={data?.user?.photo && data.user.photo.altText}
                   />
                   <button
@@ -203,7 +192,7 @@ const Settings = () => {
               </div>
               <div styleName="settings__box">
                 <Link
-                  to={`/users/${data?._id}`}
+                  to={`/users/${user?._id}`}
                   styleName="settings__button settings__button--view"
                 >
                   View Public Profile
@@ -274,11 +263,10 @@ const Settings = () => {
                         Old Password
                       </label>
                       <input
-                        styleName={`settings__input ${
-                          oldPasswordValidationStyles
-                            ? "settings__input--validation"
-                            : ""
-                        }`}
+                        styleName={`settings__input ${oldPasswordValidationStyles
+                          ? "settings__input--validation"
+                          : ""
+                          }`}
                         type={passwordVisible ? "text" : "password"}
                         id="oldPassword"
                         name="oldPassword"
@@ -301,11 +289,10 @@ const Settings = () => {
                         New Password
                       </label>
                       <input
-                        styleName={`settings__input ${
-                          passwordValidationStyles
-                            ? "settings__input--validation"
-                            : ""
-                        }`}
+                        styleName={`settings__input ${passwordValidationStyles
+                          ? "settings__input--validation"
+                          : ""
+                          }`}
                         type={passwordVisible ? "text" : "password"}
                         id="newPassword"
                         name="newPassword"
