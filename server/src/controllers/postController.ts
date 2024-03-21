@@ -15,6 +15,8 @@ import {
 } from "../../types";
 import generateAltText from "../utils/generateAltText";
 
+const postMaxLength = 280;
+
 // @desc    Get all posts
 // @route   GET /api/posts
 // @access  Private
@@ -43,7 +45,7 @@ export const post_create = [
     }
     // User has included one of either text or image. Continue with request handling
     return true;
-  }),
+  }).isLength({ max: postMaxLength }),
   // Process request after validation and sanitization
   asyncHandler(async (req: RequestWithLocals, res: Response) => {
     // Extract the validation errors from a request
@@ -76,9 +78,8 @@ export const post_create = [
 
     if (req.file) {
       // image exists
-      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
-        user.userName
-      }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
+      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${user.userName
+        }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
       altText = await generateAltText(imageUrl);
       post.photo = {
         imageUrl,
@@ -160,7 +161,7 @@ export const post_update = [
     }
     // User has included one of either text or image. Continue with request handling
     return true;
-  }),
+  }).isLength({ max: postMaxLength }),
   body(
     "imageUpdated",
     "Must include whether the image has been updated"
@@ -219,9 +220,8 @@ export const post_update = [
       // Generate alt text for an image (if an image exists)
       // image exists
       const altText = await generateAltText(req.file.path);
-      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
-        user.userName
-      }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
+      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${user.userName
+        }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
       updatedPost.photo = {
         imageUrl,
         altText,

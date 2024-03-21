@@ -137,7 +137,7 @@ export const create_message = [
     }
     // User has included one of either text or image. Continue with request handling
     return true;
-  }),
+  }).isLength({ max: 160 }),
   // Process request after validation and sanitization
   asyncHandler(async (req: RequestWithLocals, res, next) => {
     const chatId = req.params.chatId;
@@ -174,9 +174,8 @@ export const create_message = [
       };
     } else if (req.file) {
       // image exists
-      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${
-        user.userName
-      }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
+      const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${user.userName
+        }_${locals.date}.${req.file.mimetype.split("/")[1]}`;
       altText = await generateAltText(imageUrl);
       message.photo = {
         imageUrl,
