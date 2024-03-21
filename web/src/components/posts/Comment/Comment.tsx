@@ -15,12 +15,14 @@ interface Props {
   comment: any;
   deleteLocalComment: any;
   editLocalComment: any;
+  position: number;
 }
 
 const Comment: FC<Props> = ({
   comment,
   editLocalComment,
   deleteLocalComment,
+  position
 }) => {
   const { user } = useContext(AuthContext);
   const { updateComment, loading: updateLoading } = useUpdateComment();
@@ -57,7 +59,7 @@ const Comment: FC<Props> = ({
     const updatedComment = await updateComment(
       comment._id,
       comment.post._id,
-      {content: commentText}
+      { content: commentText }
     );
     editLocalComment(comment._id, updatedComment);
     setIsUserEditing(false);
@@ -128,6 +130,7 @@ const Comment: FC<Props> = ({
                   handleUpdateComment={handleUpdateComment}
                   loading={updateLoading}
                   text={comment?.content}
+                  position={position}
                 />
               ) : (
                 <p styleName="comment__text">{comment?.content}</p>

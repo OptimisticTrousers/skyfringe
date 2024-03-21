@@ -85,6 +85,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
             placeholder="What's cooking, Bob?"
             onChange={handleChangePostText}
             value={postText}
+            maxLength={280}
           ></textarea>
           {imageLoading && <Loading />}
           {imageData && (
@@ -99,7 +100,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
 
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true}/>
+            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} />
             <ImageUploadBtn
               handleChange={handlePhoto}
               imageValue={imageValue}

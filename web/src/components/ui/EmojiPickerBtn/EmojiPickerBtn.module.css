@@ -23,13 +23,19 @@
   position: absolute;
   bottom: 25px;
   right: 110%;
+  z-index: 1;
+  padding-bottom: 50px;
 }
 
-.container > aside {
+.container--first {
+  top: 8px;
+}
+
+.container>aside {
   height: 300px !important;
 }
 
-.container--modal > aside {
+.container--modal>aside {
   height: 450px !important;
 }
 
@@ -37,7 +43,8 @@
   .container {
     right: -100%;
   }
-  .container > aside {
+
+  .container>aside {
     width: 300px !important;
   }
 }

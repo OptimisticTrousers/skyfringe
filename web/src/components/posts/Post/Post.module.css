@@ -18,6 +18,7 @@
 .post__icon--control {
   margin-right: 6px;
 }
+
 .post__link:hover {
   opacity: 0.7;
 }
@@ -64,8 +65,7 @@
   align-items: center;
 }
 
-.post__count {
-}
+.post__count {}
 
 .post__time {
   margin-left: 3px;
@@ -105,11 +105,13 @@
 
 .post__description {
   font-size: 1.2rem;
+  word-break: break-all;
+  line-height: 1.5;
 }
 
 .post__image {
   width: 100%;
-  height: 394px;
+  max-height: 394px;
   object-fit: cover;
 }
 
@@ -124,6 +126,7 @@
   vertical-align: middle;
   position: relative;
   background-color: rgba(0, 0, 0, 0.1);
+  margin-top: 24px;
 }
 
 .post__button {
@@ -215,16 +218,20 @@
     justify-content: space-between;
     align-items: center;
   }
+
   .post__author {
     font-size: 1.2rem;
   }
+
   .post__actions {
     margin-right: 0;
   }
-  .post__username{
+
+  .post__username {
     font-size: 1.1rem;
   }
-  .post__date{
+
+  .post__date {
     font-size: 1rem;
   }
 }
@@ -233,16 +240,20 @@
   .post__actions {
     padding-right: 0;
   }
+
   .post__top {
     padding-left: 0;
   }
+
   .post__description {
     margin-left: 0;
   }
+
   .post__controls {
     flex-direction: column;
     gap: 16px;
   }
+
   .post__icon--threedots {
     margin-left: 8px;
     cursor: pointer;

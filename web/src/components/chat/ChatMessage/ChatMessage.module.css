@@ -22,6 +22,8 @@
   margin-right: 16px;
   border-radius: 14px;
   border-top-left-radius: 0;
+  word-break: break-all;
+  line-height: 1.5;
 }
 
 .message__image {
@@ -31,7 +33,8 @@
   height: auto;
   margin-right: 1rem;
   color: transparent;
-  flex-shrink: 0; /* Prevent image from shrinking */
+  flex-shrink: 0;
+  /* Prevent image from shrinking */
   margin-right: 16px;
   object-fit: cover;
 }

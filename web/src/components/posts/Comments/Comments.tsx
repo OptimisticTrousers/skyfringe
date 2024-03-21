@@ -14,7 +14,7 @@ interface Props {
   editLocalComment: any;
 }
 
-const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error, deleteLocalComment, editLocalComment}) => {
+const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error, deleteLocalComment, editLocalComment }) => {
   const commentsRef = useRef<any>(null);
   return (
     <section
@@ -24,13 +24,15 @@ const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error, deleteL
       style={
         isCommentsOpen
           ? {
-              maxHeight: "50vh",
-              visibility: "visible",
-            }
+            maxHeight: "50vh",
+            visibility: "visible",
+            overflowY: "scroll"
+          }
           : {
-              maxHeight: "0px",
-              visibility: "hidden",
-            }
+            maxHeight: "0px",
+            visibility: "hidden",
+            overflow: "hidden"
+          }
       }
     >
       {loading && (
@@ -46,8 +48,8 @@ const Comments: FC<Props> = ({ isCommentsOpen, comments, loading, error, deleteL
       )}
       {comments && (
         <div>
-          {comments.map((comment: any) => {
-            return <Comment key={comment?._id} comment={comment} deleteLocalComment={deleteLocalComment} editLocalComment={editLocalComment}/>;
+          {comments.map((comment: any, index: number) => {
+            return <Comment key={comment?._id} position={index} comment={comment} deleteLocalComment={deleteLocalComment} editLocalComment={editLocalComment} />;
           })}
         </div>
       )}

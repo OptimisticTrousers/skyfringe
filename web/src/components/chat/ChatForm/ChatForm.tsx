@@ -108,6 +108,7 @@ const ChatForm = ({ setData }: any) => {
       <input
         styleName="form__input"
         placeholder="Write a message..."
+        maxLength={280}
         onChange={handleMessage}
         value={text}
       />

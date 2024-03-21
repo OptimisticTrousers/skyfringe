@@ -188,7 +188,7 @@ const Post: FC<Props> = ({
           </div>
           <div styleName="post__content">
             <p styleName="post__description">{post.content}</p>
-            {post?.photo?.imageUrl && (
+            {post && post?.photo?.imageUrl && (
               <img
                 src={`${post.photo?.imageUrl}?${Date.now()}`}
                 styleName="post__image"
@@ -207,9 +207,8 @@ const Post: FC<Props> = ({
                 <span styleName="post__count">{likeCountText()}</span>
               </button>
               <button
-                styleName={`post__button post__button--comments ${
-                  comments?.length === 0 && "post__button--disabled"
-                }`}
+                styleName={`post__button post__button--comments ${comments?.length === 0 && "post__button--disabled"
+                  }`}
                 onClick={toggleComments}
                 disabled={isCommentsDropdownDisabled}
               >

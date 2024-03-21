@@ -22,7 +22,6 @@
 .notification__avatar {
   height: 100%;
   width: 60px;
-  border-radius: 50%;
   margin-right: 16px;
 }
 
@@ -81,11 +80,13 @@
     align-items: center;
     padding-top: 1rem;
   }
+
   .notification__details {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+
   .notification__avatar {
     margin: 0;
   }

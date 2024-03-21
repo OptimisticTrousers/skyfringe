@@ -7,9 +7,10 @@ interface Props {
   handleUpdateComment: any;
   loading: any;
   text: any;
+  position: number;
 }
 
-const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading, text }) => {
+const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading, text, position }) => {
   const [commentText, setCommentText] = useState(text);
 
   const onEmojiClick = (emojiObject: any) => {
@@ -29,7 +30,7 @@ const EditCommentForm: FC<Props> = ({ handleUpdateComment, loading, text }) => {
   return (
     <form styleName="form" onSubmit={handleSubmit}>
       <div styleName="form__emoji">
-        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={false}/>
+        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={false} position={position} />
       </div>
       <textarea
         styleName="form__input"
