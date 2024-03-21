@@ -4,9 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import Comments from "./Comments";
 
 describe("Comments component", () => {
-  it("test", () => {
-    expect(2 + 2).toBe(4)
-  })
   it("renders closed when isCommentsOpen is false", () => {
     render(
       <BrowserRouter>

@@ -12,7 +12,7 @@ const SideFooter = () => {
         <Link styleName="footer__link" to="/privacy">
           Privacy Policy
         </Link>
-        <p styleName="footer__copyright">© Tony Isern 2023</p>
+        <p styleName="footer__copyright">© Tony Isern 2024</p>
         <Link to="https://github.com/OptimisticTrousers?tab=repositories">
           <FaGithubSquare styleName="footer__icon" />
         </Link>

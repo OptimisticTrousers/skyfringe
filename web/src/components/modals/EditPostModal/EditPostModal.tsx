@@ -97,6 +97,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
             placeholder="What's cooking, Bob?"
             value={postText}
             onChange={handlePostText}
+            maxLength={280}
           ></textarea>
           {imageLoading && <Loading />}
           {imageData && (
@@ -111,7 +112,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
         </div>
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true}/>
+            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} />
             <ImageUploadBtn
               handleChange={handlePhoto}
               imageValue={imageValue}
