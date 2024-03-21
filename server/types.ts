@@ -144,6 +144,15 @@ export interface FetchResponse {
   error: unknown;
 }
 
+export interface useFetchFunction<T> {
+  (data: T): useFetchResponse<T>;
+}
+
+export interface useFetchResponse<T> extends FetchResponse {
+  setData: (data: T) => void;
+  data: T;
+}
+
 export interface CustomError extends Error {
   status?: number;
 }
@@ -157,4 +166,12 @@ export interface FetchFriendsResponse extends FetchResponse {
 
 export interface FetchUsersResponse extends FetchResponse {
   data: null | UserWithStringId[];
+}
+
+export interface FetchUserDetails {
+  user: UserWithStringId;
+  posts: PostWithStringId[];
+  comments: CommentWithStringId[];
+  likedPosts: PostWithStringId[];
+  likedComments: CommentWithStringId[];
 }
