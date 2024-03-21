@@ -43,7 +43,7 @@ const ProfileMain: FC<Props> = ({
             <h3 styleName="profile__subtitle">About</h3>
             {!imageLoading ? (
               <p styleName="profile__description">
-                {user?.bio ? user?.bio : "Add a bio..."}
+                {user?.bio ? user?.bio : "No bio..."}
               </p>
             ) : (
               <SkeletonBio />
