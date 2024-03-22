@@ -40,22 +40,22 @@ const CommentForm: FC<Props> = ({
       style={
         isCommentFormOpen
           ? {
-              height: "132px",
-              paddingTop: "2px",
-              paddingBottom: "2px",
-              visibility: "visible",
-            }
+            height: "132px",
+            paddingTop: "2px",
+            paddingBottom: "2px",
+            visibility: "visible",
+          }
           : {
-              height: "0px",
-              paddingTop: "0px",
-              paddingBottom: "0px",
-              visibility: "hidden",
-              overflowY: "hidden",
-            }
+            height: "0px",
+            paddingTop: "0px",
+            paddingBottom: "0px",
+            visibility: "hidden",
+            overflowY: "hidden",
+          }
       }
     >
       <div styleName="form__emoji">
-        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={false} />
+        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={false} position={1} />
       </div>
       <textarea
         value={commentText}
