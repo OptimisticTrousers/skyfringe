@@ -55,8 +55,8 @@
 .modal__link {
   outline-color: #404164;
   margin-right: 1rem;
-  color: inherit;
   text-decoration: inherit;
+  color: var(--text-color);
 }
 
 .modal__link:hover {
