@@ -65,7 +65,7 @@ const ProfileMain: FC<Props> = ({
                     See all media
                   </Link>
                 </div>
-                <div styleName="profile__friends profile__friends--media">
+                <div styleName="profile__media">
                   {images?.map((image: any) => {
                     return (
                       <Avatar

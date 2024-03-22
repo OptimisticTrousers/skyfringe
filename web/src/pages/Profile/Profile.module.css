@@ -127,6 +127,7 @@
 
 .profile__name {
   margin-bottom: 0;
+  color: var(--text-color);
 }
 
 .profile__content {
