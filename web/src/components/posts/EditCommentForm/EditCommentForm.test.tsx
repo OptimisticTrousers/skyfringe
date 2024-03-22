@@ -12,8 +12,7 @@ describe("EditCommentForm component", () => {
       <EditCommentForm
         handleUpdateComment={handleUpdateComment}
         loading={loading}
-        text={commentContent}
-      />
+        text={commentContent} position={0} />
     );
     expect(
       screen.getByPlaceholderText("Edit your comment...")
@@ -26,8 +25,7 @@ describe("EditCommentForm component", () => {
       <EditCommentForm
         handleUpdateComment={handleUpdateComment}
         loading={loading}
-        text={commentContent}
-      />
+        text={commentContent} position={0} />
     );
     const input = screen.getByPlaceholderText("Edit your comment...");
     await user.clear(input);
@@ -40,8 +38,7 @@ describe("EditCommentForm component", () => {
       <EditCommentForm
         handleUpdateComment={handleUpdateComment}
         loading={loading}
-        text={commentContent}
-      />
+        text={commentContent} position={0} />
     );
     const input = screen.getByPlaceholderText("Edit your comment...");
     const button = screen.getByRole("button", { name: "Save" });
@@ -56,8 +53,7 @@ describe("EditCommentForm component", () => {
       <EditCommentForm
         handleUpdateComment={handleUpdateComment}
         loading={loading}
-        text={commentContent}
-      />
+        text={commentContent} position={0} />
     );
     const button = screen.getByRole("button", { name: "Saving..." });
     expect(button).toBeDisabled();
@@ -69,8 +65,7 @@ describe("EditCommentForm component", () => {
       <EditCommentForm
         handleUpdateComment={handleUpdateComment}
         loading={loading}
-        text={commentContent}
-      />
+        text={commentContent} position={0} />
     );
     const input = screen.getByPlaceholderText("Edit your comment...");
     const button = screen.getByRole("button", { name: "Save" });

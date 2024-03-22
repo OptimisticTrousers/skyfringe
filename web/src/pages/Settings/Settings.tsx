@@ -25,7 +25,7 @@ const Settings = () => {
   const { user } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
   const { showToast } = useContext(ToastContext);
-  const { setData, data, loading, error } = useFetch<FetchUserDetails>(
+  const { setData, data, loading, error } = useFetch<any>(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}`
   );
   const setUser = (user: UserWithStringId) => {
