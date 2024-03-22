@@ -6,7 +6,7 @@ import styles from "./EmojiPickerBtn.module.css";
 interface Props {
   onEmojiClick: any;
   modal: any;
-  position: number | undefined;
+  position: number;
 }
 
 // Creating an accessible button that opens the Emoji picker component
@@ -37,13 +37,16 @@ const EmojiPickerBtn: FC<Props> = ({ onEmojiClick, modal, position }) => {
       🙂
       {showPicker && (
         <div role="menu" aria-label="Emoji picker" styleName="menu">
-          <div styleName={`container ${modal ? "container--modal" : ""} ${position === 0 ? "container--first" : ""}`}>
+          <div
+            styleName={`container ${modal ? "container--modal" : ""} ${
+              position <= 1 ? "container--first" : ""
+            }`}
+          >
             <EmojiPicker onEmojiClick={onEmojiClick} searchDisabled={true} />
           </div>
         </div>
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 
