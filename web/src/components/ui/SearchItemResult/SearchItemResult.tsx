@@ -19,7 +19,7 @@ const SearchResultItem: FC<Props> = ({ user, handleFocusOut }) => {
         alt={user.photo && user.photo.altText}
         size={"md"}
       />
-      <p styleName="text">{user.fullName}</p>
+      <p styleName={`text text--${theme}`}>{user.fullName}</p>
     </Link>
   );
 };

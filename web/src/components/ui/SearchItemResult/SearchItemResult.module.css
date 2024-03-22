@@ -18,6 +18,14 @@
   overflow: hidden;
 }
 
+.text--dark {
+  color: var(--white);
+}
+
+.text--light {
+  color: var(--black);
+}
+
 .item--dark:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
