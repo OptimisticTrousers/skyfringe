@@ -16,7 +16,7 @@ interface Props {
   comment: any;
   deleteLocalComment: any;
   editLocalComment: any;
-  position: number;
+  position: any;
 }
 
 const Comment: FC<Props> = ({

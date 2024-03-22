@@ -55,7 +55,7 @@ const MoreOptionsDropdown: FC<Props> = ({
         onClick={toggleDropdown}
         id={buttonId}
       >
-        <BsThreeDotsVertical styleName="icon" />
+        <BsThreeDotsVertical styleName={`icon icon--threedots`} />
       </button>
       <ul
         styleName={`dropdown ${!isDropdownOpen && "dropdown--invisible"}`}

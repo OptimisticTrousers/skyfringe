@@ -91,8 +91,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
@@ -128,8 +127,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
@@ -148,8 +146,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
@@ -166,8 +163,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
@@ -184,8 +180,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
@@ -204,8 +199,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
@@ -224,8 +218,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
@@ -253,8 +246,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
@@ -274,8 +266,7 @@ describe("Comment component", () => {
           <Comment
             comment={comment}
             deleteLocalComment={mockDeleteLocalComment}
-            editLocalComment={mockEditLocalComment}
-          />
+            editLocalComment={mockEditLocalComment} position={0} />
         </BrowserRouter>
       </AuthContext.Provider>
     );
