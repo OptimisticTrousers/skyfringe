@@ -31,7 +31,7 @@
 }
 
 .avatar__image--extra-large {
-  width: 150px;
+  width: 100% !important;
   height: 150px;
   margin: 0 auto;
   border-radius: 8px;

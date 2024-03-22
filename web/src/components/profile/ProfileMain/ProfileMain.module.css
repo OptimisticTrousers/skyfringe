@@ -227,7 +227,7 @@
 }
 
 .profile__media .avatar__image {
-  width: 100% !important;
+  width: 100%;
   height: auto;
   object-fit: cover;
 }
