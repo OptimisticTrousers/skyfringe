@@ -43,11 +43,6 @@ a {
   color: inherit;
 }
 
-.skeleton {
-  animation: skeleton-loading 1s linear infinite alternate;
-  border-radius: 0.25rem;
-}
-
 /* Style the scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
@@ -75,12 +70,38 @@ a {
   animation: scale-down .1s;
 }
 
-@keyframes skeleton-loading {
+.skeleton {
+  border-radius: 0.25rem;
+}
+
+.skeleton--light {
+  animation: light-skeleton-loading 1s linear infinite alternate;
+}
+
+.skeleton--dark {
+  animation: dark-skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes dark-skeleton-loading {
   0% {
     background: #272729;
   }
+
   100% {
     background: #343536;
+  }
+}
+
+@keyframes light-skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 80%);
+    background-color: #F6F7F8;
+    background-color: rgb(229, 231, 235);
+  }
+
+  100% {
+    background-color: #EDEFF1;
+    background-color: hsl(200, 20%, 95%);
   }
 }
 
@@ -88,6 +109,7 @@ a {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -97,6 +119,7 @@ a {
   from {
     transform: translateY(10px);
   }
+
   to {
     transform: translateY(0);
   }
@@ -106,6 +129,7 @@ a {
   from {
     transform: translateY(-10px);
   }
+
   to {
     transform: translateY(0);
   }

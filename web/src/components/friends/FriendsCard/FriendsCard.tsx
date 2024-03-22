@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import styles from "./FriendsCard.module.css";
@@ -11,6 +11,7 @@ import {
 } from "../../ui";
 import CancelRequestBtn from "../../ui/CancelRequestBtn/CancelRequestBtn";
 import { UserWithStringId } from "@backend/types";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   friend: UserWithStringId;
@@ -19,8 +20,9 @@ interface Props {
 
 const FriendsCard: FC<Props> = ({ friend, type }) => {
   const friendId = friend?._id;
+  const { theme } = useContext(ThemeContext);
   return (
-    <div styleName="card">
+    <div styleName={`card card--${theme}`}>
       <Link styleName="card__link card__link--image" to={`/users/${friendId}`}>
         <Avatar
           src={friend.photo && friend.photo.imageUrl}

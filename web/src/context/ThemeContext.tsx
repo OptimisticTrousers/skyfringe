@@ -1,4 +1,5 @@
 import { createContext, FC, useState } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
@@ -13,13 +14,17 @@ interface ThemeContext {
 export const ThemeContext = createContext<ThemeContext>({} as ThemeContext);
 
 export const ThemeProvider: FC<Props> = ({ children }) => {
-  const [theme, setTheme] = useState("");
+  const [value, setValue] = useLocalStorage("theme", "dark")
+  const [theme, setTheme] = useState(value);
+
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => {
+    setTheme((prevTheme: string) => {
       if (prevTheme === "light") {
+        setValue("dark")
         return "dark";
       } else if (prevTheme === "dark") {
+        setValue("light")
         return "light";
       }
       return "dark";

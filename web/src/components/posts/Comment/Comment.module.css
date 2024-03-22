@@ -7,9 +7,7 @@
 }
 
 .comment__avatar {
-  height: 100%;
-  width: 40px;
-  border-radius: 50%;
+  margin-right: 12px;
 }
 
 .comment__avatar--comment {
@@ -23,13 +21,19 @@
 }
 
 .comment__details {
-  background-color: rgb(7, 6, 5);
   padding: 1rem 1.2rem;
   border-radius: 0.25rem;
 }
 
+.comment__details--dark {
+  background-color: rgb(7, 6, 5);
+}
+
+.comment__details--light {
+  background-color: var(--button-bg-color);
+}
+
 .comment__link {
-  color: white;
   font-weight: 600;
 }
 
@@ -38,9 +42,16 @@
 }
 
 .comment__gray {
-  color: rgb(160, 152, 137);
   margin-right: 8px;
   font-weight: 300;
+}
+
+.comment__gray--dark {
+  color: rgb(160, 152, 137);
+}
+
+.comment__gray--light {
+  color: rgb(75, 71, 64);
 }
 
 .comment__text {
@@ -67,9 +78,9 @@
   border: none;
   font-weight: 500;
   background-color: transparent;
-  color: inherit;
   font-size: 0.9rem;
   cursor: pointer;
+  color: var(--text-color);
 }
 
 .comment__button--like {
@@ -77,11 +88,15 @@
 }
 
 .comment__button--like:hover {
-  background-color: rgb(12, 11, 9);
+  background-color: var(--button-bg-color-2);
 }
 
 .comment__button--edit:hover {
   color: rgb(200, 190, 174);
+}
+
+.comment__button--edit:hover {
+  color: rgb(89, 85, 174);
 }
 
 .comment__button--delete:hover {
@@ -156,6 +171,7 @@
   .comment__top {
     display: block;
   }
+
   .comment__gray {
     display: block;
     margin-top: 6px;

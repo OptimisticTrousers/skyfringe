@@ -1,6 +1,6 @@
 const PrivacyPolicy = () => {
   return (
-    <div style={{padding: "2rem", marginTop: "2rem"}}>
+    <div style={{ padding: "2rem", marginTop: "2rem", color: "var(--text-color)" }}>
       <h1>Privacy Policy for Skyfringe</h1>
 
       <p>

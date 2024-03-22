@@ -2,14 +2,16 @@ import CSSModules from "react-css-modules";
 import styles from "./SearchBar.module.css";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import { BsArrowLeft } from "react-icons/bs";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import useMenuCloseEvents from "../../../hooks/useMenuCloseEvents";
 import useSearchQuery from "../../../hooks/useSearchQuery";
 import SearchItemResult from "../SearchItemResult";
 import ProgressBar from "../ProgressBar";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const SearchBar = () => {
   const windowRef = useRef<HTMLDivElement>(null);
+  const { theme } = useContext(ThemeContext);
   const {
     results,
     query,
@@ -31,7 +33,7 @@ const SearchBar = () => {
   return (
     <div styleName="search">
       <input
-        styleName="search__input"
+        styleName={`search__input search__input--${theme}`}
         type="text"
         placeholder="Search Skyfringe"
         value={query}
@@ -39,7 +41,7 @@ const SearchBar = () => {
         onFocus={handleInputFocused}
       />
       <HiOutlineMagnifyingGlass styleName="search__icon search__icon--glass" />
-      <div styleName="search__window" ref={windowRef}>
+      <div styleName={`search__window search__window--${theme}`} ref={windowRef}>
         <div styleName="search__top">
           <button styleName="search__button" onClick={handleFocusOut}>
             <BsArrowLeft styleName="search__icon search__icon--arrow" />

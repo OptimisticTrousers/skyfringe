@@ -6,15 +6,17 @@ import { CreatePostModal } from "../../modals";
 import { Card } from "../../ui";
 import styles from "./CreatePost.module.css";
 import { PostWithStringId as Post } from "@backend/types";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   setFeed: any;
 }
 
-const CreatePost: FC<Props> = ({ setFeed}) => {
+const CreatePost: FC<Props> = ({ setFeed }) => {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   const toggleModal = () => {
     setIsCreateModalOpen((prevValue) => !prevValue);
@@ -22,8 +24,8 @@ const CreatePost: FC<Props> = ({ setFeed}) => {
 
   return (
     <>
-      {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} setFeed={setFeed}/>}
-      <button styleName="create" onClick={toggleModal} aria-haspopup="dialog">
+      {isCreateModalOpen && <CreatePostModal toggleModal={toggleModal} setFeed={setFeed} />}
+      <button styleName={`create create--${theme}`} onClick={toggleModal} aria-haspopup="dialog">
         <Card>
           <div styleName="create__container">
             <FcPlus styleName="create__icon" />

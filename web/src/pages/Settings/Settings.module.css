@@ -124,6 +124,7 @@
 
 .settings__button--view:hover {
   background-color: #2d313f;
+  color: var(--white);
 }
 
 .settings__subtitle {
@@ -141,7 +142,7 @@
 .settings__button--delete {
   padding: 0.7rem 1rem;
   background-color: rgb(239, 68, 68);
-  color: inherit;
+  color: var(--white);
   cursor: pointer;
   width: 100%;
   border: none;
@@ -171,12 +172,21 @@
 }
 
 .settings__input {
-  background-color: #2d313f;
-  border: 2px solid #383c48;
+  border-width: 2px;
+  border-style: solid;
   padding: 1.2rem 1rem;
   font-size: 1.1rem;
-  color: white;
   border-radius: 6px;
+}
+
+.settings__input--dark {
+  background-color: #2d313f;
+  border-color: #383c48;
+}
+
+.settings__input--light {
+  background-color: var(--input-color);
+  border-color: var(--light-border-color);
 }
 
 .settings__button--update {
@@ -186,7 +196,7 @@
   padding: 1rem 2.8rem;
   border-radius: 4px;
   font-size: 1.1rem;
-  color: inherit;
+  color: var(--white);
   cursor: pointer;
 }
 
@@ -254,6 +264,7 @@
   .settings__grid {
     grid-template-columns: 1fr;
   }
+
   .settings__form {
     grid-template-columns: 1fr;
   }
@@ -263,9 +274,11 @@
   .settings__grid {
     grid-template-columns: 1fr;
   }
+
   .settings__button--banner {
     left: 16px;
   }
+
   .settings {
     margin-top: 6rem;
   }
@@ -276,12 +289,15 @@
     display: block;
     padding: 1rem;
   }
+
   .settings__form {
     display: grid;
   }
+
   .settings__section {
     display: block;
   }
+
   .settings__label {
     margin-bottom: 1rem;
     margin-top: 1rem;
@@ -293,6 +309,7 @@
     padding: 0;
     padding-top: 1rem;
   }
+
   .settings__grid {
     padding-left: 0rem;
     padding-right: 0rem;

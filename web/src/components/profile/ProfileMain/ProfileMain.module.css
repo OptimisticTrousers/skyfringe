@@ -142,7 +142,7 @@
 }
 
 .profile__description {
-  color: white;
+  color: var(--text-color);
 }
 
 .profile__list {
@@ -223,12 +223,15 @@
     overflow-y: auto;
     padding: 1rem;
   }
+
   .profile__friends {
     padding-bottom: 1rem;
   }
+
   .profile__card {
     padding: 0;
   }
+
   .profile__friend {
     object-fit: cover;
   }
@@ -242,8 +245,9 @@
   .profile {
     margin-top: 6rem;
   }
-  .profile__details {
-  }
+
+  .profile__details {}
+
   .profile__request {
     margin-top: 1rem;
   }
@@ -259,16 +263,20 @@
   .profile__friends--friends {
     justify-content: center;
   }
+
   .profile__list {
     display: block;
   }
+
   .profile__content {
     padding: 0;
     padding-top: 2rem;
   }
+
   .profile__details {
     left: 8px;
   }
+
   .profile__friends--media {
     grid-template-columns: unset;
   }

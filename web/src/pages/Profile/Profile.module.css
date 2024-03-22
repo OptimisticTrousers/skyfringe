@@ -216,14 +216,17 @@
     grid-template-columns: 1fr;
     padding: 1rem;
   }
+
   .profile__friends {
     justify-items: center;
     grid-template-columns: repeat(auto-fit, minmax(80px, 90px));
     padding-bottom: 1rem;
   }
+
   .profile__card {
     padding: 0;
   }
+
   .profile__friend {
     width: 100%;
     object-fit: cover;
@@ -234,9 +237,11 @@
   .profile {
     margin-top: 6rem;
   }
+
   .profile__details {
     bottom: -120px;
   }
+
   .profile__request {
     margin-top: 1rem;
   }
@@ -252,17 +257,21 @@
   .profile__list {
     display: block;
   }
+
   .profile__content {
     padding: 0;
     padding-top: 2rem;
   }
+
   .profile__details {
     bottom: -135px;
     left: 8px;
   }
+
   .profile__name {
     font-size: 1.1rem;
   }
+
   .profile__username {
     font-size: 1rem;
   }

@@ -21,6 +21,7 @@ import {
   PostWithStringId as IPost,
   UserWithStringId as IUser,
 } from "@backend/types";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   post: any;
@@ -48,16 +49,10 @@ const Post: FC<Props> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isCommentFormOpen, setIsCommentFormOpen] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
-  // const [isLiked, setIsLiked] = useState(() => {
-  //   return post?.likes?.find((like: any) => like._id === user._id);
-  // });
-  // const [likesCount, setLikesCount] = useState(() => post?.likes?.length);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { likePost, loading: likeLoading } = useLikePost();
   const { createComment, loading: commentLoading } = useCreateComment();
-
-  // const [localPost, setLocalPost] = useState(post);
-
+  const { theme } = useContext(ThemeContext);
   const handleCommentCreation = async (postId: string, formData: any) => {
     const createdComment = await createComment(postId, formData);
     setComments((prevComments: any) => {
@@ -167,7 +162,7 @@ const Post: FC<Props> = ({
                 <h4 styleName="post__username">@{post.author.userName}</h4>
                 <p styleName="post__date">
                   <BiTime />
-                  <span styleName="post__time">
+                  <span styleName={`post__time post__time--${theme}`}>
                     {getTimeAgo(post.createdAt)}
                   </span>
                 </p>
@@ -197,7 +192,7 @@ const Post: FC<Props> = ({
             )}
             <div styleName="post__between">
               <button
-                styleName="post__button post__button--likes"
+                styleName={`post__button post__button--likes`}
                 onClick={toggleModal}
               >
                 <img
@@ -226,7 +221,7 @@ const Post: FC<Props> = ({
           </div>
           <div styleName="post__buttons">
             <button
-              styleName={`post__button post__button--like ${isLiked ? "post__button--active" : ""}`}
+              styleName={`post__button post__button--like post__button--${theme} ${isLiked ? "post__button--active" : ""}`}
               onClick={handleLike}
               disabled={likeLoading}
             >
@@ -235,7 +230,7 @@ const Post: FC<Props> = ({
               {/* <span styleName="post__number">1</span> */}
             </button>
             <button
-              styleName="post__button post__button--comment"
+              styleName={`post__button post__button--comment post__button--${theme}`}
               onClick={toggleForm}
             >
               <BiCommentDetail styleName="post__icon post__icon--control" />

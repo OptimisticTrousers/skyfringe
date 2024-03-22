@@ -2,10 +2,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   flex-direction: column;
   font-family: "Josefin Sans", sans-serif;
   min-height: 100%;
+}
+
+.welcome--light {
+  color: var(--black);
+}
+
+.welcome--dark {
+  color: var(--white);
 }
 
 .welcome__title {

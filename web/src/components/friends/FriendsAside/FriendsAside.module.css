@@ -1,11 +1,17 @@
 .aside {
-  background-color: white;
   box-shadow: 0 4px 6px -1px rgb(255 255 255 / 0.1),
     0 2px 4px -2px rgb(255 255 255 / 0.1);
-  color: black;
   position: sticky;
   top: 0;
   left: 0;
+}
+
+.aside--light {
+  background-color: white;
+}
+
+.aside--dark {
+  background-color: var(--dark-bg-color);
 }
 
 .aside__title {
@@ -14,6 +20,7 @@
   line-height: 2rem;
   padding: 1rem;
   margin: 0;
+  color: var(--text-color)
 }
 
 .aside__menu {
@@ -37,14 +44,17 @@
   font-weight: 600;
   padding: 0.75rem;
   margin: 0.25rem;
-  color: black;
   border-radius: 0.25rem;
+  color: var(--text-color)
 }
 
 .aside__icon {
   width: 26px;
   height: 26px;
   margin-right: 0.75rem;
+}
+
+.aside__icon--light {
   fill: rgb(64, 65, 100);
 }
 
@@ -59,24 +69,30 @@
     color: white;
     margin-left: 0.25rem;
   }
+
   .aside__title {
     display: none;
   }
+
   .aside__icon {
     display: none;
   }
+
   .aside__link {
     background-color: white;
     padding: 0.25rem 0.75rem;
   }
+
   .aside__link:hover {
     background-color: rgb(214, 215, 216);
   }
+
   .aside__link--green {
     color: white;
     font-weight: 700;
     background-color: rgb(37, 147, 145);
   }
+
   .aside__link--green:hover {
     background-color: rgb(17, 127, 125);
   }
@@ -88,22 +104,40 @@
     margin: 0;
     height: 100vh;
   }
+
   .aside__item {
     width: 95%;
     box-sizing: border-box;
   }
+
   .aside__menu {
     flex-direction: column;
     margin: 0;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
+
   .aside__link {
     font-size: 1.125rem;
   }
+
   .aside__link:hover {
     background-color: rgb(243, 244, 246);
   }
+
+  .aside__link--light {
+    color: var(--black);
+  }
+
+  .aside__link--dark:hover {
+    background-color: #3e4049;
+    color: #dde2ff;
+  }
+
+  .aside__link--light:hover {
+    background-color: var(--light-hover);
+  }
+
 }
 
 @media (min-width: 1024px) {
@@ -117,9 +151,11 @@
   .aside__menu {
     margin-bottom: 1rem;
   }
+
   .aside {
     box-shadow: unset;
   }
+
   .card__container {
     align-items: stretch;
   }

@@ -8,6 +8,7 @@
   border-radius: 4px;
   justify-content: center;
   cursor: pointer;
+  color: var(--text-color);
 }
 
 .file__input {
@@ -26,7 +27,7 @@
 }
 
 .file__label:hover {
-  background-color: #f3f3f7;
+  background-color: var(--button-bg-color);
   cursor: pointer;
 }
 

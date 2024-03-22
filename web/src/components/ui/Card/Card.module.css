@@ -1,7 +1,19 @@
 .card {
-  background-color: #1f1e22;
-  border: 2px solid #2d3034;
   padding: 1rem;
   border-radius: 12px;
   margin-bottom: 2rem;
+  border-width: 2p;
+  border-style: solid;
+  transition: all ease-in 0.2s;
+}
+
+.card--light {
+  background-color: var(--white);
+  color: var(--light-text-color);
+  border-color: var(--light-border-color);
+}
+
+.card--dark {
+  background-color: var(--dark-card-bg-color);
+  border-color: var(--dark-border-color);
 }

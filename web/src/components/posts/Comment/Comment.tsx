@@ -10,6 +10,7 @@ import { LikesModal } from "../../modals";
 import { Avatar } from "../../ui";
 import EditCommentForm from "../EditCommentForm";
 import styles from "./Comment.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   comment: any;
@@ -46,6 +47,7 @@ const Comment: FC<Props> = ({
   const [isUserEditing, setIsUserEditing] = useState(false);
 
   const [isLikesModalOpen, setIsLikesModalOpen] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const toggleModal = () => {
     setIsLikesModalOpen((prevValue) => !prevValue);
@@ -107,13 +109,15 @@ const Comment: FC<Props> = ({
     <>
       <article styleName="comment">
         <div styleName="comment__container">
-          <Avatar
-            src={comment?.author?.photo?.imageUrl}
-            alt={comment?.author?.photo?.altText}
-            size={"sm"}
-          />
+          <div styleName="comment__avatar">
+            <Avatar
+              src={comment?.author?.photo?.imageUrl}
+              alt={comment?.author?.photo?.altText}
+              size={"sm"}
+            />
+          </div>
           <div styleName="comment__content">
-            <div styleName="comment__details">
+            <div styleName={`comment__details comment__details--${theme}`}>
               <div styleName="comment__top">
                 <Link
                   styleName="comment__link"
@@ -121,7 +125,7 @@ const Comment: FC<Props> = ({
                 >
                   {comment?.author?.fullName}{" "}
                 </Link>
-                <span styleName="comment__gray">
+                <span styleName={`comment__gray comment__gray--${theme}`}>
                   {getTimeAgo(comment?.createdAt)}
                 </span>
               </div>
@@ -158,13 +162,13 @@ const Comment: FC<Props> = ({
               {user?._id === comment?.author?._id && (
                 <div styleName="comment__options">
                   <button
-                    styleName="comment__button comment__button--edit"
+                    styleName={`comment__button comment__button--edit comment__button--${theme}`}
                     onClick={handleUserEditing}
                   >
                     Edit
                   </button>
                   <button
-                    styleName="comment__button comment__button--delete"
+                    styleName={`comment__button comment__button--delete comment__button--${theme}`}
                     onClick={handleDeleteComment}
                     data-testid={`delete-${comment?._id}`}
                   >

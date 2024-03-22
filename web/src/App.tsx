@@ -3,13 +3,16 @@ import { Outlet } from "react-router-dom";
 import styles from "./assets/App.module.css";
 import { Aside } from "./layouts";
 import LoadingScreen from "./pages/LoadingScreen";
+import { useContext } from "react";
+import { ThemeContext } from "./context/ThemeContext";
 
 const App = () => {
+  const { theme } = useContext(ThemeContext);
   return (
     <>
       <div styleName="container">
         <Aside />
-        <main styleName="main">
+        <main styleName={`main main--${theme}`}>
           <Outlet />
         </main>
       </div>

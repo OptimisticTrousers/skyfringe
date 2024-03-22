@@ -19,10 +19,11 @@ import useForm from "../../hooks/useForm";
 import useUpdateAvatar from "../../hooks/useUpdateAvatar";
 import useUpdateUser from "../../hooks/useUpdateUser";
 import styles from "./Settings.module.css";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Settings = () => {
   const { user } = useContext(AuthContext);
-  console.log(user._id)
+  const { theme } = useContext(ThemeContext);
   const { showToast } = useContext(ToastContext);
   const { setData, data, loading, error } = useFetch<FetchUserDetails>(
     `${import.meta.env.VITE_API_DOMAIN}/users/${user._id}`

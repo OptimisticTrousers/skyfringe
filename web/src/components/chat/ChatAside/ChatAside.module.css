@@ -1,6 +1,7 @@
 .aside {
   background-color: #202542;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   border-right: 3px solid #292d4b;
   display: none;
   height: 100%;
@@ -69,7 +70,7 @@
 @media (min-width: 1390px) {
   .aside {
     display: block;
-    height: calc(100vh - 32px);
+    /* height: calc(100vh - 32px); */
   }
 
   .aside--full {

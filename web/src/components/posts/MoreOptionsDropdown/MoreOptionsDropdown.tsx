@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
 import CSSModules from "react-css-modules";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdModeEdit } from "react-icons/md";
@@ -7,6 +7,7 @@ import { useKeyboardNavigation } from "../../../hooks/useKeyboardNavigation";
 import useMenuCloseEvents from "../../../hooks/useMenuCloseEvents";
 import { DeletePostModal, EditPostModal } from "../../modals";
 import styles from "./MoreOptionsDropdown.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   post: any;
@@ -25,6 +26,7 @@ const MoreOptionsDropdown: FC<Props> = ({
   handleDeletePost,
   handleEditPost
 }) => {
+  const { theme } = useContext(ThemeContext);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -86,10 +88,10 @@ const MoreOptionsDropdown: FC<Props> = ({
         </li>
       </ul>
       {showDeleteModal && (
-        <DeletePostModal toggleModal={toggleDeleteModal} postId={post._id} handleDeletePost={handleDeletePost}/>
+        <DeletePostModal toggleModal={toggleDeleteModal} postId={post._id} handleDeletePost={handleDeletePost} />
       )}
       {showEditModal && (
-        <EditPostModal toggleModal={toggleEditModal} post={post} handleEditPost={handleEditPost}/>
+        <EditPostModal toggleModal={toggleEditModal} post={post} handleEditPost={handleEditPost} />
       )}
     </div>
   );

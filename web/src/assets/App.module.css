@@ -1,11 +1,36 @@
 .container {
   display: flex;
   min-height: 100vh;
+  --white: #FAFAFA;
+  --black: black;
+  --light-text-color: var(--black);
+  --light-hover: rgba(15, 20, 25, 0.1);
 }
 
 .main {
   /* background-color: #17171c; */
-  background-color:#1b1a1b;
   width: 100%;
   min-height: 100vh;
+}
+
+.main--dark {
+  background-color: #1b1a1b;
+  --button-bg-color: black;
+  --button-bg-color-2: rgb(12, 11, 9);
+  --dark-border-color: #2d3034;
+  --dark-border-color-2: #202030;
+  --text-color: var(--white);
+  --dark-card-bg-color: #1f1e22;
+  --input-color: #1f1c2d;
+  --input-text-color: #495057;
+}
+
+.main--light {
+  background-color: var(--white);
+  --button-bg-color: var(--light-hover);
+  --light-border-color: #ccc;
+  --text-color: var(--black);
+  --button-bg-color-2: #ccc;
+  --input-color: rgb(239, 243, 244);
+  --input-text-color: var(--black);
 }

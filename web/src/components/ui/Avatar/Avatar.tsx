@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./Avatar.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   src: string | undefined;
@@ -12,6 +13,7 @@ interface Props {
 
 const Avatar: FC<Props> = ({ src, alt, size }) => {
   let sizeClass: string;
+  const { theme } = useContext(ThemeContext);
 
   switch (size) {
     case "friend":
@@ -41,7 +43,7 @@ const Avatar: FC<Props> = ({ src, alt, size }) => {
   }
   return (
     <img
-      styleName={`avatar__image ${sizeClass}`}
+      styleName={`avatar__image ${sizeClass} avatar__image--${theme}`}
       src={src || "/images/anon-user-lg.png"}
       alt={alt || "Anonymous user avatar"}
       onError={userImageFallback}

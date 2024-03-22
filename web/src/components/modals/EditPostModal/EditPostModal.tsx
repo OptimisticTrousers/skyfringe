@@ -15,6 +15,7 @@ import { Loading, ImagePreview, ImageUploadBtn, Avatar } from "../../ui";
 import EmojiPickerBtn from "../../ui/EmojiPickerBtn";
 import ModalContainer from "../ModalContainer";
 import styles from "./EditPostModal.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   toggleModal: () => void;
@@ -24,6 +25,7 @@ interface Props {
 
 const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
   const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   const { updatePost, loading } = useUpdatePost();
   const { showToast } = useContext(ToastContext);
 
@@ -87,13 +89,13 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
             size={"md"}
           />
           <div styleName="modal__text">
-            <p styleName="modal__surtitle">posting as</p>
+            <p styleName={`modal__surtitle modal__surtitle--${theme}`}>posting as</p>
             <h3 styleName="modal__name">{user?.fullName}</h3>
           </div>
         </div>
         <div styleName="modal__content">
           <textarea
-            styleName="modal__textarea"
+            styleName={`modal__textarea modal__textarea--${theme}`}
             placeholder="What's cooking, Bob?"
             value={postText}
             onChange={handlePostText}
@@ -112,7 +114,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
         </div>
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} />
+            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} position={1} />
             <ImageUploadBtn
               handleChange={handlePhoto}
               imageValue={imageValue}

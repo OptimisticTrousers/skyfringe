@@ -1,11 +1,19 @@
 .notification__activity {
-  background-color: #232223;
-  background-color: #282929;
+  /* background-color: #232223; */
   border-radius: 16px;
   padding: 0.5rem 1rem;
   margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
+}
+
+.notification__activity--light {
+  background-color: #f3f3f3;
+}
+
+.notification__activity--dark {
+  background-color: #282929;
+
 }
 
 .notification__flex {
@@ -50,8 +58,12 @@
   margin-top: 0.5rem;
 }
 
-.notification__time {
-  color: #cecf74;
+.notification__time--dark {
+  color: #b3b500;
+}
+
+.notification__time--light {
+  color: #979900;
 }
 
 .notification__time--margin {
@@ -62,7 +74,7 @@
   background-color: #fefe00;
   border: none;
   padding: 0.8rem 1.5rem;
-  border-radius: 12px;
+  border-radius: 8px;
   margin-bottom: 0.5rem;
   transition: all 0.15s ease-in-out;
   cursor: pointer;
@@ -71,7 +83,7 @@
 }
 
 .notification__button:hover {
-  background-color: #cecf74;
+  background-color: #ffff7b;
 }
 
 @media (max-width: 390px) {

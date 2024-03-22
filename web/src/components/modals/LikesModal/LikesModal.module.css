@@ -3,7 +3,6 @@
 }
 
 .modal__container {
-  color: rgb(75, 85, 99);
   line-height: 1.25rem;
   padding-bottom: 1.25rem;
   display: flex;
@@ -11,6 +10,14 @@
   justify-content: flex-start;
   align-items: center;
   border-bottom: 1.5px solid #e5e7eb;
+}
+
+.modal__count--dark {
+  color: rgb(151, 171, 200);
+}
+
+.modal__count--light {
+  color: var(--black);
 }
 
 .modal__icon {

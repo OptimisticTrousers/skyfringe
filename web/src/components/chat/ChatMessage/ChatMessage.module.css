@@ -50,6 +50,12 @@
   border-bottom-right-radius: 0;
 }
 
-.message__time {
+.message__time {}
+
+.message__time--light {
+  color: #555558;
+}
+
+.message__time--dark {
   color: #a5a5ab;
 }

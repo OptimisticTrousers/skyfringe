@@ -9,11 +9,14 @@
   align-items: center;
   background-color: hsla(0, 0%, 96%, 0.8);
   z-index: 5;
-  color: black;
+  color: #000000;
+}
+
+.modal__title {
+  color: var(--text-color);
 }
 
 .modal__container {
-  background-color: white;
   border-radius: 8px;
   box-shadow: 4px 4px 20px rgb(0 0 0 / 30%);
   box-sizing: border-box;
@@ -23,6 +26,14 @@
   min-width: 310px;
   position: relative;
   width: min(100%, 500px);
+}
+
+.modal__container--dark {
+  background-color: var(--dark-card-bg-color);
+}
+
+.modal__container--light {
+  background-color: var(--white);
 }
 
 .modal__author-bar {

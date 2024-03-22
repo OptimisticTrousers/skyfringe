@@ -5,7 +5,7 @@
   flex-direction: column;
   display: flex;
   z-index: 20;
-  background-color: white;
+  background-color: transparent;
   width: 100%;
   position: relative;
   align-items: center;
@@ -27,6 +27,8 @@
   padding: 1rem;
   width: 100%;
   box-sizing: border-box;
+  color: var(--text-color);
+  text-align: center;
 }
 
 .overlay__top {
@@ -45,6 +47,8 @@
   padding: 1rem;
   box-sizing: border-box;
   width: 100%;
+  background-color: transparent;
+  color: var(--text-color);
 }
 
 .overlay__input:focus {

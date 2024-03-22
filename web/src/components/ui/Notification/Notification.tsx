@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import useNotification from "../../../hooks/useNotification";
@@ -6,6 +6,7 @@ import bannerImageLoading from "../../../utils/bannerImageLoading";
 import getTimeAgo from "../../../utils/getTimeAgo";
 import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./Notification.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   notification: any;
@@ -22,8 +23,9 @@ const Notification: FC<Props> = ({ notification, setData }) => {
       )
     );
   };
+  const { theme } = useContext(ThemeContext);
   return (
-    <div styleName={`notification__activity ${notification?.photo && "notification__activity--has-photo"}`}>
+    <div styleName={`notification__activity notification__activity--${theme} ${notification?.photo && "notification__activity--has-photo"}`}>
       <div styleName="notification__container">
         <div styleName="notification__flex">
           <Link
@@ -46,7 +48,7 @@ const Notification: FC<Props> = ({ notification, setData }) => {
             </Link>
             <p styleName="notification__event">
               {notification?.content}
-              <span styleName={`notification__time ${notification?.content ? "notification__time--margin" : ""}`}>
+              <span styleName={`notification__time notification__time--${theme} ${notification?.content ? "notification__time--margin" : ""}`}>
                 {notification?.content && "•"}{" "}
                 {getTimeAgo(notification.createdAt)} ago
               </span>

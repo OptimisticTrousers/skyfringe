@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 import { Avatar, Card } from "../../ui";
 import styles from "./HomeFriends.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const HomeFriends = () => {
   const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
 
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +36,7 @@ const HomeFriends = () => {
         {user.friends?.length > 0 ? (
           <>
             <button
-              styleName="friends__button friends__button--previous"
+              styleName={`friends__button friends__button--previous friends__button--${theme}`}
               onClick={previous}
               aria-label="Scroll left"
             >
@@ -59,7 +61,7 @@ const HomeFriends = () => {
               })}
             </div>
             <button
-              styleName="friends__button friends__button--next"
+              styleName={`friends__button friends__button--next friends__button--${theme}`}
               onClick={next}
               aria-label="Scroll right"
             >

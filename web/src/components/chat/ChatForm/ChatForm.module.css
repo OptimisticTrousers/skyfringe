@@ -1,10 +1,17 @@
 .form {
   margin-top: auto;
   padding: 1.6rem 1rem;
-  background-color: #262837;
   display: flex;
   align-items: center;
   border-top: 2px solid #373543;
+}
+
+.form--dark {
+  background-color: #262837;
+}
+
+.form--light {
+  background-color: var(--light-bg-color);
 }
 
 .form__interactives {
@@ -13,8 +20,7 @@
 }
 
 .form__icon {
-  filter: invert(88%) sepia(0%) saturate(7500%) hue-rotate(32deg)
-    brightness(113%) contrast(109%);
+  filter: invert(88%) sepia(0%) saturate(7500%) hue-rotate(32deg) brightness(113%) contrast(109%);
 }
 
 .form__button {
@@ -46,7 +52,8 @@
   width: 100%;
   font-size: 1.5rem;
   margin-right: 12px;
-  color: inherit;
+  background-color: var(--input-color);
+  border: 2px solid var(--light-border-color);
 }
 
 .form__input:focus {
@@ -62,12 +69,15 @@
   .form {
     padding: 1rem 0.5rem;
   }
+
   .form__input {
     margin: 0;
   }
+
   .form__button {
     padding: 0.75rem;
   }
+
   .form__icon:last-child {
     margin: 0;
   }

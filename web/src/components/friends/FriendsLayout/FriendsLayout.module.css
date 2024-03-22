@@ -4,13 +4,21 @@
 
 .friends__container {
   margin: 1rem;
-  background-color: black;
+}
+
+.friends__container--light {
+  background-color: rgb(240, 240, 240);
+}
+
+.friends__container--dark {
+  background-color: #252525;
 }
 
 @media (max-width: 767px) {
   .friends {
     margin-top: 5rem;
   }
+
   .friends__container {
     margin: 0;
   }
@@ -26,6 +34,7 @@
   .friends {
     grid-template-columns: 320px 1fr;
   }
+
   .friends__cards {
     background-color: transparent;
   }

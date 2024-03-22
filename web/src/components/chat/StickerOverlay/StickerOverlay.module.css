@@ -5,7 +5,7 @@
 .gif__button {
   background-color: transparent;
   border: none;
-  color: white;
+  color: var(--text-color);
   cursor: pointer;
 }
 

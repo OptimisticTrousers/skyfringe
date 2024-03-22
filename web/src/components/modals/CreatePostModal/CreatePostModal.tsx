@@ -10,6 +10,7 @@ import styles from "./CreatePostModal.module.css";
 import { PostWithStringId as IPost } from "@backend/types";
 import EmojiPicker from "emoji-picker-react";
 import EmojiPickerBtn from "../../ui/EmojiPickerBtn/EmojiPickerBtn";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   toggleModal: () => void;
@@ -18,6 +19,7 @@ interface Props {
 
 const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
   const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   const [postText, setPostText] = useState("");
   const { createPost, loading, error } = useCreatePost();
   const { showToast } = useContext(ToastContext);
@@ -75,7 +77,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
             size={"md"}
           />
           <div styleName="modal__text">
-            <p styleName="modal__surtitle">posting as</p>
+            <p styleName={`modal__surtitle modal__surtitle--${theme}`}>posting as</p>
             <h3 styleName="modal__name">{user?.fullName}</h3>
           </div>
         </div>
@@ -100,7 +102,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
 
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} />
+            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} position={1} />
             <ImageUploadBtn
               handleChange={handlePhoto}
               imageValue={imageValue}

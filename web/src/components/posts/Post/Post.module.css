@@ -69,7 +69,14 @@
 
 .post__time {
   margin-left: 3px;
+}
+
+.post__time--dark {
   color: rgb(189, 188, 188);
+}
+
+.post__time--light {
+  color: rgb(86, 85, 85);
 }
 
 .post__actions {
@@ -111,7 +118,7 @@
 
 .post__image {
   width: 100%;
-  max-height: 394px;
+  height: 394px;
   object-fit: cover;
 }
 
@@ -121,7 +128,7 @@
 
 .post__buttons {
   width: 100%;
-  border-bottom: 1px solid #24262a;
+  /* border-bottom: 1px solid #24262a; */
   display: inline-flex;
   vertical-align: middle;
   position: relative;
@@ -170,6 +177,10 @@
   color: #202030;
 }
 
+.post__button--light {
+  border-color: var(--light-border-color);
+}
+
 .post__button--active {
   color: #2a86fe;
 }
@@ -177,7 +188,7 @@
 .post__button--likes {
   padding: 0.4rem 0.7rem;
   border-radius: 10px;
-  background-color: black;
+  background-color: var(--button-bg-color);
 }
 
 .post__button--likes:hover,

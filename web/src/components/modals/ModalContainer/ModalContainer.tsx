@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
 import { AiFillCloseSquare } from "react-icons/ai";
 import useDisableScroll from "../../../hooks/useDisableScroll";
 import styles from "./ModalContainer.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   children: JSX.Element[] | JSX.Element;
@@ -12,6 +13,7 @@ interface Props {
 
 const ModalContainer: FC<Props> = ({ children, title, toggleModal }) => {
   useDisableScroll();
+  const { theme } = useContext(ThemeContext);
   return (
     <div
       styleName="modal"
@@ -19,7 +21,7 @@ const ModalContainer: FC<Props> = ({ children, title, toggleModal }) => {
       role="dialog"
       aria-labelledby="modal-title"
     >
-      <div styleName="modal__container" className="scale-down">
+      <div styleName={`modal__container modal__container--${theme}`} className="scale-down">
         <header styleName="modal__header">
           <button
             styleName="modal__button"

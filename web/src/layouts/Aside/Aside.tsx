@@ -11,6 +11,7 @@ import { AuthContext } from "../../context/AuthContext";
 import useLogout from "../../hooks/useLogout";
 import userImageFallback from "../../utils/userImageFallback";
 import styles from "./Aside.module.css";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Aside = () => {
   const [closeSidebar, setCloseSidebar] = useState(true);
@@ -18,6 +19,7 @@ const Aside = () => {
     useState(false);
   const { logout, loading } = useLogout();
   const { user } = useContext(AuthContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const toggle = () => {
     setCloseSidebar((prevToggleValue) => !prevToggleValue);
@@ -48,7 +50,7 @@ const Aside = () => {
         <div styleName="hamburger__line"></div>
         <div styleName="hamburger__line"></div>
       </button>
-      <aside styleName={`aside ${closeSidebar && "aside--closed"}`}>
+      <aside styleName={`aside ${closeSidebar && "aside--closed"} aside--${theme}`}>
         <SearchBar />
         <div styleName="aside__container">
           <Logo type="sm" />
@@ -63,42 +65,44 @@ const Aside = () => {
         <nav styleName="aside__nav">
           <ul styleName="aside__list">
             <Link to="/">
-              <li styleName="aside__item">
+              <li styleName={`aside__item aside__item--${theme}`}>
                 <AiFillHome styleName="aside__icon" />
                 <p styleName="aside__name">Home</p>
               </li>
             </Link>
             <Link to="/friends">
-              <li styleName="aside__item">
+              <li styleName={`aside__item aside__item--${theme}`}>
                 <IoIosPeople styleName="aside__icon" />
                 <p styleName="aside__name">Friends</p>
               </li>
             </Link>
             <Link to="/notifications">
-              <li styleName="aside__item">
+              <li styleName={`aside__item aside__item--${theme}`}>
                 <IoMdNotifications styleName="aside__icon" />
                 <p styleName="aside__name">Notifications</p>
               </li>
             </Link>
             <Link to="/chat">
-              <li styleName="aside__item">
+              <li styleName={`aside__item aside__item--${theme}`}>
                 <BsFillChatSquareDotsFill styleName="aside__icon" />
                 <p styleName="aside__name">Chat</p>
               </li>
             </Link>
-            {/* <li styleName="aside__item">
-              <RiMoonClearFill styleName="aside__icon" />
-              <p styleName="aside__name">Theme</p>
-            </li> */}
+            <li styleName={`aside__item aside__item--${theme}`}>
+              <button styleName="aside__button aside__button--flex" onClick={toggleTheme}>
+                <RiMoonClearFill styleName="aside__icon" />
+                <p styleName="aside__name">Theme</p>
+              </button>
+            </li>
             <Link to="/settings">
-              <li styleName="aside__item">
+              <li styleName={`aside__item aside__item--${theme}`}>
                 <RiSettingsFill styleName="aside__icon" />
                 <p styleName="aside__name">Settings</p>
               </li>
             </Link>
-            <li styleName="aside__item">
+            <li styleName={`aside__item aside__item--${theme}`}>
               <button
-                styleName="aside__button aside__button--logout"
+                styleName="aside__button aside__button--flex"
                 onClick={logout}
               >
                 <BiLogOut styleName="aside__icon" />
@@ -111,7 +115,7 @@ const Aside = () => {
           <ul styleName="aside__list">
             <p styleName="aside__subtitle">Account</p>
             <Link to={`users/${user._id}`}>
-              <li styleName="aside__item">
+              <li styleName={`aside__item aside__item--${theme}`}>
                 <div styleName="aside__user">
                   <Avatar
                     src={user.photo && user.photo.imageUrl}

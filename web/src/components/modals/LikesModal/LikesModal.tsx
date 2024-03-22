@@ -1,9 +1,10 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
 import { Link } from "react-router-dom";
 import userImageFallback from "../../../utils/userImageFallback";
 import ModalContainer from "../ModalContainer";
 import styles from "./LikesModal.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   toggleModal: () => void;
@@ -20,12 +21,13 @@ const LikesModal = ({ toggleModal, data }: any) => {
     }
     return "0 likes";
   };
+  const { theme } = useContext(ThemeContext);
   return (
     <ModalContainer title="Likes" toggleModal={toggleModal}>
       <div styleName="modal">
-        <div styleName="modal__container">
+        <div styleName={`modal__container`}>
           <img styleName="modal__icon" src="/images/heart.png" />
-          <span styleName="modal__count">{likeCountText()}</span>
+          <span styleName={`modal__count modal__count--${theme}`}>{likeCountText()}</span>
         </div>
         <div styleName="modal__users">
           <ul styleName="modal__list">

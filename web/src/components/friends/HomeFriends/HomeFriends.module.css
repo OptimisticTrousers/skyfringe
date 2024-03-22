@@ -26,10 +26,10 @@
 .friends__button {
   z-index: 1;
   cursor: pointer;
-  background: #282929;
   width: 40px;
   font-size: 1.5rem;
-  border: 4px solid #1b1a1a;
+  border-width: 4px;
+  border-style: solid;
   position: absolute;
   border-radius: 9999px;
   color: white;
@@ -44,7 +44,21 @@
   transition: background-color 0.3s ease-out;
 }
 
-.friends__button:hover {
+.friends__button--dark {
+  border-color: #1b1a1a;
+  background-color: #282929;
+}
+
+.friends__button--light {
+  color: var(--black);
+  border-color: var(--light-border-color);
+}
+
+.friends__button--light:hover {
+  background-color: var(--light-border-color);
+}
+
+.friends__button--dark:hover {
   background-color: rgb(85, 85, 85);
 }
 

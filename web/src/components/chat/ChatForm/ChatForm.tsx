@@ -15,9 +15,11 @@ import { ToastContext } from "../../../context/ToastContext";
 import { GrSend } from "react-icons/gr";
 import GifOverlay from "../GifOverlay";
 import StickerOverlay from "../StickerOverlay";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const ChatForm = ({ setData }: any) => {
   const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   const { selectedChat } = useContext(ChatContext);
   const { sendChatMessage } = useChat();
   const [text, setText] = useState("");
@@ -83,12 +85,12 @@ const ChatForm = ({ setData }: any) => {
   const disabled = text.length === 0;
   return (
     <form
-      styleName="form"
+      styleName={`form form--${theme}`}
       onSubmit={handleSubmit}
       encType="multipart/form-data"
     >
       <div styleName="form__interactives">
-        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} />
+        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} position={1} />
         <ChatImageUploadBtn
           handleChange={handlePhoto}
           imageValue={imageValue}

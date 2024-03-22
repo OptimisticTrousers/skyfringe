@@ -22,14 +22,24 @@
   top: 0;
   left: 0;
   min-height: 100vh;
-  background-color: #1f1e22;
   width: var(--aside-width);
   color: #a4a6b3;
   padding-top: 0.35rem;
   user-select: none;
-  border-right: 2px solid #2e2c35;
+  border-width: 2px;
+  border-style: solid;
   transition: transform 350ms ease-in-out;
   box-sizing: border-box;
+}
+
+.aside--light {
+  background-color: var(--white);
+  border-color: rgb(207, 217, 222);
+}
+
+.aside--dark {
+  background-color: #1f1e22;
+  border-color: #2e2c35;
 }
 
 .aside__logo {
@@ -61,8 +71,7 @@
 }
 
 .aside__icon--logo {
-  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg)
-    brightness(106%) contrast(103%);
+  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg) brightness(106%) contrast(103%);
   width: 40px;
   height: 40px;
   margin-right: 8px;
@@ -75,7 +84,7 @@
   cursor: pointer;
 }
 
-.aside__button--logout {
+.aside__button--flex {
   width: 100%;
   display: flex;
   color: inherit;
@@ -118,10 +127,21 @@
 }
 
 .aside__item:hover {
-  background: #3e4049;
-  color: #dde2ff;
-  border-left: 4px solid #dde2ff;
   padding-left: calc(1.1rem - 4px);
+  border-left: 4px solid #dde2ff;
+}
+
+.aside__item--light {
+  color: var(--black);
+}
+
+.aside__item--dark:hover {
+  background-color: #3e4049;
+  color: #dde2ff;
+}
+
+.aside__item--light:hover {
+  background-color: var(--light-hover);
 }
 
 .aside__subtitle {
@@ -168,17 +188,21 @@
   .hamburger {
     display: block;
   }
+
   .aside__container {
     margin-top: 2rem;
   }
+
   .aside {
     position: fixed;
     z-index: 2;
     height: 100%;
   }
+
   .aside--closed {
     transform: translateX(calc(var(--aside-width) * -1));
   }
+
   .aside__button--exit {
     display: block;
   }

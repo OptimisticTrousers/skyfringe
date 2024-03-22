@@ -7,13 +7,20 @@
   margin-bottom: 2rem;
 }
 
-.create > div {
+.create--light>div:hover {
+  background-color: var(--light-hover);
+}
+
+.create>div {
   margin-bottom: 0;
 }
 
-.create > div:hover{
-  background-color: rgb(12, 11, 9);
+.create>div:hover {
   cursor: pointer;
+}
+
+.create--dark>div:hover {
+  background-color: rgb(12, 11, 9);
 }
 
 .create__container {

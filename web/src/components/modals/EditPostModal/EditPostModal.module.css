@@ -22,12 +22,20 @@
 }
 
 .modal__surtitle {
-  color: #65676b;
   margin-bottom: 0;
+}
+
+.modal__surtitle--dark {
+  color: #65676b;
+}
+
+.modal__surtitle--light {
+  color: #a7aab0;
 }
 
 .modal__name {
   margin-top: 0;
+  color: var(--text-color);
 }
 
 .modal__content {
@@ -47,6 +55,15 @@
   resize: none;
   color: inherit;
   font-family: inherit;
+  background-color: transparent;
+}
+
+.modal__textarea--dark {
+  color: var(--white);
+}
+
+.modal__textarea--light {
+  color: var(--black);
 }
 
 .modal__textarea:focus {

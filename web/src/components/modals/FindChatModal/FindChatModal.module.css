@@ -10,6 +10,7 @@
   font-weight: 600;
   margin-left: 12px;
   margin-right: 24px;
+  color: var(--text-color);
 }
 
 .input {
@@ -18,6 +19,8 @@
   font-size: 14px;
   font-weight: 400;
   padding: 1px 2px;
+  background-color: transparent;
+  color: var(--text-color);
 }
 
 .input:focus {
@@ -25,24 +28,31 @@
 }
 
 .contacts {
-  flex: 1 1;
   overflow: auto;
+  width: 100%;
 }
 
 .title {
   font-weight: 600;
   margin: 16px;
+  color: var(--text-color);
 }
 
 .contact {
+  width: 100%;
   display: flex;
   padding: 8px 16px;
-  height: 44px;
   cursor: pointer;
   align-items: center;
+  border: none;
+  background-color: transparent;
 }
 
-.contact:hover {
+.contact--dark:hover {
+  background-color: #3e4049;
+}
+
+.contact--light:hover {
   background-color: #fafafa;
 }
 
@@ -55,13 +65,14 @@
   object-position: cneter;
 }
 
-.contact__details {
-}
+.contact__details {}
 
 .contact__username {
   font-weight: 600;
   line-height: 18px;
   margin: 0;
+  color: var(--text-color);
+  text-align: start;
 }
 
 .contact__fullname {
@@ -72,4 +83,5 @@
 .message {
   padding: 90px;
   text-align: center;
+  color: var(--text-color);
 }

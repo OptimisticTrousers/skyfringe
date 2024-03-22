@@ -11,7 +11,7 @@
   padding: 8px;
   position: absolute;
   width: 200px;
-  right: 24px;
+  right: -12px;
   top: 45px;
   z-index: 1;
   background-color: white;
@@ -69,6 +69,7 @@
 
 .icon {
   pointer-events: none;
+  color: var(--text-color);
 }
 
 .dropdown__button:hover {

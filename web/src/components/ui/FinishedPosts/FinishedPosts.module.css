@@ -8,9 +8,16 @@
 }
 
 .container__title {
-  color: rgb(175, 170, 156);
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 1.75rem;
   margin: 0;
+}
+
+.container__title--light {
+  color: rgb(175, 170, 156);
+}
+
+.container__title--light {
+  color: rgba(117, 114, 105);
 }

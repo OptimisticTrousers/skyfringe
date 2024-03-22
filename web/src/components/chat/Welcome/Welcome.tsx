@@ -2,11 +2,13 @@ import { useContext } from "react";
 import CSSModules from "react-css-modules";
 import { AuthContext } from "../../../context/AuthContext";
 import styles from "./Welcome.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const Welcome = () => {
   const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   return (
-    <div styleName="welcome">
+    <div styleName={`welcome welcome--${theme}`}>
       <img
         styleName="welcome__image"
         src={"/images/robot.gif"}

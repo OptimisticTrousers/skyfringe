@@ -21,6 +21,7 @@
 }
 
 .header__name {
+  color: var(--text-color);
   margin: 0;
 }
 
@@ -33,6 +34,7 @@
   font-size: 2rem;
   cursor: pointer;
   color: white;
+  color: var(--text-color);
   transition: all 0.15s ease;
 }
 

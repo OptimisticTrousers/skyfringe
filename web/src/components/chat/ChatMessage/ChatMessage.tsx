@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import CSSModules from "react-css-modules";
 import getTimeAgo from "../../../utils/getTimeAgo";
 import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./ChatMessage.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   fromSelf: boolean;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const ChatMessage: FC<Props> = ({ fromSelf, message }) => {
+  const { theme } = useContext(ThemeContext);
   return (
     <div styleName={`message ${fromSelf && "message--blue"}`}>
       <img
@@ -32,7 +34,7 @@ const ChatMessage: FC<Props> = ({ fromSelf, message }) => {
           {message.content}
         </p>
       )}
-      <span styleName="message__time">{getTimeAgo(message.createdAt)}</span>
+      <span styleName={`message__time message__time--${theme}`}>{getTimeAgo(message.createdAt)}</span>
     </div>
   );
 };

@@ -21,7 +21,6 @@
   font-size: 16px;
   padding: 0;
   resize: none;
-  color: #495057;
   font-weight: 400;
   font-family: inherit;
   padding: 12px 20px 48px;
@@ -31,6 +30,8 @@
   height: 80px;
   transition: all 0.15s ease-in-out;
   resize: none;
+  background-color: var(--input-color);
+  color: var(--text-color);
 }
 
 .form__button {

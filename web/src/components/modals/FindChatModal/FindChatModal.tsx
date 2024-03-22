@@ -5,6 +5,7 @@ import { ChatContext } from "../../../context/ChatContext";
 import userImageFallback from "../../../utils/userImageFallback";
 import ModalContainer from "../ModalContainer";
 import styles from "./FindChatModal.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 interface Props {
   toggleModal: () => void;
@@ -13,6 +14,7 @@ interface Props {
 
 const FindChatModal: FC<Props> = ({ toggleModal, fetchChat }) => {
   const { user } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
   const [query, setQuery] = useState("");
   const inputRef = useRef<any>(null);
   const { setSelectedUser, selectedUser, setSelectedChat, selectedChat } =
@@ -56,30 +58,33 @@ const FindChatModal: FC<Props> = ({ toggleModal, fetchChat }) => {
         />
       </div>
       <div styleName="title">Suggested</div>
-      {searchResults.map((friend: any, index: number) => {
-        return (
-          <div
-            styleName="contact"
-            onClick={() => handleUserClick(index, friend)}
-          >
-            <img
-              styleName="contact__image"
-              src={friend?.photo?.imageUrl}
-              alt={friend?.photo?.altText}
-              onError={userImageFallback}
-            />
-            <div styleName="contact__details">
-              <h3 styleName="contact__username">{friend.userName}</h3>
-              <p styleName="contact__fullname">{friend.fullName}</p>
-            </div>
+      <div styleName="contacts">
+        {searchResults.map((friend: any, index: number) => {
+          return (
+            <button
+              styleName={`contact contact--${theme}`}
+              onClick={() => handleUserClick(index, friend)}
+            >
+              <img
+                styleName="contact__image"
+                src={friend?.photo?.imageUrl}
+                alt={friend?.photo?.altText}
+                onError={userImageFallback}
+              />
+              <div styleName="contact__details">
+                <h3 styleName="contact__username">{friend.userName}</h3>
+                <p styleName="contact__fullname">{friend.fullName}</p>
+              </div>
+            </button>
+          );
+        })}
+        {user.friends.length === 0 ? (
+          <div className="message">
+            You are not following anyone and no one is following you.
           </div>
-        );
-      })}
-      {user.friends.length === 0 ? (
-        <div className="message">
-          You are not following anyone and no one is following you.
-        </div>
-      ) : null}
+        ) : null}
+
+      </div>
     </ModalContainer>
   );
 };

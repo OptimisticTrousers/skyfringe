@@ -8,11 +8,13 @@ import { ChatContext } from "../../../context/ChatContext";
 import { socket } from "../../../utils/socket";
 import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./ChatHeader.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const ChatHeader = () => {
   const { user } = useContext(AuthContext);
   const { isAsideOpen, toggleAside, selectedChat } = useContext(ChatContext);
   const [lastConnected, setLastConnected] = useState()
+  const { theme } = useContext(ThemeContext);
 
   const otherUser = selectedChat?.participants.find(
     (participant: any) => participant._id !== user._id
@@ -22,7 +24,7 @@ const ChatHeader = () => {
     socket.on("last-connected", (date) => {
       setLastConnected(date);
     })
-  },[])
+  }, [])
 
   return (
     <header styleName="header">
@@ -40,11 +42,11 @@ const ChatHeader = () => {
           onError={userImageFallback}
         />
         <div styleName="header__text">
-          <h3 styleName="header__name">{otherUser?.fullName}</h3>
+          <h3 styleName={`header__name header__name--${theme}`}>{otherUser?.fullName}</h3>
           {/* <p styleName="header__time">Last seen today at 17:38</p> */}
         </div>
       </div>
-      <Link to={`/users/${otherUser?._id}`}>
+      <Link styleName={`header__link header__link--${theme}`} to={`/users/${otherUser?._id}`}>
         <AiFillInfoCircle styleName="header__icon" />
       </Link>
     </header>
