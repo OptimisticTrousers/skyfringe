@@ -3,7 +3,6 @@
   padding: 0.5rem;
   border: 1px solid gray;
   border-radius: 5px;
-  width: 415px;
   align-items: center;
   justify-content: flex-start;
 }
@@ -26,6 +25,7 @@
   font-weight: 600;
   width: 100%;
   margin-top: 0.5rem;
+  overflow-x: hidden;
 }
 
 @media (max-width: 570px) {
