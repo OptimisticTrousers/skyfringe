@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 16px;
+  padding: 12px;
 }
 
 .loading__error {
