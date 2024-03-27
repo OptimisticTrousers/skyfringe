@@ -4,7 +4,7 @@ import { AiFillCloseSquare, AiFillHome } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 import { BsFillChatSquareDotsFill } from "react-icons/bs";
 import { IoIosPeople, IoMdNotifications } from "react-icons/io";
-import { RiMoonClearFill, RiSettingsFill } from "react-icons/ri";
+import { RiMoonClearFill, RiSettingsFill, RiSunFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { Avatar, Logo, SearchBar } from "../../components/ui";
 import { AuthContext } from "../../context/AuthContext";
@@ -90,7 +90,12 @@ const Aside = () => {
             </Link>
             <li styleName={`aside__item aside__item--${theme}`}>
               <button styleName="aside__button aside__button--flex" onClick={toggleTheme}>
-                <RiMoonClearFill styleName="aside__icon" />
+                {theme === "light" && (
+                  <RiMoonClearFill styleName="aside__icon" />
+                )}
+                {theme === "dark" && (
+                  <RiSunFill styleName="aside__icon" />
+                )}
                 <p styleName="aside__name">Theme</p>
               </button>
             </li>

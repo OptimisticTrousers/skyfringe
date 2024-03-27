@@ -90,7 +90,7 @@ const ChatForm = ({ setData }: any) => {
       encType="multipart/form-data"
     >
       <div styleName="form__interactives">
-        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} position={1} />
+        <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} position={2} />
         <ChatImageUploadBtn
           handleChange={handlePhoto}
           imageValue={imageValue}
