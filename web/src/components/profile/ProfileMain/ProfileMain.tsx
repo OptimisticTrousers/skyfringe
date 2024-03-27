@@ -59,7 +59,7 @@ const ProfileMain: FC<Props> = ({
                 <div styleName="profile__container">
                   <h3 styleName="profile__subtitle">Media</h3>
                   <Link
-                    to={`media`}
+                    to={`/users/${user?._id}/media`}
                     styleName="profile__button profile__button--friends"
                   >
                     See all media
@@ -93,7 +93,7 @@ const ProfileMain: FC<Props> = ({
                 </div>
                 <Link
                   styleName="profile__link profile__link--friends"
-                  to={`friends`}
+                  to={`/users/${user?._id}/friends`}
                 >
                   See all friends
                 </Link>
@@ -102,7 +102,7 @@ const ProfileMain: FC<Props> = ({
                 <ul styleName="profile__friends profile__friends--friends">
                   {user?.friends?.map((friend: any) => {
                     return (
-                      <li styleName="profile__friend" key={friend._id}>
+                      <li styleName="profile__friend" key={friend?._id}>
                         <Link
                           styleName="profile__link profile__link--avatar"
                           to={`/users/${friend?._id}`}
