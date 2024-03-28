@@ -84,7 +84,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
         <div styleName="modal__content">
           <textarea
             styleName="modal__textarea"
-            placeholder="What's cooking, Bob?"
+            placeholder={`What's cooking, ${user.fullName}?`}
             onChange={handleChangePostText}
             value={postText}
             maxLength={280}

@@ -96,7 +96,7 @@ const EditPostModal: FC<Props> = ({ toggleModal, post, handleEditPost }) => {
         <div styleName="modal__content">
           <textarea
             styleName={`modal__textarea modal__textarea--${theme}`}
-            placeholder="What's cooking, Bob?"
+            placeholder={`What's cooking, ${user.fullName}?`}
             value={postText}
             onChange={handlePostText}
             maxLength={280}
