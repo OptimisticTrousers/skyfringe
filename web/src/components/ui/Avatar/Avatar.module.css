@@ -66,3 +66,12 @@
   border-radius: 50%;
   object-fit: cover;
 }
+
+.avatar__image--chat-small {
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 28px;
+  object-fit: cover;
+}

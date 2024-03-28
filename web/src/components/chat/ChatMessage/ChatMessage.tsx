@@ -4,6 +4,7 @@ import getTimeAgo from "../../../utils/getTimeAgo";
 import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./ChatMessage.module.css";
 import { ThemeContext } from "../../../context/ThemeContext";
+import { Avatar } from "../../ui";
 
 interface Props {
   fromSelf: boolean;
@@ -14,11 +15,10 @@ const ChatMessage: FC<Props> = ({ fromSelf, message }) => {
   const { theme } = useContext(ThemeContext);
   return (
     <div styleName={`message ${fromSelf && "message--blue"}`}>
-      <img
+      <Avatar
+        size={"chat-small"}
         src={message.author.photo?.imageUrl}
         alt={message.author.photo?.altText}
-        styleName="message__avatar"
-        onError={userImageFallback}
       />
       {message?.photo ? (
         <img

@@ -235,9 +235,9 @@
 }
 
 @media (max-width: 820px) {
-  .profile {
+  /* .profile {
     margin-top: 6rem;
-  }
+  } */
 
   .profile__details {
     bottom: -120px;

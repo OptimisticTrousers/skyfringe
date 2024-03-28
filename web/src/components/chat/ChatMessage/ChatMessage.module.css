@@ -8,14 +8,6 @@
   flex-direction: row-reverse;
 }
 
-.message__avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 28px;
-  object-fit: cover;
-}
-
 .message__content {
   background-color: #262837;
   padding: 1.4rem 1.25rem;
@@ -28,7 +20,8 @@
 
 .message__image {
   max-width: 60%;
-  max-height: 60%;
+  max-height: 30vh;
+  margin-top: 2rem;
   width: auto;
   height: auto;
   margin-right: 1rem;

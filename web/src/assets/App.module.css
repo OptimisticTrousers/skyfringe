@@ -34,3 +34,9 @@
   --input-color: rgb(239, 243, 244);
   --input-text-color: var(--black);
 }
+
+@media (max-width: 820px) {
+  .main {
+    padding-top: 6rem;
+  }
+}

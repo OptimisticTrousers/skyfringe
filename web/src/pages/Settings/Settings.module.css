@@ -279,9 +279,9 @@
     left: 16px;
   }
 
-  .settings {
+  /* .settings {
     margin-top: 6rem;
-  }
+  } */
 }
 
 @media (max-width: 670px) {
