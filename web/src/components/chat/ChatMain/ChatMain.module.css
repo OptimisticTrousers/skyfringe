@@ -16,7 +16,7 @@
 
 .main__content {
   padding: 1.3rem 2rem;
-  max-height: 518px;
+  height: 1602px;
   overflow-y: scroll;
   flex: 1;
 }
