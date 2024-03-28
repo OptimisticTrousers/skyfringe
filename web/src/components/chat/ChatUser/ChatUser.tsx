@@ -5,6 +5,7 @@ import useFetchChat from "../../../hooks/useFetchChat";
 import getTimeAgo from "../../../utils/getTimeAgo";
 import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./ChatUser.module.css";
+import { Avatar } from "../../ui";
 
 interface Props {
   friend: any;
@@ -46,12 +47,10 @@ const ChatUser: FC<Props> = ({
       onClick={handleClick}
     >
       <div styleName="user__container">
-        <img
+        <Avatar
+          size={"chat"}
           src={friend?.photo?.imageUrl}
-          alt={friend?.photo?.altText}
-          styleName="user__avatar"
-          onError={userImageFallback}
-        />
+          alt={friend?.photo?.altText} />
         <div styleName="user__details">
           <div styleName="user__top">
             <h3 styleName="user__name">{friend?.fullName}</h3>

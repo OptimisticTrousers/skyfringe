@@ -9,6 +9,7 @@ import { socket } from "../../../utils/socket";
 import userImageFallback from "../../../utils/userImageFallback";
 import styles from "./ChatHeader.module.css";
 import { ThemeContext } from "../../../context/ThemeContext";
+import { Avatar } from "../../ui";
 
 const ChatHeader = () => {
   const { user } = useContext(AuthContext);
@@ -35,12 +36,10 @@ const ChatHeader = () => {
             onClick={toggleAside}
           />
         )}
-        <img
+        <Avatar
+          size={"chat"}
           src={otherUser?.photo?.imageUrl}
-          alt={otherUser?.photo?.altText}
-          styleName="header__avatar"
-          onError={userImageFallback}
-        />
+          alt={otherUser?.photo?.altText} />
         <div styleName="header__text">
           <h3 styleName={`header__name header__name--${theme}`}>{otherUser?.fullName}</h3>
           {/* <p styleName="header__time">Last seen today at 17:38</p> */}

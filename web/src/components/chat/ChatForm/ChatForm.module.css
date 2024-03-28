@@ -54,6 +54,7 @@
   margin-right: 12px;
   background-color: var(--input-color);
   border: 2px solid var(--light-border-color);
+  color: var(--text-color);
 }
 
 .form__input:focus {

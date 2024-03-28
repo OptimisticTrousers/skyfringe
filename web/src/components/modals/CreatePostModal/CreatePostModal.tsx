@@ -102,7 +102,7 @@ const CreatePostModal: FC<Props> = ({ toggleModal, setFeed }) => {
 
         <div styleName="modal__controls">
           <div styleName="modal__interactives">
-            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} position={1} />
+            <EmojiPickerBtn onEmojiClick={onEmojiClick} modal={true} position={2} />
             <ImageUploadBtn
               handleChange={handlePhoto}
               imageValue={imageValue}

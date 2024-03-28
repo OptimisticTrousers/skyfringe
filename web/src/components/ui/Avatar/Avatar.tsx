@@ -37,6 +37,9 @@ const Avatar: FC<Props> = ({ src, alt, size }) => {
     case "sm":
       sizeClass = "avatar__image--small";
       break;
+    case "chat":
+      sizeClass = "avatar__image--chat";
+      break;
     default:
       sizeClass = "avatar__image--small";
       break;
