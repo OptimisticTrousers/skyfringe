@@ -16,7 +16,7 @@
 
 .main__content {
   padding: 1.3rem 2rem;
-  max-height: 82vh;
+  max-height: 518px;
   overflow-y: scroll;
   flex: 1;
   margin-top: auto;
@@ -25,5 +25,9 @@
 @media (max-width: 1390px) {
   .main {
     display: none;
+  }
+
+  .main__content {
+    max-height: 82vh;
   }
 }

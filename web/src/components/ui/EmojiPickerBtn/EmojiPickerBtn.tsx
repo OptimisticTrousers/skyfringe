@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, memo, useRef, useState } from "react";
 import EmojiPicker from "emoji-picker-react";
 import CSSModules from "react-css-modules";
 import styles from "./EmojiPickerBtn.module.css";
@@ -10,7 +10,7 @@ interface Props {
 }
 
 // Creating an accessible button that opens the Emoji picker component
-// The third party emoji picker itself is hardly accessible which is a pain in the ass. For the purposes of this project it is acceptible, but in a production app this would be removed and generated from scratch
+// The third party emoji picker itdly accessible which is a pain in the ass. For the purposes of this project it is acceptible, but in a production app this would be removed and generated from scratch
 const EmojiPickerBtn: FC<Props> = ({ onEmojiClick, modal, position }) => {
   const [showPicker, setShowPicker] = useState(false);
   const openBtnRef = useRef<any>(null);
@@ -38,9 +38,9 @@ const EmojiPickerBtn: FC<Props> = ({ onEmojiClick, modal, position }) => {
       {showPicker && (
         <div role="menu" aria-label="Emoji picker" styleName="menu">
           <div
-            styleName={`container ${modal ? "container--modal" : ""} ${
-              position <= 1 ? "container--first" : ""
-            }`}
+
+            styleName={`container ${modal ? "container--modal" : ""} ${position <= 1 ? "container--first" : ""
+              }`}
           >
             <EmojiPicker onEmojiClick={onEmojiClick} searchDisabled={true} />
           </div>
@@ -50,7 +50,7 @@ const EmojiPickerBtn: FC<Props> = ({ onEmojiClick, modal, position }) => {
   );
 };
 
-export default CSSModules(EmojiPickerBtn, styles, {
+export default memo(CSSModules(EmojiPickerBtn, styles, {
   allowMultiple: true,
   handleNotFoundStyleName: "ignore",
-});
+}));
