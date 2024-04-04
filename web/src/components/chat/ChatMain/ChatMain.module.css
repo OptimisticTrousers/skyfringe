@@ -16,9 +16,10 @@
 
 .main__content {
   padding: 1.3rem 2rem;
-  max-height: 518px;
+  max-height: 82vh;
   overflow-y: scroll;
   flex: 1;
+  margin-top: auto;
 }
 
 @media (max-width: 1390px) {
