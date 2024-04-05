@@ -56,7 +56,7 @@
   white-space: nowrap;
   overflow: clip;
   margin-bottom: 0.5rem;
-  color: white;
+  color: var(--text-color);
 }
 
 .card__button {

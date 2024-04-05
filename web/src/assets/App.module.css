@@ -1,7 +1,7 @@
 .container {
   display: flex;
   min-height: 100vh;
-  --white: #FAFAFA;
+  --white: #fafafa;
   --black: black;
   --light-text-color: var(--black);
   --light-hover: rgba(15, 20, 25, 0.1);
@@ -13,7 +13,7 @@
   min-height: 100vh;
 }
 
-.main--dark {
+.container--dark {
   background-color: #1b1a1b;
   --button-bg-color: black;
   --button-bg-color-2: rgb(12, 11, 9);
@@ -25,7 +25,7 @@
   --input-text-color: #495057;
 }
 
-.main--light {
+.container--light {
   background-color: var(--white);
   --button-bg-color: var(--light-hover);
   --light-border-color: #ccc;
