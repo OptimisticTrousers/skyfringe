@@ -11,7 +11,7 @@
 .hamburger__line {
   width: 40px;
   height: 4px;
-  background-color: #e1e1e1;
+  background-color: var(--text-color);
   margin: 6px 0;
   border-radius: 2px;
 }
@@ -71,7 +71,8 @@
 }
 
 .aside__icon--logo {
-  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg) brightness(106%) contrast(103%);
+  filter: invert(30%) sepia(41%) saturate(4365%) hue-rotate(199deg)
+    brightness(106%) contrast(103%);
   width: 40px;
   height: 40px;
   margin-right: 8px;
@@ -214,7 +215,7 @@
   }
 }
 
-@media(max-height: 700px) {
+@media (max-height: 700px) {
   .aside {
     overflow-y: auto;
     overflow-x: hidden;

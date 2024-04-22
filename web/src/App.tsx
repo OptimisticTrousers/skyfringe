@@ -10,9 +10,9 @@ const App = () => {
   const { theme } = useContext(ThemeContext);
   return (
     <>
-      <div styleName="container">
+      <div styleName={`container container--${theme}`}>
         <Aside />
-        <main styleName={`main main--${theme}`}>
+        <main styleName="main">
           <Outlet />
         </main>
       </div>
