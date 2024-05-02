@@ -177,7 +177,7 @@
   padding: 1.2rem 1rem;
   font-size: 1.1rem;
   border-radius: 6px;
-  color: var(--text-color);
+  color: var(--input-text-color);
 }
 
 .settings__input--dark {
