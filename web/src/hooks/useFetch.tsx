@@ -21,6 +21,7 @@ const useFetch = <T,>(url: string): UseFetchReturnType<T> => {
       try {
         const response = await get(url, {
           headers: { "Content-Type": "application/json" },
+          credentials: "same-origin"
         });
         if (response.status === 200) {
           setData(response.data);
