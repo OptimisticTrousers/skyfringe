@@ -15,13 +15,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   } else {
     statusCode = res.statusCode;
   }
-  if (req.accepts('json')) {
-    // The request contains the "Accept" header with the value "application/json"
-    res.send({ error: err.message });
-    return;
-  }
-  res.status(statusCode);
-  res.send(err);
+  res.status(statusCode).send(err);
 };
 
 export default errorHandler;

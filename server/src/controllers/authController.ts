@@ -120,7 +120,7 @@ export const login_user = [
         .cookie("jwt", token, {
           secure: true,
           httpOnly: true,
-          sameSite: "none",
+          sameSite: "strict",
         })
         .status(200)
         .json(user);
