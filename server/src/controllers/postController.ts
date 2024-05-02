@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 import asyncHandler from "express-async-handler";
+import * as tf from "@tensorflow/tfjs-node";
+import * as nsfw from "nsfwjs";
 import Notification from "../models/notification";
 import Post from "../models/post";
 import upload from "../config/multer";
-import mongoose from "mongoose";
+import mongoose, { modelNames } from "mongoose";
 import { s3Deletev3, s3Uploadv3 } from "../config/s3";
 import {
   User as IUser,
@@ -14,6 +16,7 @@ import {
   RequestWithLocals,
 } from "../../types";
 import generateAltText from "../utils/generateAltText";
+import convert from "../utils/convert";
 
 const postMaxLength = 280;
 
@@ -77,6 +80,13 @@ export const post_create = [
     });
 
     if (req.file) {
+      const model = await nsfw.load();
+      // Image must be in tf.tensor3d format
+      // you can convert image to tf.tensor3d with tf.node.decodeImage(Uint8Array,channels)
+      const image = await convert(req.file.buffer);
+      const predictions = await model.classify(image);
+      image.dispose(); // Tensor memory must be managed explicitly (it is not sufficient to let a tf.Tensor go out of scope for its memory to be released)
+      console.log(predictions)
       // image exists
       const imageUrl = `${bucketName}/facebook_clone/${locals.path}/${user.userName
         }_${locals.date}.${req.file.mimetype.split("/")[1]}`;

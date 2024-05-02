@@ -54,7 +54,7 @@ const passportConfig = () => {
         return User.findById(jwtPayload.id)
           .then((user) => {
             if (!user) {
-              return cb(null, false);
+              return cb(null, { message: "No such user exists" });
             }
             return cb(null, user);
           })

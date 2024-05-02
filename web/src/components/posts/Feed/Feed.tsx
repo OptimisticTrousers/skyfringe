@@ -57,7 +57,7 @@ const Feed: FC<Props> = ({ setFeed, loading, error, posts }) => {
           })}
         </div>
       )}
-      {error && (
+      {error !== null && (
         <div
           style={{
             marginBottom: "2rem",
