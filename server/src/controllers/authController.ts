@@ -83,7 +83,7 @@ export const register_user = [
     res
       .cookie("jwt", token, {
         secure: true,
-        httpOnly: false,
+        httpOnly: true,
         sameSite: "none",
       })
       .status(200)
@@ -119,7 +119,7 @@ export const login_user = [
       res
         .cookie("jwt", token, {
           secure: true,
-          httpOnly: false,
+          httpOnly: true,
           sameSite: "none",
         })
         .status(200)
@@ -136,7 +136,7 @@ export const logout_user = asyncHandler(async (req: Request, res: Response) => {
     .clearCookie("jwt", {
       secure: true,
       sameSite: "none",
-      httpOnly: false,
+      httpOnly: true,
     })
     .status(200)
     .json({ message: "User successfully logged out" });
@@ -212,7 +212,7 @@ export const login_facebook = asyncHandler(
           res
             .cookie("jwt", token, {
               secure: true,
-              httpOnly: false,
+              httpOnly: true,
               sameSite: "none",
             })
             .status(200)
