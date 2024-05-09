@@ -183,6 +183,7 @@ Beyond that, other learning outcomes were:
 * [ ] Make the notifications section real-time
 * [ ] Change color schemes and add more animations to the front-end
 * [ ] Use React Query for data fetching
+* [ ] Fix issue with logging in not working on Safari due to the blocking of cross-site cookies
 
 ## Known Bugs
 
