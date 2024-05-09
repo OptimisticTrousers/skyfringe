@@ -61,9 +61,8 @@ const Login = () => {
           type="email"
           id="email"
           name="email"
-          styleName={`auth__input ${
-            emailValidationStyles ? "auth__input--validation" : ""
-          }`}
+          styleName={`auth__input ${emailValidationStyles ? "auth__input--validation" : ""
+            }`}
           value={email}
           disabled={disabled}
           required
@@ -86,9 +85,8 @@ const Login = () => {
             type={passwordVisible ? "text" : "password"}
             id="password"
             name="password"
-            styleName={`auth__input ${
-              passwordValidationStyles ? "auth__input--validation" : ""
-            }`}
+            styleName={`auth__input ${passwordValidationStyles ? "auth__input--validation" : ""
+              }`}
             required
             value={password}
             disabled={disabled}
@@ -108,13 +106,16 @@ const Login = () => {
       </button>
       <button
         styleName="auth__button auth__button--oauth"
-        disabled={disabled}
+        disabled={true}
         onClick={facebookLogin}
         type="button"
       >
         <SiFacebook styleName="auth__icon auth__icon--facebook" />
         Continue with Facebook
       </button>
+      <p styleName="auth__message">
+        Facebook disabled Facebook Login for developers without a business
+      </p>
       <div styleName="auth__errors">
         {formError &&
           formError.map((error: FormError, index: number) => {
