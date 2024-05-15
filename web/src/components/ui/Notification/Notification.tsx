@@ -25,7 +25,11 @@ const Notification: FC<Props> = ({ notification, setData }) => {
   };
   const { theme } = useContext(ThemeContext);
   return (
-    <div styleName={`notification__activity notification__activity--${theme} ${notification?.photo && "notification__activity--has-photo"}`}>
+    <div
+      styleName={`notification__activity notification__activity--${theme} ${
+        notification?.photo && "notification__activity--has-photo"
+      }`}
+    >
       <div styleName="notification__container">
         <div styleName="notification__flex">
           <Link
@@ -33,8 +37,13 @@ const Notification: FC<Props> = ({ notification, setData }) => {
             to={`/users/${notification.fromUser?._id}`}
           >
             <img
-              src={notification.fromUser?.photo?.imageUrl}
-              alt={notification.fromUser?.photo?.altText}
+              src={
+                notification.fromUser?.photo?.imageUrl ||
+                "/images/anon-user-lg.png"
+              }
+              alt={
+                notification.fromUser?.photo?.altText || "Anonymous user avatar"
+              }
               styleName="notification__avatar"
               onError={userImageFallback}
             />
@@ -48,7 +57,11 @@ const Notification: FC<Props> = ({ notification, setData }) => {
             </Link>
             <p styleName="notification__event">
               {notification?.content}
-              <span styleName={`notification__time notification__time--${theme} ${notification?.content ? "notification__time--margin" : ""}`}>
+              <span
+                styleName={`notification__time notification__time--${theme} ${
+                  notification?.content ? "notification__time--margin" : ""
+                }`}
+              >
                 {notification?.content && "•"}{" "}
                 {getTimeAgo(notification.createdAt)} ago
               </span>
