@@ -1,10 +1,12 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import CSSModules from "react-css-modules";
 import Suggestions from "../Suggestions";
 import styles from "./TopMenu.module.css";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 const TopMenu = () => {
   const suggestionsParentRef = useRef<HTMLDivElement>(null);
+  const { theme } = useContext(ThemeContext);
   const [toggleSuggestions, setToggleSuggestions] = useState(false);
 
   const handleSuggestions = () => {
@@ -14,7 +16,10 @@ const TopMenu = () => {
   return (
     <header styleName="menu">
       <div styleName="menu__buttons">
-        <button styleName="menu__button" onClick={handleSuggestions}>
+        <button
+          styleName={`menu__button menu__button--${theme}`}
+          onClick={handleSuggestions}
+        >
           Suggestions For You
         </button>
       </div>
