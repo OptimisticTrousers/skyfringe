@@ -25,6 +25,7 @@
   font-weight: 500;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: var(--light-text-color);
 }
 
 .menu__button:first-child {
